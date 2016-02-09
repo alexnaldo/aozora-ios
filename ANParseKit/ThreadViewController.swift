@@ -29,7 +29,11 @@ public class ThreadViewController: UIViewController {
     
     var animator: ZFModalTransitionAnimator!
     var playerController: XCDYouTubeVideoPlayerViewController?
-    
+    var dataRefresher: DataRefresherController!
+    var refreshInterval: DataRefresherController.RefreshTimeInterval {
+        return .MediumTraffic
+    }
+
     var baseWidth: CGFloat {
         get {
             if UIDevice.isPad() {
@@ -60,13 +64,23 @@ public class ThreadViewController: UIViewController {
         ShowMoreCell.registerNibFor(tableView: tableView)
         
         loadingView = LoaderView(parentView: view)
-        addRefreshControl(refreshControl, action:"fetchPosts", forTableView: tableView)
+
         
         if let thread = thread {
             updateUIWithThread(thread)
         } else {
             fetchThread()
         }
+
+        addRefreshControl(refreshControl, action: nil, forTableView: tableView)
+        dataRefresher = DataRefresherController(timeInterval: refreshInterval, refreshControl: refreshControl, refreshCallback: { _ in
+            if self.navigationController?.visibleViewController == self {
+                self.fetchPosts()
+                return true
+            } else {
+                return false
+            }
+        })
         
     }
     

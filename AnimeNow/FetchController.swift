@@ -69,9 +69,6 @@ public class FetchController {
             self.pinnedData = pinnedData
             defaultLimit = limit
             resetToDefaults()
-            if let tableView = tableView {
-                tableView.reloadData()
-            }
             fetchWith(skip: 0)
     }
     

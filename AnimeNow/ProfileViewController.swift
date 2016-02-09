@@ -50,6 +50,10 @@ public class ProfileViewController: ThreadViewController {
     
     public var userProfile: User?
     var username: String?
+
+    override var refreshInterval: DataRefresherController.RefreshTimeInterval {
+        return .HighTraffic
+    }
     
     public func initWithUser(user: User) {
         self.userProfile = user

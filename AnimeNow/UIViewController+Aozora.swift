@@ -9,9 +9,11 @@
 import Foundation
 
 extension UIViewController {
-    public func addRefreshControl(refreshControl: UIRefreshControl, action: Selector, forTableView tableView: UITableView) {
+    public func addRefreshControl(refreshControl: UIRefreshControl, action: Selector?, forTableView tableView: UITableView) {
         refreshControl.tintColor = UIColor.lightGrayColor()
-        refreshControl.addTarget(self, action: action, forControlEvents: UIControlEvents.ValueChanged)
+        if let action = action {
+            refreshControl.addTarget(self, action: action, forControlEvents: UIControlEvents.ValueChanged)
+        }
         tableView.insertSubview(refreshControl, atIndex: tableView.subviews.count - 1)
         tableView.alwaysBounceVertical = true
     }

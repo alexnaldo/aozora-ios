@@ -36,6 +36,8 @@
 		DA2D1EF01B531B0C009A5CCD /* NSUserDefaults+Dates.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2D1EEE1B5318E1009A5CCD /* NSUserDefaults+Dates.swift */; };
 		DA32EBE11C6A87720090CD51 /* StringFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA32EBE01C6A87720090CD51 /* StringFormatter.swift */; };
 		DA32EBE21C6A87720090CD51 /* StringFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA32EBE01C6A87720090CD51 /* StringFormatter.swift */; };
+		DA32EBE41C6A9A780090CD51 /* DataRefresherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA32EBE31C6A9A780090CD51 /* DataRefresherController.swift */; };
+		DA32EBE51C6A9A780090CD51 /* DataRefresherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA32EBE31C6A9A780090CD51 /* DataRefresherController.swift */; };
 		DA354B431C5DF3C2008C729F /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA354B421C5DF3C2008C729F /* NotificationCenter.framework */; };
 		DA354B461C5DF3C2008C729F /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA354B451C5DF3C2008C729F /* TodayViewController.swift */; };
 		DA354B491C5DF3C2008C729F /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA354B471C5DF3C2008C729F /* MainInterface.storyboard */; };
@@ -576,6 +578,7 @@
 		DA2853C11B22C5D30070B675 /* UIColor+AniNow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+AniNow.swift"; path = "../AnimeNow/UIColor+AniNow.swift"; sourceTree = "<group>"; };
 		DA2D1EEE1B5318E1009A5CCD /* NSUserDefaults+Dates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSUserDefaults+Dates.swift"; path = "../AnimeNow/NSUserDefaults+Dates.swift"; sourceTree = "<group>"; };
 		DA32EBE01C6A87720090CD51 /* StringFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringFormatter.swift; sourceTree = "<group>"; };
+		DA32EBE31C6A9A780090CD51 /* DataRefresherController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataRefresherController.swift; sourceTree = "<group>"; };
 		DA354B411C5DF3C2008C729F /* AozoraWatching.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AozoraWatching.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA354B421C5DF3C2008C729F /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		DA354B451C5DF3C2008C729F /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -1337,6 +1340,7 @@
 		DAA393271B42F1F100A8D5D5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				DA32EBE31C6A9A780090CD51 /* DataRefresherController.swift */,
 				DA4167E81B275F9400847F56 /* ANAnimeKit.swift */,
 				DAC13C251B42495A0013D479 /* WorkflowController.swift */,
 				DAA393281B42F21900A8D5D5 /* RootTabBar.swift */,
@@ -2396,6 +2400,7 @@
 				DAE7A7191B2105FD00788614 /* AnimeCell.swift in Sources */,
 				DAC7D9031B50201C00898FF6 /* InAppTransactionController.swift in Sources */,
 				DAF6187C1B3784E300286517 /* ForumsViewController.swift in Sources */,
+				DA32EBE41C6A9A780090CD51 /* DataRefresherController.swift in Sources */,
 				DAC7D8FC1B5015FA00898FF6 /* InAppPurchaseViewController.swift in Sources */,
 				DAA546E01BA1A0C4003989DE /* LinkCell.swift in Sources */,
 				DA4595631B83C3500044013E /* SignInViewController.swift in Sources */,
@@ -2595,6 +2600,7 @@
 				DAA576C21C66EC2D007E81E6 /* AnimeCell.swift in Sources */,
 				DAA576C31C66EC2D007E81E6 /* InAppTransactionController.swift in Sources */,
 				DAA576C41C66EC2D007E81E6 /* ForumsViewController.swift in Sources */,
+				DA32EBE51C6A9A780090CD51 /* DataRefresherController.swift in Sources */,
 				DAA576C51C66EC2D007E81E6 /* InAppPurchaseViewController.swift in Sources */,
 				DAA576C61C66EC2D007E81E6 /* LinkCell.swift in Sources */,
 				DAA576C71C66EC2D007E81E6 /* SignInViewController.swift in Sources */,

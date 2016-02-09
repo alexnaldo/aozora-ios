@@ -41,8 +41,8 @@ class ForumsViewController: UIViewController {
     var selectedList: SelectedList = .Recent
     var selectedThreadTag: ThreadTag?
     var selectedAnime: Anime?
-    var timer: NSTimer!
     var animator: ZFModalTransitionAnimator!
+    var dataRefresher: DataRefresherController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,16 +55,22 @@ class ForumsViewController: UIViewController {
         loadingView = LoaderView(parentView: view)
         loadingView.startAnimating()
         
-        addRefreshControl(refreshControl, action:"refetchThreads", forTableView: tableView)
-        
-        timer = NSTimer.scheduledTimerWithTimeInterval(60.0, target: self, selector: "reloadTableView", userInfo: nil, repeats: true)
-        
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "changeList")
         navigationBarTitle.addGestureRecognizer(tapGestureRecognizer)
         
         fetchThreadTags()
         fetchAnimeTags()
         prepareForList(selectedList)
+
+        addRefreshControl(refreshControl, action: nil, forTableView: tableView)
+        dataRefresher = DataRefresherController(timeInterval: .MediumTraffic, refreshControl: refreshControl, refreshCallback: { _ in
+            if self.navigationController?.visibleViewController == self {
+                self.refetchThreads()
+                return true
+            } else {
+                return false
+            }
+        })
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -117,11 +123,7 @@ class ForumsViewController: UIViewController {
                 dataSource: dataSource)
         }
     }
-    
-    func reloadTableView() {
-        tableView.reloadData()
-    }
-    
+
     // MARK: - Fetching
     
     func refetchThreads() {
