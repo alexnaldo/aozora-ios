@@ -580,9 +580,9 @@ public class ProfileViewController: ThreadViewController {
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         
-        let topSpace = tableView.tableHeaderView!.bounds.size.height - 44 - scrollView.contentOffset.y
-        if topSpace < 64 {
-            segmentedControlTopSpaceConstraint.constant = 64
+        let topSpace = tableView.tableHeaderView!.bounds.size.height - 44 - 64 - scrollView.contentOffset.y
+        if topSpace < 0 {
+            segmentedControlTopSpaceConstraint.constant = 0
         } else {
             segmentedControlTopSpaceConstraint.constant = topSpace
         }

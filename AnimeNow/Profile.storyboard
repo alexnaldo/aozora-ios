@@ -37,7 +37,7 @@
         <!--User List View Controller-->
         <scene sceneID="38l-bX-nJn">
             <objects>
-                <viewController storyboardIdentifier="UserList" automaticallyAdjustsScrollViewInsets="NO" id="e1Y-uM-1lt" customClass="UserListViewController" customModule="Aozora" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UserList" automaticallyAdjustsScrollViewInsets="NO" id="e1Y-uM-1lt" customClass="UserListViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xYF-wJ-boq"/>
                         <viewControllerLayoutGuide type="bottom" id="7N8-Q6-ha0"/>
@@ -157,7 +157,7 @@
         <!--Profile-->
         <scene sceneID="mQm-aZ-M6o">
             <objects>
-                <viewController storyboardIdentifier="ProfileViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="M5q-uq-HPK" customClass="ProfileViewController" customModule="Aozora" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfileViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="M5q-uq-HPK" customClass="ProfileViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UR8-Cc-VZl"/>
                         <viewControllerLayoutGuide type="bottom" id="xjQ-kx-jPV"/>
@@ -462,7 +462,8 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="c0T-TP-ObK" secondAttribute="trailing" constant="12" id="0V7-kU-2Af"/>
                             <constraint firstItem="zBp-r0-AD0" firstAttribute="leading" secondItem="sY9-wc-JPh" secondAttribute="leading" id="0lZ-Rs-x6P"/>
-                            <constraint firstItem="zBp-r0-AD0" firstAttribute="top" secondItem="wrh-pK-qrQ" secondAttribute="topMargin" constant="337" id="6PD-Mv-cHS"/>
+                            <constraint firstItem="zBp-r0-AD0" firstAttribute="top" secondItem="UR8-Cc-VZl" secondAttribute="bottom" constant="273" id="4K6-GV-Pxn"/>
+                            <constraint firstItem="zBp-r0-AD0" firstAttribute="top" secondItem="wrh-pK-qrQ" secondAttribute="top" constant="337" id="6PD-Mv-cHS"/>
                             <constraint firstItem="sY9-wc-JPh" firstAttribute="centerX" secondItem="wrh-pK-qrQ" secondAttribute="centerX" id="Bvh-XZ-4lD"/>
                             <constraint firstItem="zBp-r0-AD0" firstAttribute="trailing" secondItem="sY9-wc-JPh" secondAttribute="trailing" id="Bxb-hT-2hg"/>
                             <constraint firstItem="xjQ-kx-jPV" firstAttribute="top" secondItem="c0T-TP-ObK" secondAttribute="bottom" constant="15" id="Jg3-d9-bNs"/>
@@ -478,6 +479,7 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="Bvh-XZ-4lD"/>
+                                <exclude reference="6PD-Mv-cHS"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
@@ -508,7 +510,7 @@
                         <outlet property="proBottomLayoutConstraint" destination="VXK-cm-HSC" id="76g-JK-5hz"/>
                         <outlet property="segmentedControl" destination="B3n-Tx-huN" id="Lns-tW-ur8"/>
                         <outlet property="segmentedControlHeight" destination="EbO-GG-xXk" id="tqb-PR-Uav"/>
-                        <outlet property="segmentedControlTopSpaceConstraint" destination="6PD-Mv-cHS" id="fX9-uj-rUe"/>
+                        <outlet property="segmentedControlTopSpaceConstraint" destination="4K6-GV-Pxn" id="trC-sC-cmg"/>
                         <outlet property="segmentedControlView" destination="zBp-r0-AD0" id="y7f-Me-Hbj"/>
                         <outlet property="settingsButton" destination="qK8-bI-U4V" id="2Td-7e-cr3"/>
                         <outlet property="settingsTrailingSpaceConstraint" destination="E7S-sr-0Fi" id="ovy-WK-t7W"/>
@@ -529,7 +531,7 @@
         <!--Administrate-->
         <scene sceneID="v0g-rv-HbA">
             <objects>
-                <viewController storyboardIdentifier="Admin" title="Administrate" useStoryboardIdentifierAsRestorationIdentifier="YES" id="XEg-3i-rCt" customClass="AdministrateViewController" customModule="Aozora" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Admin" title="Administrate" useStoryboardIdentifierAsRestorationIdentifier="YES" id="XEg-3i-rCt" customClass="AdministrateViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="7eF-lA-rcq">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -557,7 +559,7 @@
         <!--Profile-->
         <scene sceneID="Cm1-Ys-SJw">
             <objects>
-                <viewController storyboardIdentifier="EditProfile" id="aw2-Ga-TB0" customClass="EditProfileViewController" customModule="Aozora" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditProfile" id="aw2-Ga-TB0" customClass="EditProfileViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vDB-rc-b0z"/>
                         <viewControllerLayoutGuide type="bottom" id="VS4-jf-n5t"/>
@@ -832,7 +834,7 @@
         <!--Notifications-->
         <scene sceneID="CqE-DF-zuE">
             <objects>
-                <viewController storyboardIdentifier="Notifications" title="Notifications" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BV2-hV-SI6" customClass="NotificationsViewController" customModule="Aozora" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Notifications" title="Notifications" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BV2-hV-SI6" customClass="NotificationsViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="c7a-ob-NOH"/>
                         <viewControllerLayoutGuide type="bottom" id="Nw9-Jz-uIa"/>
