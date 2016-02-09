@@ -244,7 +244,7 @@ class HomeViewController: UIViewController {
     }
 
     func headerCellIndexPath(next next: Bool) -> NSIndexPath? {
-        let lastIndex = airingToday.count - 1
+        let lastIndex = currentSeasonalChartWithFanart.count - 1
 
         guard let visibleCellIdx = headerViewController.indexPathsForVisibleItems().last where lastIndex > 0 else {
             return nil
