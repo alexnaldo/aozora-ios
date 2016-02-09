@@ -32,7 +32,7 @@ public class NotificationThreadViewController: ThreadViewController {
         super.viewDidLoad()
         
         if let timelinePost = timelinePost where timelinePost.userTimeline.isTheCurrentUser() {
-            tableView.tableHeaderView = nil
+            tableView.tableHeaderView?.frame = CGRect.zero
         }
         
         if let _ = timelinePost {
@@ -144,6 +144,15 @@ public class NotificationThreadViewController: ThreadViewController {
             presentBasicAlertWithTitle("Login first", message: "Select 'Me' tab")
         }
     }
+
+    public override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if let timelinePost = timelinePost where timelinePost.userTimeline.isTheCurrentUser() {
+            return CGFloat.min
+        } else {
+            return super.tableView(tableView, heightForHeaderInSection: section)
+        }
+    }
+
     
     @IBAction func openUserProfile(sender: AnyObject) {
         if let startedBy = thread?.startedBy {

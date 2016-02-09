@@ -34,6 +34,8 @@
 		DA27D1A11AF1BA9D00CC854E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA27D19F1AF1BA9D00CC854E /* LaunchScreen.xib */; };
 		DA27D1AD1AF1BA9D00CC854E /* AnimeNowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27D1AC1AF1BA9D00CC854E /* AnimeNowTests.swift */; };
 		DA2D1EF01B531B0C009A5CCD /* NSUserDefaults+Dates.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2D1EEE1B5318E1009A5CCD /* NSUserDefaults+Dates.swift */; };
+		DA32EBE11C6A87720090CD51 /* StringFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA32EBE01C6A87720090CD51 /* StringFormatter.swift */; };
+		DA32EBE21C6A87720090CD51 /* StringFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA32EBE01C6A87720090CD51 /* StringFormatter.swift */; };
 		DA354B431C5DF3C2008C729F /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA354B421C5DF3C2008C729F /* NotificationCenter.framework */; };
 		DA354B461C5DF3C2008C729F /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA354B451C5DF3C2008C729F /* TodayViewController.swift */; };
 		DA354B491C5DF3C2008C729F /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA354B471C5DF3C2008C729F /* MainInterface.storyboard */; };
@@ -573,6 +575,7 @@
 		DA2853BE1B22C1710070B675 /* HighlightButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightButton.swift; sourceTree = "<group>"; };
 		DA2853C11B22C5D30070B675 /* UIColor+AniNow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+AniNow.swift"; path = "../AnimeNow/UIColor+AniNow.swift"; sourceTree = "<group>"; };
 		DA2D1EEE1B5318E1009A5CCD /* NSUserDefaults+Dates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSUserDefaults+Dates.swift"; path = "../AnimeNow/NSUserDefaults+Dates.swift"; sourceTree = "<group>"; };
+		DA32EBE01C6A87720090CD51 /* StringFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringFormatter.swift; sourceTree = "<group>"; };
 		DA354B411C5DF3C2008C729F /* AozoraWatching.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AozoraWatching.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA354B421C5DF3C2008C729F /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		DA354B451C5DF3C2008C729F /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -1021,8 +1024,6 @@
 				DA27D1981AF1BA9D00CC854E /* ParseWorker.swift */,
 				DA27D1961AF1BA9D00CC854E /* AppDelegate.swift */,
 				DAA5774B1C66F161007E81E6 /* App */,
-				DAC13BFC1B3F368D0013D479 /* Extensions */,
-				DAA393271B42F1F100A8D5D5 /* Controllers */,
 				DAE7A7151B2105D000788614 /* Views */,
 				DAB4DCA71C5CB78700924819 /* Home */,
 				DAF618711B377C6000286517 /* Season */,
@@ -1340,6 +1341,7 @@
 				DAC13C251B42495A0013D479 /* WorkflowController.swift */,
 				DAA393281B42F21900A8D5D5 /* RootTabBar.swift */,
 				DAC7D9051B50464B00898FF6 /* DialogController.swift */,
+				DA32EBE01C6A87720090CD51 /* StringFormatter.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1364,6 +1366,8 @@
 		DAA5774B1C66F161007E81E6 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				DAC13BFC1B3F368D0013D479 /* Extensions */,
+				DAA393271B42F1F100A8D5D5 /* Controllers */,
 			);
 			name = App;
 			sourceTree = "<group>";
@@ -2399,6 +2403,7 @@
 				DAA26C8E1BCC92B1001CF62D /* PublicListViewController.swift in Sources */,
 				DAA546EE1BA1A102003989DE /* AnimeInformationViewController.swift in Sources */,
 				DA52B1831B4838AE001CC1A9 /* CalendarViewController.swift in Sources */,
+				DA32EBE11C6A87720090CD51 /* StringFormatter.swift in Sources */,
 				DA27D1991AF1BA9D00CC854E /* ParseWorker.swift in Sources */,
 				DAA546FC1BA1AC48003989DE /* UserProfileManager.swift in Sources */,
 				DA27D1971AF1BA9D00CC854E /* AppDelegate.swift in Sources */,
@@ -2597,6 +2602,7 @@
 				DAA576C91C66EC2D007E81E6 /* PublicListViewController.swift in Sources */,
 				DAA576CA1C66EC2D007E81E6 /* AnimeInformationViewController.swift in Sources */,
 				DAA576CB1C66EC2D007E81E6 /* CalendarViewController.swift in Sources */,
+				DA32EBE21C6A87720090CD51 /* StringFormatter.swift in Sources */,
 				DAA576CC1C66EC2D007E81E6 /* ParseWorker.swift in Sources */,
 				DAA576CD1C66EC2D007E81E6 /* UserProfileManager.swift in Sources */,
 				DAA576CE1C66EC2D007E81E6 /* AppDelegate.swift in Sources */,
