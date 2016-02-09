@@ -87,8 +87,10 @@ class AnimeListViewController: UIViewController {
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        
-        updateLayout(currentLayout, withSize: size)
+
+        if UIDevice.isPad() {
+            updateLayout(currentLayout, withSize: size)
+        }
     }
     
     func refreshLibrary() {
