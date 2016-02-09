@@ -13,6 +13,7 @@ import Bolts
 public class NewPostViewController: CommentViewController {
     
     let EditingContentCacheKey = "NewPost.TextContent"
+    let EditingSpoilerCacheKey = "NewPost.SpoilerContent"
     
     @IBOutlet weak var spoilersButton: UIButton!
     @IBOutlet weak var spoilerContentHeight: NSLayoutConstraint!
@@ -41,13 +42,20 @@ public class NewPostViewController: CommentViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+
+        spoilerContentHeight.constant = 0
         
-        if let content = NSUserDefaults.standardUserDefaults().objectForKey(EditingContentCacheKey) as? String {
+        if let content = NSUserDefaults.standardUserDefaults().objectForKey(EditingContentCacheKey) as? String where content.characters.count > 0 {
             NSUserDefaults.standardUserDefaults().removeObjectForKey(EditingContentCacheKey)
             textView.text = content
         }
-        
-        spoilerContentHeight.constant = 0
+
+        if let content = NSUserDefaults.standardUserDefaults().objectForKey(EditingSpoilerCacheKey) as? String where content.characters.count > 0 {
+            NSUserDefaults.standardUserDefaults().removeObjectForKey(EditingSpoilerCacheKey)
+            spoilerTextView.text = content
+            hasSpoilers = true
+        }
+
         textView.becomeFirstResponder()
         
         if let editingPost = editingPost {
@@ -92,6 +100,7 @@ public class NewPostViewController: CommentViewController {
         super.viewDidDisappear(animated)
         if !dataPersisted && editingPost == nil {
             NSUserDefaults.standardUserDefaults().setObject(textView.text, forKey: EditingContentCacheKey)
+            NSUserDefaults.standardUserDefaults().setObject(spoilerTextView.text, forKey: EditingSpoilerCacheKey)
             NSUserDefaults.standardUserDefaults().synchronize()
         }
     }
@@ -287,6 +296,7 @@ public class NewPostViewController: CommentViewController {
     override func completeRequest(post: PFObject, parentPost: PFObject?, error: NSError?) {
         super.completeRequest(post, parentPost: parentPost, error: error)
         NSUserDefaults.standardUserDefaults().removeObjectForKey(EditingContentCacheKey)
+        NSUserDefaults.standardUserDefaults().removeObjectForKey(EditingSpoilerCacheKey)
         NSUserDefaults.standardUserDefaults().synchronize()
     }
     
