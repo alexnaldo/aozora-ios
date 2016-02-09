@@ -396,25 +396,6 @@
                                     <outlet property="delegate" destination="M5q-uq-HPK" id="ZxQ-AV-F7D"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c0T-TP-ObK">
-                                <rect key="frame" x="544" y="497" width="44" height="44"/>
-                                <color key="backgroundColor" red="0.18823529780000001" green="0.19607843459999999" blue="0.23529411850000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="9iJ-BO-HPd"/>
-                                    <constraint firstAttribute="width" constant="44" id="ghb-ZE-UGz"/>
-                                </constraints>
-                                <state key="normal" image="icon-create">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="22"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="replyToThreadPressed:" destination="M5q-uq-HPK" eventType="touchUpInside" id="Kxh-g6-jY6"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zBp-r0-AD0" userLabel="SegmentedControlView">
                                 <rect key="frame" x="0.0" y="337" width="600" height="44"/>
                                 <subviews>
@@ -457,6 +438,25 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c0T-TP-ObK">
+                                <rect key="frame" x="544" y="497" width="44" height="44"/>
+                                <color key="backgroundColor" red="0.18823529780000001" green="0.19607843459999999" blue="0.23529411850000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="9iJ-BO-HPd"/>
+                                    <constraint firstAttribute="width" constant="44" id="ghb-ZE-UGz"/>
+                                </constraints>
+                                <state key="normal" image="icon-create">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="22"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="replyToThreadPressed:" destination="M5q-uq-HPK" eventType="touchUpInside" id="Kxh-g6-jY6"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.94916466489999995" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
