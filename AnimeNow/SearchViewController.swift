@@ -54,6 +54,9 @@ class SearchViewController: UIViewController {
         
         searchBar.placeholder = "Enter your search"
         searchBar.becomeFirstResponder()
+        if let textFieldInsideSearchBar = searchBar.valueForKey("searchField") as? UITextField {
+            textFieldInsideSearchBar.textColor = UIColor.blackColor()
+        }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateETACells", name: LibraryUpdatedNotification, object: nil)
         

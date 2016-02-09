@@ -17,7 +17,7 @@
         <!--Anime List View Controller-->
         <scene sceneID="AHa-Td-AJ2">
             <objects>
-                <viewController storyboardIdentifier="AnimeList" useStoryboardIdentifierAsRestorationIdentifier="YES" id="59z-su-Guf" customClass="AnimeListViewController" customModule="Aozora" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AnimeList" useStoryboardIdentifierAsRestorationIdentifier="YES" id="59z-su-Guf" customClass="AnimeListViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EbK-cl-wC7"/>
                         <viewControllerLayoutGuide type="bottom" id="Gi7-pz-xZZ"/>
@@ -36,7 +36,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CheckIn" id="b0g-cr-9JN" userLabel="CheckIn" customClass="LibraryAnimeCell" customModule="Aozora" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CheckIn" id="b0g-cr-9JN" userLabel="CheckIn" customClass="LibraryAnimeCell" customModule="AnimeTrakr" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="340" height="175"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -310,7 +310,7 @@
         <!--Library-->
         <scene sceneID="DB5-o8-SoY">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="sfh-gj-hB0" customClass="AnimeLibraryViewController" customModule="Aozora" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="sfh-gj-hB0" customClass="AnimeLibraryViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tsa-a3-88g"/>
                         <viewControllerLayoutGuide type="bottom" id="reF-51-ZXy"/>
@@ -367,20 +367,12 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="AFD-f9-o6a" secondAttribute="trailing" constant="-5" id="0DY-IF-r3f"/>
                             <constraint firstItem="XWP-tV-gBT" firstAttribute="top" secondItem="tsa-a3-88g" secondAttribute="bottom" id="1ZZ-mD-YgW"/>
-                            <constraint firstItem="XWP-tV-gBT" firstAttribute="leading" secondItem="cqb-Ge-2Ei" secondAttribute="leadingMargin" constant="-16" id="KXi-Bh-wNb"/>
                             <constraint firstItem="AFD-f9-o6a" firstAttribute="top" secondItem="XWP-tV-gBT" secondAttribute="bottom" id="M30-Mu-WRY"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="XWP-tV-gBT" secondAttribute="trailing" constant="-16" id="h2I-hb-xB2"/>
                             <constraint firstAttribute="trailing" secondItem="XWP-tV-gBT" secondAttribute="trailing" id="lLI-am-DLs"/>
                             <constraint firstItem="reF-51-ZXy" firstAttribute="top" secondItem="AFD-f9-o6a" secondAttribute="bottom" id="m2i-ia-puB"/>
                             <constraint firstItem="AFD-f9-o6a" firstAttribute="leading" secondItem="cqb-Ge-2Ei" secondAttribute="leading" constant="-5" id="me6-GB-2nR"/>
                             <constraint firstItem="XWP-tV-gBT" firstAttribute="leading" secondItem="cqb-Ge-2Ei" secondAttribute="leading" id="v7l-3h-JR0"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="KXi-Bh-wNb"/>
-                                <exclude reference="h2I-hb-xB2"/>
-                            </mask>
-                        </variation>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Library" id="lOj-rd-NWO">
