@@ -153,18 +153,7 @@ class ForumsViewController: UIViewController {
                 orQuery.includeKey("tags")
                 orQuery.includeKey("startedBy")
                 orQuery.includeKey("lastPostedBy")
-                
-                let introductions = ThreadTag(withoutDataWithObjectId: "loJp4QyahU")
-                let aozoraOfficial = ThreadTag(withoutDataWithObjectId: "zXotNtfVg1")
-                let news = ThreadTag(withoutDataWithObjectId: "H3dDEdJyqu")
-                let anime = ThreadTag(withoutDataWithObjectId: "6Yv0cRDTfc")
-                let manga = ThreadTag(withoutDataWithObjectId: "D9mO8EBXdV")
-                let recommendations = ThreadTag(withoutDataWithObjectId: "EfFWzzrhOa")
-                let forumGames = ThreadTag(withoutDataWithObjectId: "M4rpxLDwai")
-                let music = ThreadTag(withoutDataWithObjectId: "TYToNcM2zm")
-                let offtopic = ThreadTag(withoutDataWithObjectId: "DGXMVEcSrd")
-                orQuery.whereKey("tags", containedIn: [introductions, aozoraOfficial, news, anime, manga, recommendations, forumGames, music, offtopic])
-                
+
                 switch self.selectedList {
                 case .Recent:
                     orQuery.orderByDescending("updatedAt")
