@@ -996,8 +996,6 @@
 				DA27D1921AF1BA9D00CC854E /* Products */,
 				2DF8950C3183A94B152DA94F /* Pods */,
 				F4F69FB5D8335951A772F9AC /* Frameworks */,
-				DAA577311C66EC2D007E81E6 /* Aozora copy-Info.plist */,
-				DAA577431C66EFCA007E81E6 /* AozoraWatching copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1020,9 +1018,6 @@
 		DA27D1931AF1BA9D00CC854E /* Aozora */ = {
 			isa = PBXGroup;
 			children = (
-				DAA577501C66F4C0007E81E6 /* Aozora.entitlements */,
-				DAA577451C66F051007E81E6 /* AnimeTrakr.entitlements */,
-				DAA577441C66F01C007E81E6 /* AnimeTrakrWatching.entitlements */,
 				DA27D1981AF1BA9D00CC854E /* ParseWorker.swift */,
 				DA27D1961AF1BA9D00CC854E /* AppDelegate.swift */,
 				DAA5774B1C66F161007E81E6 /* App */,
@@ -1051,6 +1046,9 @@
 		DA27D1941AF1BA9D00CC854E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				DAA577501C66F4C0007E81E6 /* Aozora.entitlements */,
+				DAA577451C66F051007E81E6 /* AnimeTrakr.entitlements */,
+				DAA577311C66EC2D007E81E6 /* Aozora copy-Info.plist */,
 				DAC13C2B1B425C200013D479 /* Fonts */,
 				DA27D1951AF1BA9D00CC854E /* Info.plist */,
 				DA4167991B25F1BF00847F56 /* AnimeNow-Bridging-Header.h */,
@@ -1079,11 +1077,13 @@
 		DA354B441C5DF3C2008C729F /* AozoraWatching */ = {
 			isa = PBXGroup;
 			children = (
-				DA354B5C1C5DF747008C729F /* AozoraWatching.entitlements */,
 				DA354B521C5DF3DE008C729F /* Resources */,
+				DA354B5C1C5DF747008C729F /* AozoraWatching.entitlements */,
+				DAA577441C66F01C007E81E6 /* AnimeTrakrWatching.entitlements */,
 				DA354B451C5DF3C2008C729F /* TodayViewController.swift */,
 				DA354B471C5DF3C2008C729F /* MainInterface.storyboard */,
 				DA354B4A1C5DF3C2008C729F /* Info.plist */,
+				DAA577431C66EFCA007E81E6 /* AozoraWatching copy-Info.plist */,
 				DA354B591C5DF58F008C729F /* TodayCell.swift */,
 			);
 			path = AozoraWatching;
