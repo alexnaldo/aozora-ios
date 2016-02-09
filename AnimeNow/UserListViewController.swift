@@ -95,6 +95,8 @@ extension UserListViewController: UITableViewDataSource {
         let profile = dataSource[indexPath.row]
         if let avatarFile = profile.avatarThumb {
             cell.avatar.setImageWithPFFile(avatarFile)
+        } else {
+            cell.avatar.image = UIImage(named: "default-avatar")
         }
         cell.username.text = profile.aozoraUsername
         cell.delegate = self

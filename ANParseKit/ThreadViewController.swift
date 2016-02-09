@@ -316,8 +316,12 @@ extension ThreadViewController: UITableViewDataSource {
         }
         
         // Poster information
-        if let postedBy = post.postedBy, let avatarFile = postedBy.avatarThumb {
-            cell.avatar.setImageWithPFFile(avatarFile)
+        if let postedBy = post.postedBy {
+            if let avatarFile = postedBy.avatarThumb {
+                cell.avatar.setImageWithPFFile(avatarFile)
+            } else {
+                cell.avatar.image = UIImage(named: "default-avatar")
+            }
             cell.username?.text = postedBy.aozoraUsername
             cell.onlineIndicator.hidden = !postedBy.active
         }

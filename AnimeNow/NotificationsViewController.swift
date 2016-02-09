@@ -130,11 +130,15 @@ extension NotificationsViewController: UITableViewDataSource {
             }
             if let avatarThumb = selectedUser.avatarThumb {
                 cell.titleimageView.setImageWithPFFile(avatarThumb)
+            } else {
+                cell.titleimageView.image = UIImage(named: "default-avatar")
             }
             
         } else {
             if let avatarThumb = notification.lastTriggeredBy.avatarThumb {
                 cell.titleimageView.setImageWithPFFile(avatarThumb)
+            } else {
+                cell.titleimageView.image = UIImage(named: "default-avatar")
             }
         }
 

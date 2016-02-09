@@ -198,6 +198,8 @@ public class ProfileViewController: ThreadViewController {
         title = user.aozoraUsername
         if let avatarFile = user.avatarThumb {
             userAvatar.setImageWithPFFile(avatarFile)
+        } else {
+            userAvatar.image = UIImage(named: "default-avatar")
         }
         
         if let bannerFile = user.banner {

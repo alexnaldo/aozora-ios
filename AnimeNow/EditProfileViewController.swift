@@ -41,6 +41,8 @@ public class EditProfileViewController: UIViewController {
         
         if let avatarFile = user.avatarThumb {
             avatarImageView.setImageWithPFFile(avatarFile, animated: true)
+        } else {
+            avatarImageView.image = UIImage(named: "default-avatar")
         }
         
         if let bannerFile = user.banner {

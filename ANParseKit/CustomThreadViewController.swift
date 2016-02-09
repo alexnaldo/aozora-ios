@@ -140,6 +140,8 @@ public class CustomThreadViewController: ThreadViewController {
         if let startedBy = thread.startedBy {
             if let avatarThumb = startedBy.avatarThumb {
                 avatar.setImageWithPFFile(avatarThumb)
+            } else {
+                avatar.image = UIImage(named: "default-avatar")
             }
             
             username.text = startedBy.aozoraUsername

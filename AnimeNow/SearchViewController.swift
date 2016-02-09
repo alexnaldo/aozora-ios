@@ -204,6 +204,8 @@ extension SearchViewController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("UserCell", forIndexPath: indexPath) as! BasicCollectionCell
             if let avatarFile = profile.avatarThumb {
                 cell.titleimageView.setImageWithPFFile(avatarFile)
+            } else {
+                cell.titleimageView.image = UIImage(named: "default-avatar")
             }
             cell.titleLabel.text = profile.aozoraUsername
             cell.layoutIfNeeded()
