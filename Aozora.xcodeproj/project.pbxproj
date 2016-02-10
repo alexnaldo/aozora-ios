@@ -65,8 +65,6 @@
 		DA4AF8C91B276E060020252E /* ANCommonKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4AF8C81B276E060020252E /* ANCommonKitTests.swift */; };
 		DA4AF8CC1B276E060020252E /* ANCommonKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4AF8B51B276E060020252E /* ANCommonKit.framework */; };
 		DA4AF8CD1B276E060020252E /* ANCommonKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DA4AF8B51B276E060020252E /* ANCommonKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DA52B1831B4838AE001CC1A9 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52B1821B4838AE001CC1A9 /* CalendarViewController.swift */; };
-		DA52B1851B483F2A001CC1A9 /* DayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52B1841B483F2A001CC1A9 /* DayViewController.swift */; };
 		DA54E30B1BE9487800FE0AE9 /* PFQuery+Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA54E30A1BE9487800FE0AE9 /* PFQuery+Query.swift */; };
 		DA561EC81C5D78F400C3E493 /* TitleHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA561EC71C5D78F400C3E493 /* TitleHeaderView.xib */; };
 		DA561ECA1C5D791C00C3E493 /* TitleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA561EC91C5D791C00C3E493 /* TitleHeaderView.swift */; };
@@ -220,7 +218,6 @@
 		DAA576C81C66EC2D007E81E6 /* TitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4167E61B275D3800847F56 /* TitleCell.swift */; };
 		DAA576C91C66EC2D007E81E6 /* PublicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA26C8D1BCC92B1001CF62D /* PublicListViewController.swift */; };
 		DAA576CA1C66EC2D007E81E6 /* AnimeInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4167D11B273B7100847F56 /* AnimeInformationViewController.swift */; };
-		DAA576CB1C66EC2D007E81E6 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52B1821B4838AE001CC1A9 /* CalendarViewController.swift */; };
 		DAA576CC1C66EC2D007E81E6 /* ParseWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27D1981AF1BA9D00CC854E /* ParseWorker.swift */; };
 		DAA576CD1C66EC2D007E81E6 /* UserProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0B260B1B75192400A770AE /* UserProfileManager.swift */; };
 		DAA576CE1C66EC2D007E81E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27D1961AF1BA9D00CC854E /* AppDelegate.swift */; };
@@ -244,7 +241,6 @@
 		DAA576E01C66EC2D007E81E6 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC13C291B424DEF0013D479 /* ResetPasswordViewController.swift */; };
 		DAA576E11C66EC2D007E81E6 /* AnimeBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA253B71B2B8AF50092EB0B /* AnimeBaseViewController.swift */; };
 		DAA576E21C66EC2D007E81E6 /* EpisodesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58C2EA1B3B109D0082B626 /* EpisodesViewController.swift */; };
-		DAA576E31C66EC2D007E81E6 /* DayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52B1841B483F2A001CC1A9 /* DayViewController.swift */; };
 		DAA576E41C66EC2D007E81E6 /* TableCellWithCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB4DCAC1C5CBE1F00924819 /* TableCellWithCollection.swift */; };
 		DAA576E51C66EC2D007E81E6 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB4DCA81C5CB79600924819 /* HomeViewController.swift */; };
 		DAA576E61C66EC2D007E81E6 /* LoadingCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC13BF81B3EFC280013D479 /* LoadingCollectionCell.swift */; };
@@ -621,8 +617,6 @@
 		DA4AF8BF1B276E060020252E /* ANCommonKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ANCommonKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA4AF8C71B276E060020252E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA4AF8C81B276E060020252E /* ANCommonKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANCommonKitTests.swift; sourceTree = "<group>"; };
-		DA52B1821B4838AE001CC1A9 /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
-		DA52B1841B483F2A001CC1A9 /* DayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayViewController.swift; sourceTree = "<group>"; };
 		DA54E30A1BE9487800FE0AE9 /* PFQuery+Query.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PFQuery+Query.swift"; sourceTree = "<group>"; };
 		DA561EC71C5D78F400C3E493 /* TitleHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleHeaderView.xib; sourceTree = "<group>"; };
 		DA561EC91C5D791C00C3E493 /* TitleHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleHeaderView.swift; sourceTree = "<group>"; };
@@ -1586,8 +1580,6 @@
 				DAB83FC61B52FE200006AF96 /* ChartController.swift */,
 				DA27D19A1AF1BA9D00CC854E /* Season.storyboard */,
 				DAFBB0941B20EFF700495ED9 /* ChartViewController.swift */,
-				DA52B1821B4838AE001CC1A9 /* CalendarViewController.swift */,
-				DA52B1841B483F2A001CC1A9 /* DayViewController.swift */,
 			);
 			name = Season;
 			sourceTree = "<group>";
@@ -2417,7 +2409,6 @@
 				DAA546E11BA1A0C4003989DE /* TitleCell.swift in Sources */,
 				DAA26C8E1BCC92B1001CF62D /* PublicListViewController.swift in Sources */,
 				DAA546EE1BA1A102003989DE /* AnimeInformationViewController.swift in Sources */,
-				DA52B1831B4838AE001CC1A9 /* CalendarViewController.swift in Sources */,
 				DA32EBE71C6AB6D70090CD51 /* AnimeBrowserViewController.swift in Sources */,
 				DA32EBE11C6A87720090CD51 /* StringFormatter.swift in Sources */,
 				DA27D1991AF1BA9D00CC854E /* ParseWorker.swift in Sources */,
@@ -2443,7 +2434,6 @@
 				DA4595651B83C3500044013E /* ResetPasswordViewController.swift in Sources */,
 				DAA546F21BA1A106003989DE /* AnimeBaseViewController.swift in Sources */,
 				DAA546EB1BA1A0FB003989DE /* EpisodesViewController.swift in Sources */,
-				DA52B1851B483F2A001CC1A9 /* DayViewController.swift in Sources */,
 				DAB4DCAD1C5CBE1F00924819 /* TableCellWithCollection.swift in Sources */,
 				DAB4DCA91C5CB79600924819 /* HomeViewController.swift in Sources */,
 				DAC13BF91B3EFC280013D479 /* LoadingCollectionCell.swift in Sources */,
@@ -2618,7 +2608,6 @@
 				DAA576C81C66EC2D007E81E6 /* TitleCell.swift in Sources */,
 				DAA576C91C66EC2D007E81E6 /* PublicListViewController.swift in Sources */,
 				DAA576CA1C66EC2D007E81E6 /* AnimeInformationViewController.swift in Sources */,
-				DAA576CB1C66EC2D007E81E6 /* CalendarViewController.swift in Sources */,
 				DA32EBE81C6AB6D70090CD51 /* AnimeBrowserViewController.swift in Sources */,
 				DA32EBE21C6A87720090CD51 /* StringFormatter.swift in Sources */,
 				DAA576CC1C66EC2D007E81E6 /* ParseWorker.swift in Sources */,
@@ -2644,7 +2633,6 @@
 				DAA576E01C66EC2D007E81E6 /* ResetPasswordViewController.swift in Sources */,
 				DAA576E11C66EC2D007E81E6 /* AnimeBaseViewController.swift in Sources */,
 				DAA576E21C66EC2D007E81E6 /* EpisodesViewController.swift in Sources */,
-				DAA576E31C66EC2D007E81E6 /* DayViewController.swift in Sources */,
 				DAA576E41C66EC2D007E81E6 /* TableCellWithCollection.swift in Sources */,
 				DAA576E51C66EC2D007E81E6 /* HomeViewController.swift in Sources */,
 				DAA576E61C66EC2D007E81E6 /* LoadingCollectionCell.swift in Sources */,

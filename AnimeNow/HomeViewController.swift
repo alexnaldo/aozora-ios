@@ -132,7 +132,7 @@ class HomeViewController: UIViewController {
         guard let layout = headerViewController.collectionViewLayout as? UICollectionViewFlowLayout else {
             return
         }
-        print(withSize)
+
         layout.itemSize = withSize
     }
 
@@ -277,31 +277,92 @@ class HomeViewController: UIViewController {
 
 private extension HomeViewController {
     func showCalendar() {
-        let controller = UIStoryboard(name: "Season", bundle: nil).instantiateViewControllerWithIdentifier("Calendar") as! CalendarViewController
-        navigationController?.pushViewController(controller, animated: true)
+
+        let browserViewController = instantiateAnimeBrowserViewController()
+
+        var dataSource: [BrowseData] = []
+
+        // Set weekday strings
+        let calendar = NSCalendar.currentCalendar()
+        let today = NSDate()
+        let weekDayFormat = NSDateFormatter()
+        weekDayFormat.dateFormat = "eeee"
+
+        let dateFormat = NSDateFormatter()
+        dateFormat.dateFormat = "MMMM dd"
+
+        for daysAhead in 0..<7 {
+            let date = calendar.dateByAddingUnit(NSCalendarUnit.Day, value: daysAhead, toDate: today, options: [])
+            let weekdayString = weekDayFormat.stringFromDate(date!)
+            let dateString = dateFormat.stringFromDate(date!)
+
+            let data: BrowseData = (title: weekdayString, subtitle: dateString, detailTitle: "See All", anime: airingDataSource[daysAhead], query: nil, fetching: true)
+
+            dataSource.append(data)
+        }
+
+        browserViewController.initWithBrowseData(dataSource, title: "Calendar")
+
+        navigationController?.pushViewController(browserViewController, animated: true)
     }
 
     func showSeasonalCharts() {
-        let seasons = UIStoryboard(name: "Season", bundle: nil).instantiateViewControllerWithIdentifier("ChartViewController")
-        navigationController?.pushViewController(seasons, animated: true)
+
+        let browserViewController = instantiateAnimeBrowserViewController()
+
+        var dataSource: [BrowseData] = []
+
+        let dateFormat = NSDateFormatter()
+        dateFormat.dateFormat = "MMM yyyy"
+
+        for seasonalChart in chartsDataSource {
+            let query = Anime.query()!
+            query.whereKey("startDate", greaterThanOrEqualTo: seasonalChart.startDate)
+            query.whereKey("startDate", lessThanOrEqualTo: seasonalChart.endDate)
+            query.orderByDescending("membersScore")
+
+            let subtitle = "\(dateFormat.stringFromDate(seasonalChart.startDate)) - \(dateFormat.stringFromDate(seasonalChart.endDate))"
+            let data: BrowseData = (title: seasonalChart.title, subtitle: subtitle, detailTitle: "See All", anime: [], query: query, fetching: false)
+
+            dataSource.append(data)
+        }
+
+        browserViewController.initWithBrowseData(dataSource, title: "Seasonal Charts")
+
+        navigationController?.pushViewController(browserViewController, animated: true)
     }
 
     func showBrowse() {
-        guard let browse = UIStoryboard(name: "Browse", bundle: nil).instantiateViewControllerWithIdentifier("Browse") as? BrowseViewController else {
-            return
+
+        let browserViewController = instantiateAnimeBrowserViewController()
+
+        let allBrowseTypes = BrowseType.allItems()
+        var dataSource: [BrowseData] = []
+
+
+        for browseType in allBrowseTypes {
+
+            let browseEnum = BrowseType(rawValue: browseType)!
+
+            let query = BrowseViewController.queryForBrowseType(browseEnum)
+
+            let data: BrowseData = (title: browseType, subtitle: nil, detailTitle: "See All", anime: [], query: query, fetching: false)
+
+            dataSource.append(data)
         }
-        navigationController?.pushViewController(browse, animated: true)
+
+        browserViewController.initWithBrowseData(dataSource, title: "Discover")
+
+        navigationController?.pushViewController(browserViewController, animated: true)
     }
 
-    func instantiateAnimeBrowserViewController() -> AnimeBrowserViewController? {
-        return UIStoryboard(name: "Browser", bundle: nil).instantiateViewControllerWithIdentifier("AnimeBrowserViewController") as? AnimeBrowserViewController
+    func instantiateAnimeBrowserViewController() -> AnimeBrowserViewController {
+        return UIStoryboard(name: "Browser", bundle: nil).instantiateViewControllerWithIdentifier("AnimeBrowserViewController") as! AnimeBrowserViewController
     }
 
     func showGenres() {
 
-        guard let browserViewController = instantiateAnimeBrowserViewController() else {
-            return
-        }
+        let browserViewController = instantiateAnimeBrowserViewController()
 
         let allGenres = AnimeGenre.allRawValues()
         var dataSource: [BrowseData] = []
@@ -322,9 +383,7 @@ private extension HomeViewController {
 
     func showYears() {
 
-        guard let browserViewController = instantiateAnimeBrowserViewController() else {
-            return
-        }
+        let browserViewController = instantiateAnimeBrowserViewController()
 
         var dataSource: [BrowseData] = []
 
@@ -346,9 +405,7 @@ private extension HomeViewController {
 
     func showStudios() {
 
-        guard let browserViewController = instantiateAnimeBrowserViewController() else {
-            return
-        }
+        let browserViewController = instantiateAnimeBrowserViewController()
 
         var dataSource: [BrowseData] = []
         let sortedStudios = allStudios.sort()
@@ -369,9 +426,7 @@ private extension HomeViewController {
 
     func showClassifications() {
 
-        guard let browserViewController = instantiateAnimeBrowserViewController() else {
-            return
-        }
+        let browserViewController = instantiateAnimeBrowserViewController()
 
         let allClassifications = AnimeClassification.allRawValues()
         var dataSource: [BrowseData] = []
