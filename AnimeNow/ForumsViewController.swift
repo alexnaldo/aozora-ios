@@ -47,8 +47,6 @@ class ForumsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        canDisplayBannerAds = InAppController.canDisplayAds()
-
         tableView.estimatedRowHeight = 150.0
         tableView.rowHeight = UITableViewAutomaticDimension
 
@@ -75,7 +73,9 @@ class ForumsViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
+
+        canDisplayBannerAds = InAppController.canDisplayAds()
+
         if loadingView.animating == false {
             loadingView.stopAnimating()
             tableView.animateFadeIn()

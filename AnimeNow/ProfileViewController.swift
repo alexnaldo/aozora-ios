@@ -65,8 +65,6 @@ public class ProfileViewController: ThreadViewController {
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-
-        canDisplayBannerAds = InAppController.canDisplayAds()
         
         segmentedControlView.hidden = true
         
@@ -91,6 +89,8 @@ public class ProfileViewController: ThreadViewController {
     
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+
+        canDisplayBannerAds = InAppController.canDisplayAds()
 
         navigationController?.setNavigationBarHidden(false, animated: true)
 
@@ -152,6 +152,11 @@ public class ProfileViewController: ThreadViewController {
             }
 
             self.userProfile = user
+
+            if user.isTheCurrentUser() {
+                InAppController.updateUserUnlockedContent(user.unlockedContent)
+            }
+
             self.updateViewWithUser(user)
             self.aboutLabel.setText(user.details.about, afterInheritingLabelAttributesAndConfiguringWithBlock: { (attributedString) -> NSMutableAttributedString! in
                 return attributedString

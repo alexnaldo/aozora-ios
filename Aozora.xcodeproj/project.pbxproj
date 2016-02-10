@@ -38,6 +38,10 @@
 		DA32EBE21C6A87720090CD51 /* StringFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA32EBE01C6A87720090CD51 /* StringFormatter.swift */; };
 		DA32EBE41C6A9A780090CD51 /* DataRefresherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA32EBE31C6A9A780090CD51 /* DataRefresherController.swift */; };
 		DA32EBE51C6A9A780090CD51 /* DataRefresherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA32EBE31C6A9A780090CD51 /* DataRefresherController.swift */; };
+		DA32EBE71C6AB6D70090CD51 /* AnimeBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA32EBE61C6AB6D70090CD51 /* AnimeBrowserViewController.swift */; };
+		DA32EBE81C6AB6D70090CD51 /* AnimeBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA32EBE61C6AB6D70090CD51 /* AnimeBrowserViewController.swift */; };
+		DA32EBEA1C6AB7050090CD51 /* Browser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA32EBE91C6AB7050090CD51 /* Browser.storyboard */; };
+		DA32EBEB1C6AB7050090CD51 /* Browser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA32EBE91C6AB7050090CD51 /* Browser.storyboard */; };
 		DA354B431C5DF3C2008C729F /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA354B421C5DF3C2008C729F /* NotificationCenter.framework */; };
 		DA354B461C5DF3C2008C729F /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA354B451C5DF3C2008C729F /* TodayViewController.swift */; };
 		DA354B491C5DF3C2008C729F /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA354B471C5DF3C2008C729F /* MainInterface.storyboard */; };
@@ -579,6 +583,8 @@
 		DA2D1EEE1B5318E1009A5CCD /* NSUserDefaults+Dates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSUserDefaults+Dates.swift"; path = "../AnimeNow/NSUserDefaults+Dates.swift"; sourceTree = "<group>"; };
 		DA32EBE01C6A87720090CD51 /* StringFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringFormatter.swift; sourceTree = "<group>"; };
 		DA32EBE31C6A9A780090CD51 /* DataRefresherController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataRefresherController.swift; sourceTree = "<group>"; };
+		DA32EBE61C6AB6D70090CD51 /* AnimeBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeBrowserViewController.swift; sourceTree = "<group>"; };
+		DA32EBE91C6AB7050090CD51 /* Browser.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Browser.storyboard; sourceTree = "<group>"; };
 		DA354B411C5DF3C2008C729F /* AozoraWatching.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AozoraWatching.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA354B421C5DF3C2008C729F /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		DA354B451C5DF3C2008C729F /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -1387,6 +1393,8 @@
 				DA561EC91C5D791C00C3E493 /* TitleHeaderView.swift */,
 				DA561ECD1C5D802700C3E493 /* AnimePosterCell.xib */,
 				DA561ECF1C5D803100C3E493 /* AnimePosterCell.swift */,
+				DA32EBE91C6AB7050090CD51 /* Browser.storyboard */,
+				DA32EBE61C6AB6D70090CD51 /* AnimeBrowserViewController.swift */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -2017,6 +2025,7 @@
 				DAC13C031B40569F0013D479 /* Settings.storyboard in Resources */,
 				DAC13C1A1B4228120013D479 /* Aller_It.ttf in Resources */,
 				DA27D19C1AF1BA9D00CC854E /* Season.storyboard in Resources */,
+				DA32EBEA1C6AB7050090CD51 /* Browser.storyboard in Resources */,
 				DAA546F81BA1AC48003989DE /* Profile.storyboard in Resources */,
 				DAC13C181B4228120013D479 /* Aller_Bd.ttf in Resources */,
 				DAD67E061B7292D8000BB325 /* Resources.xcassets in Resources */,
@@ -2115,6 +2124,7 @@
 				DAA5770F1C66EC2D007E81E6 /* Settings.storyboard in Resources */,
 				DAA577101C66EC2D007E81E6 /* Aller_It.ttf in Resources */,
 				DAA577111C66EC2D007E81E6 /* Season.storyboard in Resources */,
+				DA32EBEB1C6AB7050090CD51 /* Browser.storyboard in Resources */,
 				DAA577121C66EC2D007E81E6 /* Profile.storyboard in Resources */,
 				DAA577131C66EC2D007E81E6 /* Aller_Bd.ttf in Resources */,
 				DAA577141C66EC2D007E81E6 /* Resources.xcassets in Resources */,
@@ -2408,6 +2418,7 @@
 				DAA26C8E1BCC92B1001CF62D /* PublicListViewController.swift in Sources */,
 				DAA546EE1BA1A102003989DE /* AnimeInformationViewController.swift in Sources */,
 				DA52B1831B4838AE001CC1A9 /* CalendarViewController.swift in Sources */,
+				DA32EBE71C6AB6D70090CD51 /* AnimeBrowserViewController.swift in Sources */,
 				DA32EBE11C6A87720090CD51 /* StringFormatter.swift in Sources */,
 				DA27D1991AF1BA9D00CC854E /* ParseWorker.swift in Sources */,
 				DAA546FC1BA1AC48003989DE /* UserProfileManager.swift in Sources */,
@@ -2608,6 +2619,7 @@
 				DAA576C91C66EC2D007E81E6 /* PublicListViewController.swift in Sources */,
 				DAA576CA1C66EC2D007E81E6 /* AnimeInformationViewController.swift in Sources */,
 				DAA576CB1C66EC2D007E81E6 /* CalendarViewController.swift in Sources */,
+				DA32EBE81C6AB6D70090CD51 /* AnimeBrowserViewController.swift in Sources */,
 				DA32EBE21C6A87720090CD51 /* StringFormatter.swift in Sources */,
 				DAA576CC1C66EC2D007E81E6 /* ParseWorker.swift in Sources */,
 				DAA576CD1C66EC2D007E81E6 /* UserProfileManager.swift in Sources */,
