@@ -60,7 +60,7 @@ public class InAppController {
         let userDefaults = NSUserDefaults.standardUserDefaults()
         let proPlus = userDefaults.boolForKey(InAppController.ProPlusIdentifier) ||
             userDefaults.boolForKey(ATPurchaseIDAllFeatures)
-        
+
         return proPlus
     }
 

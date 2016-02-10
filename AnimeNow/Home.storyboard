@@ -26,7 +26,7 @@
         <!--Home-->
         <scene sceneID="hm1-I0-qoV">
             <objects>
-                <viewController storyboardIdentifier="HomeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Zim-e3-hZg" customClass="HomeViewController" customModule="Aozora" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Zim-e3-hZg" customClass="HomeViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fn8-dl-yDp"/>
                         <viewControllerLayoutGuide type="bottom" id="tXO-i2-3U1"/>

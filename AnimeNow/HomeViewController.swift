@@ -13,14 +13,15 @@ import ANCommonKit
 class HomeViewController: UIViewController {
 
     enum HomeSection: Int {
-        case AiringToday, CurrentSeason, ExploreAll
+        case AiringToday, CurrentSeason, ExploreAll, Genres, Years, Studios, Classifications
     }
 
     @IBOutlet weak var headerViewController: UICollectionView!
     @IBOutlet weak var tableView: UITableView!
 
-    var sections: [String] = ["Airing Today", "Current Season", "Explore all anime"]
-    var sectionDetails: [String] = ["", "", "with advanced filters"]
+    var sections: [String] = ["Airing Today", "Current Season", "Explore all anime", "Explore by Genre", "Explore by Year", "Explore by Studio", "Explore by Classification"]
+    var sectionDetails: [String] = ["", "", "with advanced filters", "", "", "", ""]
+    var rightButtonTitle: [String] = ["Calendar", "Seasons", "Discover", "Genres", "Years", "Studios", "Classifications"]
 
     var airingDataSource: [[Anime]] = [[]] {
         didSet {
@@ -55,8 +56,6 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        canDisplayBannerAds = InAppController.canDisplayAds()
-
         TitleHeaderView.registerNibFor(tableView: tableView)
         TableCellWithCollection.registerNibFor(tableView: tableView)
 
@@ -86,6 +85,9 @@ class HomeViewController: UIViewController {
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+
+        canDisplayBannerAds = InAppController.canDisplayAds()
+        
         headerTimer = NSTimer.scheduledTimerWithTimeInterval(10.0, target: self, selector: "moveHeaderView:", userInfo: nil, repeats: true)
     }
 
@@ -290,6 +292,106 @@ private extension HomeViewController {
         }
         navigationController?.pushViewController(browse, animated: true)
     }
+
+    func instantiateAnimeBrowserViewController() -> AnimeBrowserViewController? {
+        return UIStoryboard(name: "Browser", bundle: nil).instantiateViewControllerWithIdentifier("AnimeBrowserViewController") as? AnimeBrowserViewController
+    }
+
+    func showGenres() {
+
+        guard let browserViewController = instantiateAnimeBrowserViewController() else {
+            return
+        }
+
+        let allGenres = AnimeGenre.allRawValues()
+        var dataSource: [BrowseData] = []
+
+        for genre in allGenres {
+            let query = Anime.query()!
+            query.whereKey("genres", containedIn: [genre])
+            query.whereKey("type", equalTo: "TV")
+            let data: BrowseData = (title: genre, subtitle: nil, detailTitle: "See All", anime: [], query: query, fetching: false)
+
+            dataSource.append(data)
+        }
+
+        browserViewController.initWithBrowseData(dataSource, title: "Explore by Genres")
+
+        navigationController?.pushViewController(browserViewController, animated: true)
+    }
+
+    func showYears() {
+
+        guard let browserViewController = instantiateAnimeBrowserViewController() else {
+            return
+        }
+
+        var dataSource: [BrowseData] = []
+
+        for year in allYears {
+
+            let query = Anime.query()!
+            query.whereKey("year", equalTo: Int(year)!)
+            query.whereKey("type", equalTo: "TV")
+            let data: BrowseData = (title: year, subtitle: nil, detailTitle: "See All", anime: [], query: query, fetching: false)
+
+            dataSource.append(data)
+        }
+
+        browserViewController.initWithBrowseData(dataSource, title: "Explore by Year")
+
+        navigationController?.pushViewController(browserViewController, animated: true)
+
+    }
+
+    func showStudios() {
+
+        guard let browserViewController = instantiateAnimeBrowserViewController() else {
+            return
+        }
+
+        var dataSource: [BrowseData] = []
+        let sortedStudios = allStudios.sort()
+        for studio in sortedStudios {
+
+            let query = Anime.query()!
+            query.whereKey("producers", containedIn: [studio])
+            let data: BrowseData = (title: studio, subtitle: nil, detailTitle: "See All", anime: [], query: query, fetching: false)
+
+            dataSource.append(data)
+        }
+
+        browserViewController.initWithBrowseData(dataSource, title: "Explore by Studios")
+
+        navigationController?.pushViewController(browserViewController, animated: true)
+
+    }
+
+    func showClassifications() {
+
+        guard let browserViewController = instantiateAnimeBrowserViewController() else {
+            return
+        }
+
+        let allClassifications = AnimeClassification.allRawValues()
+        var dataSource: [BrowseData] = []
+
+        for classification in allClassifications {
+            let innerQuery = AnimeDetail.query()!
+            innerQuery.whereKey("classification", equalTo: classification)
+
+            let query = Anime.query()!
+            query.whereKey("details", matchesQuery: innerQuery)
+            query.whereKey("type", equalTo: "TV")
+            let data: BrowseData = (title: classification, subtitle: nil, detailTitle: "See All", anime: [], query: query, fetching: false)
+
+            dataSource.append(data)
+        }
+
+        browserViewController.initWithBrowseData(dataSource, title: "Explore by Classification")
+
+        navigationController?.pushViewController(browserViewController, animated: true)
+    }
 }
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
 
@@ -301,6 +403,11 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+
+        if indexPath.section > 2 {
+            return UITableViewCell()
+        }
+
         guard let cell = tableView.dequeueReusableCellWithIdentifier("TableCellWithCollection") as? TableCellWithCollection else {
             return UITableViewCell()
         }
@@ -312,6 +419,8 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
             cell.dataSource = currentSeasonalChartDataSource
         case .ExploreAll:
             cell.dataSource = exploreAllAnimeDataSource
+        default:
+            break
         }
 
         cell.selectedAnimeCallBack = { anime in
@@ -335,15 +444,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         cell.subtitleLabel.text = sectionDetails[section]
         cell.section = section
 
-        switch HomeSection(rawValue: section)! {
-        case .AiringToday:
-            cell.actionButton.setTitle("Calendar", forState: .Normal)
-        case .CurrentSeason:
-            cell.actionButton.setTitle("Seasons", forState: .Normal)
-        case .ExploreAll:
-            cell.actionButton.setTitle("Discover", forState: .Normal)
-        }
-
+        cell.actionButton.setTitle(rightButtonTitle[section], forState: .Normal)
         cell.actionButtonCallback = { section in
             switch HomeSection(rawValue: section)! {
             case .AiringToday:
@@ -352,6 +453,14 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
                 self.showSeasonalCharts()
             case .ExploreAll:
                 self.showBrowse()
+            case .Genres:
+                self.showGenres()
+            case .Years:
+                self.showYears()
+            case .Studios:
+                self.showStudios()
+            case .Classifications:
+                self.showClassifications()
             }
         }
 
@@ -360,6 +469,10 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
+    }
+
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return indexPath.section > 2 ? CGFloat.min : 167.0
     }
 }
 
