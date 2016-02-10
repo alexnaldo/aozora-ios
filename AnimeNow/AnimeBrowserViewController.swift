@@ -59,9 +59,14 @@ class AnimeBrowserViewController: UIViewController {
     }
 
     func seeAllPressedForSection(section: Int) {
-
+        UIAlertView(title: "TODO", message: "Not implemented", delegate: nil, cancelButtonTitle: "Ok").show()
     }
 
+    @IBAction func searchPressed(sender: AnyObject) {
+        if let tabBar = tabBarController {
+            tabBar.presentSearchViewController(.Forum)
+        }
+    }
 }
 
 extension AnimeBrowserViewController: UITableViewDataSource, UITableViewDelegate {

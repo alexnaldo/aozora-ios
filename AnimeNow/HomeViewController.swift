@@ -276,6 +276,13 @@ class HomeViewController: UIViewController {
 }
 
 private extension HomeViewController {
+
+    func instantiateAnimeBrowserViewController() -> AnimeBrowserViewController {
+        let browserViewController = UIStoryboard(name: "Browser", bundle: nil).instantiateViewControllerWithIdentifier("AnimeBrowserViewController") as! AnimeBrowserViewController
+        browserViewController.hidesBottomBarWhenPushed = true
+        return browserViewController
+    }
+
     func showCalendar() {
 
         let browserViewController = instantiateAnimeBrowserViewController()
@@ -354,10 +361,6 @@ private extension HomeViewController {
         browserViewController.initWithBrowseData(dataSource, title: "Discover")
 
         navigationController?.pushViewController(browserViewController, animated: true)
-    }
-
-    func instantiateAnimeBrowserViewController() -> AnimeBrowserViewController {
-        return UIStoryboard(name: "Browser", bundle: nil).instantiateViewControllerWithIdentifier("AnimeBrowserViewController") as! AnimeBrowserViewController
     }
 
     func showGenres() {
@@ -454,80 +457,85 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         return sections.count
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
-        if indexPath.section > 2 {
-            return UITableViewCell()
-        }
-
-        guard let cell = tableView.dequeueReusableCellWithIdentifier("TableCellWithCollection") as? TableCellWithCollection else {
-            return UITableViewCell()
-        }
-
-        switch HomeSection(rawValue: indexPath.section)! {
-        case .AiringToday:
-            cell.dataSource = airingToday
-        case .CurrentSeason:
-            cell.dataSource = currentSeasonalChartDataSource
-        case .ExploreAll:
-            cell.dataSource = exploreAllAnimeDataSource
-        default:
-            break
-        }
-
-        cell.selectedAnimeCallBack = { anime in
-            self.animator = self.presentAnimeModal(anime)
-        }
-
-        cell.collectionView.reloadData()
-
-        return cell
-    }
-
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-
-    }
-
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let cell = tableView.dequeueReusableCellWithIdentifier("TitleHeaderView") as? TitleHeaderView else {
-            return UIView()
-        }
-        cell.titleLabel.text = sections[section]
-        cell.subtitleLabel.text = sectionDetails[section]
-        cell.section = section
-
-        cell.actionButton.setTitle(rightButtonTitle[section], forState: .Normal)
-        cell.actionButtonCallback = { section in
-            switch HomeSection(rawValue: section)! {
-            case .AiringToday:
-                self.showCalendar()
-            case .CurrentSeason:
-                self.showSeasonalCharts()
-            case .ExploreAll:
-                self.showBrowse()
-            case .Genres:
-                self.showGenres()
-            case .Years:
-                self.showYears()
-            case .Studios:
-                self.showStudios()
-            case .Classifications:
-                self.showClassifications()
+        switch (indexPath.section, indexPath.row) {
+        case (_, 0):
+            guard let cell = tableView.dequeueReusableCellWithIdentifier("TitleHeaderView") as? TitleHeaderView else {
+                return UITableViewCell()
             }
-        }
+            cell.titleLabel.text = sections[indexPath.section]
+            cell.subtitleLabel.text = sectionDetails[indexPath.section]
+            cell.section = indexPath.section
 
-        return cell
+            cell.actionButton.setTitle(rightButtonTitle[indexPath.section], forState: .Normal)
+            cell.actionButtonCallback = { section in
+                switch HomeSection(rawValue: section)! {
+                case .AiringToday:
+                    self.showCalendar()
+                case .CurrentSeason:
+                    self.showSeasonalCharts()
+                case .ExploreAll:
+                    self.showBrowse()
+                case .Genres:
+                    self.showGenres()
+                case .Years:
+                    self.showYears()
+                case .Studios:
+                    self.showStudios()
+                case .Classifications:
+                    self.showClassifications()
+                }
+            }
+            
+            return cell
+        case (0...2, 1):
+
+            guard let cell = tableView.dequeueReusableCellWithIdentifier("TableCellWithCollection") as? TableCellWithCollection else {
+                return UITableViewCell()
+            }
+
+            switch HomeSection(rawValue: indexPath.section)! {
+            case .AiringToday:
+                cell.dataSource = airingToday
+            case .CurrentSeason:
+                cell.dataSource = currentSeasonalChartDataSource
+            case .ExploreAll:
+                cell.dataSource = exploreAllAnimeDataSource
+            default:
+                break
+            }
+
+            cell.selectedAnimeCallBack = { anime in
+                self.animator = self.presentAnimeModal(anime)
+            }
+            
+            cell.collectionView.reloadData()
+            
+            return cell
+        default:
+            return UITableViewCell()
+        }
     }
+
 
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
+        return CGFloat.min
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return indexPath.section > 2 ? CGFloat.min : 167.0
+
+        switch (indexPath.section, indexPath.row) {
+        case (_, 0):
+            return 40
+        case (0...2, 1):
+            return 167
+        default:
+            return CGFloat.min
+        }
     }
 }
 

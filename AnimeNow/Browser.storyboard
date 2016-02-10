@@ -38,7 +38,7 @@
                     <navigationItem key="navigationItem" title="Explore by Genre" id="liG-jF-l3U">
                         <barButtonItem key="rightBarButtonItem" image="icon-search" id="Vfx-SN-sHB">
                             <connections>
-                                <action selector="searchPressed:" destination="OWr-4S-6ch" id="T1Q-IM-Cp6"/>
+                                <action selector="searchPressed:" destination="OWr-4S-6ch" id="p5i-An-dwY"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
