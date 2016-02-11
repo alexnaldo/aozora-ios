@@ -308,7 +308,7 @@ private extension HomeViewController {
             dataSource.append(data)
         }
 
-        browserViewController.initWithBrowseData(dataSource, title: "Calendar")
+        browserViewController.initWithBrowseData(dataSource, controllerTitle: "Calendar", headerHeight: .Regular)
 
         navigationController?.pushViewController(browserViewController, animated: true)
     }
@@ -334,7 +334,7 @@ private extension HomeViewController {
             dataSource.append(data)
         }
 
-        browserViewController.initWithBrowseData(dataSource, title: "Seasonal Charts")
+        browserViewController.initWithBrowseData(dataSource, controllerTitle: "Seasonal Charts", headerHeight: .Regular)
 
         navigationController?.pushViewController(browserViewController, animated: true)
     }
@@ -358,7 +358,7 @@ private extension HomeViewController {
             dataSource.append(data)
         }
 
-        browserViewController.initWithBrowseData(dataSource, title: "Discover")
+        browserViewController.initWithBrowseData(dataSource, controllerTitle: "Discover", headerHeight: .Short)
 
         navigationController?.pushViewController(browserViewController, animated: true)
     }
@@ -374,12 +374,13 @@ private extension HomeViewController {
             let query = Anime.query()!
             query.whereKey("genres", containedIn: [genre])
             query.whereKey("type", equalTo: "TV")
+            query.orderByDescending("membersCount")
             let data: BrowseData = (title: genre, subtitle: nil, detailTitle: "See All", anime: [], query: query, fetching: false)
 
             dataSource.append(data)
         }
 
-        browserViewController.initWithBrowseData(dataSource, title: "Explore by Genres")
+        browserViewController.initWithBrowseData(dataSource, controllerTitle: "Explore by Genres", headerHeight: .Short)
 
         navigationController?.pushViewController(browserViewController, animated: true)
     }
@@ -395,12 +396,13 @@ private extension HomeViewController {
             let query = Anime.query()!
             query.whereKey("year", equalTo: Int(year)!)
             query.whereKey("type", equalTo: "TV")
+            query.orderByDescending("membersCount")
             let data: BrowseData = (title: year, subtitle: nil, detailTitle: "See All", anime: [], query: query, fetching: false)
 
             dataSource.append(data)
         }
 
-        browserViewController.initWithBrowseData(dataSource, title: "Explore by Year")
+        browserViewController.initWithBrowseData(dataSource, controllerTitle: "Explore by Year", headerHeight: .Short)
 
         navigationController?.pushViewController(browserViewController, animated: true)
 
@@ -416,12 +418,13 @@ private extension HomeViewController {
 
             let query = Anime.query()!
             query.whereKey("producers", containedIn: [studio])
+            query.orderByDescending("membersCount")
             let data: BrowseData = (title: studio, subtitle: nil, detailTitle: "See All", anime: [], query: query, fetching: false)
 
             dataSource.append(data)
         }
 
-        browserViewController.initWithBrowseData(dataSource, title: "Explore by Studios")
+        browserViewController.initWithBrowseData(dataSource, controllerTitle: "Explore by Studios", headerHeight: .Short)
 
         navigationController?.pushViewController(browserViewController, animated: true)
 
@@ -441,12 +444,13 @@ private extension HomeViewController {
             let query = Anime.query()!
             query.whereKey("details", matchesQuery: innerQuery)
             query.whereKey("type", equalTo: "TV")
+            query.orderByDescending("membersCount")
             let data: BrowseData = (title: classification, subtitle: nil, detailTitle: "See All", anime: [], query: query, fetching: false)
 
             dataSource.append(data)
         }
 
-        browserViewController.initWithBrowseData(dataSource, title: "Explore by Classification")
+        browserViewController.initWithBrowseData(dataSource, controllerTitle: "Explore by Classification", headerHeight: .Short)
 
         navigationController?.pushViewController(browserViewController, animated: true)
     }

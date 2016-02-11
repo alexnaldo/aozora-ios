@@ -14,24 +14,28 @@ typealias BrowseData = (title: String, subtitle: String?, detailTitle: String, a
 
 class AnimeBrowserViewController: UIViewController {
 
+    enum HeaderHeight: CGFloat {
+        case Short = 30
+        case Regular = 40
+    }
+
     @IBOutlet weak var tableView: UITableView!
 
     var animator: ZFModalTransitionAnimator!
     var dataSource: [BrowseData] = []
     var controllerTitle: String!
+    var headerHeight: HeaderHeight!
 
-    func initWithBrowseData(dataSource: [BrowseData], title: String) {
+    func initWithBrowseData(dataSource: [BrowseData], controllerTitle: String, headerHeight: HeaderHeight) {
         self.dataSource = dataSource
-        controllerTitle = title
+        self.controllerTitle = controllerTitle
+        self.headerHeight = headerHeight
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         title = controllerTitle
-//        dataSource = [
-//            (title: "Spring 2015", subtitle: "Mar 2015 - May 2015", detailTitle: "See all", anime: [], query: nil, fetching: false)
-//        ]
 
         TitleHeaderView.registerNibFor(tableView: tableView)
         TableCellWithCollection.registerNibFor(tableView: tableView)
@@ -136,7 +140,7 @@ extension AnimeBrowserViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         switch indexPath.row {
         case 0:
-            return 40
+            return headerHeight.rawValue
         case 1:
             return 167
         default:
