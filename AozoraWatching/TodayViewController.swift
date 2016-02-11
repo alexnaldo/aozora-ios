@@ -35,20 +35,42 @@ class TodayViewController: UIViewController {
         }
     }
     
-    var wormhole = MMWormhole.aozoraWormhole()
+    var wormhole: MMWormhole!
+    var contentIsHidden = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        wormhole = instantiateWormhole()
+
         // Initializind dataSource and content size
-        dataSource = wormhole.messageWatchingList() ?? []
+        let data = wormhole.messageWatchingList() ?? []
+        updateDataSource(data)
 
         // Listening for updates
         wormhole.listenForWatchingListUpdates { list in
             if let newDataSource = list as? [AnimeData] {
-                self.dataSource = newDataSource
+                self.updateDataSource(newDataSource)
             }
         }
+    }
+
+    func instantiateWormhole() -> MMWormhole {
+        let appName = NSBundle.mainBundle().objectForInfoDictionaryKey("APP_NAME") as! String
+        var groupIdentifier: String
+
+        if AppEnvironment.Application(rawValue: appName)! == .Aozora {
+            groupIdentifier = "group.anytap.Aozora"
+        } else {
+            groupIdentifier = "group.EverFox.AnimeTrakr.TodayExtension"
+        }
+
+        return MMWormhole(applicationGroupIdentifier: groupIdentifier, optionalDirectory: "wormwhole")
+    }
+
+    func updateDataSource(dataSource: [AnimeData]) {
+        contentIsHidden = dataSource.count > 8
+        self.dataSource = Array(dataSource.prefix(8))
     }
 
     // MARK: - IBActions
@@ -63,13 +85,24 @@ class TodayViewController: UIViewController {
 extension TodayViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource.count
+        return dataSource.count + (contentIsHidden ? 1 : 0)
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+
         guard let cell = tableView.dequeueReusableCellWithIdentifier("TodayCell") as? TodayCell else {
             return UITableViewCell()
         }
+
+        // View all case
+        if indexPath.row == dataSource.count {
+            cell.animeTitleLabel.text = ""
+            cell.episodeNumberLabel.text = "View all watching list"
+            cell.badgeImageView.image = nil
+            cell.badgeLabel.text = ""
+            return cell
+        }
+
         let animeData = dataSource[indexPath.row]
         cell.animeTitleLabel.text = animeData.title
         cell.episodeNumberLabel.text = "Next to watch: Ep \(animeData.currentEpisode + 1)"
