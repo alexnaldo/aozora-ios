@@ -71,8 +71,6 @@ public class InAppController {
         for identifier in identifiers {
             if unlockedContent.indexOf(identifier) != nil {
                 NSUserDefaults.standardUserDefaults().setBool(true, forKey: identifier)
-            } else {
-                NSUserDefaults.standardUserDefaults().removeObjectForKey(identifier)
             }
         }
         NSUserDefaults.standardUserDefaults().synchronize()
