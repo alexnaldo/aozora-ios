@@ -240,12 +240,20 @@ extension ForumsViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCellWithIdentifier("TopicCell") as! TopicCell
-        
+
         let thread = fetchController.objectAtIndex(indexPath.row) as! Thread
-        let title = thread.title
-        
+
+        if let _ = thread.pinType {
+            let cell = tableView.dequeueReusableCellWithIdentifier("PinnedCell") as! TopicCell
+
+            cell.typeLabel.text = " "
+            cell.title.text = thread.title
+
+            return cell
+        }
+
+        let cell = tableView.dequeueReusableCellWithIdentifier("TopicCell") as! TopicCell
+
         if let _ = thread.episode {
             cell.typeLabel.text = " "
         } else if let _ = thread.pinType {
@@ -258,7 +266,7 @@ extension ForumsViewController: UITableViewDataSource {
             cell.typeLabel.text = ""
         }
         
-        cell.title.text = title
+        cell.title.text = thread.title
         let lastPostedByUsername = thread.lastPostedBy?.aozoraUsername ?? ""
         cell.information.text = "\(thread.replyCount) comments · \(thread.updatedAt!.timeAgo()) · \(lastPostedByUsername)"
         cell.tagsLabel.updateTags(thread.tags, delegate: self, addLinks: false)
