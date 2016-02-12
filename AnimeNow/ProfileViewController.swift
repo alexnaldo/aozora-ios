@@ -279,8 +279,10 @@ public class ProfileViewController: ThreadViewController {
     
     func configureFetchController() {
         var offset = tableView.contentOffset
-        if offset.y > 345 {
-           offset.y = 345
+
+        let yOffset = tableView.tableHeaderView!.bounds.height - 44 - 64
+        if offset.y > yOffset {
+           offset.y = yOffset
         }
         fetchController.configureWith(self, queryDelegate: self, tableView: self.tableView, limit: self.FetchLimit, datasourceUsesSections: true)
         tableView.setContentOffset(offset, animated: false)
