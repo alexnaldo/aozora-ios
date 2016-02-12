@@ -9,7 +9,7 @@
 import Foundation
 import ANCommonKit
 import RSKImageCropper
-import ANParseKit
+
 
 protocol SignUpViewControllerDelegate: class {
     func signUpViewControllerCreatedAccount()

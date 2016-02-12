@@ -8,7 +8,7 @@
 
 import Foundation
 import ANCommonKit
-import ANParseKit
+
 
 protocol NotificationsViewControllerDelegate: class {
     func notificationsViewControllerHasUnreadNotifications(count: Int)

@@ -7,8 +7,7 @@
 //
 
 import Foundation
-import Parse
-import Bolts
+import ANCommonKit
 import TTTAttributedLabel
 
 public class NewThreadViewController: CommentViewController {

@@ -10,7 +10,7 @@ import Foundation
 import Parse
 import TTTAttributedLabel
 import ANCommonKit
-import ANParseKit
+
 
 public class NotificationThreadViewController: ThreadViewController {
     

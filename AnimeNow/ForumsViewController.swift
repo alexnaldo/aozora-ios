@@ -8,7 +8,7 @@
 
 import UIKit
 import ANCommonKit
-import ANParseKit
+
 import TTTAttributedLabel
 
 class ForumsViewController: UIViewController {

@@ -10,7 +10,7 @@ import Foundation
 import RSKImageCropper
 import Bolts
 import Parse
-import ANParseKit
+
 
 public protocol UserProfileManagerDelegate: class {
     func selectedAvatar(avatar: UIImage)

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ANParseKit
+
 import ANCommonKit
 
 public class RootTabBar: UITabBarController {

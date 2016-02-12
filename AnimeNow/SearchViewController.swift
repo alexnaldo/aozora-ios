@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ANParseKit
 import ANCommonKit
 import Bolts
 

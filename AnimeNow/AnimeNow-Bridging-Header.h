@@ -14,6 +14,11 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 
+#import "UIViewController+WebScraper.h"
+#import "WSWebScraper.h"
+#import "TFHpple.h"
+#import "TFHppleElement.h"
+
 #import <Bolts/Bolts.h>
 #import <Parse/Parse.h>
 

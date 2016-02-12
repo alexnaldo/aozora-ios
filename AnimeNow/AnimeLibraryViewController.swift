@@ -8,7 +8,6 @@
 
 import UIKit
 import ANCommonKit
-import ANParseKit
 import XLPagerTabStrip
 
 enum AnimeList: String {

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ANParseKit
+
 import ANCommonKit
 
 typealias BrowseData = (title: String, subtitle: String?, detailTitle: String, anime: [Anime], query: PFQuery?, fetching: Bool)

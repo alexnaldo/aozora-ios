@@ -8,7 +8,7 @@
 
 import Foundation
 import RMStore
-import ANParseKit
+
 
 let PurchasedProNotification = "InApps.Purchased.Pro"
 

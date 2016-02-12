@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ANParseKit
+
 
 extension AnimeBaseViewController: RequiresAnimeProtocol {
     func initWithAnime(anime: Anime) {
