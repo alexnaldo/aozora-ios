@@ -36,6 +36,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" title="Explore by Genre" id="liG-jF-l3U">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="OxD-2a-Jcd"/>
                         <barButtonItem key="rightBarButtonItem" image="icon-search" id="Vfx-SN-sHB">
                             <connections>
                                 <action selector="searchPressed:" destination="OWr-4S-6ch" id="p5i-An-dwY"/>

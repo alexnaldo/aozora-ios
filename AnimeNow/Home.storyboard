@@ -144,6 +144,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" title="Home" id="gP3-9X-HYS">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="Aeo-Rs-KBN"/>
                         <barButtonItem key="rightBarButtonItem" image="icon-search" id="fS5-Wz-AIM">
                             <connections>
                                 <action selector="searchPressed:" destination="Zim-e3-hZg" id="EYh-eG-Qm2"/>
