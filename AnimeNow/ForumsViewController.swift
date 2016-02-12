@@ -42,7 +42,6 @@ class ForumsViewController: UIViewController {
     var selectedThreadTag: ThreadTag?
     var selectedAnime: Anime?
     var animator: ZFModalTransitionAnimator!
-    var dataRefresher: DataRefresherController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,15 +59,7 @@ class ForumsViewController: UIViewController {
         fetchAnimeTags()
         prepareForList(selectedList)
 
-        addRefreshControl(refreshControl, action: nil, forTableView: tableView)
-        dataRefresher = DataRefresherController(timeInterval: .MediumTraffic, refreshControl: refreshControl, refreshCallback: { _ in
-            if self.navigationController?.visibleViewController == self {
-                self.refetchThreads()
-                return true
-            } else {
-                return false
-            }
-        })
+        addRefreshControl(refreshControl, action: "refetchThreads", forTableView: tableView)
     }
     
     override func viewWillAppear(animated: Bool) {

@@ -8,6 +8,8 @@
 
 import Foundation
 
+
+// TODO: Currently not used
 class DataRefresherController: NSObject {
 
     typealias RefreshCallback = () -> Bool
