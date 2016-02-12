@@ -323,7 +323,7 @@ public class ProfileViewController: ThreadViewController {
         super.replyToThreadPressed(sender)
         
         if let profile = userProfile where User.currentUserLoggedIn() {
-            let comment = ANParseKit.newPostViewController()
+            let comment = ANAnimeKit.newPostViewController()
             comment.initWithTimelinePost(self, postedIn: profile)
             animator = presentViewControllerModal(comment)
         } else {

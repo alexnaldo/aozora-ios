@@ -6,19 +6,14 @@
 //  Copyright (c) 2015 AnyTap. All rights reserved.
 //
 
-
 public class ANAnimeKit {
-    
-    public class func defaultStoryboard() -> UIStoryboard {
-        return UIStoryboard(name: "Anime", bundle: nil)
-    }
     
     public class func threadStoryboard() -> UIStoryboard {
         return UIStoryboard(name: "Thread", bundle: nil)
     }
     
     public class func rootTabBarController() -> CustomTabBarController {
-        let tabBarController = defaultStoryboard().instantiateInitialViewController() as! CustomTabBarController
+        let tabBarController = UIStoryboard(name: "Anime", bundle: nil).instantiateInitialViewController() as! CustomTabBarController
         return tabBarController
     }
     
@@ -33,12 +28,12 @@ public class ANAnimeKit {
     }
     
     public class func customThreadViewController() -> CustomThreadViewController {
-        let controller = ANAnimeKit.threadStoryboard().instantiateViewControllerWithIdentifier("CustomThread") as! CustomThreadViewController
+        let controller = UIStoryboard(name: "Thread", bundle: nil).instantiateViewControllerWithIdentifier("CustomThread") as! CustomThreadViewController
         return controller
     }
     
     public class func notificationThreadViewController() -> (UINavigationController, NotificationThreadViewController) {
-        let controller = ANAnimeKit.threadStoryboard().instantiateViewControllerWithIdentifier("NotificationThreadNav") as! UINavigationController
+        let controller = UIStoryboard(name: "Notifications", bundle: nil).instantiateViewControllerWithIdentifier("NotificationThreadNav") as! UINavigationController
         return (controller, controller.viewControllers.last! as! NotificationThreadViewController)
     }
     
@@ -48,5 +43,49 @@ public class ANAnimeKit {
         
         let controller = navigation.viewControllers.last as! SearchViewController
         return (navigation, controller)
+    }
+
+    public class func commentStoryboard() -> UIStoryboard {
+        return UIStoryboard(name: "Comment", bundle: nil)
+    }
+
+    public class func newPostViewController() -> NewPostViewController {
+        let controller = commentStoryboard().instantiateViewControllerWithIdentifier("NewPost") as! NewPostViewController
+        return controller
+    }
+
+    public class func newThreadViewController() -> NewThreadViewController {
+        let controller = commentStoryboard().instantiateViewControllerWithIdentifier("NewThread") as! NewThreadViewController
+        return controller
+    }
+
+    public class func loginViewController() -> LoginViewController {
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+        let loginController = storyboard.instantiateInitialViewController() as! LoginViewController
+        return loginController
+    }
+
+    public class func webViewController() -> (UINavigationController,WebBrowserViewController) {
+        let controller = UIStoryboard(name: "WebBrowser", bundle: NSBundle(forClass: self)).instantiateInitialViewController() as! UINavigationController
+        return (controller,controller.viewControllers.last! as! WebBrowserViewController)
+    }
+
+    public class func shortClassification(classification: String) -> String {
+
+        switch classification {
+        case "None":
+            return "?"
+        case "G - All Ages":
+            return "G"
+        case "PG-13 - Teens 13 or older":
+            return "PG-13"
+        case "R - 17+ (violence & profanity)":
+            return "R17+"
+        case "Rx - Hentai":
+            return "Rx"
+        default:
+            return "?"
+        }
+
     }
 }

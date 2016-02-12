@@ -210,7 +210,7 @@ class ForumsViewController: UIViewController {
     @IBAction func createThread(sender: AnyObject) {
         
         if User.currentUserLoggedIn() {
-            let comment = ANParseKit.newThreadViewController()
+            let comment = ANAnimeKit.newThreadViewController()
             if let selectedAnime = selectedAnime where selectedList == .Anime {
                 comment.initCustomThreadWithDelegate(self, tags: [selectedAnime])
             } else {
@@ -334,9 +334,6 @@ extension ForumsViewController: DropDownListDelegate {
             default: break
             }
         }
-    }
-    
-    func dropDownDidDismissed(selectedAction: Bool) {
     }
 }
 

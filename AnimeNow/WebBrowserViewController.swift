@@ -1,5 +1,5 @@
 //
-//  InAppBrowserViewController.swift
+//  WebBrowserViewController.swift
 //  Seedonk
 //
 //  Created by Larry Damman on 3/19/15.
@@ -8,7 +8,7 @@
 
 import WebKit
 
-public class InAppBrowserViewController: UIViewController {
+public class WebBrowserViewController: UIViewController {
 
     var initialStatusBarStyle: UIStatusBarStyle!
     public var webView: WKWebView!
@@ -118,7 +118,7 @@ public class InAppBrowserViewController: UIViewController {
 
 // MARK: <UIWebViewDelegate>
 
-extension InAppBrowserViewController : WKNavigationDelegate {
+extension WebBrowserViewController : WKNavigationDelegate {
     public func webView(webView: WKWebView, didFailNavigation navigation: WKNavigation!, withError error: NSError) {
     }
     

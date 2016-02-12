@@ -645,7 +645,7 @@ extension AnimeInformationViewController: UITableViewDelegate {
         case .ExternalLinks:
             let link = anime.linkAtIndex(indexPath.row)
             
-            let (navController, webController) = ANParseKit.webViewController()
+            let (navController, webController) = ANAnimeKit.webViewController()
             let initialUrl = NSURL(string: link.url)
             webController.initWithInitialUrl(initialUrl)
             presentViewController(navController, animated: true, completion: nil)

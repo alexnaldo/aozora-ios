@@ -222,7 +222,7 @@ extension AnimeListViewController: UICollectionViewDataSource {
         
         switch currentLayout {
         case .CheckIn:
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CheckIn", forIndexPath: indexPath) as! LibraryAnimeCell
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CheckIn", forIndexPath: indexPath) as! AnimeLibraryCell
             
             let anime = animeList[indexPath.row]
             cell.delegate = self
@@ -251,8 +251,8 @@ extension AnimeListViewController: UICollectionViewDelegate {
     }
 }
 
-extension AnimeListViewController: LibraryAnimeCellDelegate {
-    func cellPressedWatched(cell: LibraryAnimeCell, anime: Anime) {
+extension AnimeListViewController: AnimeLibraryCellDelegate {
+    func cellPressedWatched(cell: AnimeLibraryCell, anime: Anime) {
         if let progress = anime.progress {
 
             if progress.myAnimeListList() == .Completed {
@@ -263,7 +263,7 @@ extension AnimeListViewController: LibraryAnimeCellDelegate {
         }
     }
     
-    func cellPressedEpisodeThread(cell: LibraryAnimeCell, anime: Anime, episode: Episode) {
+    func cellPressedEpisodeThread(cell: AnimeLibraryCell, anime: Anime, episode: Episode) {
         
         let threadController = ANAnimeKit.customThreadViewController()
         threadController.initWithEpisode(episode, anime: anime)

@@ -128,7 +128,7 @@ public class ThreadViewController: UIViewController {
             return
         }
         
-        let comment = ANParseKit.newPostViewController()
+        let comment = ANAnimeKit.newPostViewController()
         if let post = post as? ThreadPostable, let thread = thread where !thread.locked {
             if thread.locked {
                 presentBasicAlertWithTitle("Thread is locked")
@@ -516,7 +516,7 @@ extension ThreadViewController: UITableViewDelegate {
                 }
                 
                 alert.addAction(UIAlertAction(title: "Edit", style: administrating ? UIAlertActionStyle.Destructive : UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction!) -> Void in
-                    let comment = ANParseKit.newPostViewController()
+                    let comment = ANAnimeKit.newPostViewController()
                     if let post = post as? TimelinePost {
                         comment.initWithTimelinePost(self, postedIn: currentUser, editingPost: post)
                     } else if let post = post as? Post, let thread = self.thread {
@@ -632,7 +632,7 @@ extension ThreadViewController: TTTAttributedLabelDelegate {
                 }
             
         } else if url.scheme != "aozoraapp" {
-            let (navController, webController) = ANParseKit.webViewController()
+            let (navController, webController) = ANAnimeKit.webViewController()
             webController.initWithInitialUrl(url)
             presentViewController(navController, animated: true, completion: nil)
         }
@@ -694,7 +694,7 @@ extension ThreadViewController: LinkCellDelegate {
             return
         }
         
-        let (navController, webController) = ANParseKit.webViewController()
+        let (navController, webController) = ANAnimeKit.webViewController()
         let initialUrl = NSURL(string: url)
         webController.initWithInitialUrl(initialUrl)
         presentViewController(navController, animated: true, completion: nil)

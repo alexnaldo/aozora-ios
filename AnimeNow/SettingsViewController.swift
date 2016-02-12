@@ -120,7 +120,7 @@ class SettingsViewController: UITableViewController {
                 self.presentViewController(alert, animated: true, completion: nil)
             } else {
                 
-                let loginController = ANParseKit.loginViewController()
+                let loginController = ANAnimeKit.loginViewController()
                 presentViewController(loginController, animated: true, completion: nil)
                 
                 NSUserDefaults.standardUserDefaults().setBool(true, forKey: RootTabBar.ShowedMyAnimeListLoginDefault)
@@ -157,7 +157,7 @@ class SettingsViewController: UITableViewController {
             navigationController?.pushViewController(controller, animated: true)
         case (1,1):
             // Restore purchases
-            InAppTransactionController.restorePurchases().continueWithBlock({ (task: BFTask!) -> AnyObject! in
+            InAppPurchaseController.restorePurchases().continueWithBlock({ (task: BFTask!) -> AnyObject! in
                 
                 if let _ = task.result {
                     let alert = UIAlertController(title: "Restored!", message: nil, preferredStyle: UIAlertControllerStyle.Alert)

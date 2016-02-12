@@ -1,5 +1,5 @@
 //
-//  LibraryAnimeCell.swift
+//  AnimeLibraryCell.swift
 //  Aozora
 //
 //  Created by Paul Chavarria Podoliako on 7/2/15.
@@ -11,13 +11,13 @@ import Foundation
 import ANCommonKit
 import Bolts
 
-protocol LibraryAnimeCellDelegate: class {
-    func cellPressedWatched(cell: LibraryAnimeCell, anime: Anime)
-    func cellPressedEpisodeThread(cell: LibraryAnimeCell, anime: Anime, episode: Episode)
+protocol AnimeLibraryCellDelegate: class {
+    func cellPressedWatched(cell: AnimeLibraryCell, anime: Anime)
+    func cellPressedEpisodeThread(cell: AnimeLibraryCell, anime: Anime, episode: Episode)
 }
-class LibraryAnimeCell: AnimeCell {
+class AnimeLibraryCell: AnimeCell {
     
-    weak var delegate: LibraryAnimeCellDelegate?
+    weak var delegate: AnimeLibraryCellDelegate?
     var anime: Anime?
     weak var episode: Episode?
     var currentCancellationToken: NSOperation?

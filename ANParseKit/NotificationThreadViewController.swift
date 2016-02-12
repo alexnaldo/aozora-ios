@@ -135,7 +135,7 @@ public class NotificationThreadViewController: ThreadViewController {
         super.replyToThreadPressed(sender)
         
         if let thread = thread where User.currentUserLoggedIn() {
-            let comment = ANParseKit.newPostViewController()
+            let comment = ANAnimeKit.newPostViewController()
             comment.initWith(thread, threadType: threadType, delegate: self)
             presentViewController(comment, animated: true, completion: nil)
         } else if let thread = thread where thread.locked {

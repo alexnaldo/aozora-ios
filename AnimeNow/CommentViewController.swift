@@ -200,7 +200,7 @@ public class CommentViewController: UIViewController {
         if let _ = selectedImageData {
             selectedImageData = nil
         } else {
-            let imagesController = ANParseKit.commentStoryboard().instantiateViewControllerWithIdentifier("Images") as! ImagesViewController
+            let imagesController = ANAnimeKit.commentStoryboard().instantiateViewControllerWithIdentifier("Images") as! ImagesViewController
             imagesController.delegate = self
             animator = presentViewControllerModal(imagesController)
         }
@@ -212,8 +212,8 @@ public class CommentViewController: UIViewController {
         if let _ = selectedVideoID {
             selectedVideoID = nil
         } else {
-            let navController = ANParseKit.commentStoryboard().instantiateViewControllerWithIdentifier("BrowserSelector") as! UINavigationController
-            let videoController = navController.viewControllers.last as! InAppBrowserSelectorViewController
+            let navController = ANAnimeKit.commentStoryboard().instantiateViewControllerWithIdentifier("BrowserSelector") as! UINavigationController
+            let videoController = navController.viewControllers.last as! WebBrowserSelectorViewController
             let initialURL = NSURL(string: "https://www.youtube.com")
             videoController.initWithInitialUrl(initialURL, overrideTitle: "Select a video")
             videoController.delegate = self
@@ -247,8 +247,8 @@ extension CommentViewController: ImagesViewControllerDelegate {
     }
 }
 
-extension CommentViewController: InAppBrowserSelectorViewControllerDelegate {
-    public func inAppBrowserSelectorViewControllerSelectedSite(siteURL: String) {
+extension CommentViewController: WebBrowserSelectorViewControllerDelegate {
+    public func WebBrowserSelectorViewControllerSelectedSite(siteURL: String) {
         if let url = NSURL(string: siteURL), let parameters = BFURL(URL: url).inputQueryParameters, let videoID = parameters["v"] as? String {
             selectedVideoID = videoID
             selectedImageData = nil
@@ -278,12 +278,12 @@ extension CommentViewController: UITextViewDelegate {
                     // Pin youtube videos separately
                     if let host = url.host where host.containsString("youtube.com") || host.containsString("youtu.be") {
                         if host.containsString("youtube.com") {
-                            inAppBrowserSelectorViewControllerSelectedSite(url.absoluteString)
+                            WebBrowserSelectorViewControllerSelectedSite(url.absoluteString)
                         }
                         
                         if host.containsString("youtu.be") {
                             let videoID = url.pathComponents![1]
-                            inAppBrowserSelectorViewControllerSelectedSite("http://www.youtube.com/watch?v=\(videoID)")
+                            WebBrowserSelectorViewControllerSelectedSite("http://www.youtube.com/watch?v=\(videoID)")
                         }
                         return false
                     }

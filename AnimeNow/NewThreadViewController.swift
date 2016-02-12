@@ -196,7 +196,7 @@ public class NewThreadViewController: CommentViewController {
     // MARK: - IBActions
     
     @IBAction func addTags(sender: AnyObject) {
-        let tagsController = ANParseKit.commentStoryboard().instantiateViewControllerWithIdentifier("Tags") as! TagsViewController
+        let tagsController = ANAnimeKit.commentStoryboard().instantiateViewControllerWithIdentifier("Tags") as! TagsViewController
         tagsController.selectedDataSource = tags
         tagsController.delegate = self
         animator = presentViewControllerModal(tagsController)

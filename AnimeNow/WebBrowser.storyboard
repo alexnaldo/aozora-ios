@@ -22,10 +22,10 @@
             </objects>
             <point key="canvasLocation" x="-548" y="153"/>
         </scene>
-        <!--In App Browser View Controller-->
+        <!--Web Browser View Controller-->
         <scene sceneID="ohI-V0-GAQ">
             <objects>
-                <viewController storyboardIdentifier="InAppBrowserViewController" id="Nc5-67-Let" customClass="InAppBrowserViewController" customModule="ANParseKit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WebBrowserViewController" id="Nc5-67-Let" customClass="WebBrowserViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GDc-3K-yb5"/>
                         <viewControllerLayoutGuide type="bottom" id="7DI-99-SJv"/>

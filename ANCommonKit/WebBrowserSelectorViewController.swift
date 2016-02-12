@@ -1,5 +1,5 @@
 //
-//  InAppBrowserSelectorViewController.swift
+//  WebBrowserSelectorViewController.swift
 //  Aozora
 //
 //  Created by Paul Chavarria Podoliako on 8/6/15.
@@ -10,13 +10,13 @@ import Foundation
 import WebKit
 import ANCommonKit
 
-public protocol InAppBrowserSelectorViewControllerDelegate: class {
-    func inAppBrowserSelectorViewControllerSelectedSite(siteURL: String)
+public protocol WebBrowserSelectorViewControllerDelegate: class {
+    func WebBrowserSelectorViewControllerSelectedSite(siteURL: String)
 }
 
-public class InAppBrowserSelectorViewController: InAppBrowserViewController {
+public class WebBrowserSelectorViewController: WebBrowserViewController {
     
-    public weak var delegate: InAppBrowserSelectorViewControllerDelegate?
+    public weak var delegate: WebBrowserSelectorViewControllerDelegate?
     
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +28,7 @@ public class InAppBrowserSelectorViewController: InAppBrowserViewController {
     
     func selectedWebSite(sender: AnyObject) {
         if let urlString = webView.URL?.absoluteString {
-            delegate?.inAppBrowserSelectorViewControllerSelectedSite(urlString)
+            delegate?.WebBrowserSelectorViewControllerSelectedSite(urlString)
         }
         dismissViewControllerAnimated(true, completion: nil)
     }

@@ -313,7 +313,7 @@ public class CustomThreadViewController: ThreadViewController {
         super.replyToThreadPressed(sender)
         
         if let thread = thread where User.currentUserLoggedIn() {
-            let comment = ANParseKit.newPostViewController()
+            let comment = ANAnimeKit.newPostViewController()
             comment.initWith(thread, threadType: threadType, delegate: self)
             animator = presentViewControllerModal(comment)
         } else if let thread = thread where thread.locked {
@@ -354,7 +354,7 @@ public class CustomThreadViewController: ThreadViewController {
             alert.popoverPresentationController?.sourceRect = sender.frame
             
             alert.addAction(UIAlertAction(title: "Edit", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction!) -> Void in
-                let comment = ANParseKit.newThreadViewController()
+                let comment = ANAnimeKit.newThreadViewController()
                 comment.initWith(thread, threadType: self.threadType, delegate: self, editingPost: thread)
                 self.animator = self.presentViewControllerModal(comment)
             }))

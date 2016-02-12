@@ -127,7 +127,7 @@ extension ImagesViewController: UICollectionViewDelegate {
     public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let imageData = dataSource[indexPath.row]
         
-        let imageController = ANParseKit.commentStoryboard().instantiateViewControllerWithIdentifier("Image") as! ImageViewController
+        let imageController = ANAnimeKit.commentStoryboard().instantiateViewControllerWithIdentifier("Image") as! ImageViewController
         
         if let image = imageDatasource[imageData.url] {
             imageController.initWith(imageData: imageData, animatedImage: image)

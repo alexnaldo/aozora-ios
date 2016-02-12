@@ -68,7 +68,7 @@ public class ForumViewController: AnimeBaseViewController {
     @IBAction func createAnimeThread(sender: AnyObject) {
         
         if User.currentUserLoggedIn() {
-            let comment = ANParseKit.newThreadViewController()
+            let comment = ANAnimeKit.newThreadViewController()
             comment.initWith(threadType: .Custom, delegate: self, anime: anime)
             animator = presentViewControllerModal(comment)
         } else {

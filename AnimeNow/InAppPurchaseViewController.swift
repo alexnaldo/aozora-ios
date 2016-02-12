@@ -99,10 +99,8 @@ class InAppPurchaseViewController: UITableViewController {
     }
     
     func purchaseProductWithID(productID: String) {
-        InAppTransactionController.purchaseProductWithID(productID).continueWithSuccessBlock { (task: BFTask!) -> AnyObject! in
-            
-            
-            
+        InAppPurchaseController.purchaseProductWithID(productID).continueWithSuccessBlock { (task: BFTask!) -> AnyObject! in
+
             return nil
         }
     }

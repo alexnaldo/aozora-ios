@@ -12,7 +12,7 @@ import RMStore
 
 let PurchasedProNotification = "InApps.Purchased.Pro"
 
-class InAppTransactionController {
+class InAppPurchaseController {
     
     class func purchaseProductWithID(productID: String) -> BFTask {
         let completionSource = BFTaskCompletionSource()

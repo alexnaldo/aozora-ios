@@ -236,10 +236,6 @@ extension EpisodesViewController: DropDownListDelegate {
             break
         }
     }
-    
-    func dropDownDidDismissed(selectedAction: Bool) {
-        
-    }
 }
 
 extension EpisodesViewController: RateViewControllerProtocol {
