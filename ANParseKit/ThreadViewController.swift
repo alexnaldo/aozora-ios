@@ -55,7 +55,7 @@ public class ThreadViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         
         CommentCell.registerNibFor(tableView: tableView)
-        LinkCell.registerNibFor(tableView: tableView)
+        UrlCell.registerNibFor(tableView: tableView)
         WriteACommentCell.registerNibFor(tableView: tableView)
         ShowMoreCell.registerNibFor(tableView: tableView)
         
@@ -237,7 +237,7 @@ extension ThreadViewController: UITableViewDataSource {
                 reuseIdentifier = "PostImageCell"
             } else if post.linkData != nil {
                 // Post link cell
-                reuseIdentifier = "LinkCell"
+                reuseIdentifier = "UrlCell"
             } else {
                 // Text post update
                 reuseIdentifier = "PostTextCell"
@@ -360,7 +360,7 @@ extension ThreadViewController: UITableViewDataSource {
     func updatePostCell(cell: PostCell, var withPost post: Commentable) {
         
         // Only embed links on post cells for now
-        if let linkCell = cell as? LinkCell, let linkData = post.linkData, let linkUrl = linkData.url {
+        if let linkCell = cell as? UrlCell, let linkData = post.linkData, let linkUrl = linkData.url {
             linkCell.linkDelegate = self
             linkCell.linkTitleLabel.text = linkData.title
             linkCell.linkContentLabel.text = linkData.description
@@ -686,7 +686,7 @@ extension ThreadViewController: PostCellDelegate {
 }
 
 extension ThreadViewController: LinkCellDelegate {
-    public func postCellSelectedLink(linkCell: LinkCell) {
+    public func postCellSelectedLink(linkCell: UrlCell) {
         guard let indexPath = tableView.indexPathForCell(linkCell),
             var postable = fetchController.objectAtIndex(indexPath.section) as? Commentable,
             let linkData = postable.linkData,

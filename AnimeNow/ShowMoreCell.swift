@@ -11,7 +11,7 @@ import Foundation
 public class ShowMoreCell: UITableViewCell {
     public class func registerNibFor(tableView tableView: UITableView) {
 
-        let listNib = UINib(nibName: "ShowMoreCell", bundle: ANCommonKit.bundle())
+        let listNib = UINib(nibName: "ShowMoreCell", bundle: nil)
         tableView.registerNib(listNib, forCellReuseIdentifier: "ShowMoreCell")
     }
 }

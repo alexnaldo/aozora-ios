@@ -22,12 +22,12 @@ public class CommentCell: PostCell {
         super.registerNibFor(tableView: tableView)
         
         do {
-            let listNib = UINib(nibName: "CommentTextCell", bundle: ANCommonKit.bundle())
+            let listNib = UINib(nibName: "CommentTextCell", bundle: nil)
             tableView.registerNib(listNib, forCellReuseIdentifier: "CommentTextCell")
         }
         
         do {
-            let listNib = UINib(nibName: "CommentImageCell", bundle: ANCommonKit.bundle())
+            let listNib = UINib(nibName: "CommentImageCell", bundle: nil)
             tableView.registerNib(listNib, forCellReuseIdentifier: "CommentImageCell")
         }
     }

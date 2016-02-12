@@ -10,10 +10,10 @@ import UIKit
 import TTTAttributedLabel
 
 public protocol LinkCellDelegate: PostCellDelegate {
-    func postCellSelectedLink(linkCell: LinkCell)
+    func postCellSelectedLink(linkCell: UrlCell)
 }
 
-public class LinkCell: PostCell {
+public class UrlCell: PostCell {
     
     @IBOutlet public weak var linkTitleLabel: UILabel!
     @IBOutlet public weak var linkContentLabel: UILabel!
@@ -27,8 +27,8 @@ public class LinkCell: PostCell {
         
         super.registerNibFor(tableView: tableView)
         
-        let listNib = UINib(nibName: "LinkCell", bundle: ANCommonKit.bundle())
-        tableView.registerNib(listNib, forCellReuseIdentifier: "LinkCell")
+        let listNib = UINib(nibName: "UrlCell", bundle: nil)
+        tableView.registerNib(listNib, forCellReuseIdentifier: "UrlCell")
     }
     
     public override func awakeFromNib() {

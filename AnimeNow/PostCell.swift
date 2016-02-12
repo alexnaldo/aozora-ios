@@ -49,9 +49,9 @@ public class PostCell: UITableViewCell {
     
     public class func registerNibFor(tableView tableView: UITableView) {
 
-        let listNib = UINib(nibName: "PostTextCell", bundle: ANCommonKit.bundle())
+        let listNib = UINib(nibName: "PostTextCell", bundle: nil)
         tableView.registerNib(listNib, forCellReuseIdentifier: "PostTextCell")
-        let listNib2 = UINib(nibName: "PostImageCell", bundle: ANCommonKit.bundle())
+        let listNib2 = UINib(nibName: "PostImageCell", bundle: nil)
         tableView.registerNib(listNib2, forCellReuseIdentifier: "PostImageCell")
         
     }

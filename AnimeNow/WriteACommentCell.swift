@@ -11,7 +11,7 @@ import Foundation
 public class WriteACommentCell: UITableViewCell {
     public class func registerNibFor(tableView tableView: UITableView) {
 
-        let listNib = UINib(nibName: "WriteACommentCell", bundle: ANCommonKit.bundle())
+        let listNib = UINib(nibName: "WriteACommentCell", bundle: nil)
         tableView.registerNib(listNib, forCellReuseIdentifier: "WriteACommentCell")
     }
 }
