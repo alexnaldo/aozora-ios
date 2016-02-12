@@ -248,6 +248,8 @@ extension ForumsViewController: UITableViewDataSource {
 
             cell.typeLabel.text = " "
             cell.title.text = thread.title
+            cell.typeLabel.textColor = UIColor.darkGrayColor()
+            cell.title.textColor = UIColor.darkGrayColor()
 
             return cell
         }
@@ -256,14 +258,20 @@ extension ForumsViewController: UITableViewDataSource {
 
         if let _ = thread.episode {
             cell.typeLabel.text = " "
-        } else if let _ = thread.pinType {
-            cell.typeLabel.text = " "
+            cell.typeLabel.textColor = UIColor.aozoraPurple()
+            cell.title.textColor = UIColor.aozoraPurple()
         } else if thread.locked {
             cell.typeLabel.text = " "
+            cell.typeLabel.textColor = UIColor.pumpkin()
+            cell.title.textColor = UIColor.belizeHole()
         } else if let _ = thread.youtubeID {
             cell.typeLabel.text = " "
+            cell.typeLabel.textColor = UIColor.belizeHole()
+            cell.title.textColor = UIColor.belizeHole()
         } else {
             cell.typeLabel.text = ""
+            cell.typeLabel.textColor = UIColor.belizeHole()
+            cell.title.textColor = UIColor.belizeHole()
         }
         
         cell.title.text = thread.title

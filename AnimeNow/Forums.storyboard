@@ -105,7 +105,7 @@
                                                     </variation>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gB2-v6-eC0">
-                                                    <rect key="frame" x="8" y="14" width="14" height="15"/>
+                                                    <rect key="frame" x="8" y="16" width="13.5" height="14.5"/>
                                                     <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="14"/>
                                                     <color key="textColor" red="0.0078431377190000002" green="0.43921568989999998" blue="0.73333334920000004" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -143,7 +143,7 @@
                                                 <constraint firstItem="2kG-0g-6h2" firstAttribute="leading" secondItem="gB2-v6-eC0" secondAttribute="trailing" id="7tS-Wo-B3h"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Z0X-AH-kMe" secondAttribute="trailing" id="DeX-dO-Ls2"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="2kG-0g-6h2" secondAttribute="trailing" id="HN6-v2-Ra9"/>
-                                                <constraint firstItem="gB2-v6-eC0" firstAttribute="top" secondItem="N5c-aX-4ac" secondAttribute="topMargin" constant="6" id="JNw-X1-hVQ"/>
+                                                <constraint firstItem="gB2-v6-eC0" firstAttribute="top" secondItem="N5c-aX-4ac" secondAttribute="topMargin" constant="8" id="JNw-X1-hVQ"/>
                                                 <constraint firstItem="6Uz-8o-a1g" firstAttribute="leading" secondItem="N5c-aX-4ac" secondAttribute="leadingMargin" id="NC1-c8-VF7"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="Z0X-AH-kMe" secondAttribute="bottom" id="QPk-AX-fT2"/>
                                                 <constraint firstItem="6Uz-8o-a1g" firstAttribute="trailing" secondItem="N5c-aX-4ac" secondAttribute="trailingMargin" id="ZBK-jA-GxS"/>
