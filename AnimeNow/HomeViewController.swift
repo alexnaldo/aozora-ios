@@ -115,16 +115,14 @@ class HomeViewController: UIViewController {
         coordinator.animateAlongsideTransition({ (context) in
 
             self.updateHeaderViewControllerLayout(headerSize)
-            self.headerViewController.collectionViewLayout.invalidateLayout()
             self.headerViewController.reloadData()
 
+        }) { (context) in
             if let nextIndexPath = nextIndexPath {
                 let rect = CGRect(x: CGFloat(nextIndexPath.row) * headerSize.width, y: 0, width: headerSize.width, height: headerSize.height)
+                print(rect)
                 self.headerViewController.scrollRectToVisible(rect, animated: false)
             }
-
-        }) { (context) in
-
         }
     }
 
