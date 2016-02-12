@@ -8,7 +8,7 @@
 
 import UIKit
 import Alamofire
-import ANParseKit
+
 import ANCommonKit
 
 class ParseWorker {

@@ -8,7 +8,7 @@
 
 import UIKit
 import FBSDKMessengerShareKit
-import ANParseKit
+
 
 protocol EpisodeCellDelegate: class {
     func episodeCellWatchedPressed(cell: EpisodeCell)

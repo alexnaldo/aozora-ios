@@ -8,7 +8,7 @@
 
 import UIKit
 import iRate
-import ANParseKit
+
 import ANCommonKit
 import FBSDKShareKit
 

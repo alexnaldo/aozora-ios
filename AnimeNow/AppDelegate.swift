@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ANParseKit
+
 import ANCommonKit
 import XCDYouTubeKit
 import JTSImageViewController
@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Fabric.with([Crashlytics()])
         initializeParse()
-        //PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
+        PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
         PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
         
         trackPushOpen(application, didFinishLaunchingWithOptions:launchOptions)

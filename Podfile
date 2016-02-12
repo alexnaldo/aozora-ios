@@ -25,7 +25,7 @@ def common_pods
     pod 'FLAnimatedImage', '~> 1.0'
 end
 
-def project_pods
+target 'Aozora' do
     common_pods
     pod 'FontAwesome+iOS'
     pod 'Shimmer'
@@ -40,13 +40,6 @@ def project_pods
     pod 'CRToast', '~> 0.0.7'
 end
 
-target 'Aozora' do
-    project_pods
-end
-
-target 'ANParseKit' do
-    project_pods
-end
 
 target 'ANCommonKit' do
     common_pods

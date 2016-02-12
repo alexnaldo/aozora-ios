@@ -9,7 +9,7 @@
 import UIKit
 import Shimmer
 import ANCommonKit
-import ANParseKit
+
 import XCDYouTubeKit
 import FBSDKShareKit
 import Bolts

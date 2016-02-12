@@ -11,7 +11,7 @@ import ANCommonKit
 import TTTAttributedLabel
 import XCDYouTubeKit
 import Parse
-import ANParseKit
+
 
 public class ProfileViewController: ThreadViewController {
     

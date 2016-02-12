@@ -7,8 +7,7 @@
 //
 
 import Foundation
-import Parse
-import Bolts
+import ANCommonKit
 
 public class NewPostViewController: CommentViewController {
     

@@ -11,7 +11,6 @@ import Alamofire
 import Bolts
 import Parse
 import ANCommonKit
-import ANParseKit
 
 class UserListViewController: UIViewController {
     

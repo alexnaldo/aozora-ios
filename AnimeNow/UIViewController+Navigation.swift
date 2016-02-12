@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import ANCommonKit
 import JTSImageViewController
 
 public protocol ModalTransitionScrollable {

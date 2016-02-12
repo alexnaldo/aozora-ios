@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import ANParseKit
+
 import ANCommonKit
 import JTSImageViewController
 

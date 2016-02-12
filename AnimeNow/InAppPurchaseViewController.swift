@@ -9,7 +9,7 @@
 import UIKit
 import RMStore
 import ANCommonKit
-import ANParseKit
+
 
 class InAppPurchaseViewController: UITableViewController {
 
