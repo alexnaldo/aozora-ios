@@ -399,6 +399,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zBp-r0-AD0" userLabel="SegmentedControlView">
                                 <rect key="frame" x="0.0" y="337" width="600" height="44"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ehK-8p-bzI">
+                                        <rect key="frame" x="0.0" y="44" width="600" height="1"/>
+                                        <color key="backgroundColor" white="0.88738383084660299" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="jwU-z9-fAE"/>
+                                        </constraints>
+                                    </view>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="B3n-Tx-huN">
                                         <rect key="frame" x="8" y="8" width="584" height="29"/>
                                         <constraints>
@@ -424,10 +431,13 @@
                                 <constraints>
                                     <constraint firstItem="B3n-Tx-huN" firstAttribute="leading" secondItem="zBp-r0-AD0" secondAttribute="leading" constant="8" id="ASm-eU-7DW"/>
                                     <constraint firstAttribute="trailing" secondItem="B3n-Tx-huN" secondAttribute="trailing" constant="8" id="GMs-Ps-7Kg"/>
+                                    <constraint firstItem="ehK-8p-bzI" firstAttribute="leading" secondItem="zBp-r0-AD0" secondAttribute="leading" id="Kre-jx-mub"/>
+                                    <constraint firstAttribute="trailing" secondItem="ehK-8p-bzI" secondAttribute="trailing" id="Krw-8n-UCm"/>
                                     <constraint firstItem="B3n-Tx-huN" firstAttribute="centerY" secondItem="zBp-r0-AD0" secondAttribute="centerY" id="L4H-kr-0ky"/>
                                     <constraint firstAttribute="height" constant="44" id="PGs-uL-Tck"/>
                                     <constraint firstAttribute="bottom" secondItem="B3n-Tx-huN" secondAttribute="bottom" constant="8" id="Plc-oZ-Zts"/>
                                     <constraint firstAttribute="trailing" secondItem="B3n-Tx-huN" secondAttribute="trailing" constant="8" id="PmD-fH-bOz"/>
+                                    <constraint firstAttribute="bottom" secondItem="ehK-8p-bzI" secondAttribute="bottom" constant="-1" id="XKX-se-d4v"/>
                                     <constraint firstItem="B3n-Tx-huN" firstAttribute="leading" secondItem="zBp-r0-AD0" secondAttribute="leading" constant="8" id="tEx-0h-GQ4"/>
                                 </constraints>
                                 <variation key="default">

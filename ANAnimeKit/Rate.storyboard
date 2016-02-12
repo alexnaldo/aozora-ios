@@ -9,7 +9,7 @@
         <!--Rate View Controller-->
         <scene sceneID="nB8-IN-WuY">
             <objects>
-                <viewController id="5VZ-c4-kvd" customClass="RateViewController" customModule="Aozora" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="5VZ-c4-kvd" customClass="RateViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bmO-5n-UMP"/>
                         <viewControllerLayoutGuide type="bottom" id="Jv1-KP-YHZ"/>
@@ -18,19 +18,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oSh-oe-AGQ">
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oSh-oe-AGQ">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="k6l-se-cVc">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K3U-PA-MAS">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K3U-PA-MAS">
                                             <rect key="frame" x="0.0" y="244" width="600" height="112"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tdL-qK-or5" userLabel="StarRating" customClass="HCSStarRatingView">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tdL-qK-or5" userLabel="StarRating" customClass="HCSStarRatingView">
                                                     <rect key="frame" x="225" y="48" width="150" height="44"/>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                                    <color key="tintColor" red="0.20392157137393951" green="0.59607845544815063" blue="0.85882353782653809" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="tintColor" red="0.23218756397329876" green="0.69123186947795379" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="150" id="V62-RA-E74"/>
                                                         <constraint firstAttribute="height" constant="44" id="XcL-ne-8Tx"/>
@@ -53,31 +53,75 @@
                                                         <action selector="ratingEnded:" destination="5VZ-c4-kvd" eventType="touchUpOutside" id="bAu-05-f5V"/>
                                                     </connections>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Rate Charlotte!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oje-rR-7x5">
-                                                    <rect key="frame" x="233" y="20" width="132.5" height="24"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate Charlotte!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oje-rR-7x5">
+                                                    <rect key="frame" x="232.5" y="20" width="134" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <color key="textColor" red="0.18823529779911041" green="0.19607843458652496" blue="0.23529411852359772" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe right to set the rating" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x8q-0a-up2">
+                                                    <rect key="frame" x="227" y="94" width="146.5" height="13.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <color key="textColor" white="0.98000001907348633" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="oje-rR-7x5" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="K3U-PA-MAS" secondAttribute="leading" id="12d-Nf-607"/>
+                                                <constraint firstItem="x8q-0a-up2" firstAttribute="top" secondItem="tdL-qK-or5" secondAttribute="bottom" constant="2" id="ElY-9a-2ao"/>
                                                 <constraint firstAttribute="centerX" secondItem="oje-rR-7x5" secondAttribute="centerX" constant="0.75" id="HuB-eB-luW"/>
                                                 <constraint firstItem="tdL-qK-or5" firstAttribute="top" secondItem="oje-rR-7x5" secondAttribute="bottom" constant="4" id="Pez-h8-G8K"/>
                                                 <constraint firstAttribute="centerX" secondItem="tdL-qK-or5" secondAttribute="centerX" id="Svv-ss-1ez"/>
                                                 <constraint firstAttribute="height" constant="112" id="Z2B-pm-VFd"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="oje-rR-7x5" secondAttribute="trailing" id="mMH-cn-dav"/>
                                                 <constraint firstAttribute="centerY" secondItem="oje-rR-7x5" secondAttribute="centerY" constant="24" id="trQ-Fx-Kp5"/>
+                                                <constraint firstItem="x8q-0a-up2" firstAttribute="centerX" secondItem="tdL-qK-or5" secondAttribute="centerX" id="yz9-Pm-BSB"/>
                                             </constraints>
                                         </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enjoying this version of Aozora?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lGN-dh-gRd">
+                                            <rect key="frame" x="210" y="517.5" width="180" height="14.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" red="0.18823529779911041" green="0.19607843458652496" blue="0.23529411852359772" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ftz-sh-8be">
+                                            <rect key="frame" x="191.5" y="535" width="218" height="35"/>
+                                            <color key="backgroundColor" red="0.42745098471641541" green="0.42745098471641541" blue="0.44705882668495178" alpha="0.062583111702127658" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="35" id="Ahp-As-U3x"/>
+                                                <constraint firstAttribute="width" constant="218" id="mBY-0A-Dlw"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <state key="normal" title="Please rate it in the App Store">
+                                                <color key="titleColor" red="0.20392157137393951" green="0.59607845544815063" blue="0.85882353782653809" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="4"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="rateApp:" destination="5VZ-c4-kvd" eventType="touchUpInside" id="DeK-Eb-Z07"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <gestureRecognizers/>
                                     <constraints>
                                         <constraint firstAttribute="centerY" secondItem="K3U-PA-MAS" secondAttribute="centerY" id="6Ra-sg-t29"/>
+                                        <constraint firstItem="ftz-sh-8be" firstAttribute="top" secondItem="lGN-dh-gRd" secondAttribute="bottom" constant="3" id="ENq-3n-MzX"/>
+                                        <constraint firstItem="lGN-dh-gRd" firstAttribute="centerX" secondItem="k6l-se-cVc" secondAttribute="centerX" id="FEN-B8-dtJ"/>
+                                        <constraint firstItem="ftz-sh-8be" firstAttribute="centerX" secondItem="lGN-dh-gRd" secondAttribute="centerX" id="Q5W-qi-dQC"/>
+                                        <constraint firstAttribute="bottom" secondItem="ftz-sh-8be" secondAttribute="bottom" constant="30" id="aMr-qQ-Aia"/>
                                         <constraint firstItem="K3U-PA-MAS" firstAttribute="leading" secondItem="k6l-se-cVc" secondAttribute="leading" id="sYk-0F-sQW"/>
+                                        <constraint firstItem="lGN-dh-gRd" firstAttribute="leading" secondItem="k6l-se-cVc" secondAttribute="leading" constant="224" id="uFM-3i-hTC"/>
                                         <constraint firstAttribute="trailing" secondItem="K3U-PA-MAS" secondAttribute="trailing" id="uhP-3W-hYl"/>
                                     </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="uFM-3i-hTC"/>
+                                        </mask>
+                                    </variation>
                                     <connections>
                                         <outletCollection property="gestureRecognizers" destination="ylB-A8-Joq" appends="YES" id="3Kw-IV-Keg"/>
                                     </connections>
@@ -88,13 +132,25 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="oSh-oe-AGQ" secondAttribute="trailing" constant="-16" id="4Vv-wF-D6e"/>
+                            <constraint firstAttribute="trailing" secondItem="oSh-oe-AGQ" secondAttribute="trailing" id="A59-2k-3a2"/>
+                            <constraint firstAttribute="topMargin" secondItem="oSh-oe-AGQ" secondAttribute="top" id="WE8-s3-bWM"/>
                             <constraint firstItem="Jv1-KP-YHZ" firstAttribute="top" secondItem="oSh-oe-AGQ" secondAttribute="bottom" id="YSS-PN-lRc"/>
                             <constraint firstItem="oSh-oe-AGQ" firstAttribute="leading" secondItem="OzH-ai-7Zx" secondAttribute="leadingMargin" constant="-16" id="oKK-fL-iIr"/>
                             <constraint firstItem="oSh-oe-AGQ" firstAttribute="top" secondItem="bmO-5n-UMP" secondAttribute="bottom" constant="-20" id="pwJ-op-qlV"/>
+                            <constraint firstItem="oSh-oe-AGQ" firstAttribute="leading" secondItem="OzH-ai-7Zx" secondAttribute="leading" id="pzM-Zd-iY8"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="4Vv-wF-D6e"/>
+                                <exclude reference="oKK-fL-iIr"/>
+                                <exclude reference="pwJ-op-qlV"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="messageLabel" destination="oje-rR-7x5" id="ny5-r9-u0w"/>
+                        <outlet property="rateButton" destination="ftz-sh-8be" id="ErY-yt-GMP"/>
+                        <outlet property="rateMessage" destination="lGN-dh-gRd" id="w7h-Tc-3FE"/>
                         <outlet property="rateView" destination="K3U-PA-MAS" id="3JS-5p-ESm"/>
                         <outlet property="starRating" destination="tdL-qK-or5" id="cLB-LX-WeW"/>
                     </connections>

@@ -26,8 +26,6 @@ class NotificationsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        canDisplayBannerAds = InAppController.canDisplayAds()
         
         title = "Notifications"
         tableView.estimatedRowHeight = 112.0
@@ -38,17 +36,23 @@ class NotificationsViewController: UIViewController {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "fetchNotifications", name: "newNotification", object: nil)
     }
-    
-    deinit {
-        fetchController.tableView = nil
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        canDisplayBannerAds = InAppController.canDisplayAds()
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         tableView.userInteractionEnabled = true
     }
-    
+
+    deinit {
+        fetchController.tableView = nil
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+
     func fetchNotifications() {
         guard let currentUser = User.currentUser() else {
             return

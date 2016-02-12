@@ -22,23 +22,29 @@ extension ForumViewController: StatusBarVisibilityProtocol {
 }
 
 public class ForumViewController: AnimeBaseViewController {
-    
+
+    @IBOutlet weak var newThreadButton: UIButton!
+    @IBOutlet weak public var navigationBar: UINavigationItem!
+
     var dataSource: [Thread] = [] {
         didSet {
             tableView.reloadData()
         }
     }
-    
+
     var loadingView: LoaderView!
     var fetchController = FetchController()
     var animator: ZFModalTransitionAnimator!
-    
-    @IBOutlet weak public var navigationBar: UINavigationItem!
-    
+
     public override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationBar.title = "\(anime.title!) Discussion"
+
+        if let title = anime.title {
+            let formattedTitle = StringFormatter.shortenAnimeTitleIfNeeded(title)
+
+            navigationBar.title = "\(formattedTitle) Discussion"
+            newThreadButton.setTitle("New \(formattedTitle)... Thread", forState: .Normal)
+        }
         
         tableView.estimatedRowHeight = 150.0
         tableView.rowHeight = UITableViewAutomaticDimension

@@ -40,7 +40,7 @@ public class AiringController {
             if airingStatus == AnimeStatus.FinishedAiring {
                 lastAiredEpisode = firstAired.dateByAddingWeeks(totalEpisodes - 1)
             } else {
-                lastAiredEpisode = nextAirEpisodeDate
+                lastAiredEpisode = nextAirEpisodeDate.dateByAddingWeeks(-1)
             }
 
             while newDate.compare(lastAiredEpisode) == .OrderedAscending {

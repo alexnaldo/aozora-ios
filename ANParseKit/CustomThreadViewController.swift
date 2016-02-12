@@ -45,11 +45,14 @@ public class CustomThreadViewController: ThreadViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
 
-        canDisplayBannerAds = InAppController.canDisplayAds()
-
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
-    
+
+    override public func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        canDisplayBannerAds = InAppController.canDisplayAds()
+    }
+
     override public func updateUIWithThread(thread: Thread) {
         super.updateUIWithThread(thread)
         

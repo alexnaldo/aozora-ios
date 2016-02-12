@@ -9,6 +9,7 @@
 import Foundation
 import HCSStarRatingView
 import ANParseKit
+import iRate
 
 public protocol RateViewControllerProtocol: class {
     func rateControllerDidFinishedWith(anime anime: Anime, rating: Float)
@@ -21,6 +22,9 @@ public class RateViewController: UIViewController {
     @IBOutlet weak var starRating: HCSStarRatingView!
     @IBOutlet weak var rateView: UIView!
     
+    @IBOutlet weak var rateMessage: UILabel!
+    @IBOutlet weak var rateButton: UIButton!
+
     weak var delegate: RateViewControllerProtocol?
     
     var currentRating: Float = 0
@@ -64,7 +68,9 @@ public class RateViewController: UIViewController {
         starRating.value = CGFloat(currentRating)
     
         rateView.transform = CGAffineTransformMakeScale(0, 0)
-        
+
+        let shouldHide = iRate.sharedInstance().ratedThisVersion
+        hideRateAppMessage(shouldHide)
     }
     
     public override func viewWillAppear(animated: Bool) {
@@ -75,6 +81,11 @@ public class RateViewController: UIViewController {
             }) { (completed) -> Void in
                 
         }
+    }
+
+    func hideRateAppMessage(hide: Bool) {
+        rateMessage.hidden = hide
+        rateButton.hidden = hide
     }
     
     
@@ -102,4 +113,11 @@ public class RateViewController: UIViewController {
     @IBAction func dismissViewController(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
     }
+
+    @IBAction func rateApp(sender: AnyObject) {
+        hideRateAppMessage(true)
+        iRate.sharedInstance().ratedThisVersion = true
+        iRate.sharedInstance().openRatingsPageInAppStore()
+    }
+
 }

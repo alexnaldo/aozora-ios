@@ -44,13 +44,10 @@ public class InAppController {
     }
     
     public class func purchasedPro() -> Bool {
-        guard let user = User.currentUser() else {
-            return false
-        }
+
         let userDefaults = NSUserDefaults.standardUserDefaults()
 
         let pro = userDefaults.boolForKey(InAppController.ProIdentifier) ||
-            user.unlockedContent.indexOf(InAppController.ProIdentifier) != nil ||
             userDefaults.boolForKey(ATPurchaseIDEpisodeFeed) ||
             userDefaults.boolForKey(ATPurchaseIDNoAds) ||
             userDefaults.boolForKey(ATPurchaseIDSync)
@@ -59,13 +56,23 @@ public class InAppController {
     }
     
     public class func purchasedProPlus() -> Bool {
-        guard let user = User.currentUser() else {
-            return false
-        }
+
         let userDefaults = NSUserDefaults.standardUserDefaults()
         let proPlus = userDefaults.boolForKey(InAppController.ProPlusIdentifier) ||
-            user.unlockedContent.indexOf(InAppController.ProPlusIdentifier) != nil ||
             userDefaults.boolForKey(ATPurchaseIDAllFeatures)
+
         return proPlus
+    }
+
+    public class func updateUserUnlockedContent(unlockedContent: [String]) {
+        // Update unlocked content
+        let identifiers = [InAppController.ProIdentifier, InAppController.ProPlusIdentifier]
+
+        for identifier in identifiers {
+            if unlockedContent.indexOf(identifier) != nil {
+                NSUserDefaults.standardUserDefaults().setBool(true, forKey: identifier)
+            }
+        }
+        NSUserDefaults.standardUserDefaults().synchronize()
     }
 }

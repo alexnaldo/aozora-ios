@@ -16,7 +16,7 @@
         <!--Anime Information View Controller-->
         <scene sceneID="bNy-oJ-i2b">
             <objects>
-                <viewController storyboardIdentifier="AnimeInformation" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Gi4-Gc-NLH" customClass="AnimeInformationViewController" customModule="Aozora" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AnimeInformation" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Gi4-Gc-NLH" customClass="AnimeInformationViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mzA-kS-hKh"/>
                         <viewControllerLayoutGuide type="bottom" id="m3L-C8-Edn"/>
@@ -301,7 +301,7 @@
                                     <color key="backgroundColor" white="0.97999999999999998" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TitleCell" rowHeight="39" id="I7Y-GW-dmX" customClass="TitleCell" customModule="Aozora" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TitleCell" rowHeight="39" id="I7Y-GW-dmX" customClass="TitleCell" customModule="AnimeTrakr" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="383.5" width="600" height="39"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="I7Y-GW-dmX" id="vVD-zJ-c7f">
@@ -341,7 +341,7 @@
                                             <outlet property="titleLabel" destination="ldL-P3-hAe" id="1ev-bD-ric"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SynopsisCell" rowHeight="81" id="bug-JV-dlv" customClass="SynopsisCell" customModule="Aozora" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SynopsisCell" rowHeight="81" id="bug-JV-dlv" customClass="SynopsisCell" customModule="AnimeTrakr" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="422.5" width="600" height="81"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bug-JV-dlv" id="CAQ-bn-51z">
@@ -383,7 +383,7 @@
                                             <outlet property="synopsisLabel" destination="R6F-xi-dbu" id="mcK-Co-eRw"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="InformationCell" rowHeight="44" id="3Oe-EE-bCp" customClass="InformationCell" customModule="Aozora" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="InformationCell" rowHeight="44" id="3Oe-EE-bCp" customClass="InformationCell" customModule="AnimeTrakr" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="503.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3Oe-EE-bCp" id="YC9-NX-FIf">
@@ -428,7 +428,7 @@
                                             <outlet property="titleLabel" destination="b8m-DJ-Cam" id="ISG-FD-qSM"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SimpleLinkCell" rowHeight="44" id="dOU-XM-jZJ" customClass="SimpleLinkCell" customModule="Aozora" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SimpleLinkCell" rowHeight="44" id="dOU-XM-jZJ" customClass="SimpleLinkCell" customModule="AnimeTrakr" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="547.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dOU-XM-jZJ" id="EDI-hv-pna">
@@ -621,9 +621,9 @@
         <!--Custom Tab Bar Controller-->
         <scene sceneID="ZKe-xO-O30">
             <objects>
-                <tabBarController id="iRm-TJ-Bqw" customClass="CustomTabBarController" customModule="Aozora" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController id="iRm-TJ-Bqw" customClass="CustomTabBarController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="jeF-sx-E6Q" customClass="CustomTabBar" customModule="Aozora" customModuleProvider="target">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="jeF-sx-E6Q" customClass="CustomTabBar" customModule="AnimeTrakr" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -682,7 +682,7 @@
         <!--Characters & Staff-->
         <scene sceneID="WES-lR-wWU">
             <objects>
-                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="gx7-gA-mJn" customClass="CharactersViewController" customModule="Aozora" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="gx7-gA-mJn" customClass="CharactersViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WWu-Jg-4mu"/>
                         <viewControllerLayoutGuide type="bottom" id="HjL-4o-xg9"/>
@@ -705,7 +705,7 @@
                                     <color key="backgroundColor" red="0.97254902119999997" green="0.97254902119999997" blue="0.97254902119999997" alpha="1" colorSpace="calibratedRGB"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TitleCell" rowHeight="39" id="oNP-tZ-mWd" customClass="TitleCell" customModule="Aozora" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TitleCell" rowHeight="39" id="oNP-tZ-mWd" customClass="TitleCell" customModule="AnimeTrakr" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="113.5" width="600" height="39"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oNP-tZ-mWd" id="dsw-iP-vy8">
@@ -758,7 +758,7 @@
                                             <outlet property="titleLabel" destination="cWd-Of-ipG" id="8Jd-Ma-iPt"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CharacterCell" rowHeight="72" id="hMb-L0-Zjh" userLabel="CharacterCell" customClass="CharacterCell" customModule="Aozora" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CharacterCell" rowHeight="72" id="hMb-L0-Zjh" userLabel="CharacterCell" customClass="CharacterCell" customModule="AnimeTrakr" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="152.5" width="600" height="72"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hMb-L0-Zjh" id="ZVH-jf-c9b">
@@ -876,7 +876,7 @@
                                             <outlet property="personName" destination="vYk-ug-qXV" id="Fh5-9H-hrG"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CastCell" rowHeight="72" id="CJ4-G0-uGh" userLabel="CastCell" customClass="CharacterCell" customModule="Aozora" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CastCell" rowHeight="72" id="CJ4-G0-uGh" userLabel="CastCell" customClass="CharacterCell" customModule="AnimeTrakr" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="224.5" width="600" height="72"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CJ4-G0-uGh" id="cfl-Zy-rTH">
@@ -1015,7 +1015,7 @@
         <!--Episodes-->
         <scene sceneID="LZl-Pa-Rob">
             <objects>
-                <viewController id="PVs-FU-hrj" customClass="EpisodesViewController" customModule="Aozora" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="PVs-FU-hrj" customClass="EpisodesViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="q1F-Z5-LyK"/>
                         <viewControllerLayoutGuide type="bottom" id="WXh-aK-uNd"/>
@@ -1035,7 +1035,7 @@
                                     <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="EpisodeCell" id="4OR-ez-C2Q" customClass="EpisodeCell" customModule="Aozora" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="EpisodeCell" id="4OR-ez-C2Q" customClass="EpisodeCell" customModule="AnimeTrakr" customModuleProvider="target">
                                         <rect key="frame" x="110" y="74" width="380" height="195"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">

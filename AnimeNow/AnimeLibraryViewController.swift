@@ -89,8 +89,6 @@ class AnimeLibraryViewController: XLButtonBarPagerTabStripViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        canDisplayBannerAds = InAppController.canDisplayAds()
-
         self.isProgressiveIndicator = true
         self.buttonBarView.selectedBar.backgroundColor = UIColor.watching()
         
@@ -104,6 +102,11 @@ class AnimeLibraryViewController: XLButtonBarPagerTabStripViewController {
         if let library = libraryController.library {
             updateListViewControllers(library)
         }
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        canDisplayBannerAds = InAppController.canDisplayAds()
     }
     
     deinit {

@@ -15,7 +15,7 @@
         <!--Item 1-->
         <scene sceneID="x34-bc-zDI">
             <objects>
-                <viewController storyboardIdentifier="ChartViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="e1V-ND-r09" customClass="ChartViewController" customModule="Aozora" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChartViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="e1V-ND-r09" customClass="ChartViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="m5v-5k-u0e"/>
                         <viewControllerLayoutGuide type="bottom" id="haP-dC-pfL"/>
@@ -199,7 +199,7 @@
         <!--Calendar-->
         <scene sceneID="ZMv-kc-yVm">
             <objects>
-                <viewController storyboardIdentifier="Calendar" automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0ZK-kZ-TBZ" customClass="CalendarViewController" customModule="Aozora" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Calendar" automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0ZK-kZ-TBZ" customClass="CalendarViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qcL-Aj-tUp"/>
                         <viewControllerLayoutGuide type="bottom" id="Gz1-ew-Lxz"/>
@@ -287,7 +287,7 @@
         <!--Item 1-->
         <scene sceneID="imV-Lh-v9i">
             <objects>
-                <viewController storyboardIdentifier="DayList" id="do2-eB-l3W" customClass="DayViewController" customModule="Aozora" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DayList" id="do2-eB-l3W" customClass="DayViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Vxz-t6-vE8"/>
                         <viewControllerLayoutGuide type="bottom" id="H4D-qx-GsK"/>

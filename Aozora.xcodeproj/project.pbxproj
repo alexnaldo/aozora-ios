@@ -34,6 +34,14 @@
 		DA27D1A11AF1BA9D00CC854E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA27D19F1AF1BA9D00CC854E /* LaunchScreen.xib */; };
 		DA27D1AD1AF1BA9D00CC854E /* AnimeNowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27D1AC1AF1BA9D00CC854E /* AnimeNowTests.swift */; };
 		DA2D1EF01B531B0C009A5CCD /* NSUserDefaults+Dates.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2D1EEE1B5318E1009A5CCD /* NSUserDefaults+Dates.swift */; };
+		DA32EBE11C6A87720090CD51 /* StringFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA32EBE01C6A87720090CD51 /* StringFormatter.swift */; };
+		DA32EBE21C6A87720090CD51 /* StringFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA32EBE01C6A87720090CD51 /* StringFormatter.swift */; };
+		DA32EBE41C6A9A780090CD51 /* DataRefresherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA32EBE31C6A9A780090CD51 /* DataRefresherController.swift */; };
+		DA32EBE51C6A9A780090CD51 /* DataRefresherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA32EBE31C6A9A780090CD51 /* DataRefresherController.swift */; };
+		DA32EBE71C6AB6D70090CD51 /* AnimeBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA32EBE61C6AB6D70090CD51 /* AnimeBrowserViewController.swift */; };
+		DA32EBE81C6AB6D70090CD51 /* AnimeBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA32EBE61C6AB6D70090CD51 /* AnimeBrowserViewController.swift */; };
+		DA32EBEA1C6AB7050090CD51 /* Browser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA32EBE91C6AB7050090CD51 /* Browser.storyboard */; };
+		DA32EBEB1C6AB7050090CD51 /* Browser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA32EBE91C6AB7050090CD51 /* Browser.storyboard */; };
 		DA354B431C5DF3C2008C729F /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA354B421C5DF3C2008C729F /* NotificationCenter.framework */; };
 		DA354B461C5DF3C2008C729F /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA354B451C5DF3C2008C729F /* TodayViewController.swift */; };
 		DA354B491C5DF3C2008C729F /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA354B471C5DF3C2008C729F /* MainInterface.storyboard */; };
@@ -57,8 +65,6 @@
 		DA4AF8C91B276E060020252E /* ANCommonKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4AF8C81B276E060020252E /* ANCommonKitTests.swift */; };
 		DA4AF8CC1B276E060020252E /* ANCommonKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4AF8B51B276E060020252E /* ANCommonKit.framework */; };
 		DA4AF8CD1B276E060020252E /* ANCommonKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DA4AF8B51B276E060020252E /* ANCommonKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DA52B1831B4838AE001CC1A9 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52B1821B4838AE001CC1A9 /* CalendarViewController.swift */; };
-		DA52B1851B483F2A001CC1A9 /* DayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52B1841B483F2A001CC1A9 /* DayViewController.swift */; };
 		DA54E30B1BE9487800FE0AE9 /* PFQuery+Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA54E30A1BE9487800FE0AE9 /* PFQuery+Query.swift */; };
 		DA561EC81C5D78F400C3E493 /* TitleHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA561EC71C5D78F400C3E493 /* TitleHeaderView.xib */; };
 		DA561ECA1C5D791C00C3E493 /* TitleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA561EC91C5D791C00C3E493 /* TitleHeaderView.swift */; };
@@ -212,7 +218,6 @@
 		DAA576C81C66EC2D007E81E6 /* TitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4167E61B275D3800847F56 /* TitleCell.swift */; };
 		DAA576C91C66EC2D007E81E6 /* PublicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA26C8D1BCC92B1001CF62D /* PublicListViewController.swift */; };
 		DAA576CA1C66EC2D007E81E6 /* AnimeInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4167D11B273B7100847F56 /* AnimeInformationViewController.swift */; };
-		DAA576CB1C66EC2D007E81E6 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52B1821B4838AE001CC1A9 /* CalendarViewController.swift */; };
 		DAA576CC1C66EC2D007E81E6 /* ParseWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27D1981AF1BA9D00CC854E /* ParseWorker.swift */; };
 		DAA576CD1C66EC2D007E81E6 /* UserProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0B260B1B75192400A770AE /* UserProfileManager.swift */; };
 		DAA576CE1C66EC2D007E81E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27D1961AF1BA9D00CC854E /* AppDelegate.swift */; };
@@ -236,7 +241,6 @@
 		DAA576E01C66EC2D007E81E6 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC13C291B424DEF0013D479 /* ResetPasswordViewController.swift */; };
 		DAA576E11C66EC2D007E81E6 /* AnimeBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA253B71B2B8AF50092EB0B /* AnimeBaseViewController.swift */; };
 		DAA576E21C66EC2D007E81E6 /* EpisodesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58C2EA1B3B109D0082B626 /* EpisodesViewController.swift */; };
-		DAA576E31C66EC2D007E81E6 /* DayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52B1841B483F2A001CC1A9 /* DayViewController.swift */; };
 		DAA576E41C66EC2D007E81E6 /* TableCellWithCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB4DCAC1C5CBE1F00924819 /* TableCellWithCollection.swift */; };
 		DAA576E51C66EC2D007E81E6 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB4DCA81C5CB79600924819 /* HomeViewController.swift */; };
 		DAA576E61C66EC2D007E81E6 /* LoadingCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC13BF81B3EFC280013D479 /* LoadingCollectionCell.swift */; };
@@ -573,6 +577,10 @@
 		DA2853BE1B22C1710070B675 /* HighlightButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightButton.swift; sourceTree = "<group>"; };
 		DA2853C11B22C5D30070B675 /* UIColor+AniNow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+AniNow.swift"; path = "../AnimeNow/UIColor+AniNow.swift"; sourceTree = "<group>"; };
 		DA2D1EEE1B5318E1009A5CCD /* NSUserDefaults+Dates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSUserDefaults+Dates.swift"; path = "../AnimeNow/NSUserDefaults+Dates.swift"; sourceTree = "<group>"; };
+		DA32EBE01C6A87720090CD51 /* StringFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringFormatter.swift; sourceTree = "<group>"; };
+		DA32EBE31C6A9A780090CD51 /* DataRefresherController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataRefresherController.swift; sourceTree = "<group>"; };
+		DA32EBE61C6AB6D70090CD51 /* AnimeBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeBrowserViewController.swift; sourceTree = "<group>"; };
+		DA32EBE91C6AB7050090CD51 /* Browser.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Browser.storyboard; sourceTree = "<group>"; };
 		DA354B411C5DF3C2008C729F /* AozoraWatching.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AozoraWatching.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA354B421C5DF3C2008C729F /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		DA354B451C5DF3C2008C729F /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -609,8 +617,6 @@
 		DA4AF8BF1B276E060020252E /* ANCommonKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ANCommonKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA4AF8C71B276E060020252E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA4AF8C81B276E060020252E /* ANCommonKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANCommonKitTests.swift; sourceTree = "<group>"; };
-		DA52B1821B4838AE001CC1A9 /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
-		DA52B1841B483F2A001CC1A9 /* DayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayViewController.swift; sourceTree = "<group>"; };
 		DA54E30A1BE9487800FE0AE9 /* PFQuery+Query.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PFQuery+Query.swift"; sourceTree = "<group>"; };
 		DA561EC71C5D78F400C3E493 /* TitleHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleHeaderView.xib; sourceTree = "<group>"; };
 		DA561EC91C5D791C00C3E493 /* TitleHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleHeaderView.swift; sourceTree = "<group>"; };
@@ -1021,8 +1027,6 @@
 				DA27D1981AF1BA9D00CC854E /* ParseWorker.swift */,
 				DA27D1961AF1BA9D00CC854E /* AppDelegate.swift */,
 				DAA5774B1C66F161007E81E6 /* App */,
-				DAC13BFC1B3F368D0013D479 /* Extensions */,
-				DAA393271B42F1F100A8D5D5 /* Controllers */,
 				DAE7A7151B2105D000788614 /* Views */,
 				DAB4DCA71C5CB78700924819 /* Home */,
 				DAF618711B377C6000286517 /* Season */,
@@ -1336,10 +1340,12 @@
 		DAA393271B42F1F100A8D5D5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				DA32EBE31C6A9A780090CD51 /* DataRefresherController.swift */,
 				DA4167E81B275F9400847F56 /* ANAnimeKit.swift */,
 				DAC13C251B42495A0013D479 /* WorkflowController.swift */,
 				DAA393281B42F21900A8D5D5 /* RootTabBar.swift */,
 				DAC7D9051B50464B00898FF6 /* DialogController.swift */,
+				DA32EBE01C6A87720090CD51 /* StringFormatter.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1364,6 +1370,8 @@
 		DAA5774B1C66F161007E81E6 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				DAC13BFC1B3F368D0013D479 /* Extensions */,
+				DAA393271B42F1F100A8D5D5 /* Controllers */,
 			);
 			name = App;
 			sourceTree = "<group>";
@@ -1379,6 +1387,8 @@
 				DA561EC91C5D791C00C3E493 /* TitleHeaderView.swift */,
 				DA561ECD1C5D802700C3E493 /* AnimePosterCell.xib */,
 				DA561ECF1C5D803100C3E493 /* AnimePosterCell.swift */,
+				DA32EBE91C6AB7050090CD51 /* Browser.storyboard */,
+				DA32EBE61C6AB6D70090CD51 /* AnimeBrowserViewController.swift */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -1570,8 +1580,6 @@
 				DAB83FC61B52FE200006AF96 /* ChartController.swift */,
 				DA27D19A1AF1BA9D00CC854E /* Season.storyboard */,
 				DAFBB0941B20EFF700495ED9 /* ChartViewController.swift */,
-				DA52B1821B4838AE001CC1A9 /* CalendarViewController.swift */,
-				DA52B1841B483F2A001CC1A9 /* DayViewController.swift */,
 			);
 			name = Season;
 			sourceTree = "<group>";
@@ -2009,6 +2017,7 @@
 				DAC13C031B40569F0013D479 /* Settings.storyboard in Resources */,
 				DAC13C1A1B4228120013D479 /* Aller_It.ttf in Resources */,
 				DA27D19C1AF1BA9D00CC854E /* Season.storyboard in Resources */,
+				DA32EBEA1C6AB7050090CD51 /* Browser.storyboard in Resources */,
 				DAA546F81BA1AC48003989DE /* Profile.storyboard in Resources */,
 				DAC13C181B4228120013D479 /* Aller_Bd.ttf in Resources */,
 				DAD67E061B7292D8000BB325 /* Resources.xcassets in Resources */,
@@ -2107,6 +2116,7 @@
 				DAA5770F1C66EC2D007E81E6 /* Settings.storyboard in Resources */,
 				DAA577101C66EC2D007E81E6 /* Aller_It.ttf in Resources */,
 				DAA577111C66EC2D007E81E6 /* Season.storyboard in Resources */,
+				DA32EBEB1C6AB7050090CD51 /* Browser.storyboard in Resources */,
 				DAA577121C66EC2D007E81E6 /* Profile.storyboard in Resources */,
 				DAA577131C66EC2D007E81E6 /* Aller_Bd.ttf in Resources */,
 				DAA577141C66EC2D007E81E6 /* Resources.xcassets in Resources */,
@@ -2392,13 +2402,15 @@
 				DAE7A7191B2105FD00788614 /* AnimeCell.swift in Sources */,
 				DAC7D9031B50201C00898FF6 /* InAppTransactionController.swift in Sources */,
 				DAF6187C1B3784E300286517 /* ForumsViewController.swift in Sources */,
+				DA32EBE41C6A9A780090CD51 /* DataRefresherController.swift in Sources */,
 				DAC7D8FC1B5015FA00898FF6 /* InAppPurchaseViewController.swift in Sources */,
 				DAA546E01BA1A0C4003989DE /* LinkCell.swift in Sources */,
 				DA4595631B83C3500044013E /* SignInViewController.swift in Sources */,
 				DAA546E11BA1A0C4003989DE /* TitleCell.swift in Sources */,
 				DAA26C8E1BCC92B1001CF62D /* PublicListViewController.swift in Sources */,
 				DAA546EE1BA1A102003989DE /* AnimeInformationViewController.swift in Sources */,
-				DA52B1831B4838AE001CC1A9 /* CalendarViewController.swift in Sources */,
+				DA32EBE71C6AB6D70090CD51 /* AnimeBrowserViewController.swift in Sources */,
+				DA32EBE11C6A87720090CD51 /* StringFormatter.swift in Sources */,
 				DA27D1991AF1BA9D00CC854E /* ParseWorker.swift in Sources */,
 				DAA546FC1BA1AC48003989DE /* UserProfileManager.swift in Sources */,
 				DA27D1971AF1BA9D00CC854E /* AppDelegate.swift in Sources */,
@@ -2422,7 +2434,6 @@
 				DA4595651B83C3500044013E /* ResetPasswordViewController.swift in Sources */,
 				DAA546F21BA1A106003989DE /* AnimeBaseViewController.swift in Sources */,
 				DAA546EB1BA1A0FB003989DE /* EpisodesViewController.swift in Sources */,
-				DA52B1851B483F2A001CC1A9 /* DayViewController.swift in Sources */,
 				DAB4DCAD1C5CBE1F00924819 /* TableCellWithCollection.swift in Sources */,
 				DAB4DCA91C5CB79600924819 /* HomeViewController.swift in Sources */,
 				DAC13BF91B3EFC280013D479 /* LoadingCollectionCell.swift in Sources */,
@@ -2590,13 +2601,15 @@
 				DAA576C21C66EC2D007E81E6 /* AnimeCell.swift in Sources */,
 				DAA576C31C66EC2D007E81E6 /* InAppTransactionController.swift in Sources */,
 				DAA576C41C66EC2D007E81E6 /* ForumsViewController.swift in Sources */,
+				DA32EBE51C6A9A780090CD51 /* DataRefresherController.swift in Sources */,
 				DAA576C51C66EC2D007E81E6 /* InAppPurchaseViewController.swift in Sources */,
 				DAA576C61C66EC2D007E81E6 /* LinkCell.swift in Sources */,
 				DAA576C71C66EC2D007E81E6 /* SignInViewController.swift in Sources */,
 				DAA576C81C66EC2D007E81E6 /* TitleCell.swift in Sources */,
 				DAA576C91C66EC2D007E81E6 /* PublicListViewController.swift in Sources */,
 				DAA576CA1C66EC2D007E81E6 /* AnimeInformationViewController.swift in Sources */,
-				DAA576CB1C66EC2D007E81E6 /* CalendarViewController.swift in Sources */,
+				DA32EBE81C6AB6D70090CD51 /* AnimeBrowserViewController.swift in Sources */,
+				DA32EBE21C6A87720090CD51 /* StringFormatter.swift in Sources */,
 				DAA576CC1C66EC2D007E81E6 /* ParseWorker.swift in Sources */,
 				DAA576CD1C66EC2D007E81E6 /* UserProfileManager.swift in Sources */,
 				DAA576CE1C66EC2D007E81E6 /* AppDelegate.swift in Sources */,
@@ -2620,7 +2633,6 @@
 				DAA576E01C66EC2D007E81E6 /* ResetPasswordViewController.swift in Sources */,
 				DAA576E11C66EC2D007E81E6 /* AnimeBaseViewController.swift in Sources */,
 				DAA576E21C66EC2D007E81E6 /* EpisodesViewController.swift in Sources */,
-				DAA576E31C66EC2D007E81E6 /* DayViewController.swift in Sources */,
 				DAA576E41C66EC2D007E81E6 /* TableCellWithCollection.swift in Sources */,
 				DAA576E51C66EC2D007E81E6 /* HomeViewController.swift in Sources */,
 				DAA576E61C66EC2D007E81E6 /* LoadingCollectionCell.swift in Sources */,
@@ -3029,6 +3041,7 @@
 		DA354B4E1C5DF3C2008C729F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APP_NAME = Aozora;
 				CODE_SIGN_ENTITLEMENTS = AozoraWatching/AozoraWatching.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -3048,6 +3061,7 @@
 		DA354B4F1C5DF3C2008C729F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APP_NAME = Aozora;
 				CODE_SIGN_ENTITLEMENTS = AozoraWatching/AozoraWatching.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -3543,6 +3557,7 @@
 		DAA577401C66EFCA007E81E6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APP_NAME = AnimeTrakr;
 				CODE_SIGN_ENTITLEMENTS = AnimeTrakrWatching.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -3562,6 +3577,7 @@
 		DAA577411C66EFCA007E81E6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APP_NAME = AnimeTrakr;
 				CODE_SIGN_ENTITLEMENTS = AnimeTrakrWatching.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";

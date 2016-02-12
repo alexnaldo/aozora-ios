@@ -41,13 +41,11 @@ class ForumsViewController: UIViewController {
     var selectedList: SelectedList = .Recent
     var selectedThreadTag: ThreadTag?
     var selectedAnime: Anime?
-    var timer: NSTimer!
     var animator: ZFModalTransitionAnimator!
+    var dataRefresher: DataRefresherController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        canDisplayBannerAds = InAppController.canDisplayAds()
 
         tableView.estimatedRowHeight = 150.0
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -55,21 +53,29 @@ class ForumsViewController: UIViewController {
         loadingView = LoaderView(parentView: view)
         loadingView.startAnimating()
         
-        addRefreshControl(refreshControl, action:"refetchThreads", forTableView: tableView)
-        
-        timer = NSTimer.scheduledTimerWithTimeInterval(60.0, target: self, selector: "reloadTableView", userInfo: nil, repeats: true)
-        
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "changeList")
         navigationBarTitle.addGestureRecognizer(tapGestureRecognizer)
         
         fetchThreadTags()
         fetchAnimeTags()
         prepareForList(selectedList)
+
+        addRefreshControl(refreshControl, action: nil, forTableView: tableView)
+        dataRefresher = DataRefresherController(timeInterval: .MediumTraffic, refreshControl: refreshControl, refreshCallback: { _ in
+            if self.navigationController?.visibleViewController == self {
+                self.refetchThreads()
+                return true
+            } else {
+                return false
+            }
+        })
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
+
+        canDisplayBannerAds = InAppController.canDisplayAds()
+
         if loadingView.animating == false {
             loadingView.stopAnimating()
             tableView.animateFadeIn()
@@ -117,11 +123,7 @@ class ForumsViewController: UIViewController {
                 dataSource: dataSource)
         }
     }
-    
-    func reloadTableView() {
-        tableView.reloadData()
-    }
-    
+
     // MARK: - Fetching
     
     func refetchThreads() {
@@ -153,18 +155,7 @@ class ForumsViewController: UIViewController {
                 orQuery.includeKey("tags")
                 orQuery.includeKey("startedBy")
                 orQuery.includeKey("lastPostedBy")
-                
-                let introductions = ThreadTag(withoutDataWithObjectId: "loJp4QyahU")
-                let aozoraOfficial = ThreadTag(withoutDataWithObjectId: "zXotNtfVg1")
-                let news = ThreadTag(withoutDataWithObjectId: "H3dDEdJyqu")
-                let anime = ThreadTag(withoutDataWithObjectId: "6Yv0cRDTfc")
-                let manga = ThreadTag(withoutDataWithObjectId: "D9mO8EBXdV")
-                let recommendations = ThreadTag(withoutDataWithObjectId: "EfFWzzrhOa")
-                let forumGames = ThreadTag(withoutDataWithObjectId: "M4rpxLDwai")
-                let music = ThreadTag(withoutDataWithObjectId: "TYToNcM2zm")
-                let offtopic = ThreadTag(withoutDataWithObjectId: "DGXMVEcSrd")
-                orQuery.whereKey("tags", containedIn: [introductions, aozoraOfficial, news, anime, manga, recommendations, forumGames, music, offtopic])
-                
+
                 switch self.selectedList {
                 case .Recent:
                     orQuery.orderByDescending("updatedAt")

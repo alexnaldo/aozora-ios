@@ -8,7 +8,7 @@
         <!--Today View Controller-->
         <scene sceneID="f4h-45-CpN">
             <objects>
-                <viewController id="vvo-NB-rFs" customClass="TodayViewController" customModule="AozoraWatching" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vvo-NB-rFs" customClass="TodayViewController" customModule="AnimeTrakrWatching" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8Cs-dd-MZQ"/>
                         <viewControllerLayoutGuide type="bottom" id="XTQ-8y-T3p"/>
@@ -36,7 +36,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TodayCell" rowHeight="55" id="XHI-PF-Ue4" customClass="TodayCell" customModule="AozoraWatching" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TodayCell" rowHeight="55" id="XHI-PF-Ue4" customClass="TodayCell" customModule="AnimeTrakrWatching" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="22" width="320" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XHI-PF-Ue4" id="uXM-Xt-K4r">
@@ -46,7 +46,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZHc-ZI-JDb">
                                                     <rect key="frame" x="0.0" y="-13" width="320" height="81"/>
                                                     <subviews>
-                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zankyou no Terror" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="eL4-Sg-d97">
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zankyou no Terror" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="eL4-Sg-d97">
                                                             <rect key="frame" x="48" y="23.5" width="189" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>

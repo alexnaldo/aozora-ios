@@ -37,7 +37,7 @@
         <!--Forum View Controller-->
         <scene sceneID="3XK-X8-Ec6">
             <objects>
-                <viewController storyboardIdentifier="Forum" useStoryboardIdentifierAsRestorationIdentifier="YES" id="A6G-ah-oIs" customClass="ForumViewController" customModule="Aozora" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Forum" useStoryboardIdentifierAsRestorationIdentifier="YES" id="A6G-ah-oIs" customClass="ForumViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="h5Y-mc-GGy"/>
                         <viewControllerLayoutGuide type="bottom" id="tIw-Kj-Jqx"/>
@@ -47,7 +47,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="61" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Fmw-jU-6m7">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="512"/>
                                 <color key="backgroundColor" white="0.97999999999999998" alpha="1" colorSpace="calibratedWhite"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="YFv-zO-dUD">
                                     <rect key="frame" x="0.0" y="147" width="600" height="20"/>
@@ -55,7 +55,7 @@
                                     <color key="backgroundColor" red="0.97254902119999997" green="0.97254902119999997" blue="0.97254902119999997" alpha="1" colorSpace="calibratedRGB"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TopicCell" id="dph-KB-iqA" customClass="TopicCell" customModule="Aozora" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TopicCell" id="dph-KB-iqA" customClass="TopicCell" customModule="AnimeTrakr" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="86" width="600" height="61"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dph-KB-iqA" id="kMT-rj-9wN">
@@ -132,28 +132,48 @@
                                     <outlet property="delegate" destination="A6G-ah-oIs" id="WtC-VK-Dpz"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U0y-G2-nGH">
+                                <rect key="frame" x="0.0" y="512" width="600" height="44"/>
+                                <color key="backgroundColor" red="0.0" green="0.47450980544090271" blue="0.75686275959014893" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="6ar-Zr-fYI"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="2"/>
+                                <state key="normal" title="New Clannad Thread" image="icon-create"/>
+                                <connections>
+                                    <action selector="createAnimeThread:" destination="A6G-ah-oIs" eventType="touchUpInside" id="yzl-Bq-w9o"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.97254902119999997" green="0.97254902119999997" blue="0.97254902119999997" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstAttribute="bottomMargin" secondItem="U0y-G2-nGH" secondAttribute="bottom" constant="42" id="5iV-je-VTj"/>
                             <constraint firstItem="Fmw-jU-6m7" firstAttribute="top" secondItem="h5Y-mc-GGy" secondAttribute="bottom" constant="-64" id="8hC-Kh-stN"/>
                             <constraint firstAttribute="trailing" secondItem="Fmw-jU-6m7" secondAttribute="trailing" id="8rt-gZ-S0p"/>
+                            <constraint firstAttribute="trailing" secondItem="U0y-G2-nGH" secondAttribute="trailing" id="FCB-Ci-OEz"/>
                             <constraint firstItem="Fmw-jU-6m7" firstAttribute="leading" secondItem="LXI-Zm-Occ" secondAttribute="leading" id="SgF-1z-4gS"/>
                             <constraint firstItem="tIw-Kj-Jqx" firstAttribute="top" secondItem="Fmw-jU-6m7" secondAttribute="bottom" id="bwd-o4-Qsp"/>
+                            <constraint firstItem="U0y-G2-nGH" firstAttribute="top" secondItem="Fmw-jU-6m7" secondAttribute="bottom" id="k3A-3w-Ypw"/>
+                            <constraint firstItem="tIw-Kj-Jqx" firstAttribute="top" secondItem="U0y-G2-nGH" secondAttribute="bottom" id="nCU-pq-IiS"/>
+                            <constraint firstItem="U0y-G2-nGH" firstAttribute="leading" secondItem="LXI-Zm-Occ" secondAttribute="leading" id="w3Z-zF-LKo"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="5iV-je-VTj"/>
+                                <exclude reference="bwd-o4-Qsp"/>
+                            </mask>
+                        </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="" id="IqJ-ss-AlO"/>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="tHl-vW-tHj">
-                        <barButtonItem key="rightBarButtonItem" image="icon-create" id="IWt-6n-a33" userLabel="Create">
-                            <connections>
-                                <action selector="createAnimeThread:" destination="A6G-ah-oIs" id="bbz-1O-zrY"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="tHl-vW-tHj"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="navigationBar" destination="tHl-vW-tHj" id="DYc-uQ-qWo"/>
                         <outlet property="navigationItem" destination="tHl-vW-tHj" id="O9d-Dl-4c8"/>
+                        <outlet property="newThreadButton" destination="U0y-G2-nGH" id="Dja-st-MnB"/>
                         <outlet property="tableView" destination="Fmw-jU-6m7" id="5aH-kp-mqL"/>
                     </connections>
                 </viewController>

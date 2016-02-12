@@ -18,6 +18,7 @@ public class AppEnvironment {
         if let appName = NSBundle.mainBundle().objectForInfoDictionaryKey("APP_NAME") as? String {
             return Application(rawValue: appName) ?? .Aozora
         }
+
         return .Aozora
     }
 }
