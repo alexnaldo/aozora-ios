@@ -11,7 +11,6 @@ import ANParseKit
 import ANCommonKit
 
 typealias BrowseData = (title: String, subtitle: String?, detailTitle: String, anime: [Anime], query: PFQuery?, fetching: Bool)
-typealias SeeAllCallback = (section: Int) -> UIViewController
 
 class AnimeBrowserViewController: UIViewController {
 

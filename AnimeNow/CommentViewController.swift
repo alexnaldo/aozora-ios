@@ -298,13 +298,6 @@ extension CommentViewController: UITextViewDelegate {
                             return false
                     }
                     
-                    if let host = url.host, let imageId = url.lastPathComponent,
-                        let imageURL = NSURL(string: "http://i.imgur.com/\(imageId).jpg")
-                        where host.containsString("imgur.com") {
-                        scrapeImageWithURL(imageURL)
-                        return false
-                    }
-                    
                     selectedLinkUrl = url
                     scrapeLinkWithURL(url)
                     // If only added 1 link and it's the same as the added text, don't add it
