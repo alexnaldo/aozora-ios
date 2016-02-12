@@ -35,11 +35,6 @@ enum SortType: String {
     case MyRating = "My Rating"
 }
 
-enum LayoutType: String {
-    case Chart = "Chart"
-    case SeasonalChart = "SeasonalChart"
-}
-
 typealias Configuration = [(section: FilterSection, value: String?, dataSource: [String])]
 
 protocol FilterViewControllerDelegate: class {

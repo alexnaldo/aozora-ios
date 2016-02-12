@@ -11,6 +11,7 @@ import ANParseKit
 import ANCommonKit
 
 typealias BrowseData = (title: String, subtitle: String?, detailTitle: String, anime: [Anime], query: PFQuery?, fetching: Bool)
+typealias SeeAllCallback = (section: Int) -> UIViewController
 
 class AnimeBrowserViewController: UIViewController {
 
@@ -63,7 +64,19 @@ class AnimeBrowserViewController: UIViewController {
     }
 
     func seeAllPressedForSection(section: Int) {
-        UIAlertView(title: "TODO", message: "Not implemented", delegate: nil, cancelButtonTitle: "Ok").show()
+
+        let browseData = dataSource[section]
+
+        let chartViewController = UIStoryboard(name: "Season", bundle: nil).instantiateViewControllerWithIdentifier("ChartViewController") as! ChartViewController
+
+        let title = browseData.title
+        if let query = browseData.query {
+            chartViewController.initWithQuery(title, query: query)
+        } else {
+            chartViewController.initWithDataSource(title, dataSource: browseData.anime)
+        }
+
+        navigationController?.pushViewController(chartViewController, animated: true)
     }
 
     @IBAction func searchPressed(sender: AnyObject) {

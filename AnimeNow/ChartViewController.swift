@@ -12,12 +12,23 @@ import SDWebImage
 import Alamofire
 import ANCommonKit
 
-class ChartViewController: UIViewController {
-    
-    enum SelectedList: Int {
-        case SeasonalChart = 0
-        case AllSeasons
+class ChartController {
+    class func seasonalChartAnimeQuery(seasonalChart: SeasonalChart) -> PFQuery {
+        let query = Anime.query()!
+        query.whereKey("startDate", greaterThanOrEqualTo: seasonalChart.startDate)
+        query.whereKey("startDate", lessThanOrEqualTo: seasonalChart.endDate)
+        return query
     }
+
+    class func allSeasonsQuery() -> PFQuery {
+        let query = SeasonalChart.query()!
+        query.orderByDescending("startDate")
+        return query
+    }
+}
+
+
+class ChartViewController: UIViewController {
     
     let SortTypeDefault = "Season.SortType"
     let LayoutTypeDefault = "Season.LayoutType"
@@ -27,19 +38,8 @@ class ChartViewController: UIViewController {
     var canFadeImages = true
     var showTableView = true
     
-    var currentSeasonalChartName = SeasonalChartService.seasonalChartString(0).title
-    
     var currentConfiguration: Configuration!
-    
-    var orders: [SortType] = []
-    var viewTypes: [LayoutType] = []
-    var selectedList: SelectedList = .SeasonalChart {
-        didSet {
-            filterBar.hidden = selectedList == .AllSeasons
-        }
-    }
-    
-    
+
     var timer: NSTimer!
     var animator: ZFModalTransitionAnimator!
     
@@ -51,15 +51,11 @@ class ChartViewController: UIViewController {
     
     var filteredDataSource: [[Anime]] = [] {
         didSet {
-            canFadeImages = false
-            self.collectionView.reloadData()
-            canFadeImages = true
-        }
-    }
-    
-    var chartsDataSource: [SeasonalChart] = [] {
-        didSet {
-            self.collectionView.reloadData()
+            if isViewLoaded() {
+                canFadeImages = false
+                self.collectionView.reloadData()
+                canFadeImages = true
+            }
         }
     }
     
@@ -76,22 +72,20 @@ class ChartViewController: UIViewController {
             NSUserDefaults.standardUserDefaults().synchronize()
         }
     }
-    
-    var currentLayoutType: LayoutType {
-        get {
-            guard let layoutType = NSUserDefaults.standardUserDefaults().objectForKey(LayoutTypeDefault) as? String,
-                let layoutTypeEnum = LayoutType(rawValue: layoutType) else {
-                return LayoutType.Chart
-            }
-            return layoutTypeEnum
-        }
-        set ( value ) {
-            NSUserDefaults.standardUserDefaults().setObject(value.rawValue, forKey: LayoutTypeDefault)
-            NSUserDefaults.standardUserDefaults().synchronize()
-        }
-    }
-    
+
     var loadingView: LoaderView!
+    var query: PFQuery?
+    var controllerTitle: String!
+
+    func initWithQuery(title: String, query: PFQuery) {
+        self.query = query
+        controllerTitle = title
+    }
+
+    func initWithDataSource(title: String, dataSource: [Anime]) {
+        self.dataSource = dataSourceSplittedByType(dataSource)
+        controllerTitle = title
+    }
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -101,57 +95,39 @@ class ChartViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        title = controllerTitle
+
         DialogController.sharedInstance.canShowFBAppInvite(self)
         
         AnimeCell.registerNibFor(collectionView: collectionView)
         
-        // Layout and sort
-        orders = [currentSortType, .None]
-        viewTypes = [currentLayoutType, .SeasonalChart]
-        
         // Update configuration
         currentConfiguration = [
-            (FilterSection.View, currentLayoutType.rawValue, [LayoutType.Chart.rawValue]),
             (FilterSection.Sort, currentSortType.rawValue, [SortType.Rating.rawValue, SortType.Popularity.rawValue, SortType.Title.rawValue, SortType.NextAiringEpisode.rawValue])
         ]
-        
-        collectionView.alpha = 0.0
-        
+
         timer = NSTimer.scheduledTimerWithTimeInterval(60.0, target: self, selector: "updateETACells", userInfo: nil, repeats: true)
         
         loadingView = LoaderView(parentView: view)
-        
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "changeSeasonalChart")
-        navigationItemView.addGestureRecognizer(tapGestureRecognizer)
-        
-        prepareForList(selectedList)
+
+        if let query = query {
+            fetchQuery(query)
+        }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateETACells", name: LibraryUpdatedNotification, object: nil)
+
+        updateLayoutWithSize(view.bounds.size)
     }
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        if loadingView.animating == false {
-            loadingView.stopAnimating()
-            collectionView.animateFadeIn()
-        }
-
-    }
-    
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        
-        if selectedList == .AllSeasons {
-            updateLayoutType(.SeasonalChart, withSize: size)
-        } else {
-            updateLayoutType(currentLayoutType, withSize: size)
-        }
+
+        updateLayoutWithSize(size)
     }
     
     // MARK: - UI Functions
@@ -163,60 +139,12 @@ class ChartViewController: UIViewController {
         canFadeImages = true
     }
     
-    func prepareForList(selectedList: SelectedList) {
-        
-        self.selectedList = selectedList
-        
-        switch selectedList {
-        case .SeasonalChart:
-            collectionView.animateFadeOut()
-            loadingView.startAnimating()
-            navigationBarTitle.text = currentSeasonalChartName
-            fetchSeasonalChart(currentSeasonalChartName)
-        case .AllSeasons:
-            navigationBarTitle.text = "All Seasons"
-            collectionView.reloadData()
-        }
-        
-        navigationBarTitle.text! += " " + FontAwesome.AngleDown.rawValue
-        
-        if selectedList == SelectedList.AllSeasons {
-            updateLayoutType(.SeasonalChart, withSize: view.bounds.size)
-        } else {
-            updateLayoutType(currentLayoutType, withSize: view.bounds.size)
-        }
-    }
-    
-    func fetchAllSeasons() -> BFTask {
-        return ChartController.fetchAllSeasons()
-    }
-    
-    func fetchSeasonalChart(seasonalChart: String) {
-        
-        let startDate = NSDate()
-        var seasonsTask: BFTask!
-        
-        if chartsDataSource.isEmpty {
-            seasonsTask = fetchAllSeasons().continueWithSuccessBlock { (task: BFTask!) -> AnyObject! in
-                
-                let result = task.result as! [SeasonalChart]
-                self.chartsDataSource = result
-                let selectedSeasonalChart = result.filter({$0.title == seasonalChart})
-                return BFTask(result: selectedSeasonalChart)
-            }
-        } else {
-            let selectedSeasonalChart = chartsDataSource.filter({$0.title == seasonalChart})
-            seasonsTask = BFTask(result: selectedSeasonalChart)
-        }
-        
-        seasonsTask.continueWithSuccessBlock { (task: BFTask!) -> AnyObject! in
-            
-            guard let result = task.result as? [SeasonalChart], let selectedSeason = result.last else {
-                return nil
-            }
-            return ChartController.fetchSeasonalChartAnime(selectedSeason)
-        
-        }.continueWithSuccessBlock { (task: BFTask!) -> AnyObject! in
+    func fetchQuery(query: PFQuery) {
+
+        collectionView.animateFadeOut()
+        loadingView.startAnimating()
+
+        query.findObjectsInBackground().continueWithSuccessBlock { (task: BFTask!) -> AnyObject! in
             
             guard let result = task.result as? [Anime] else {
                 return nil
@@ -225,18 +153,9 @@ class ChartViewController: UIViewController {
             return BFTask(result: result)
             
         }.continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task: BFTask!) -> AnyObject! in
-        
-            print("Load seasons = \(NSDate().timeIntervalSinceDate(startDate))s")
+
             if let result = task.result as? [Anime] {
-                let tvAnime = result.filter({$0.type == "TV"})
-                let tv = tvAnime.filter({$0.duration == 0 || $0.duration > 15})
-                let tvShort = tvAnime.filter({$0.duration > 0 && $0.duration <= 15})
-                let movieAnime = result.filter({$0.type == "Movie"})
-                let ovaAnime = result.filter({$0.type == "OVA"})
-                let onaAnime = result.filter({$0.type == "ONA"})
-                let specialAnime = result.filter({$0.type == "Special"})
-                
-                self.dataSource = [tv, tvShort, movieAnime, ovaAnime, onaAnime, specialAnime]
+                self.dataSource = self.dataSourceSplittedByType(result)
                 self.updateSortType(self.currentSortType)
             }
             
@@ -245,11 +164,22 @@ class ChartViewController: UIViewController {
             return nil
         })
     }
-    
-    
-    
+
+    func dataSourceSplittedByType(dataSource: [Anime]) -> [[Anime]] {
+        let tvAnime = dataSource.filter({$0.type == "TV"})
+        let tv = tvAnime.filter({$0.duration == 0 || $0.duration > 15})
+        let tvShort = tvAnime.filter({$0.duration > 0 && $0.duration <= 15})
+        let movieAnime = dataSource.filter({$0.type == "Movie"})
+        let ovaAnime = dataSource.filter({$0.type == "OVA"})
+        let onaAnime = dataSource.filter({$0.type == "ONA"})
+        let specialAnime = dataSource.filter({$0.type == "Special"})
+
+        return [tv, tvShort, movieAnime, ovaAnime, onaAnime, specialAnime]
+    }
+
+
     // MARK: - Utility Functions
-    
+
     func updateSortType(sortType: SortType) {
         
         currentSortType = sortType
@@ -279,36 +209,15 @@ class ChartViewController: UIViewController {
         searchBar(searchBar, textDidChange: searchBar.text!)
     }
     
-    func updateLayoutType(layoutType: LayoutType, withSize viewSize: CGSize) {
-        
-        if selectedList != SelectedList.AllSeasons {
-            currentLayoutType = layoutType
-        }
+    func updateLayoutWithSize(viewSize: CGSize) {
         
         guard let collectionView = collectionView,
             let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
                 return
         }
-        
-        switch layoutType {
-        case .Chart:
-            AnimeCell.updateLayoutItemSizeWithLayout(layout, viewSize: viewSize)
-        case .SeasonalChart:
-            let lineSpacing: CGFloat = 1
-            let columns: CGFloat = UIDevice.isLandscape() ? 3 : 2
-            let cellHeight: CGFloat = 36
-            var cellWidth: CGFloat = 0
-            layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-            layout.minimumLineSpacing = CGFloat(lineSpacing)
-            
-            if UIDevice.isPad() {
-                cellWidth = viewSize.width / columns - columns * lineSpacing
-            } else {
-                cellWidth = viewSize.width
-            }
-            layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
-        }
-        
+
+        AnimeCell.updateLayoutItemSizeWithLayout(layout, viewSize: viewSize)
+
         canFadeImages = false
         collectionView.collectionViewLayout.invalidateLayout()
         collectionView.reloadData()
@@ -328,56 +237,19 @@ class ChartViewController: UIViewController {
         }
         
     }
-    
-    func changeSeasonalChart() {
-        if let sender = navigationController?.navigationBar,
-        let viewController = tabBarController {
-            
-            var titlesDataSource: [String] = []
-            var iconsDataSource: [String] = []
-            
-            for index in -1...2 {
-                let (iconName, title) = SeasonalChartService.seasonalChartString(index)
-                titlesDataSource.append(title)
-                iconsDataSource.append(iconName)
-            }
-            
-            let dataSource = [titlesDataSource,["All Seasons"]]
-            let imageDataSource = [iconsDataSource,["icon-archived"]]
-            
-            DropDownListViewController.showDropDownListWith(sender: sender, viewController: viewController, delegate: self, dataSource: dataSource, imageDataSource: imageDataSource)
-        }
-    }
 }
 
 extension ChartViewController: UICollectionViewDataSource {
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        if selectedList == SelectedList.AllSeasons {
-            return 1
-        } else {
-            return filteredDataSource.count
-        }
-        
+        return filteredDataSource.count
     }
+
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if selectedList == SelectedList.AllSeasons {
-            return chartsDataSource.count
-        } else {
-            return filteredDataSource[section].count
-        }
+        return filteredDataSource[section].count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        
-        guard selectedList != SelectedList.AllSeasons else {
-            let reuseIdentifier = "SeasonCell";
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! BasicCollectionCell
-            let seasonalChart = chartsDataSource[indexPath.row]
-            cell.titleLabel.text = seasonalChart.title
-            cell.layoutIfNeeded()
-            return cell
-        }
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(AnimeCell.id, forIndexPath: indexPath) as! AnimeCell
         let anime = filteredDataSource[indexPath.section][indexPath.row]
@@ -416,9 +288,8 @@ extension ChartViewController: UICollectionViewDataSource {
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         
-        if filteredDataSource[section].count == 0
-            || selectedList == SelectedList.AllSeasons {
-                return CGSizeZero
+        if filteredDataSource[section].count == 0 {
+                return CGSize.zero
         } else {
             let height = (section == 0) ? FirstHeaderCellHeight : HeaderCellHeight
             return CGSize(width: view.bounds.size.width, height: height)
@@ -431,35 +302,9 @@ extension ChartViewController: UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
         view.endEditing(true)
-        
-        if selectedList != SelectedList.AllSeasons {
-            let anime = filteredDataSource[indexPath.section][indexPath.row]
-            animator = presentAnimeModal(anime)
-        }
-        
-        if selectedList == SelectedList.AllSeasons {
-            let seasonalChart = chartsDataSource[indexPath.row]
-            currentSeasonalChartName = seasonalChart.title
-            prepareForList(.SeasonalChart)
-        }
-    }
-}
 
-
-
-extension ChartViewController: DropDownListDelegate {
-    func selectedAction(trigger: UIView, action: String, indexPath: NSIndexPath) {
-        if trigger.isEqual(navigationController?.navigationBar) {
-            switch (indexPath.row, indexPath.section) {
-            case (_, 0):
-                currentSeasonalChartName = action
-                prepareForList(.SeasonalChart)
-            case (0,1):
-                prepareForList(.AllSeasons)
-            default: break
-            }
-            
-        }
+        let anime = filteredDataSource[indexPath.section][indexPath.row]
+        animator = presentAnimeModal(anime)
     }
 }
 
@@ -495,7 +340,7 @@ extension ChartViewController: FilterViewControllerDelegate {
                 case .Sort:
                     updateSortType(SortType(rawValue: value)!)
                 case .View:
-                    updateLayoutType(LayoutType(rawValue: value)!, withSize: view.bounds.size)
+                    updateLayoutWithSize(view.bounds.size)
                 default: break
                 }
             }

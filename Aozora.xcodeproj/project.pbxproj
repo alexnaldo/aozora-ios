@@ -235,7 +235,6 @@
 		DAA576DA1C66EC2D007E81E6 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8DD6421B3CAEC500B05FBF /* FilterViewController.swift */; };
 		DAA576DB1C66EC2D007E81E6 /* CustomThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA03F1491B897E4300402AC4 /* CustomThreadViewController.swift */; };
 		DAA576DC1C66EC2D007E81E6 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58C2E61B39C01B0082B626 /* BrowseViewController.swift */; };
-		DAA576DD1C66EC2D007E81E6 /* ChartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB83FC61B52FE200006AF96 /* ChartController.swift */; };
 		DAA576DE1C66EC2D007E81E6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58C2D81B386BB90082B626 /* ProfileViewController.swift */; };
 		DAA576DF1C66EC2D007E81E6 /* UIApplication+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA546D51BA090C0003989DE /* UIApplication+Navigation.swift */; };
 		DAA576E01C66EC2D007E81E6 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC13C291B424DEF0013D479 /* ResetPasswordViewController.swift */; };
@@ -316,7 +315,6 @@
 		DAB4DCA91C5CB79600924819 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB4DCA81C5CB79600924819 /* HomeViewController.swift */; };
 		DAB4DCAB1C5CB7A100924819 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAB4DCAA1C5CB7A100924819 /* Home.storyboard */; };
 		DAB4DCAD1C5CBE1F00924819 /* TableCellWithCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB4DCAC1C5CBE1F00924819 /* TableCellWithCollection.swift */; };
-		DAB83FC71B52FE200006AF96 /* ChartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB83FC61B52FE200006AF96 /* ChartController.swift */; };
 		DAC027CC1B2A16B80085C91A /* AnimeReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC027CB1B2A16B80085C91A /* AnimeReview.swift */; };
 		DAC027CF1B2A1C3F0085C91A /* ZFModalTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFD60B31B277B8D007275C1 /* ZFModalTransitionAnimator.m */; };
 		DAC027D01B2A1C750085C91A /* ZFModalTransitionAnimator.h in Headers */ = {isa = PBXBuildFile; fileRef = DAFD60B21B277B8D007275C1 /* ZFModalTransitionAnimator.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -724,7 +722,6 @@
 		DAB4DCA81C5CB79600924819 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		DAB4DCAA1C5CB7A100924819 /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		DAB4DCAC1C5CBE1F00924819 /* TableCellWithCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableCellWithCollection.swift; sourceTree = "<group>"; };
-		DAB83FC61B52FE200006AF96 /* ChartController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartController.swift; sourceTree = "<group>"; };
 		DAC027CB1B2A16B80085C91A /* AnimeReview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeReview.swift; sourceTree = "<group>"; };
 		DAC077961B68670C0067DA90 /* UIImage+Resize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+Resize.swift"; path = "../AnimeNow/UIImage+Resize.swift"; sourceTree = "<group>"; };
 		DAC077981B68698F0067DA90 /* default-avatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default-avatar@2x.png"; sourceTree = "<group>"; };
@@ -1577,7 +1574,6 @@
 		DAF618711B377C6000286517 /* Season */ = {
 			isa = PBXGroup;
 			children = (
-				DAB83FC61B52FE200006AF96 /* ChartController.swift */,
 				DA27D19A1AF1BA9D00CC854E /* Season.storyboard */,
 				DAFBB0941B20EFF700495ED9 /* ChartViewController.swift */,
 			);
@@ -2428,7 +2424,6 @@
 				DA8DD6431B3CAEC500B05FBF /* FilterViewController.swift in Sources */,
 				DAA546ED1BA1A0FE003989DE /* CustomThreadViewController.swift in Sources */,
 				DA58C2E71B39C01B0082B626 /* BrowseViewController.swift in Sources */,
-				DAB83FC71B52FE200006AF96 /* ChartController.swift in Sources */,
 				DAA546F91BA1AC48003989DE /* ProfileViewController.swift in Sources */,
 				DA8DE8941C66822C00133A1E /* UIApplication+Navigation.swift in Sources */,
 				DA4595651B83C3500044013E /* ResetPasswordViewController.swift in Sources */,
@@ -2627,7 +2622,6 @@
 				DAA576DA1C66EC2D007E81E6 /* FilterViewController.swift in Sources */,
 				DAA576DB1C66EC2D007E81E6 /* CustomThreadViewController.swift in Sources */,
 				DAA576DC1C66EC2D007E81E6 /* BrowseViewController.swift in Sources */,
-				DAA576DD1C66EC2D007E81E6 /* ChartController.swift in Sources */,
 				DAA576DE1C66EC2D007E81E6 /* ProfileViewController.swift in Sources */,
 				DAA576DF1C66EC2D007E81E6 /* UIApplication+Navigation.swift in Sources */,
 				DAA576E01C66EC2D007E81E6 /* ResetPasswordViewController.swift in Sources */,

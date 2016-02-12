@@ -142,7 +142,7 @@ class HomeViewController: UIViewController {
         var seasonsTask: BFTask!
 
         if currentSeasonalChartDataSource.isEmpty {
-            seasonsTask = ChartController.fetchAllSeasons().continueWithSuccessBlock { (task: BFTask!) -> AnyObject! in
+            seasonsTask = ChartController.allSeasonsQuery().findObjectsInBackground().continueWithSuccessBlock { (task: BFTask!) -> AnyObject! in
 
                 let result = task.result as! [SeasonalChart]
                 self.chartsDataSource = result
@@ -159,7 +159,7 @@ class HomeViewController: UIViewController {
             guard let result = task.result as? [SeasonalChart], let selectedSeason = result.last else {
                 return nil
             }
-            return ChartController.fetchSeasonalChartAnime(selectedSeason)
+            return ChartController.seasonalChartAnimeQuery(selectedSeason).findObjectsInBackground()
 
             }.continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task: BFTask!) -> AnyObject! in
 

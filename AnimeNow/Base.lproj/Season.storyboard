@@ -8,11 +8,10 @@
     <customFonts key="customFonts">
         <mutableArray key="FontAwesome.ttf">
             <string>FontAwesome</string>
-            <string>FontAwesome</string>
         </mutableArray>
     </customFonts>
     <scenes>
-        <!--Item 1-->
+        <!--Winter 2016-->
         <scene sceneID="x34-bc-zDI">
             <objects>
                 <viewController storyboardIdentifier="ChartViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="e1V-ND-r09" customClass="ChartViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
@@ -25,7 +24,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ZvF-JW-mkc">
-                                <rect key="frame" x="0.0" y="-64" width="600" height="649"/>
+                                <rect key="frame" x="0.0" y="-64" width="600" height="600"/>
                                 <color key="backgroundColor" white="0.94916466489999995" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="44" maxX="0.0" maxY="0.0"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="0.0" id="laK-Dg-eRO">
@@ -138,7 +137,7 @@
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="qNO-UV-LtX" firstAttribute="top" secondItem="m5v-5k-u0e" secondAttribute="bottom" constant="-40" id="2UA-fn-o8w"/>
-                            <constraint firstItem="haP-dC-pfL" firstAttribute="top" secondItem="ZvF-JW-mkc" secondAttribute="bottom" constant="-49" id="3fh-su-gfC"/>
+                            <constraint firstItem="haP-dC-pfL" firstAttribute="top" secondItem="ZvF-JW-mkc" secondAttribute="bottom" id="3fh-su-gfC"/>
                             <constraint firstAttribute="trailing" secondItem="ZvF-JW-mkc" secondAttribute="trailing" id="5fT-np-2T1"/>
                             <constraint firstItem="qNO-UV-LtX" firstAttribute="leading" secondItem="kcU-gF-Gza" secondAttribute="leading" id="9Ew-FQ-M0Z"/>
                             <constraint firstItem="ZvF-JW-mkc" firstAttribute="leading" secondItem="kcU-gF-Gza" secondAttribute="leadingMargin" constant="-16" id="BEZ-dq-2Cj"/>
@@ -155,28 +154,7 @@
                         </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 1" id="Jsu-1p-Xx5"/>
-                    <navigationItem key="navigationItem" id="hJt-Bd-P1E">
-                        <nil key="title"/>
-                        <view key="titleView" contentMode="scaleToFill" id="kGf-b8-fDN">
-                            <rect key="frame" x="180" y="5.5" width="240" height="33"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spring 2015" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wsb-4U-rg4">
-                                    <rect key="frame" x="75" y="2" width="91.5" height="30"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="30" id="aBR-el-8am"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="17"/>
-                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstAttribute="centerX" secondItem="wsb-4U-rg4" secondAttribute="centerX" id="cjK-QP-BoZ"/>
-                                <constraint firstAttribute="centerY" secondItem="wsb-4U-rg4" secondAttribute="centerY" id="oiu-Ph-e5c"/>
-                            </constraints>
-                        </view>
+                    <navigationItem key="navigationItem" title="Winter 2016" id="hJt-Bd-P1E">
                         <barButtonItem key="rightBarButtonItem" image="icon-sort" id="psm-xH-NbJ" userLabel="Sort">
                             <connections>
                                 <action selector="showFilterPressed:" destination="e1V-ND-r09" id="4nI-ue-ZjH"/>
@@ -187,102 +165,12 @@
                     <connections>
                         <outlet property="collectionView" destination="ZvF-JW-mkc" id="ieM-OQ-8lS"/>
                         <outlet property="filterBar" destination="qNO-UV-LtX" id="OIS-5J-bmO"/>
-                        <outlet property="navigationBarTitle" destination="wsb-4U-rg4" id="nMm-HZ-ziu"/>
-                        <outlet property="navigationItemView" destination="kGf-b8-fDN" id="CV4-ew-1uW"/>
                         <outlet property="searchBar" destination="slb-i9-V2M" id="5yV-TU-LCK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p7P-Nh-lGw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1699" y="-75"/>
-        </scene>
-        <!--Calendar-->
-        <scene sceneID="ZMv-kc-yVm">
-            <objects>
-                <viewController storyboardIdentifier="Calendar" automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0ZK-kZ-TBZ" customClass="CalendarViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="qcL-Aj-tUp"/>
-                        <viewControllerLayoutGuide type="bottom" id="Gz1-ew-Lxz"/>
-                    </layoutGuides>
-                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="vug-hO-2Pp">
-                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OqV-3g-Ea8" customClass="UIScrollView">
-                                <rect key="frame" x="-5" y="43" width="610" height="449"/>
-                                <color key="backgroundColor" white="0.94916466489999995" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Nx5-fM-jwg" customClass="XLButtonBarView">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
-                                <color key="backgroundColor" red="0.10359226639999999" green="0.1079328739" blue="0.1310863334" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="43" id="Mod-cM-1jN"/>
-                                </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="E4v-o0-hSV">
-                                    <size key="itemSize" width="79" height="42"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="THw-1q-r9x" customClass="XLButtonBarViewCell">
-                                        <rect key="frame" x="0.0" y="0.5" width="79" height="42"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="79" height="42"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LsX-8f-ntH">
-                                                    <rect key="frame" x="20" y="12" width="38" height="17"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <constraints>
-                                            <constraint firstAttribute="centerY" secondItem="LsX-8f-ntH" secondAttribute="centerY" constant="0.5" id="VWF-Np-PPF"/>
-                                            <constraint firstAttribute="centerX" secondItem="LsX-8f-ntH" secondAttribute="centerX" constant="0.5" id="jh1-1c-mGy"/>
-                                        </constraints>
-                                        <connections>
-                                            <outlet property="label" destination="LsX-8f-ntH" id="3Wg-qD-CIt"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                </cells>
-                            </collectionView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="Nx5-fM-jwg" firstAttribute="leading" secondItem="vug-hO-2Pp" secondAttribute="leading" id="1KG-UZ-Tjk"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Nx5-fM-jwg" secondAttribute="trailing" constant="-16" id="5ey-FJ-NpN"/>
-                            <constraint firstAttribute="trailing" secondItem="OqV-3g-Ea8" secondAttribute="trailing" constant="-5" id="KHY-os-vVo"/>
-                            <constraint firstItem="OqV-3g-Ea8" firstAttribute="leading" secondItem="vug-hO-2Pp" secondAttribute="leading" constant="-5" id="UJz-kn-FG9"/>
-                            <constraint firstItem="Gz1-ew-Lxz" firstAttribute="top" secondItem="OqV-3g-Ea8" secondAttribute="bottom" id="bmP-Lt-HHv"/>
-                            <constraint firstItem="Nx5-fM-jwg" firstAttribute="leading" secondItem="vug-hO-2Pp" secondAttribute="leadingMargin" constant="-16" id="q9w-fZ-6mt"/>
-                            <constraint firstItem="Nx5-fM-jwg" firstAttribute="top" secondItem="qcL-Aj-tUp" secondAttribute="bottom" id="wWm-G9-5Dl"/>
-                            <constraint firstAttribute="trailing" secondItem="Nx5-fM-jwg" secondAttribute="trailing" id="woA-y7-sRi"/>
-                            <constraint firstItem="OqV-3g-Ea8" firstAttribute="top" secondItem="Nx5-fM-jwg" secondAttribute="bottom" id="wua-SY-du2"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="5ey-FJ-NpN"/>
-                                <exclude reference="q9w-fZ-6mt"/>
-                            </mask>
-                        </variation>
-                    </view>
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Calendar" id="4RJ-CU-Nat"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="buttonBarView" destination="Nx5-fM-jwg" id="QLp-jc-EIX"/>
-                        <outlet property="containerView" destination="OqV-3g-Ea8" id="eWD-ob-CJ7"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="d1L-5w-G0p" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2408" y="-75"/>
         </scene>
         <!--Item 1-->
         <scene sceneID="imV-Lh-v9i">
@@ -401,7 +289,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SYS-X3-wyw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3044" y="-75"/>
+            <point key="canvasLocation" x="2346" y="-75"/>
         </scene>
     </scenes>
     <resources>
