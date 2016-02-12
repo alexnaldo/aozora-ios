@@ -475,6 +475,15 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
 
             cell.actionButton.setTitle(rightButtonTitle[indexPath.section], forState: .Normal)
             cell.actionButtonCallback = { section in
+
+                func showInAppPurchasesIfNeeded(function: ()->Void) {
+                    if InAppController.hasAnyPro() {
+                        function()
+                    } else {
+                        InAppPurchaseViewController.showInAppPurchaseWith(self)
+                    }
+                }
+
                 switch HomeSection(rawValue: section)! {
                 case .AiringToday:
                     self.showCalendar()
@@ -483,13 +492,13 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
                 case .ExploreAll:
                     self.showBrowse()
                 case .Genres:
-                    self.showGenres()
+                    showInAppPurchasesIfNeeded(self.showGenres)
                 case .Years:
-                    self.showYears()
+                    showInAppPurchasesIfNeeded(self.showYears)
                 case .Studios:
-                    self.showStudios()
+                    showInAppPurchasesIfNeeded(self.showStudios)
                 case .Classifications:
-                    self.showClassifications()
+                    showInAppPurchasesIfNeeded(self.showClassifications)
                 }
             }
             
