@@ -71,6 +71,7 @@ class TodayViewController: UIViewController {
     func updateDataSource(dataSource: [AnimeData]) {
         contentIsHidden = dataSource.count > 10
         self.dataSource = Array(dataSource.prefix(10))
+        self.dataSource.sortInPlace({ $0.title < $1.title })
     }
 
     // MARK: - IBActions
