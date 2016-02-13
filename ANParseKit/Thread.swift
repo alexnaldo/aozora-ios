@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Parse
 
 public class Thread: PFObject, PFSubclassing, Postable {
     override public class func initialize() {

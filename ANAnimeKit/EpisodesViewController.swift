@@ -9,8 +9,6 @@
 import UIKit
 import ANCommonKit
 
-import Bolts
-
 extension EpisodesViewController: StatusBarVisibilityProtocol {
     func shouldHideStatusBar() -> Bool {
         return false

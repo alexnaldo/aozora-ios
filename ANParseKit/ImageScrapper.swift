@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Bolts
 import ANCommonKit
 
 public class ImageData {

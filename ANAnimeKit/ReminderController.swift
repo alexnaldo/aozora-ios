@@ -7,9 +7,7 @@
 //
 
 import Foundation
-
 import ANCommonKit
-import Bolts
 
 public class ReminderController {
     public class func scheduleReminderForAnime(anime: Anime) -> Bool {

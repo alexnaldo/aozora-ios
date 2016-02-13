@@ -7,8 +7,6 @@
 //
 
 import Foundation
-import Parse
-import Bolts
 
 public protocol FetchControllerDelegate: class {
     func didFetchFor(skip skip: Int)

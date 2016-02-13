@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Parse
 
 public class TimelinePost: PFObject, PFSubclassing, TimelinePostable {
     override public class func initialize() {

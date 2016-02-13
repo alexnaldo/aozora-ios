@@ -9,11 +9,8 @@
 import UIKit
 import Shimmer
 import ANCommonKit
-
 import XCDYouTubeKit
 import FBSDKShareKit
-import Bolts
-import Parse
 
 enum AnimeSection: Int {
     case Synopsis = 0

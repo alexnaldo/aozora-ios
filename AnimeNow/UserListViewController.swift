@@ -8,8 +8,6 @@
 
 import UIKit
 import Alamofire
-import Bolts
-import Parse
 import ANCommonKit
 
 class UserListViewController: UIViewController {

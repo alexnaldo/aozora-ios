@@ -7,7 +7,6 @@
 //
 
 import TTTAttributedLabel
-import Parse
 
 extension TTTAttributedLabel {
     public func updateTags(tags: [PFObject], delegate: TTTAttributedLabelDelegate, addLinks: Bool = true) {

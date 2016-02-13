@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Parse
 
 public class SeasonalChart: PFObject, PFSubclassing {
     override public class func initialize() {

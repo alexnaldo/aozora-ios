@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Parse
 
 public class UserDetails: PFObject, PFSubclassing {
     override public class func initialize() {

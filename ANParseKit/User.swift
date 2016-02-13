@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Parse
 
 public class User: PFUser {
     

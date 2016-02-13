@@ -7,9 +7,7 @@
 //
 
 import Foundation
-
 import ANCommonKit
-import Bolts
 
 protocol AnimeLibraryCellDelegate: class {
     func cellPressedWatched(cell: AnimeLibraryCell, anime: Anime)

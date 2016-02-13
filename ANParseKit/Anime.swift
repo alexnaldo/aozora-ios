@@ -7,8 +7,6 @@
 //
 
 import Foundation
-import Bolts
-import Parse
 import ANCommonKit
 
 public class Anime: PFObject, PFSubclassing {

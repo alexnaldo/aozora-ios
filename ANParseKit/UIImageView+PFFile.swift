@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Parse
 
 extension UIImageView {
     public func setImageWithPFFile(file: PFFile, animated: Bool = false) {

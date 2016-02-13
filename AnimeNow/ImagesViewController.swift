@@ -8,7 +8,6 @@
 
 import Foundation
 import ANCommonKit
-import Bolts
 import SDWebImage
 import FLAnimatedImage
 

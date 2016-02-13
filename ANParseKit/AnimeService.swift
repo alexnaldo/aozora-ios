@@ -8,9 +8,6 @@
 
 import Foundation
 import ANCommonKit
-import Parse
-import Bolts
-
 
 public class AnimeService {
 

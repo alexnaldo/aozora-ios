@@ -8,7 +8,6 @@
 
 import UIKit
 import ANCommonKit
-import Bolts
 
 enum SearchScope: Int {
     case AllAnime = 0

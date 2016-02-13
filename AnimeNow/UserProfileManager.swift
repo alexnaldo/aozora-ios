@@ -8,9 +8,6 @@
 
 import Foundation
 import RSKImageCropper
-import Bolts
-import Parse
-
 
 public protocol UserProfileManagerDelegate: class {
     func selectedAvatar(avatar: UIImage)

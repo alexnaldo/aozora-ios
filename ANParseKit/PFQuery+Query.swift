@@ -7,8 +7,6 @@
 //
 
 import Foundation
-import Parse
-import Bolts
 
 extension PFQuery {
     

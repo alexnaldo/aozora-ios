@@ -8,9 +8,7 @@
 
 import UIKit
 import ANCommonKit
-import Bolts
 import Alamofire
-import Parse
 
 public protocol LoginViewControllerDelegate: class {
     func loginViewControllerPressedDoesntHaveAnAccount()

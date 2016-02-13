@@ -8,9 +8,7 @@
 
 import Foundation
 import ANCommonKit
-import Bolts
 import SDWebImage
-import Parse
 
 protocol TagsViewControllerDelegate: class {
     func tagsViewControllerSelected(tags tags: [PFObject])

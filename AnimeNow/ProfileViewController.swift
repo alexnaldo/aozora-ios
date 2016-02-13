@@ -10,8 +10,6 @@ import UIKit
 import ANCommonKit
 import TTTAttributedLabel
 import XCDYouTubeKit
-import Parse
-
 
 public class ProfileViewController: ThreadViewController {
     

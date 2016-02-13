@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Parse
 
 public protocol Postable {
     var createdDate: NSDate? { get }

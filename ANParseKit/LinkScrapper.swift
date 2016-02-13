@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Bolts
 
 public class LinkData {
     

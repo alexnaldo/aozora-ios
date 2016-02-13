@@ -8,10 +8,7 @@
 
 import UIKit
 import ANCommonKit
-
-import Bolts
 import iAd
-import Parse
 
 extension ForumViewController: StatusBarVisibilityProtocol {
     func shouldHideStatusBar() -> Bool {
