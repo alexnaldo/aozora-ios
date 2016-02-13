@@ -321,7 +321,7 @@ public class ProfileViewController: ThreadViewController {
         super.replyToThreadPressed(sender)
         
         if let profile = userProfile where User.currentUserLoggedIn() {
-            let comment = ANAnimeKit.newPostViewController()
+            let comment = Storyboard.newPostViewController()
             comment.initWithTimelinePost(self, postedIn: profile)
             animator = presentViewControllerModal(comment)
         } else {
@@ -490,7 +490,7 @@ public class ProfileViewController: ThreadViewController {
     }
     
     @IBAction func showFollowingUsers(sender: AnyObject) {
-        let userListController = UIStoryboard(name: "Profile", bundle: nil).instantiateViewControllerWithIdentifier("UserList") as! UserListViewController
+        let userListController = Storyboard.userListViewController()
         let query = userProfile!.following().query()
         query.orderByAscending("aozoraUsername")
         userListController.initWithQuery(query, title: "Following", user: userProfile!)
@@ -498,7 +498,7 @@ public class ProfileViewController: ThreadViewController {
     }
     
     @IBAction func showFollowers(sender: AnyObject) {
-        let userListController = UIStoryboard(name: "Profile", bundle: nil).instantiateViewControllerWithIdentifier("UserList") as! UserListViewController
+        let userListController = Storyboard.userListViewController()
         let query = User.query()!
         query.whereKey("following", equalTo: userProfile!)
         query.orderByAscending("aozoraUsername")
@@ -514,7 +514,7 @@ public class ProfileViewController: ThreadViewController {
         
         alert.addAction(UIAlertAction(title: "View Library", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
             if let userProfile = self.userProfile {
-                let navVC = UIStoryboard(name: "Library", bundle: nil).instantiateViewControllerWithIdentifier("PublicLibraryNav") as! UINavigationController
+                let navVC = UIStoryboard(name: "Library", bundle: nil).instantiateViewControllerWithIdentifier("PublicListViewControllerNav") as! UINavigationController
                 let publicList = navVC.viewControllers.first as! PublicListViewController
                 publicList.initWithUser(userProfile)
                 self.animator = self.presentViewControllerModal(navVC)
@@ -540,7 +540,7 @@ public class ProfileViewController: ThreadViewController {
         
         if let userProfile = userProfile where userProfile.isTheCurrentUser() {
             alert.addAction(UIAlertAction(title: "Edit Profile", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
-                let editProfileController =  UIStoryboard(name: "Profile", bundle: nil).instantiateViewControllerWithIdentifier("EditProfile") as! EditProfileViewController
+                let editProfileController =  UIStoryboard(name: "Profile", bundle: nil).instantiateViewControllerWithIdentifier("EditProfileViewController") as! EditProfileViewController
                 editProfileController.delegate = self
                 if UIDevice.isPad() {
                     self.presentSmallViewController(editProfileController, sender: sender)
@@ -559,7 +559,7 @@ public class ProfileViewController: ThreadViewController {
             }))
             
             alert.addAction(UIAlertAction(title: "Online Users", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
-                let userListController = UIStoryboard(name: "Profile", bundle: nil).instantiateViewControllerWithIdentifier("UserList") as! UserListViewController
+                let userListController = Storyboard.userListViewController()
                 let query = User.query()!
                 query.whereKeyExists("aozoraUsername")
                 query.whereKey("active", equalTo: true)
@@ -570,7 +570,7 @@ public class ProfileViewController: ThreadViewController {
             }))
             
             alert.addAction(UIAlertAction(title: "New Users", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
-                let userListController = UIStoryboard(name: "Profile", bundle: nil).instantiateViewControllerWithIdentifier("UserList") as! UserListViewController
+                let userListController = Storyboard.userListViewController()
                 let query = User.query()!
                 query.orderByDescending("joinDate")
                 query.whereKeyExists("aozoraUsername")

@@ -99,7 +99,8 @@ public class ThreadViewController: UIViewController {
     }
     
     func openProfileNow(user: User? = nil, username: String? = nil) {
-        let profileController = ANAnimeKit.profileViewController()
+        let profileController = Storyboard.profileViewController()
+
         if let user = user  {
             profileController.initWithUser(user)
         } else if let username = username {
@@ -126,18 +127,19 @@ public class ThreadViewController: UIViewController {
             return
         }
         
-        let comment = ANAnimeKit.newPostViewController()
+        let newPostViewController = Storyboard.newPostViewController()
+
         if let post = post as? ThreadPostable, let thread = thread where !thread.locked {
             if thread.locked {
                 presentBasicAlertWithTitle("Thread is locked")
             } else {
-                comment.initWith(thread, threadType: threadType, delegate: self, parentPost: post)
-                animator = presentViewControllerModal(comment)
+                newPostViewController.initWith(thread, threadType: threadType, delegate: self, parentPost: post)
+                animator = presentViewControllerModal(newPostViewController)
             }
             
         } else if let post = post as? TimelinePostable {
-            comment.initWithTimelinePost(self, postedIn:post.userTimeline, parentPost: post)
-            animator = presentViewControllerModal(comment)
+            newPostViewController.initWithTimelinePost(self, postedIn:post.userTimeline, parentPost: post)
+            animator = presentViewControllerModal(newPostViewController)
         }
     }
     
@@ -514,13 +516,14 @@ extension ThreadViewController: UITableViewDelegate {
                 }
                 
                 alert.addAction(UIAlertAction(title: "Edit", style: administrating ? UIAlertActionStyle.Destructive : UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction!) -> Void in
-                    let comment = ANAnimeKit.newPostViewController()
+                    let newPostViewController = Storyboard.newPostViewController()
+
                     if let post = post as? TimelinePost {
-                        comment.initWithTimelinePost(self, postedIn: currentUser, editingPost: post)
+                        newPostViewController.initWithTimelinePost(self, postedIn: currentUser, editingPost: post)
                     } else if let post = post as? Post, let thread = self.thread {
-                        comment.initWith(thread, threadType: self.threadType, delegate: self, editingPost: post)
+                        newPostViewController.initWith(thread, threadType: self.threadType, delegate: self, editingPost: post)
                     }
-                    self.animator = self.presentViewControllerModal(comment)
+                    self.animator = self.presentViewControllerModal(newPostViewController)
                 }))
 
                 alert.addAction(UIAlertAction(title: "Delete", style: UIAlertActionStyle.Destructive, handler: { (alertAction: UIAlertAction!) -> Void in
@@ -630,7 +633,10 @@ extension ThreadViewController: TTTAttributedLabelDelegate {
                 }
             
         } else if url.scheme != "aozoraapp" {
-            let (navController, webController) = ANAnimeKit.webViewController()
+
+            let navController = Storyboard.webBrowserViewControllerNav()
+            let webController = navController.viewControllers.first as! WebBrowserViewController
+
             webController.initWithInitialUrl(url)
             presentViewController(navController, animated: true, completion: nil)
         }
@@ -691,8 +697,10 @@ extension ThreadViewController: LinkCellDelegate {
             let url = linkData.url else {
             return
         }
-        
-        let (navController, webController) = ANAnimeKit.webViewController()
+
+        let navController = Storyboard.webBrowserViewControllerNav()
+        let webController = navController.viewControllers.first as! WebBrowserViewController
+
         let initialUrl = NSURL(string: url)
         webController.initWithInitialUrl(initialUrl)
         presentViewController(navController, animated: true, completion: nil)

@@ -15,7 +15,7 @@ extension UIViewController {
     
     public func presentAnimeModal(anime: Anime) -> ZFModalTransitionAnimator {
         
-        let tabBarController = ANAnimeKit.rootTabBarController()
+        let tabBarController = Storyboard.customTabBarController()
         tabBarController.initWithAnime(anime)
         
         let animator = ZFModalTransitionAnimator(modalViewController: tabBarController)
@@ -32,7 +32,8 @@ extension UIViewController {
     }
     
     func presentSearchViewController(searchScope: SearchScope) {
-        let (navigation, controller) = ANAnimeKit.searchViewController()
+        let navigation = Storyboard.searchViewControllerNav()
+        let controller = navigation.viewControllers.first as! SearchViewController
         controller.initWithSearchScope(searchScope)
         presentViewController(navigation, animated: true, completion: nil)
     }

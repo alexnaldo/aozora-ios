@@ -62,8 +62,8 @@ class BrowseViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        AnimeCell.registerNibFor(collectionView: collectionView)
+
+        collectionView.registerNibWithClass(AnimeCell)
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "changeSeasonalChart")
         navigationBarTitleView.addGestureRecognizer(tapGestureRecognizer)
@@ -194,8 +194,7 @@ class BrowseViewController: UIViewController {
     @IBAction func showFilterPressed(sender: AnyObject) {
         
         if let navigationController = navigationController {
-            let controller = UIStoryboard(name: "Browse", bundle: nil).instantiateViewControllerWithIdentifier("Filter") as! FilterViewController
-            
+            let controller = Storyboard.filterViewController()
             controller.delegate = self
             controller.initWith(configuration: currentConfiguration, selectedGenres: selectedGenres)
             animator = navigationController.presentViewControllerModal(controller)
@@ -210,7 +209,9 @@ extension BrowseViewController: UICollectionViewDataSource {
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(AnimeCell.id, forIndexPath: indexPath) as! AnimeCell
+        guard let cell = collectionView.dequeueReusableCellWithClass(AnimeCell.self, indexPath: indexPath) else {
+            return UICollectionViewCell()
+        }
         
         let anime = fetchController.objectAtIndex(indexPath.row) as! Anime
         

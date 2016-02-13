@@ -103,8 +103,8 @@ extension RootTabBar: UITabBarControllerDelegate {
             if let _ = libraryController where !NSUserDefaults.standardUserDefaults().boolForKey(RootTabBar.ShowedMyAnimeListLoginDefault) {
                 NSUserDefaults.standardUserDefaults().setBool(true, forKey: RootTabBar.ShowedMyAnimeListLoginDefault)
                 NSUserDefaults.standardUserDefaults().synchronize()
-                
-                let loginController = ANAnimeKit.loginViewController()
+
+                let loginController = Storyboard.loginViewController()
                 loginController.delegate = self
                 presentViewController(loginController, animated: true, completion: nil)
                 return false

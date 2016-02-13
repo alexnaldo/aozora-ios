@@ -37,9 +37,8 @@ class AnimeBrowserViewController: UIViewController {
 
         title = controllerTitle
 
-        TitleHeaderView.registerNibFor(tableView: tableView)
-        TableCellWithCollection.registerNibFor(tableView: tableView)
-        
+        tableView.registerNibWithClass(TitleHeaderView)
+        tableView.registerNibWithClass(TableCellWithCollection)
     }
 
     func fetchForSection(section: Int) {

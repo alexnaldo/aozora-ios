@@ -44,7 +44,8 @@ public class CustomTabBarController: UITabBarController {
         super.viewDidLoad()
         
         // Forum view controller
-        let (forumNavController, _) = ANAnimeKit.animeForumViewController()
+        let forumNavController = Storyboard.animeForumViewController()
+
         self.viewControllers?.append(forumNavController)
         
         // Update icons frame

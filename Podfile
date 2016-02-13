@@ -23,16 +23,17 @@ def common_pods
     pod 'TTTAttributedLabel', '~> 1.13.4'
     pod 'MMWormhole', '~> 2.0.0'
     pod 'FLAnimatedImage', '~> 1.0'
+
 end
 
 target 'Aozora' do
     common_pods
+    pod 'JTSImageViewController', '~> 1.3'
     pod 'FontAwesome+iOS'
     pod 'Shimmer'
     pod 'XLPagerTabStrip', '~> 1.1.1'
     pod 'XCDYouTubeKit', '~> 2.4.1'
     pod 'RMStore', '~> 0.7'
-    pod 'JTSImageViewController', '~> 1.3'
     pod 'iRate', '~> 1.11.4'
     pod 'HCSStarRatingView'
     pod 'RSKImageCropper'

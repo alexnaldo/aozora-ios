@@ -99,8 +99,8 @@ class ChartViewController: UIViewController {
         title = controllerTitle
 
         DialogController.sharedInstance.canShowFBAppInvite(self)
-        
-        AnimeCell.registerNibFor(collectionView: collectionView)
+
+        collectionView.registerNibWithClass(AnimeCell.self)
         
         // Update configuration
         currentConfiguration = [
@@ -229,7 +229,7 @@ class ChartViewController: UIViewController {
     @IBAction func showFilterPressed(sender: AnyObject) {
         
         if let tabBar = tabBarController {
-            let controller = UIStoryboard(name: "Browse", bundle: nil).instantiateViewControllerWithIdentifier("Filter") as! FilterViewController
+            let controller = Storyboard.filterViewController()
             
             controller.delegate = self
             controller.initWith(configuration: currentConfiguration)
@@ -251,7 +251,10 @@ extension ChartViewController: UICollectionViewDataSource {
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(AnimeCell.id, forIndexPath: indexPath) as! AnimeCell
+        guard let cell = collectionView.dequeueReusableCellWithClass(AnimeCell.self, indexPath: indexPath) else {
+            return UICollectionViewCell()
+        }
+
         let anime = filteredDataSource[indexPath.section][indexPath.row]
         cell.configureWithAnime(anime, canFadeImages: canFadeImages, showEtaAsAired: false)
         cell.layoutIfNeeded()

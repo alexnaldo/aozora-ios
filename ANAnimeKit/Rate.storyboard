@@ -9,7 +9,7 @@
         <!--Rate View Controller-->
         <scene sceneID="nB8-IN-WuY">
             <objects>
-                <viewController id="5VZ-c4-kvd" customClass="RateViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RateViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="5VZ-c4-kvd" customClass="RateViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bmO-5n-UMP"/>
                         <viewControllerLayoutGuide type="bottom" id="Jv1-KP-YHZ"/>

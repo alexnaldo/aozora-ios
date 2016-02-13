@@ -72,16 +72,16 @@ class NotificationsController {
     
     class func showUserProfile(user: User, returnAnimator: Bool) {
         
-        let profileController = ANAnimeKit.profileViewController()
+        let profileController = Storyboard.profileViewController()
         profileController.initWithUser(user)
         pushViewController(profileController)
     }
     
     class func showNotificationThread(post: Postable, returnAnimator: Bool) {
         
-        let (_, profileController) = ANAnimeKit.notificationThreadViewController()
-        profileController.initWithPost(post)
-        pushViewController(profileController)
+        let notificationThread = Storyboard.notificationThreadViewController()
+        notificationThread.initWithPost(post)
+        pushViewController(notificationThread)
     }
 
     class func pushViewController(controller: UIViewController) {

@@ -116,7 +116,8 @@ extension UserListViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         let profile = dataSource[indexPath.row]
-        let profileController = ANAnimeKit.profileViewController()
+        let profileController = Storyboard.profileViewController()
+        
         profileController.initWithUser(profile)
         navigationController?.pushViewController(profileController, animated: true)
     }

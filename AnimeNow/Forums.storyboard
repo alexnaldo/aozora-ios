@@ -39,7 +39,7 @@
         <!--Forums View Controller-->
         <scene sceneID="mQy-XO-gdU">
             <objects>
-                <viewController storyboardIdentifier="Forums" useStoryboardIdentifierAsRestorationIdentifier="YES" id="R7R-xW-OvQ" customClass="ForumsViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ForumsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="R7R-xW-OvQ" customClass="ForumsViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hzq-WK-h4l"/>
                         <viewControllerLayoutGuide type="bottom" id="mki-z3-DzD"/>
@@ -71,7 +71,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="What Song is this in FMA Brotherhoos Soundtrack? " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2kG-0g-6h2">
-                                                    <rect key="frame" x="21" y="12" width="571" height="21"/>
+                                                    <rect key="frame" x="21" y="12" width="571" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="20" id="sT5-rg-HPx"/>
                                                     </constraints>
@@ -292,8 +292,8 @@
                             <rect key="frame" x="180" y="5.5" width="240" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Forum" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YcK-20-N7J">
-                                    <rect key="frame" x="96" y="9" width="50" height="17"/>
+                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forum" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YcK-20-N7J">
+                                    <rect key="frame" x="95.5" y="-1" width="49.5" height="35"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="35" id="PfE-fg-nqn"/>
                                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="250" id="vzz-Yv-CQv"/>

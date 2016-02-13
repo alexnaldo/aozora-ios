@@ -17,7 +17,7 @@
         <!--Anime List View Controller-->
         <scene sceneID="AHa-Td-AJ2">
             <objects>
-                <viewController storyboardIdentifier="AnimeList" useStoryboardIdentifierAsRestorationIdentifier="YES" id="59z-su-Guf" customClass="AnimeListViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AnimeListViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="59z-su-Guf" customClass="AnimeListViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EbK-cl-wC7"/>
                         <viewControllerLayoutGuide type="bottom" id="Gi7-pz-xZZ"/>
@@ -85,7 +85,7 @@
                                                         </mask>
                                                     </variation>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" misplaced="YES" text="Yahari Ore no Seishun Loge Comedy wa Machigatteiru. Zoku" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Huv-vs-6mv">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Yahari Ore no Seishun Loge Comedy wa Machigatteiru. Zoku" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Huv-vs-6mv">
                                                     <rect key="frame" x="72" y="138.5" width="185" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="240" id="56U-hb-dAU"/>
@@ -105,7 +105,7 @@
                                                         </mask>
                                                     </variation>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="TV ·  10/24    9" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uJt-cY-PNX">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TV ·  10/24    9" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uJt-cY-PNX">
                                                     <rect key="frame" x="72" y="157.5" width="185" height="13.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="240" id="7CE-P8-Bfn"/>
@@ -288,7 +288,7 @@
         <!--Library-->
         <scene sceneID="A9r-2g-diP">
             <objects>
-                <navigationController id="b2Y-uV-VDe" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="AnimeLibraryViewControllerNav" id="b2Y-uV-VDe" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Library" image="icon-library-filled" id="QDB-L9-XCB">
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="icon-library-filled"/>
@@ -310,7 +310,7 @@
         <!--Library-->
         <scene sceneID="DB5-o8-SoY">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="sfh-gj-hB0" customClass="AnimeLibraryViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AnimeLibraryViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sfh-gj-hB0" customClass="AnimeLibraryViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tsa-a3-88g"/>
                         <viewControllerLayoutGuide type="bottom" id="reF-51-ZXy"/>
@@ -400,7 +400,7 @@
         <!--Public List View Controller-->
         <scene sceneID="CEY-sJ-SfN">
             <objects>
-                <viewController id="f7V-8F-nqS" customClass="PublicListViewController" customModule="Aozora" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PublicListViewController" id="f7V-8F-nqS" customClass="PublicListViewController" customModule="Aozora" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="er2-rH-uRi"/>
                         <viewControllerLayoutGuide type="bottom" id="oaN-3O-H7v"/>
@@ -535,7 +535,7 @@
         <!--Season-->
         <scene sceneID="86e-gV-WGr">
             <objects>
-                <navigationController storyboardIdentifier="PublicLibraryNav" hidesBarsOnSwipe="YES" id="Vot-2a-3Vb" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="PublicListViewControllerNav" hidesBarsOnSwipe="YES" id="Vot-2a-3Vb" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Season" image="icon-airing" id="I9v-Md-OeS"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="IlQ-8r-Bwx">

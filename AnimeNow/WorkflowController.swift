@@ -17,7 +17,7 @@ class WorkflowController {
         let home = UIStoryboard(name: "Home", bundle: nil).instantiateInitialViewController() as! UINavigationController
         let library = UIStoryboard(name: "Library", bundle: nil).instantiateInitialViewController() as! UINavigationController
         let profile = UIStoryboard(name: "Profile", bundle: nil).instantiateInitialViewController() as! UINavigationController
-        let notifications = UIStoryboard(name: "Notifications", bundle: nil).instantiateViewControllerWithIdentifier("NotificationNav") as! UINavigationController
+        let notifications = UIStoryboard(name: "Notifications", bundle: nil).instantiateViewControllerWithIdentifier("NotificationsViewControllerNav") as! UINavigationController
         let notificationVC = notifications.viewControllers.first as! NotificationsViewController
         
         

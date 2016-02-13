@@ -10,8 +10,6 @@ import Foundation
 
 class TitleHeaderView: UITableViewCell {
 
-    static let id = "TitleHeaderView"
-
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
 
@@ -20,12 +18,6 @@ class TitleHeaderView: UITableViewCell {
 
     var actionButtonCallback: (Int -> Void)?
     var section: Int = 0
-
-    class func registerNibFor(tableView tableView: UITableView) {
-        let chartNib = UINib(nibName: TitleHeaderView.id, bundle: nil)
-        tableView.registerNib(chartNib, forCellReuseIdentifier: TitleHeaderView.id)
-    }
-
 
     @IBAction func actionButtonPressed(sender: AnyObject) {
         actionButtonCallback?(section)

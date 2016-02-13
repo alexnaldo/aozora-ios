@@ -57,8 +57,8 @@ class PublicListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        AnimeCell.registerNibFor(collectionView: collectionView)
+
+        collectionView.registerNibWithClass(AnimeCell)
         
         collectionView.alpha = 0.0
         
@@ -192,8 +192,11 @@ extension PublicListViewController: UICollectionViewDataSource {
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(AnimeCell.id, forIndexPath: indexPath) as! AnimeCell
+
+        guard let cell = collectionView.dequeueReusableCellWithClass(AnimeCell.self, indexPath: indexPath) else {
+            return UICollectionViewCell()
+        }
+
         let anime = filteredDataSource[indexPath.section][indexPath.row]
         cell.configureWithAnime(anime, canFadeImages: canFadeImages, showEtaAsAired: false, publicAnime: true)
         cell.layoutIfNeeded()

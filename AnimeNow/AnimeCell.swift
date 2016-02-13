@@ -12,7 +12,6 @@ import ANCommonKit
 
 class AnimeCell: UICollectionViewCell {
     
-    static let id = "AnimeCell"
     @IBOutlet weak var posterImageView: UIImageView?
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var etaLabel: UILabel?
@@ -47,11 +46,6 @@ class AnimeCell: UICollectionViewCell {
             posterImageView.layer.shadowOpacity = 1
             posterImageView.layer.shadowRadius = 4
         }
-    }
-    
-    class func registerNibFor(collectionView collectionView: UICollectionView) {
-        let chartNib = UINib(nibName: AnimeCell.id, bundle: nil)
-        collectionView.registerNib(chartNib, forCellWithReuseIdentifier: AnimeCell.id)
     }
     
     func configureWithAnime(

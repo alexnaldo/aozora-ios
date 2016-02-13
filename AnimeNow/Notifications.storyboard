@@ -14,7 +14,7 @@
         <!--Navigation Controller-->
         <scene sceneID="vXJ-5l-whQ">
             <objects>
-                <navigationController storyboardIdentifier="NotificationThreadNav" id="fFI-Rx-A4u" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NotificationThreadViewControllerNav" id="fFI-Rx-A4u" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Q4q-Ii-Ban">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -30,7 +30,7 @@
         <!--Loading...-->
         <scene sceneID="VHI-ft-fZq">
             <objects>
-                <viewController storyboardIdentifier="NotificationThread" hidesBottomBarWhenPushed="YES" id="Daq-7A-amk" customClass="NotificationThreadViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NotificationThreadViewController" hidesBottomBarWhenPushed="YES" id="Daq-7A-amk" customClass="NotificationThreadViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ijh-f4-oxM"/>
                         <viewControllerLayoutGuide type="bottom" id="CCF-c5-tIJ"/>
@@ -105,19 +105,19 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="fQy-zm-bhr"/>
-                                <exclude reference="xEq-1G-Nda"/>
                                 <exclude reference="QSQ-tb-NGA"/>
                                 <exclude reference="dYz-QK-yyg"/>
+                                <exclude reference="fQy-zm-bhr"/>
+                                <exclude reference="xEq-1G-Nda"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
                             <mask key="constraints">
-                                <exclude reference="m33-bj-xWj"/>
-                                <include reference="xEq-1G-Nda"/>
-                                <exclude reference="v2a-7R-kGg"/>
                                 <exclude reference="QSQ-tb-NGA"/>
                                 <include reference="dYz-QK-yyg"/>
+                                <exclude reference="m33-bj-xWj"/>
+                                <exclude reference="v2a-7R-kGg"/>
+                                <include reference="xEq-1G-Nda"/>
                             </mask>
                         </variation>
                     </view>
@@ -137,7 +137,7 @@
         <!--Notifications-->
         <scene sceneID="Gbb-vz-npc">
             <objects>
-                <navigationController storyboardIdentifier="NotificationNav" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4e8-qG-wjg" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NotificationsViewControllerNav" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4e8-qG-wjg" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Notifications" image="icon-globe" id="2SU-so-kI7"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="agn-7K-4hy">
@@ -155,7 +155,7 @@
         <!--Notifications-->
         <scene sceneID="LfI-wq-Wlq">
             <objects>
-                <viewController storyboardIdentifier="Notifications" title="Notifications" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fjQ-X1-xht" customClass="NotificationsViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NotificationsViewController" title="Notifications" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fjQ-X1-xht" customClass="NotificationsViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hNd-Bh-2Xh"/>
                         <viewControllerLayoutGuide type="bottom" id="raa-E2-jeh"/>
@@ -260,8 +260,8 @@
                                             <variation key="default">
                                                 <mask key="constraints">
                                                     <exclude reference="P7R-yk-DvC"/>
-                                                    <exclude reference="zhD-ZQ-3yJ"/>
                                                     <exclude reference="iMn-3F-LVl"/>
+                                                    <exclude reference="zhD-ZQ-3yJ"/>
                                                     <exclude reference="2ff-0r-SXp"/>
                                                 </mask>
                                             </variation>
@@ -305,8 +305,8 @@
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
                             <mask key="constraints">
-                                <exclude reference="aFC-GI-TI1"/>
                                 <exclude reference="BDi-9o-Kyd"/>
+                                <exclude reference="aFC-GI-TI1"/>
                                 <include reference="h9t-2k-Eb3"/>
                             </mask>
                         </variation>

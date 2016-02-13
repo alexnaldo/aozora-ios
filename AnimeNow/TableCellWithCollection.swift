@@ -12,8 +12,6 @@ import ANCommonKit
 
 class TableCellWithCollection: UITableViewCell {
 
-    static let id = "TableCellWithCollection"
-
     @IBOutlet weak var collectionView: UICollectionView!
 
     var dataSource: [Anime] = []
@@ -21,12 +19,7 @@ class TableCellWithCollection: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        AnimePosterCell.registerNibFor(collectionView: collectionView)
-    }
-
-    class func registerNibFor(tableView tableView: UITableView) {
-        let chartNib = UINib(nibName: TableCellWithCollection.id, bundle: nil)
-        tableView.registerNib(chartNib, forCellReuseIdentifier: TableCellWithCollection.id)
+        collectionView.registerNibWithClass(AnimePosterCell)
     }
 }
 

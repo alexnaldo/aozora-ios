@@ -8,7 +8,7 @@
         <!--Login View Controller-->
         <scene sceneID="4XR-dc-vci">
             <objects>
-                <viewController id="U7M-zI-QJf" customClass="LoginViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="U7M-zI-QJf" customClass="LoginViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pM7-Sh-Xf0"/>
                         <viewControllerLayoutGuide type="bottom" id="qNN-Uk-Ral"/>
@@ -140,8 +140,8 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="na4-Zr-HiS">
                                         <rect key="frame" x="208" y="80" width="154" height="60"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="+" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ffh-QC-k6s">
-                                                <rect key="frame" x="69" y="14" width="15.5" height="31.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ffh-QC-k6s">
+                                                <rect key="frame" x="68.5" y="14" width="16.5" height="31.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                                 <color key="textColor" red="0.0078431377187371254" green="0.43921568989753723" blue="0.73333334922790527" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>

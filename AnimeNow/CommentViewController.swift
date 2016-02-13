@@ -198,7 +198,7 @@ public class CommentViewController: UIViewController {
         if let _ = selectedImageData {
             selectedImageData = nil
         } else {
-            let imagesController = ANAnimeKit.commentStoryboard().instantiateViewControllerWithIdentifier("Images") as! ImagesViewController
+            let imagesController = Storyboard.imagesViewController()
             imagesController.delegate = self
             animator = presentViewControllerModal(imagesController)
         }
@@ -210,7 +210,7 @@ public class CommentViewController: UIViewController {
         if let _ = selectedVideoID {
             selectedVideoID = nil
         } else {
-            let navController = ANAnimeKit.commentStoryboard().instantiateViewControllerWithIdentifier("BrowserSelector") as! UINavigationController
+            let navController = Storyboard.webBrowserSelectorViewControllerNav()
             let videoController = navController.viewControllers.last as! WebBrowserSelectorViewController
             let initialURL = NSURL(string: "https://www.youtube.com")
             videoController.initWithInitialUrl(initialURL, overrideTitle: "Select a video")

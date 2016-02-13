@@ -210,7 +210,7 @@ class ForumsViewController: UIViewController {
     @IBAction func createThread(sender: AnyObject) {
         
         if User.currentUserLoggedIn() {
-            let comment = ANAnimeKit.newThreadViewController()
+            let comment = Storyboard.newThreadViewController()
             if let selectedAnime = selectedAnime where selectedList == .Anime {
                 comment.initCustomThreadWithDelegate(self, tags: [selectedAnime])
             } else {
@@ -287,7 +287,7 @@ extension ForumsViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let thread = fetchController.objectAtIndex(indexPath.row) as! Thread
         
-        let threadController = ANAnimeKit.customThreadViewController()
+        let threadController = Storyboard.customThreadViewController()
         
         if let episode = thread.episode, let anime = thread.anime {
             threadController.initWithEpisode(episode, anime: anime)

@@ -65,7 +65,7 @@ public class ForumViewController: AnimeBaseViewController {
     @IBAction func createAnimeThread(sender: AnyObject) {
         
         if User.currentUserLoggedIn() {
-            let comment = ANAnimeKit.newThreadViewController()
+            let comment = Storyboard.newThreadViewController()
             comment.initWith(threadType: .Custom, delegate: self, anime: anime)
             animator = presentViewControllerModal(comment)
         } else {
@@ -114,7 +114,7 @@ extension ForumViewController: UITableViewDelegate {
         
         let thread = fetchController.objectAtIndex(indexPath.row) as! Thread
         
-        let threadController = ANAnimeKit.customThreadViewController()
+        let threadController = Storyboard.customThreadViewController()
         if let episode = thread.episode, let anime = thread.anime  {
             threadController.initWithEpisode(episode, anime: anime)
         } else {

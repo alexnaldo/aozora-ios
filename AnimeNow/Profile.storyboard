@@ -15,7 +15,7 @@
         <!--Me-->
         <scene sceneID="SwR-Gy-uTY">
             <objects>
-                <navigationController id="caL-pp-H1v" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ProfileViewControllerNav" id="caL-pp-H1v" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Me" image="icon-profile-filled" id="VfO-DU-jmA">
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="icon-profile-filled"/>
@@ -37,7 +37,7 @@
         <!--User List View Controller-->
         <scene sceneID="38l-bX-nJn">
             <objects>
-                <viewController storyboardIdentifier="UserList" automaticallyAdjustsScrollViewInsets="NO" id="e1Y-uM-1lt" customClass="UserListViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UserListViewController" automaticallyAdjustsScrollViewInsets="NO" id="e1Y-uM-1lt" customClass="UserListViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xYF-wJ-boq"/>
                         <viewControllerLayoutGuide type="bottom" id="7N8-Q6-ha0"/>
@@ -539,38 +539,10 @@
             </objects>
             <point key="canvasLocation" x="1487" y="560"/>
         </scene>
-        <!--Administrate-->
-        <scene sceneID="v0g-rv-HbA">
-            <objects>
-                <viewController storyboardIdentifier="Admin" title="Administrate" useStoryboardIdentifierAsRestorationIdentifier="YES" id="XEg-3i-rCt" customClass="AdministrateViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="7eF-lA-rcq">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AdminCell" id="J8y-CN-dhl" customClass="BasicTableCell" customModule="ANCommonKit">
-                                <rect key="frame" x="0.0" y="49.5" width="600" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="J8y-CN-dhl" id="7Rk-lk-vMd">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="XEg-3i-rCt" id="cq4-oS-2Kg"/>
-                            <outlet property="delegate" destination="XEg-3i-rCt" id="Prs-qD-1xR"/>
-                        </connections>
-                    </tableView>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="U6f-tn-pgp" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="811" y="1234"/>
-        </scene>
         <!--Profile-->
         <scene sceneID="Cm1-Ys-SJw">
             <objects>
-                <viewController storyboardIdentifier="EditProfile" id="aw2-Ga-TB0" customClass="EditProfileViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditProfileViewController" id="aw2-Ga-TB0" customClass="EditProfileViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vDB-rc-b0z"/>
                         <viewControllerLayoutGuide type="bottom" id="VS4-jf-n5t"/>

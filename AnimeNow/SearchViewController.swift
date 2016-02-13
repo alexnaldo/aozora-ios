@@ -39,8 +39,8 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        AnimeCell.registerNibFor(collectionView: collectionView)
+
+        collectionView.registerNibWithClass(AnimeCell)
         
         guard let collectionView = collectionView,
             let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
@@ -194,7 +194,7 @@ extension SearchViewController: UICollectionViewDataSource {
         let object = objectAtIndex(indexPath)
         
         if let anime = object as? Anime {
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(AnimeCell.id, forIndexPath: indexPath) as! AnimeCell
+            let cell = collectionView.dequeueReusableCellWithClass(AnimeCell.self, indexPath: indexPath)!
             cell.configureWithAnime(anime)
             return cell
             
@@ -233,11 +233,11 @@ extension SearchViewController: UICollectionViewDelegate {
         if let anime = object as? Anime {
             self.animator = presentAnimeModal(anime)
         } else if let user = object as? User {
-            let profileController = ANAnimeKit.profileViewController()
-            profileController.initWithUser(user)
-            navigationController?.pushViewController(profileController, animated: true)
+            let profileViewController = Storyboard.profileViewController()
+            profileViewController.initWithUser(user)
+            navigationController?.pushViewController(profileViewController, animated: true)
         } else if let thread = object as? Thread {
-            let threadController = ANAnimeKit.customThreadViewController()
+            let threadController = Storyboard.customThreadViewController()
             
             if let episode = thread.episode, let anime = thread.anime {
                 threadController.initWithEpisode(episode, anime: anime)
@@ -250,7 +250,7 @@ extension SearchViewController: UICollectionViewDelegate {
             }
             navigationController?.pushViewController(threadController, animated: true)
         } else if let string = object as? String {
-            guard let browse = UIStoryboard(name: "Browse", bundle: nil).instantiateViewControllerWithIdentifier("Browse") as? BrowseViewController,
+            guard let browse = UIStoryboard(name: "Browse", bundle: nil).instantiateViewControllerWithIdentifier("BrowseViewController") as? BrowseViewController,
                 let browseType = BrowseType(rawValue: string) else {
                 return
             }

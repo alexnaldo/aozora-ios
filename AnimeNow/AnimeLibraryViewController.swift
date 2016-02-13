@@ -191,7 +191,7 @@ class AnimeLibraryViewController: XLButtonBarPagerTabStripViewController {
         var lists: [AnimeListViewController] = []
         
         for index in 0...4 {
-            if let controller = storyboard.instantiateViewControllerWithIdentifier("AnimeList") as? AnimeListViewController {
+            if let controller = storyboard.instantiateViewControllerWithIdentifier("AnimeListViewController") as? AnimeListViewController {
                 let animeList = allAnimeLists[index]
                 
                 controller.initWithList(animeList, configuration: configurations[index])
@@ -247,9 +247,9 @@ class AnimeLibraryViewController: XLButtonBarPagerTabStripViewController {
     
     @IBAction func showFilterPressed(sender: AnyObject) {
         
-        if let tabBar = tabBarController,
-            let controller = UIStoryboard(name: "Browse", bundle: nil).instantiateViewControllerWithIdentifier("Filter") as? FilterViewController {
-            
+        if let tabBar = tabBarController {
+
+            let controller = Storyboard.filterViewController()
             controller.delegate = self
             controller.initWith(configuration: currentConfiguration)
             animator = tabBar.presentViewControllerModal(controller)

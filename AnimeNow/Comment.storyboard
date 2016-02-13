@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -14,7 +15,7 @@
         <!--New Post View Controller-->
         <scene sceneID="VyW-SO-6kV">
             <objects>
-                <viewController storyboardIdentifier="NewPost" id="FP1-JN-s1B" customClass="NewPostViewController" customModule="ANParseKit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewPostViewController" id="FP1-JN-s1B" customClass="NewPostViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aHz-YO-duj"/>
                         <viewControllerLayoutGuide type="bottom" id="IPs-LS-ykV"/>
@@ -169,7 +170,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZS8-hU-TaO">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZS8-hU-TaO">
                                         <rect key="frame" x="420" y="7" width="88" height="30"/>
                                         <color key="backgroundColor" red="0.97254902124404907" green="0.97254902124404907" blue="0.97254902124404907" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -289,7 +290,7 @@
         <!--Images View Controller-->
         <scene sceneID="qis-eU-Wsg">
             <objects>
-                <viewController storyboardIdentifier="Images" id="OmF-2N-BHV" customClass="ImagesViewController" customModule="ANParseKit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ImagesViewController" id="OmF-2N-BHV" customClass="ImagesViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="R2A-C2-Tnb"/>
                         <viewControllerLayoutGuide type="bottom" id="Gpt-cS-o9e"/>
@@ -385,7 +386,7 @@
         <!--Image View Controller-->
         <scene sceneID="8pI-Vf-jZr">
             <objects>
-                <viewController storyboardIdentifier="Image" id="sE0-V0-D94" customClass="ImageViewController" customModule="ANParseKit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ImageViewController" id="sE0-V0-D94" customClass="ImageViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IRE-J6-b5b"/>
                         <viewControllerLayoutGuide type="bottom" id="vBb-7M-Iny"/>
@@ -465,7 +466,7 @@
         <!--New Thread View Controller-->
         <scene sceneID="QHz-ls-S4f">
             <objects>
-                <viewController storyboardIdentifier="NewThread" id="doA-zG-TTf" customClass="NewThreadViewController" customModule="ANParseKit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewThreadViewController" id="doA-zG-TTf" customClass="NewThreadViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="BhU-qU-LVP"/>
                         <viewControllerLayoutGuide type="bottom" id="zff-cG-8ta"/>
@@ -733,7 +734,7 @@
         <!--Tags View Controller-->
         <scene sceneID="b4v-Q7-kYa">
             <objects>
-                <viewController storyboardIdentifier="Tags" id="ip2-RS-AXd" customClass="TagsViewController" customModule="ANParseKit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TagsViewController" id="ip2-RS-AXd" customClass="TagsViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lrr-LY-QlI"/>
                         <viewControllerLayoutGuide type="bottom" id="bqd-aB-AMh"/>
@@ -842,7 +843,7 @@
         <!--Navigation Controller-->
         <scene sceneID="IS5-Uc-hgI">
             <objects>
-                <navigationController storyboardIdentifier="BrowserSelector" useStoryboardIdentifierAsRestorationIdentifier="YES" id="znW-eH-6qu" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="WebBrowserSelectorViewControllerNav" useStoryboardIdentifierAsRestorationIdentifier="YES" id="znW-eH-6qu" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6SG-2e-aFa">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -858,7 +859,7 @@
         <!--Web Browser Selector View Controller-->
         <scene sceneID="XzS-sP-Duh">
             <objects>
-                <viewController storyboardIdentifier="WebBrowserViewController" id="2Te-E1-OlH" customClass="WebBrowserSelectorViewController" customModule="ANParseKit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WebBrowserSelectorViewController" id="2Te-E1-OlH" customClass="WebBrowserSelectorViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vLg-dd-DLq"/>
                         <viewControllerLayoutGuide type="bottom" id="Evv-eR-ph1"/>

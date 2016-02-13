@@ -133,7 +133,7 @@ public class NotificationThreadViewController: ThreadViewController {
         super.replyToThreadPressed(sender)
         
         if let thread = thread where User.currentUserLoggedIn() {
-            let comment = ANAnimeKit.newPostViewController()
+            let comment = Storyboard.newPostViewController()
             comment.initWith(thread, threadType: threadType, delegate: self)
             presentViewController(comment, animated: true, completion: nil)
         } else if let thread = thread where thread.locked {
@@ -167,7 +167,7 @@ public class NotificationThreadViewController: ThreadViewController {
             openProfile(timelinePost.userTimeline)
             
         } else if let _ = post {
-            let threadController = ANAnimeKit.customThreadViewController()
+            let threadController = Storyboard.customThreadViewController()
             if let thread = thread, let episode = thread.episode, let anime = thread.anime {
                 threadController.initWithEpisode(episode, anime: anime)
             } else {

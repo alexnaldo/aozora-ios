@@ -56,8 +56,8 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        TitleHeaderView.registerNibFor(tableView: tableView)
-        TableCellWithCollection.registerNibFor(tableView: tableView)
+        tableView.registerNibWithClass(TitleHeaderView.self)
+        tableView.registerNibWithClass(TableCellWithCollection.self)
 
         fetchCurrentSeasonalChart()
         fetchAiringToday()

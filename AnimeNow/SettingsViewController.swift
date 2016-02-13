@@ -120,7 +120,7 @@ class SettingsViewController: UITableViewController {
                 self.presentViewController(alert, animated: true, completion: nil)
             } else {
                 
-                let loginController = ANAnimeKit.loginViewController()
+                let loginController = Storyboard.loginViewController()
                 presentViewController(loginController, animated: true, completion: nil)
                 
                 NSUserDefaults.standardUserDefaults().setBool(true, forKey: RootTabBar.ShowedMyAnimeListLoginDefault)
@@ -153,7 +153,7 @@ class SettingsViewController: UITableViewController {
             
         case (1,0):
             // Unlock features
-            let controller = UIStoryboard(name: "InApp", bundle: nil).instantiateViewControllerWithIdentifier("InApp") as! InAppPurchaseViewController
+            let controller = UIStoryboard(name: "InApp", bundle: nil).instantiateViewControllerWithIdentifier("InAppPurchaseViewController") as! InAppPurchaseViewController
             navigationController?.pushViewController(controller, animated: true)
         case (1,1):
             // Restore purchases

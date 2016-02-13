@@ -15,7 +15,7 @@
         <!--Navigation Controller-->
         <scene sceneID="qts-i8-pN3">
             <objects>
-                <navigationController id="x4L-h4-vA7" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ForumViewControllerNav" id="x4L-h4-vA7" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="icon-forum-filled" id="mxR-vt-fWF">
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="icon-forum-filled"/>
@@ -37,7 +37,7 @@
         <!--Forum View Controller-->
         <scene sceneID="3XK-X8-Ec6">
             <objects>
-                <viewController storyboardIdentifier="Forum" useStoryboardIdentifierAsRestorationIdentifier="YES" id="A6G-ah-oIs" customClass="ForumViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ForumViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="A6G-ah-oIs" customClass="ForumViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="h5Y-mc-GGy"/>
                         <viewControllerLayoutGuide type="bottom" id="tIw-Kj-Jqx"/>

@@ -265,7 +265,7 @@ extension AnimeListViewController: AnimeLibraryCellDelegate {
     
     func cellPressedEpisodeThread(cell: AnimeLibraryCell, anime: Anime, episode: Episode) {
         
-        let threadController = ANAnimeKit.customThreadViewController()
+        let threadController = Storyboard.customThreadViewController()
         threadController.initWithEpisode(episode, anime: anime)
         
         if !InAppController.hasAnyPro() {

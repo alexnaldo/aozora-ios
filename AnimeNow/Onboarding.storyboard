@@ -14,7 +14,7 @@
         <!--Onboarding View Controller-->
         <scene sceneID="eS3-Tt-ZOt">
             <objects>
-                <viewController storyboardIdentifier="Onboarding" id="C0d-Zn-JUq" customClass="OnboardingViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OnboardingViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="C0d-Zn-JUq" customClass="OnboardingViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="TKA-wr-RMU"/>
                         <viewControllerLayoutGuide type="bottom" id="a4n-g2-9As"/>
@@ -292,7 +292,7 @@
         <!--Sign In View Controller-->
         <scene sceneID="BEq-AK-Tio">
             <objects>
-                <viewController storyboardIdentifier="SignIn" id="aht-ee-gPe" customClass="SignInViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignInViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aht-ee-gPe" customClass="SignInViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QTY-rQ-hEh"/>
                         <viewControllerLayoutGuide type="bottom" id="mqO-2u-egc"/>
@@ -452,7 +452,7 @@
         <!--Reset Password View Controller-->
         <scene sceneID="mcl-h4-YZ9">
             <objects>
-                <viewController id="cWG-K4-PqA" customClass="ResetPasswordViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ResetPasswordViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cWG-K4-PqA" customClass="ResetPasswordViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="obe-Om-cSV"/>
                         <viewControllerLayoutGuide type="bottom" id="vYV-hG-LdV"/>
@@ -553,7 +553,7 @@
         <!--Sign Up View Controller-->
         <scene sceneID="LDr-KT-k7f">
             <objects>
-                <viewController storyboardIdentifier="SignUp" id="DLY-qY-DIR" customClass="SignUpViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignUpViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="DLY-qY-DIR" customClass="SignUpViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5s1-fN-tuu"/>
                         <viewControllerLayoutGuide type="bottom" id="2GL-Zl-REo"/>

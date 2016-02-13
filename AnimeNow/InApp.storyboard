@@ -9,7 +9,7 @@
         <!--Navigation Controller-->
         <scene sceneID="QLB-ue-Qmk">
             <objects>
-                <navigationController id="4Vk-d2-WEe" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="InAppPurchaseViewControllerNav" id="4Vk-d2-WEe" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="xq6-D8-NbZ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -25,7 +25,7 @@
         <!--In App Purchase View Controller-->
         <scene sceneID="bga-FS-JGR">
             <objects>
-                <tableViewController storyboardIdentifier="InApp" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0JQ-Ba-rlJ" customClass="InAppPurchaseViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="InAppPurchaseViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0JQ-Ba-rlJ" customClass="InAppPurchaseViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="jJy-Qa-8vn">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

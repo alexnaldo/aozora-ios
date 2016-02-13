@@ -98,6 +98,16 @@
 		DA4AF8C91B276E060020252E /* ANCommonKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4AF8C81B276E060020252E /* ANCommonKitTests.swift */; };
 		DA4AF8CC1B276E060020252E /* ANCommonKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4AF8B51B276E060020252E /* ANCommonKit.framework */; };
 		DA4AF8CD1B276E060020252E /* ANCommonKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DA4AF8B51B276E060020252E /* ANCommonKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DA4F15961C6EAB9900C71227 /* Storyboard+Aozora.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4F15951C6EAB9900C71227 /* Storyboard+Aozora.swift */; };
+		DA4F15971C6EAB9900C71227 /* Storyboard+Aozora.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4F15951C6EAB9900C71227 /* Storyboard+Aozora.swift */; };
+		DA4F159C1C6EB6CB00C71227 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA4F159B1C6EB6CB00C71227 /* Search.storyboard */; };
+		DA4F159D1C6EB6CB00C71227 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA4F159B1C6EB6CB00C71227 /* Search.storyboard */; };
+		DA4F159F1C6EBCF600C71227 /* UIView+Reuse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4F159E1C6EBCF600C71227 /* UIView+Reuse.swift */; };
+		DA4F15A01C6EBCF600C71227 /* UIView+Reuse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4F159E1C6EBCF600C71227 /* UIView+Reuse.swift */; };
+		DA4F15A21C6EBD0400C71227 /* UITableView+Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4F15A11C6EBD0400C71227 /* UITableView+Cells.swift */; };
+		DA4F15A31C6EBD0400C71227 /* UITableView+Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4F15A11C6EBD0400C71227 /* UITableView+Cells.swift */; };
+		DA4F15A51C6EBD7400C71227 /* UICollectionView+Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4F15A41C6EBD7400C71227 /* UICollectionView+Cells.swift */; };
+		DA4F15A61C6EBD7400C71227 /* UICollectionView+Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4F15A41C6EBD7400C71227 /* UICollectionView+Cells.swift */; };
 		DA561EC81C5D78F400C3E493 /* TitleHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA561EC71C5D78F400C3E493 /* TitleHeaderView.xib */; };
 		DA561ECA1C5D791C00C3E493 /* TitleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA561EC91C5D791C00C3E493 /* TitleHeaderView.swift */; };
 		DA561ECC1C5D7D3600C3E493 /* TableCellWithCollection.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA561ECB1C5D7D3600C3E493 /* TableCellWithCollection.xib */; };
@@ -625,6 +635,11 @@
 		DA4AF8BF1B276E060020252E /* ANCommonKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ANCommonKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA4AF8C71B276E060020252E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA4AF8C81B276E060020252E /* ANCommonKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANCommonKitTests.swift; sourceTree = "<group>"; };
+		DA4F15951C6EAB9900C71227 /* Storyboard+Aozora.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Storyboard+Aozora.swift"; sourceTree = "<group>"; };
+		DA4F159B1C6EB6CB00C71227 /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
+		DA4F159E1C6EBCF600C71227 /* UIView+Reuse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Reuse.swift"; sourceTree = "<group>"; };
+		DA4F15A11C6EBD0400C71227 /* UITableView+Cells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Cells.swift"; sourceTree = "<group>"; };
+		DA4F15A41C6EBD7400C71227 /* UICollectionView+Cells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Cells.swift"; sourceTree = "<group>"; };
 		DA54E30A1BE9487800FE0AE9 /* PFQuery+Query.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "PFQuery+Query.swift"; path = "../ANParseKit/PFQuery+Query.swift"; sourceTree = "<group>"; };
 		DA561EC71C5D78F400C3E493 /* TitleHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleHeaderView.xib; sourceTree = "<group>"; };
 		DA561EC91C5D791C00C3E493 /* TitleHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleHeaderView.swift; sourceTree = "<group>"; };
@@ -1159,6 +1174,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		DA4F15941C6EAB6000C71227 /* AozoraExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				DA4F15951C6EAB9900C71227 /* Storyboard+Aozora.swift */,
+			);
+			name = AozoraExtensions;
+			sourceTree = "<group>";
+		};
 		DA58C2E31B39BF850082B626 /* Browse */ = {
 			isa = PBXGroup;
 			children = (
@@ -1257,6 +1280,8 @@
 		DAA393271B42F1F100A8D5D5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				DAA393281B42F21900A8D5D5 /* RootTabBar.swift */,
+				DAC13C251B42495A0013D479 /* WorkflowController.swift */,
 				DACD6AB71B6315AA00DDA55C /* ReminderController.swift */,
 				DAC13BFF1B3F4A7A0013D479 /* FetchController.swift */,
 				DA32EBE31C6A9A780090CD51 /* DataRefresherController.swift */,
@@ -1287,11 +1312,10 @@
 		DAA5774B1C66F161007E81E6 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				DAA393281B42F21900A8D5D5 /* RootTabBar.swift */,
-				DAC13C251B42495A0013D479 /* WorkflowController.swift */,
 				DAE7A7151B2105D000788614 /* Views */,
 				DACE77C51B29518300037486 /* Models */,
 				DAC13BFC1B3F368D0013D479 /* Extensions */,
+				DA4F15941C6EAB6000C71227 /* AozoraExtensions */,
 				DA5A3BED1B346F2100C07D71 /* Scrappers */,
 				DAF6186E1B377BBF00286517 /* DBServices */,
 				DAA393271B42F1F100A8D5D5 /* Controllers */,
@@ -1346,6 +1370,9 @@
 		DAC13BFC1B3F368D0013D479 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				DA4F15A41C6EBD7400C71227 /* UICollectionView+Cells.swift */,
+				DA4F15A11C6EBD0400C71227 /* UITableView+Cells.swift */,
+				DA4F159E1C6EBCF600C71227 /* UIView+Reuse.swift */,
 				DA0B26071B75109000A770AE /* String+Validations.swift */,
 				DAE43C311B2BC1A900C3092D /* TFHppleElement+Convenience.swift */,
 				DA8B6E061B6C4DBF00D240FC /* UIImageView+PFFile.swift */,
@@ -1397,6 +1424,7 @@
 		DACE08821C6DD60000470B9F /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				DA4F159B1C6EB6CB00C71227 /* Search.storyboard */,
 				DA8DD6401B3C95F300B05FBF /* SearchViewController.swift */,
 			);
 			name = Search;
@@ -1851,6 +1879,7 @@
 				DA27D19C1AF1BA9D00CC854E /* Season.storyboard in Resources */,
 				DA32EBEA1C6AB7050090CD51 /* Browser.storyboard in Resources */,
 				DACE08941C6DD8BC00470B9F /* WriteACommentCell.xib in Resources */,
+				DA4F159C1C6EB6CB00C71227 /* Search.storyboard in Resources */,
 				DA8D70FC1C6DD0EA0016A332 /* Comment.storyboard in Resources */,
 				DAA546F81BA1AC48003989DE /* Profile.storyboard in Resources */,
 				DAC13C181B4228120013D479 /* Aller_Bd.ttf in Resources */,
@@ -1933,6 +1962,7 @@
 				DAA577111C66EC2D007E81E6 /* Season.storyboard in Resources */,
 				DA32EBEB1C6AB7050090CD51 /* Browser.storyboard in Resources */,
 				DACE08881C6DD8BC00470B9F /* WriteACommentCell.xib in Resources */,
+				DA4F159D1C6EB6CB00C71227 /* Search.storyboard in Resources */,
 				DA8D70F31C6DD0EA0016A332 /* Comment.storyboard in Resources */,
 				DAA577121C66EC2D007E81E6 /* Profile.storyboard in Resources */,
 				DAA577131C66EC2D007E81E6 /* Aller_Bd.ttf in Resources */,
@@ -2187,9 +2217,11 @@
 				DA2991F21C6DD10500CCB04D /* Notification.swift in Sources */,
 				DA2991EE1C6DD10500CCB04D /* Thread.swift in Sources */,
 				DA8DD6411B3C95F300B05FBF /* SearchViewController.swift in Sources */,
+				DA4F15A51C6EBD7400C71227 /* UICollectionView+Cells.swift in Sources */,
 				DA2992021C6DD11100CCB04D /* InAppController.swift in Sources */,
 				DAA546DF1BA1A0C4003989DE /* ReviewCell.swift in Sources */,
 				DA8D710F1C6DD0F60016A332 /* LibraryController.swift in Sources */,
+				DA4F159F1C6EBCF600C71227 /* UIView+Reuse.swift in Sources */,
 				DAF618761B377CA700286517 /* AnimeLibraryViewController.swift in Sources */,
 				DA8D71071C6DD0EF0016A332 /* LoginViewController.swift in Sources */,
 				DAA546E21BA1A0C4003989DE /* CharacterCell.swift in Sources */,
@@ -2243,8 +2275,10 @@
 				DA561ECA1C5D791C00C3E493 /* TitleHeaderView.swift in Sources */,
 				DA45955F1B83C2EB0044013E /* WorkflowController.swift in Sources */,
 				DA8D710A1C6DD0F20016A332 /* ImageScrapper.swift in Sources */,
+				DA4F15A21C6EBD0400C71227 /* UITableView+Cells.swift in Sources */,
 				DAA546E71BA1A0F5003989DE /* ForumViewController.swift in Sources */,
 				DAA546F31BA1A106003989DE /* ReminderController.swift in Sources */,
+				DA4F15961C6EAB9900C71227 /* Storyboard+Aozora.swift in Sources */,
 				DA561ED01C5D803100C3E493 /* AnimePosterCell.swift in Sources */,
 				DA2991EF1C6DD10500CCB04D /* Post.swift in Sources */,
 				DA2991FC1C6DD10A00CCB04D /* TTTAttributedLabel+Tags.swift in Sources */,
@@ -2367,9 +2401,11 @@
 				DA2991E21C6DD10500CCB04D /* Notification.swift in Sources */,
 				DA2991DE1C6DD10500CCB04D /* Thread.swift in Sources */,
 				DAA576B91C66EC2D007E81E6 /* SearchViewController.swift in Sources */,
+				DA4F15A61C6EBD7400C71227 /* UICollectionView+Cells.swift in Sources */,
 				DA2992001C6DD11100CCB04D /* InAppController.swift in Sources */,
 				DAA576BA1C66EC2D007E81E6 /* ReviewCell.swift in Sources */,
 				DA8D710C1C6DD0F50016A332 /* LibraryController.swift in Sources */,
+				DA4F15A01C6EBCF600C71227 /* UIView+Reuse.swift in Sources */,
 				DAA576BB1C66EC2D007E81E6 /* AnimeLibraryViewController.swift in Sources */,
 				DA8D71051C6DD0EE0016A332 /* LoginViewController.swift in Sources */,
 				DAA576BC1C66EC2D007E81E6 /* CharacterCell.swift in Sources */,
@@ -2423,8 +2459,10 @@
 				DAA576D21C66EC2D007E81E6 /* TitleHeaderView.swift in Sources */,
 				DAA576D31C66EC2D007E81E6 /* WorkflowController.swift in Sources */,
 				DA8D71081C6DD0F10016A332 /* ImageScrapper.swift in Sources */,
+				DA4F15A31C6EBD0400C71227 /* UITableView+Cells.swift in Sources */,
 				DAA576D41C66EC2D007E81E6 /* ForumViewController.swift in Sources */,
 				DAA576D51C66EC2D007E81E6 /* ReminderController.swift in Sources */,
+				DA4F15971C6EAB9900C71227 /* Storyboard+Aozora.swift in Sources */,
 				DAA576D61C66EC2D007E81E6 /* AnimePosterCell.swift in Sources */,
 				DA2991DF1C6DD10500CCB04D /* Post.swift in Sources */,
 				DA2991F61C6DD10900CCB04D /* TTTAttributedLabel+Tags.swift in Sources */,
