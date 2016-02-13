@@ -729,9 +729,9 @@
 		DAA576931C669905007E81E6 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = Frameworks/Parse.framework; sourceTree = "<group>"; };
 		DAA576941C669905007E81E6 /* ParseFacebookUtilsV4.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtilsV4.framework; path = Frameworks/ParseFacebookUtilsV4.framework; sourceTree = "<group>"; };
 		DAA577301C66EC2D007E81E6 /* AnimeTrakr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnimeTrakr.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		DAA577311C66EC2D007E81E6 /* Aozora copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Aozora copy-Info.plist"; path = "/Users/paul/Documents/Aozora/Aozora/Aozora copy-Info.plist"; sourceTree = "<absolute>"; };
+		DAA577311C66EC2D007E81E6 /* AnimeTrakr-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "AnimeTrakr-Info.plist"; path = "/Users/paul/Documents/Aozora/Aozora/AnimeTrakr-Info.plist"; sourceTree = "<absolute>"; };
 		DAA577421C66EFCA007E81E6 /* AnimeTrakrWatching.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AnimeTrakrWatching.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		DAA577431C66EFCA007E81E6 /* AozoraWatching copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "AozoraWatching copy-Info.plist"; path = "/Users/paul/Documents/Aozora/Aozora/AozoraWatching copy-Info.plist"; sourceTree = "<absolute>"; };
+		DAA577431C66EFCA007E81E6 /* AnimeTrakrWatching-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "AnimeTrakrWatching-Info.plist"; path = "/Users/paul/Documents/Aozora/Aozora/AnimeTrakrWatching-Info.plist"; sourceTree = "<absolute>"; };
 		DAA577441C66F01C007E81E6 /* AnimeTrakrWatching.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = AnimeTrakrWatching.entitlements; path = ../AnimeTrakrWatching.entitlements; sourceTree = "<group>"; };
 		DAA577451C66F051007E81E6 /* AnimeTrakr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = AnimeTrakr.entitlements; path = ../AnimeTrakr.entitlements; sourceTree = "<group>"; };
 		DAA5774C1C66F17D007E81E6 /* AppEnvironment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppEnvironment.swift; path = ../AnimeNow/AppEnvironment.swift; sourceTree = "<group>"; };
@@ -1027,7 +1027,7 @@
 				DAC13C091B421A730013D479 /* anime-scenery.jpg */,
 				DAA577501C66F4C0007E81E6 /* Aozora.entitlements */,
 				DAA577451C66F051007E81E6 /* AnimeTrakr.entitlements */,
-				DAA577311C66EC2D007E81E6 /* Aozora copy-Info.plist */,
+				DAA577311C66EC2D007E81E6 /* AnimeTrakr-Info.plist */,
 				DAC13C2B1B425C200013D479 /* Fonts */,
 				DA27D1951AF1BA9D00CC854E /* Info.plist */,
 				DA4167991B25F1BF00847F56 /* AnimeNow-Bridging-Header.h */,
@@ -1062,7 +1062,7 @@
 				DA354B451C5DF3C2008C729F /* TodayViewController.swift */,
 				DA354B471C5DF3C2008C729F /* MainInterface.storyboard */,
 				DA354B4A1C5DF3C2008C729F /* Info.plist */,
-				DAA577431C66EFCA007E81E6 /* AozoraWatching copy-Info.plist */,
+				DAA577431C66EFCA007E81E6 /* AnimeTrakrWatching-Info.plist */,
 				DA354B591C5DF58F008C729F /* TodayCell.swift */,
 			);
 			path = AozoraWatching;
@@ -3064,7 +3064,7 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = $SDKROOT/usr/include/libxml2;
-				INFOPLIST_FILE = "Aozora copy-Info.plist";
+				INFOPLIST_FILE = "AnimeTrakr-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -3141,7 +3141,7 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = $SDKROOT/usr/include/libxml2;
-				INFOPLIST_FILE = "Aozora copy-Info.plist";
+				INFOPLIST_FILE = "AnimeTrakr-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -3209,7 +3209,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
-				INFOPLIST_FILE = "AozoraWatching copy-Info.plist";
+				INFOPLIST_FILE = "AnimeTrakrWatching-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.EverFox.AnimeTrakr.AnimeTrakrWatching;
@@ -3228,7 +3228,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
-				INFOPLIST_FILE = "AozoraWatching copy-Info.plist";
+				INFOPLIST_FILE = "AnimeTrakrWatching-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.EverFox.AnimeTrakr.AnimeTrakrWatching;
