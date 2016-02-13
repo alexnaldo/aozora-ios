@@ -18,10 +18,13 @@
 #import "WSWebScraper.h"
 #import "TFHpple.h"
 #import "TFHppleElement.h"
+#import "ZFModalTransitionAnimator.h"
 
 #import <Bolts/Bolts.h>
 #import <Parse/Parse.h>
 
 #import <iAd/iAd.h>
+
+
 
 #endif
