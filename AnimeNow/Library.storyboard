@@ -86,7 +86,7 @@
                                                     </variation>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Yahari Ore no Seishun Loge Comedy wa Machigatteiru. Zoku" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Huv-vs-6mv">
-                                                    <rect key="frame" x="72" y="138.5" width="185" height="18"/>
+                                                    <rect key="frame" x="72" y="138" width="157" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="240" id="56U-hb-dAU"/>
                                                         <constraint firstAttribute="width" constant="349" id="8cC-Id-sh7"/>
@@ -106,7 +106,7 @@
                                                     </variation>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TV ·  10/24    9" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uJt-cY-PNX">
-                                                    <rect key="frame" x="72" y="157.5" width="185" height="13.5"/>
+                                                    <rect key="frame" x="72" y="157" width="157" height="13.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="240" id="7CE-P8-Bfn"/>
                                                     </constraints>
@@ -119,8 +119,8 @@
                                                         </mask>
                                                     </variation>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DGh-FC-U4B">
-                                                    <rect key="frame" x="300" y="140" width="32" height="32"/>
+                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DGh-FC-U4B">
+                                                    <rect key="frame" x="272" y="140" width="60" height="32"/>
                                                     <color key="backgroundColor" red="0.93574320161551761" green="0.93574320161551761" blue="0.93574320161551761" alpha="0.0" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="32" id="9Nn-9B-Q33"/>
@@ -135,7 +135,8 @@
                                                         <constraint firstAttribute="height" constant="76" id="tUV-LQ-urc"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="15"/>
-                                                    <state key="normal" title="">
+                                                    <inset key="contentEdgeInsets" minX="7" minY="0.0" maxX="7" maxY="0.0"/>
+                                                    <state key="normal" title=" Ep7">
                                                         <color key="titleColor" red="0.20392157137393951" green="0.59607845544815063" blue="0.85882353782653809" alpha="1" colorSpace="calibratedRGB"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -152,6 +153,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                     <variation key="default">
                                                         <mask key="constraints">
+                                                            <exclude reference="9Nn-9B-Q33"/>
                                                             <exclude reference="9c7-3z-7QO"/>
                                                             <exclude reference="k93-8d-RwA"/>
                                                             <exclude reference="lt7-0D-9Mj"/>
@@ -166,26 +168,44 @@
                                                         <action selector="watchedPressed:" destination="b0g-cr-9JN" eventType="touchUpInside" id="Ph0-BQ-ZWf"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gsO-qT-IN4">
-                                                    <rect key="frame" x="265" y="140" width="32" height="32"/>
+                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gsO-qT-IN4">
+                                                    <rect key="frame" x="237" y="140" width="32" height="32"/>
                                                     <color key="backgroundColor" red="0.89411765336990356" green="0.89411765336990356" blue="0.89411765336990356" alpha="0.0" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="32" id="8jF-ox-LoI"/>
                                                         <constraint firstAttribute="width" constant="32" id="RNx-2r-XF1"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="18"/>
+                                                    <inset key="contentEdgeInsets" minX="7" minY="0.0" maxX="7" maxY="0.0"/>
                                                     <state key="normal" title="">
                                                         <color key="titleColor" red="0.20392157137393951" green="0.59607845544815063" blue="0.85882353782653809" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="RNx-2r-XF1"/>
+                                                        </mask>
+                                                    </variation>
                                                     <connections>
                                                         <action selector="pressedEpisodeImageView:" destination="b0g-cr-9JN" eventType="touchUpInside" id="ALM-S3-P51"/>
                                                     </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RU7-H9-NuB" userLabel="EtaButton">
+                                                    <rect key="frame" x="267" y="8" width="65" height="28"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="28" id="HSE-S1-uH9"/>
+                                                        <constraint firstAttribute="width" constant="65" id="gXB-6g-AF5"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <state key="normal">
+                                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <color key="backgroundColor" red="0.18823529779911041" green="0.19607843458652496" blue="0.23529411852359772" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
+                                            <constraint firstItem="RU7-H9-NuB" firstAttribute="top" secondItem="b0g-cr-9JN" secondAttribute="top" constant="8" id="2OR-F7-q31"/>
                                             <constraint firstItem="DGh-FC-U4B" firstAttribute="leading" secondItem="gsO-qT-IN4" secondAttribute="trailing" constant="3" id="6hw-9Q-NUm"/>
                                             <constraint firstItem="uJt-cY-PNX" firstAttribute="top" secondItem="Huv-vs-6mv" secondAttribute="bottom" constant="1.5" id="9d9-4c-XRc"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="uJt-cY-PNX" secondAttribute="bottom" constant="-4" id="AKC-Sy-voC"/>
@@ -202,8 +222,10 @@
                                             <constraint firstAttribute="trailing" secondItem="SWX-cK-om9" secondAttribute="trailing" id="sbA-bK-wfa"/>
                                             <constraint firstItem="uJt-cY-PNX" firstAttribute="trailing" secondItem="Huv-vs-6mv" secondAttribute="trailing" id="v63-Bh-HeT"/>
                                             <constraint firstAttribute="bottom" secondItem="gKg-R7-FbH" secondAttribute="bottom" constant="4" id="xhL-f6-aJS"/>
+                                            <constraint firstAttribute="trailing" secondItem="RU7-H9-NuB" secondAttribute="trailing" constant="8" id="zhr-Ba-xi2"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="badgeButton" destination="RU7-H9-NuB" id="EhY-nE-Z9e"/>
                                             <outlet property="commentButton" destination="gsO-qT-IN4" id="BI5-jL-crc"/>
                                             <outlet property="episodeImageView" destination="SWX-cK-om9" id="0qD-g2-bne"/>
                                             <outlet property="posterImageView" destination="gKg-R7-FbH" id="SkN-vc-9hm"/>
