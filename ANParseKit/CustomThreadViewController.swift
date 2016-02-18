@@ -68,7 +68,6 @@ public class CustomThreadViewController: ThreadViewController {
         
         if thread.locked {
             commentsButton.setTitle("Locked", forState: .Normal)
-            navigationItem.rightBarButtonItem?.enabled = false
         } else {
             let repliesTitle = repliesButtonTitle(thread.replyCount)
             commentsButton.setTitle(repliesTitle, forState: .Normal)
@@ -310,7 +309,7 @@ public class CustomThreadViewController: ThreadViewController {
     public override func replyToThreadPressed(sender: AnyObject) {
         super.replyToThreadPressed(sender)
         
-        if let thread = thread where User.currentUserLoggedIn() {
+        if let thread = thread where User.currentUserLoggedIn() && !thread.locked {
             let newPostViewController = Storyboard.newPostViewController()
             newPostViewController.initWith(thread, threadType: threadType, delegate: self)
             animator = presentViewControllerModal(newPostViewController)
