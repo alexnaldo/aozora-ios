@@ -16,13 +16,18 @@ extension PFQuery {
         self.skip = skip
     
         return findObjectsInBackground()
-            .continueWithBlock { (task: BFTask!) -> BFTask! in
+            .continueWithSuccessBlock { (task: BFTask!) -> BFTask! in
                 
-                let result = task.result as! [PFObject]
+                guard let result = task.result as? [PFObject] else {
+                    return BFTask(result: [])
+                }
+
                 if result.count == self.limit {
                     return self.findAllObjectsInBackground(with: self.skip + self.limit)
-                        .continueWithBlock({ (previousTask: BFTask!) -> AnyObject! in
-                            let newResults = previousTask.result as! [PFObject]
+                        .continueWithSuccessBlock({ (previousTask: BFTask!) -> AnyObject! in
+                            guard let newResults = previousTask.result as? [PFObject] else {
+                                return BFTask(result: result)
+                            }
                             return BFTask(result: result+newResults)
                         })
                 } else {
