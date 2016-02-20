@@ -302,8 +302,8 @@ public class NewPostViewController: CommentViewController {
     func validPost() -> Bool {
         let content = max(textView.text.characters.count, spoilerTextView.text.characters.count)
         // Validate post
-        if content < 2 && selectedImageData == nil && selectedVideoID == nil && selectedLinkData == nil {
-            presentBasicAlertWithTitle("Too Short", message: "Message/spoiler should be 3 characters or longer")
+        if content < 1 && selectedImageData == nil && selectedVideoID == nil && selectedLinkData == nil {
+            presentBasicAlertWithTitle("Too Short", message: "Message/spoiler should be 1 character or longer")
             return false
         }
         if User.muted(self) {
