@@ -14,9 +14,13 @@ import ANCommonKit
 class NotificationsController {
     
     class func handleNotification(notificationId: String, objectClass: String, objectId: String, returnAnimator: Bool = false) -> BFTask {
-        
+
+        guard let currentUser = User.currentUser() else {
+            return BFTask(result: nil)
+        }
+
         let notification = Notification(withoutDataWithObjectId: notificationId)
-        notification.addUniqueObject(User.currentUser()!, forKey: "readBy")
+        notification.addUniqueObject(currentUser, forKey: "readBy")
         notification.saveInBackground()
         
         switch objectClass {
