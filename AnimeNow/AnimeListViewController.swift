@@ -57,9 +57,6 @@ class AnimeListViewController: UIViewController {
         didSet {
             if collectionView != nil {
                 collectionView.reloadData()
-                if animeListType == AnimeList.Watching {
-                    collectionView.animateFadeIn()
-                }
             }
         }
     }
@@ -82,7 +79,6 @@ class AnimeListViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         refreshControl.endRefreshing()
-        collectionView.animateFadeIn()
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
