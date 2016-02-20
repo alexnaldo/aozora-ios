@@ -496,7 +496,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
                 case .ExploreAll:
                     self.showBrowse()
                 case .Genres:
-                    showInAppPurchasesIfNeeded(self.showGenres)
+                    self.showGenres()
                 case .Years:
                     showInAppPurchasesIfNeeded(self.showYears)
                 case .Studios:
