@@ -157,8 +157,8 @@ public class ProfileViewController: ThreadViewController {
                 return attributedString
             })
 
-            let activeEndString = user.activeEnd.timeAgo()
-            let activeEndStringFormatted = activeEndString == "Just now" ? "active now" : "\(activeEndString) ago"
+            let activeEndString = user.activeEnd.timeAgo()            
+            let activeEndStringFormatted = activeEndString == "Just now" ? "active now" : "\(activeEndString)" != "" ? "\(activeEndString) ago" : ""
             self.activeAgo.text = user.active ? "active now" : activeEndStringFormatted
 
             if user.details.posts >= 1000 {
