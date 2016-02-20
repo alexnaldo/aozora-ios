@@ -227,37 +227,37 @@ public class AnimeInformationViewController: AnimeBaseViewController {
         alert.popoverPresentationController?.sourceView = listButton.superview
         alert.popoverPresentationController?.sourceRect = listButton.frame
         
-        alert.addAction(UIAlertAction(title: "Watching", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction!) -> Void in
-            self.updateProgressWithList(.Watching)
+        alert.addAction(UIAlertAction(title: "Watching", style: UIAlertActionStyle.Default, handler: { [weak self] (alertAction: UIAlertAction!) -> Void in
+            self?.updateProgressWithList(.Watching)
         }))
-        alert.addAction(UIAlertAction(title: "Planning", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction!) -> Void in
-            self.updateProgressWithList(.Planning)
+        alert.addAction(UIAlertAction(title: "Planning", style: UIAlertActionStyle.Default, handler: { [weak self] (alertAction: UIAlertAction!) -> Void in
+            self?.updateProgressWithList(.Planning)
         }))
-        alert.addAction(UIAlertAction(title: "On-Hold", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction!) -> Void in
-            self.updateProgressWithList(.OnHold)
+        alert.addAction(UIAlertAction(title: "On-Hold", style: UIAlertActionStyle.Default, handler: { [weak self] (alertAction: UIAlertAction!) -> Void in
+            self?.updateProgressWithList(.OnHold)
         }))
-        alert.addAction(UIAlertAction(title: "Completed", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction!) -> Void in
-            self.updateProgressWithList(.Completed)
+        alert.addAction(UIAlertAction(title: "Completed", style: UIAlertActionStyle.Default, handler: { [weak self] (alertAction: UIAlertAction!) -> Void in
+            self?.updateProgressWithList(.Completed)
         }))
-        alert.addAction(UIAlertAction(title: "Dropped", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction!) -> Void in
-            self.updateProgressWithList(.Dropped)
+        alert.addAction(UIAlertAction(title: "Dropped", style: UIAlertActionStyle.Default, handler: { [weak self] (alertAction: UIAlertAction!) -> Void in
+            self?.updateProgressWithList(.Dropped)
         }))
         
         if let progress = progress {
-            alert.addAction(UIAlertAction(title: "Remove from Library", style: UIAlertActionStyle.Destructive, handler: { (alertAction: UIAlertAction!) -> Void in
+            alert.addAction(UIAlertAction(title: "Remove from Library", style: UIAlertActionStyle.Destructive, handler: { [weak self] (alertAction: UIAlertAction!) -> Void in
                 
-                self.loadingView.startAnimating()
+                self?.loadingView.startAnimating()
                 let deleteFromMALTask = LibrarySyncController.deleteAnime(progress)
                 let deleteFromParseTask = progress.deleteInBackground()
                     
                 BFTask(forCompletionOfAllTasks: [deleteFromMALTask, deleteFromParseTask]).continueWithExecutor(BFExecutor.mainThreadExecutor(), withSuccessBlock: { (task: BFTask!) -> AnyObject! in
                 
-                    self.loadingView.stopAnimating()
-                    self.anime.progress = nil
+                    self?.loadingView.stopAnimating()
+                    self?.anime.progress = nil
                     
                     NSNotificationCenter.defaultCenter().postNotificationName(LibraryUpdatedNotification, object: nil)
                 
-                    self.dismissViewControllerAnimated(true, completion: nil)
+                    self?.dismissViewControllerAnimated(true, completion: nil)
                     
                     return nil
                 })
