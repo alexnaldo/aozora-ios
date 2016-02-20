@@ -10,10 +10,10 @@ import Foundation
 
 extension PFQuery {
     
-    public func findAllObjectsInBackground(with skip: Int? = 0) -> BFTask {
+    public func findAllObjectsInBackground(with skip: Int = 0) -> BFTask {
 
         limit = 1000
-        self.skip = skip!
+        self.skip = skip
     
         return findObjectsInBackground()
             .continueWithBlock { (task: BFTask!) -> BFTask! in

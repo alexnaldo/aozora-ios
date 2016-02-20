@@ -283,6 +283,10 @@ private extension HomeViewController {
 
     func showCalendar() {
 
+        if airingDataSource.count != 7 {
+            return
+        }
+
         let browserViewController = instantiateAnimeBrowserViewController()
 
         var dataSource: [BrowseData] = []
