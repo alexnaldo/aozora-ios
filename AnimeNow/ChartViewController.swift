@@ -23,6 +23,7 @@ class ChartController {
     class func allSeasonsQuery() -> PFQuery {
         let query = SeasonalChart.query()!
         query.orderByDescending("startDate")
+        query.limit = 1000
         return query
     }
 }
