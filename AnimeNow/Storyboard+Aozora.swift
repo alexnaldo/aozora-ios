@@ -9,23 +9,23 @@
 import UIKit
 
 enum Storyboard: String {
-    case Onboarding = "Onboarding"
-    case Home = "Home"
-    case Browser = "Browser"
-    case Forums = "Forums"
-    case Browse = "Browse"
-    case Settings = "Settings"
-    case InApp = "InApp"
-    case Profile = "Profile"
-    case Notifications = "Notifications"
-    case Thread = "Thread"
-    case Comment = "Comment"
-    case Search = "Search"
-    case WebBrowser = "WebBrowser"
-    case Login = "Login"
-    case Anime = "Anime"
-    case Rate = "Rate"
-    case Forum = "Forum"
+    case Onboarding
+    case Home
+    case Browser
+    case Forums
+    case Browse
+    case Settings
+    case InApp
+    case Profile
+    case Notifications
+    case Thread
+    case Comment
+    case Search
+    case WebBrowser
+    case Login
+    case Anime
+    case Rate
+    case Forum
 
     func storyboard() -> UIStoryboard {
         return UIStoryboard(name: self.rawValue, bundle: nil)

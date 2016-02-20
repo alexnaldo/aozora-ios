@@ -9,10 +9,10 @@
 import Foundation
 
 public enum SeasonalChartType: String {
-    case Winter = "Winter"
-    case Summer = "Summer"
-    case Spring = "Spring"
-    case Fall = "Fall"
+    case Winter
+    case Summer
+    case Spring
+    case Fall
 }
 
 public class SeasonalChartService {

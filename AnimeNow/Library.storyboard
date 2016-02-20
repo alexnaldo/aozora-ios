@@ -422,7 +422,7 @@
         <!--Public List View Controller-->
         <scene sceneID="CEY-sJ-SfN">
             <objects>
-                <viewController storyboardIdentifier="PublicListViewController" id="f7V-8F-nqS" customClass="PublicListViewController" customModule="Aozora" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PublicListViewController" id="f7V-8F-nqS" customClass="PublicListViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="er2-rH-uRi"/>
                         <viewControllerLayoutGuide type="bottom" id="oaN-3O-H7v"/>

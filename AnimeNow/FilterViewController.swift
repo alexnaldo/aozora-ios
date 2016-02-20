@@ -11,15 +11,15 @@ import ANCommonKit
 
 
 enum FilterSection: String {
-    case View = "View"
-    case Sort = "Sort"
+    case View
+    case Sort
     case FilterTitle = "Filter"
     case AnimeType = "Type"
-    case Year = "Year"
-    case Status = "Status"
-    case Studio = "Studio"
-    case Classification = "Classification"
-    case Genres = "Genres"
+    case Year
+    case Status
+    case Studio
+    case Classification
+    case Genres
     
 }
 
