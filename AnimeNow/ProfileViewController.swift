@@ -538,7 +538,7 @@ public class ProfileViewController: ThreadViewController {
             }
         }
         
-        if let userProfile = userProfile where userProfile.isTheCurrentUser() || (currentUser.isAdmin() && !userProfile.isAdmin()) || currentUser.isTopAdmin()  {
+        if let userProfile = userProfile where userProfile.isTheCurrentUser() || currentUser.isAdmin() && !userProfile.isAdmin() || currentUser.isTopAdmin()  {
             alert.addAction(UIAlertAction(title: "Edit Profile", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
                 let editProfileController =  UIStoryboard(name: "Profile", bundle: nil).instantiateViewControllerWithIdentifier("EditProfileViewController") as! EditProfileViewController
                 editProfileController.user = userProfile
