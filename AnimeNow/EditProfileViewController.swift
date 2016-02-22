@@ -26,7 +26,7 @@ public class EditProfileViewController: UIViewController {
     @IBOutlet weak var scrollViewBottomSpaceConstraint: NSLayoutConstraint!
     
     weak var delegate: EditProfileViewControllerProtocol?
-    var user = User.currentUser()!
+    var user = User()
     var userProfileManager = UserProfileManager()
     var updatedAvatar = false
     var updatedBanner = false
