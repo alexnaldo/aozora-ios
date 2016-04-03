@@ -108,7 +108,7 @@ class ChartViewController: UIViewController {
             (FilterSection.Sort, currentSortType.rawValue, [SortType.Rating.rawValue, SortType.Popularity.rawValue, SortType.Title.rawValue, SortType.NextAiringEpisode.rawValue])
         ]
 
-        timer = NSTimer.scheduledTimerWithTimeInterval(60.0, target: self, selector: "updateETACells", userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(60.0, target: self, selector: #selector(ChartViewController.updateETACells), userInfo: nil, repeats: true)
         
         loadingView = LoaderView(parentView: view)
 
@@ -116,7 +116,7 @@ class ChartViewController: UIViewController {
             fetchQuery(query)
         }
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateETACells", name: LibraryUpdatedNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ChartViewController.updateETACells), name: LibraryUpdatedNotification, object: nil)
 
         updateLayoutWithSize(view.bounds.size)
     }
@@ -185,16 +185,17 @@ class ChartViewController: UIViewController {
         
         currentSortType = sortType
         
-        dataSource = dataSource.map() { (var animeArray) -> [Anime] in
+        dataSource = dataSource.map() { animeArray -> [Anime] in
+            var result: [Anime] = []
             switch self.currentSortType {
             case .Rating:
-                animeArray.sortInPlace({ $0.rank < $1.rank && $0.rank != 0 })
+                result = animeArray.sort({ $0.rank < $1.rank && $0.rank != 0 })
             case .Popularity:
-                animeArray.sortInPlace({ $0.popularityRank < $1.popularityRank})
+                result = animeArray.sort({ $0.popularityRank < $1.popularityRank})
             case .Title:
-                animeArray.sortInPlace({ $0.title < $1.title})
+                result = animeArray.sort({ $0.title < $1.title})
             case .NextAiringEpisode:
-                animeArray.sortInPlace({ (anime1: Anime, anime2: Anime) in
+                result = animeArray.sort({ (anime1: Anime, anime2: Anime) in
                     
                     let startDate1 = anime1.nextEpisodeDate ?? NSDate(timeIntervalSinceNow: 60*60*24*100)
                     let startDate2 = anime2.nextEpisodeDate ?? NSDate(timeIntervalSinceNow: 60*60*24*100)
@@ -203,7 +204,7 @@ class ChartViewController: UIViewController {
             default:
                 break;
             }
-            return animeArray
+            return result
         }
         
         // Filter
@@ -321,7 +322,7 @@ extension ChartViewController: UISearchBarDelegate {
             return
         }
         
-        filteredDataSource = dataSource.map { (var animeTypeArray) -> [Anime] in
+        filteredDataSource = dataSource.map { animeTypeArray -> [Anime] in
             func filterText(anime: Anime) -> Bool {
                 return (anime.title!.rangeOfString(searchBar.text!) != nil) ||
                     (anime.genres.joinWithSeparator(" ").rangeOfString(searchBar.text!) != nil)

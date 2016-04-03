@@ -131,7 +131,7 @@ public class SeasonalChartService {
     public class func generateAllSeasonalCharts() {
         let seasons: [SeasonalChartType] = [.Winter, .Summer, .Spring, .Fall]
         
-        for var year = 1990; year < 2016; year++ {
+        for year in 1990 ..< 2016 {
             for seasonEnum in seasons {
                 let season = PFObject(className: ParseKit.SeasonalChart)
                 season["title"] = "\(seasonEnum.rawValue) \(year)"

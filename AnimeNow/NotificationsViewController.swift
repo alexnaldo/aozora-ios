@@ -31,10 +31,10 @@ class NotificationsViewController: UIViewController {
         tableView.estimatedRowHeight = 112.0
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        let clearAll = UIBarButtonItem(title: "Read all", style: UIBarButtonItemStyle.Plain, target: self, action: "clearAllPressed:")
+        let clearAll = UIBarButtonItem(title: "Read all", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(NotificationsViewController.clearAllPressed(_:)))
         navigationItem.leftBarButtonItem = clearAll
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "fetchNotifications", name: "newNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NotificationsViewController.fetchNotifications), name: "newNotification", object: nil)
     }
 
     override func viewWillAppear(animated: Bool) {

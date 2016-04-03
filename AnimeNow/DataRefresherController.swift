@@ -33,13 +33,13 @@ class DataRefresherController: NSObject {
 
         super.init()
 
-        refreshControl?.addTarget(self, action: "refreshData", forControlEvents: .ValueChanged)
+        refreshControl?.addTarget(self, action: #selector(DataRefresherController.refreshData), forControlEvents: .ValueChanged)
 
         timer = scheduleTimerWithTimeInterval(refreshTimeInterval)
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"didEnterBackground", name:
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(DataRefresherController.didEnterBackground), name:
             UIApplicationDidEnterBackgroundNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"didBecomeActive", name:
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(DataRefresherController.didBecomeActive), name:
             UIApplicationDidBecomeActiveNotification, object: nil)
     }
 
@@ -52,7 +52,7 @@ class DataRefresherController: NSObject {
         return NSTimer.scheduledTimerWithTimeInterval(
             timeInterval.rawValue,
             target: self,
-            selector: "refreshData",
+            selector: #selector(DataRefresherController.refreshData),
             userInfo: nil,
             repeats: true)
     }

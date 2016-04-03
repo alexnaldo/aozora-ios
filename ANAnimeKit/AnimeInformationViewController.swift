@@ -93,7 +93,7 @@ public class AnimeInformationViewController: AnimeBaseViewController {
         fetchCurrentAnime()
         
         // Video notifications
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "moviePlayerPlaybackDidFinish:", name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AnimeInformationViewController.moviePlayerPlaybackDidFinish(_:)), name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
     }
     
     public override func viewWillAppear(animated: Bool) {

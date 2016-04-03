@@ -52,14 +52,14 @@ class ForumsViewController: UIViewController {
         loadingView = LoaderView(parentView: view)
         loadingView.startAnimating()
         
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "changeList")
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ForumsViewController.changeList))
         navigationBarTitle.addGestureRecognizer(tapGestureRecognizer)
         
         fetchThreadTags()
         fetchAnimeTags()
         prepareForList(selectedList)
 
-        addRefreshControl(refreshControl, action: "refetchThreads", forTableView: tableView)
+        addRefreshControl(refreshControl, action: #selector(ForumsViewController.refetchThreads), forTableView: tableView)
     }
     
     override func viewWillAppear(animated: Bool) {

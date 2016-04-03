@@ -102,7 +102,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // "content_available" was used to trigger a background push (introduced
             // in iOS 7). In that case, we skip tracking here to avoid double
             // counting the app-open.
-            let oldPushHandlerOnly = !self.respondsToSelector(Selector("application:didReceiveRemoteNotification:fetchCompletionHandler:"))
+            let oldPushHandlerOnly = !self.respondsToSelector(#selector(UIApplicationDelegate.application(_:didReceiveRemoteNotification:fetchCompletionHandler:)))
             let noPushPayload: AnyObject? = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey]
             if oldPushHandlerOnly || noPushPayload != nil {
                 //PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)

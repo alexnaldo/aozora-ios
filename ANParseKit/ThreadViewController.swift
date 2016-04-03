@@ -46,7 +46,7 @@ public class ThreadViewController: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "moviePlayerPlaybackDidFinish:", name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ThreadViewController.moviePlayerPlaybackDidFinish(_:)), name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
         
         tableView.alpha = 0.0
         tableView.estimatedRowHeight = 112.0
@@ -58,7 +58,7 @@ public class ThreadViewController: UIViewController {
         ShowMoreCell.registerNibFor(tableView: tableView)
         
         loadingView = LoaderView(parentView: view)
-        addRefreshControl(refreshControl, action:"fetchPosts", forTableView: tableView)
+        addRefreshControl(refreshControl, action:#selector(ThreadViewController.fetchPosts), forTableView: tableView)
         
         if let thread = thread {
             updateUIWithThread(thread)
@@ -227,7 +227,7 @@ extension ThreadViewController: UITableViewDataSource {
     
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var post = fetchController.objectAtIndex(indexPath.section) as! Commentable
+        let post = fetchController.objectAtIndex(indexPath.section) as! Commentable
         
         if indexPath.row == 0 {
             
@@ -274,7 +274,7 @@ extension ThreadViewController: UITableViewDataSource {
     }
     
     func reuseCommentCellFor(comment: Commentable, replyIndex: Int) -> CommentCell {
-        var comment = comment.replies[replyIndex] as! Commentable
+        let comment = comment.replies[replyIndex] as! Commentable
         
         var reuseIdentifier = ""
         if comment.imagesData?.count != 0 || comment.youtubeID != nil {
@@ -292,7 +292,7 @@ extension ThreadViewController: UITableViewDataSource {
         return cell
     }
     
-    func updateCell(cell: PostCell, var withPost post: Commentable) {
+    func updateCell(cell: PostCell, withPost post: Commentable) {
         // Updates to both styles
         
         // Text content
@@ -357,7 +357,7 @@ extension ThreadViewController: UITableViewDataSource {
         }
     }
     
-    func updatePostCell(cell: PostCell, var withPost post: Commentable) {
+    func updatePostCell(cell: PostCell, withPost post: Commentable) {
         
         // Only embed links on post cells for now
         if let linkCell = cell as? UrlCell, let linkData = post.linkData, let linkUrl = linkData.url {
@@ -453,7 +453,7 @@ extension ThreadViewController: UITableViewDelegate {
     
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        var post = fetchController.objectAtIndex(indexPath.section) as! Commentable
+        let post = fetchController.objectAtIndex(indexPath.section) as! Commentable
         
         if indexPath.row == 0 {
             if post.hasSpoilers && post.isSpoilerHidden == true {
@@ -483,7 +483,7 @@ extension ThreadViewController: UITableViewDelegate {
             replyTo(post)
         }
     }
-    func pressedOnAComment(post: Commentable, var comment: Commentable, indexPath: NSIndexPath) {
+    func pressedOnAComment(post: Commentable, comment: Commentable, indexPath: NSIndexPath) {
         if comment.hasSpoilers && comment.isSpoilerHidden == true {
             comment.isSpoilerHidden = false
             tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
@@ -596,7 +596,7 @@ extension ThreadViewController: UITableViewDelegate {
                     }
                 } else {
                     // Delete child post
-                    var parentPost = parentPost as! Commentable
+                    let parentPost = parentPost as! Commentable
                     if let index = parentPost.replies.indexOf(childPosts.last!) {
                         parentPost.replies.removeAtIndex(index)
                         self.tableView.reloadData()
@@ -653,7 +653,7 @@ extension ThreadViewController: CommentViewControllerDelegate {
 
 extension ThreadViewController: PostCellDelegate {
     public func postCellSelectedImage(postCell: PostCell) {
-        if var post = postForCell(postCell), let imageView = postCell.imageContent {
+        if let post = postForCell(postCell), let imageView = postCell.imageContent {
             print(post)
             if let imageData = post.imagesData?.first {
                 showImage(imageData.url, imageView: imageView)
@@ -692,7 +692,7 @@ extension ThreadViewController: PostCellDelegate {
 extension ThreadViewController: LinkCellDelegate {
     public func postCellSelectedLink(linkCell: UrlCell) {
         guard let indexPath = tableView.indexPathForCell(linkCell),
-            var postable = fetchController.objectAtIndex(indexPath.section) as? Commentable,
+            let postable = fetchController.objectAtIndex(indexPath.section) as? Commentable,
             let linkData = postable.linkData,
             let url = linkData.url else {
             return
@@ -739,7 +739,7 @@ extension ThreadViewController: FetchControllerQueryDelegate {
         
         for post in uniquePosts {
             let postReplies = replies.filter({ ($0["parentPost"] as! PFObject) == post }) as [PFObject]
-            var postable = post as! Commentable
+            let postable = post as! Commentable
             postable.replies = postReplies
         }
 

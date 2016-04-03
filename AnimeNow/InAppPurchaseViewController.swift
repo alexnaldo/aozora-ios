@@ -34,12 +34,12 @@ class InAppPurchaseViewController: UITableViewController {
         
         loadingView = LoaderView(parentView: view)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateViewForPurchaseState", name: PurchasedProNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "setPrices", name: PurchasedProNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(InAppPurchaseViewController.updateViewForPurchaseState), name: PurchasedProNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(InAppPurchaseViewController.setPrices), name: PurchasedProNotification, object: nil)
         
         if let navController = parentViewController as? UINavigationController {
             if let firstController = navController.viewControllers.first where !firstController.isKindOfClass(SettingsViewController) {
-                navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Stop, target: self, action: "dismissViewControllerPressed")
+                navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Stop, target: self, action: #selector(InAppPurchaseViewController.dismissViewControllerPressed))
             }
         }
         

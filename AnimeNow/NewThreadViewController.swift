@@ -62,7 +62,7 @@ public class NewThreadViewController: CommentViewController {
             tags = [anime]
         }
         
-        if var thread = editingPost as? Thread {
+        if let thread = editingPost as? Thread {
             textView.text = thread.content
             threadTitle.text = thread.title
             tags = thread.tags
@@ -99,11 +99,11 @@ public class NewThreadViewController: CommentViewController {
         self.sendButton.backgroundColor = UIColor.watching()
         self.sendButton.userInteractionEnabled = false
         
-        var thread = Thread()
+        let thread = Thread()
         thread.edited = false
         thread.title = threadTitle.text!
         thread.content = textView.text
-        var postable = thread as Postable
+        let postable = thread as Postable
         postable.replyCount = 0
         thread.tags = tags
         thread.subscribers = [postedBy!]
@@ -136,7 +136,7 @@ public class NewThreadViewController: CommentViewController {
         self.sendButton.backgroundColor = UIColor.watching()
         self.sendButton.userInteractionEnabled = false
         
-        if var thread = post as? Thread {
+        if let thread = post as? Thread {
             thread.edited = true
             thread.title = threadTitle.text!
             thread.content = textView.text

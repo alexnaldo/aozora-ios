@@ -22,7 +22,7 @@ public class AnimeReview: PFObject, PFSubclassing {
         return "AnimeReview"
     }
     
-    @NSManaged public var reviews: [AnyObject]
+    @NSManaged public var reviews: [[String: AnyObject]]
     
     public struct Review {
         public var avatarUrl: String
@@ -43,7 +43,7 @@ public class AnimeReview: PFObject, PFSubclassing {
     
     public func reviewFor(index index: Int) -> Review {
         
-        let data: AnyObject = reviews[index]
+        let data = reviews[index]
 
         return Review(
             avatarUrl: (data["avatar_url"] as! String),

@@ -8,15 +8,15 @@
 
 import Foundation
 
-public protocol Postable {
+public protocol Postable: class {
     var createdDate: NSDate? { get }
     var youtubeID: String? { get set }
     var edited: Bool { get set }
     var hasSpoilers: Bool { get set }
     var content: String? { get set }
     
-    var imagesData: [ImageData]? { mutating get set }
-    var linkData: LinkData? { mutating get set }
+    var imagesData: [ImageData]? { get set }
+    var linkData: LinkData? { get set }
     
     var imagesDataInternal: [ImageData]? { get set }
     var linkDataInternal: LinkData? { get set }
@@ -180,7 +180,7 @@ extension Postable where Self: PFObject {
     }
     
     public var linkData: LinkData? {
-        mutating get {
+        get {
             if linkDataInternal == nil {
                 if let link = self["link"] as? [String: AnyObject] {
                     linkDataInternal = LinkData.mapDataWithDictionary(link)
@@ -197,7 +197,7 @@ extension Postable where Self: PFObject {
     }
     
     public var imagesData: [ImageData]? {
-        mutating get {
+        get {
             if imagesDataInternal == nil {
                 imagesDataInternal = []
                 if let images = self["images"] as? [[String: AnyObject]] {

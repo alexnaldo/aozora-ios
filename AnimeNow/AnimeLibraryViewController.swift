@@ -91,8 +91,8 @@ class AnimeLibraryViewController: XLButtonBarPagerTabStripViewController {
         self.isProgressiveIndicator = true
         self.buttonBarView.selectedBar.backgroundColor = UIColor.watching()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateLibrary", name: LibraryUpdatedNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "controllerRequestRefresh", name: LibraryCreatedNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AnimeLibraryViewController.updateLibrary), name: LibraryUpdatedNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AnimeLibraryViewController.controllerRequestRefresh), name: LibraryCreatedNotification, object: nil)
      
         loadingView = LoaderView(parentView: view)
         

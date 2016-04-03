@@ -49,7 +49,7 @@ public class AnimeRelation: PFObject, PFSubclassing {
         public var url: String
         public var relationType: RelationType
         
-        static func relationWithData(data: [String:AnyObject], relationType: RelationType) -> Relation{
+        static func relationWithData(data: [String: AnyObject], relationType: RelationType) -> Relation{
             // All this mess of types is because of Atarashii api fault..
             var animeIdentifier: Int?
             if let animeID = (data["anime_id"] ?? data["manga_id"]) as? Int {
@@ -105,7 +105,7 @@ public class AnimeRelation: PFObject, PFSubclassing {
         return allRelations[index]
     }
     
-    func appendRelation(relation: [String:AnyObject], withType relationType: RelationType) -> [Relation] {
+    func appendRelation(relation: [String: AnyObject], withType relationType: RelationType) -> [Relation] {
         var relations: [Relation] = []
         if let url = relation["url"] as? String, let _ = url.rangeOfString("anime") {
             let newRelation = Relation.relationWithData(relation, relationType: relationType)

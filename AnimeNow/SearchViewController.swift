@@ -56,7 +56,7 @@ class SearchViewController: UIViewController {
             textFieldInsideSearchBar.textColor = UIColor.blackColor()
         }
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateETACells", name: LibraryUpdatedNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SearchViewController.updateETACells), name: LibraryUpdatedNotification, object: nil)
         
         var allBrowseTypes = BrowseType.allItems()
         allBrowseTypes.append(BrowseType.Filtering.rawValue)

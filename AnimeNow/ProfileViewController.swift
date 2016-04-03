@@ -384,7 +384,7 @@ public class ProfileViewController: ThreadViewController {
         
         if let parentPost = parentPost {
             // Inserting a new reply in-place
-            var parentPost = parentPost as! Commentable
+            let parentPost = parentPost as! Commentable
             parentPost.replies.append(newPost)
             tableView.reloadData()
         } else if parentPost == nil {

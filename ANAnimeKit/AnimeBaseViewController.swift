@@ -32,7 +32,7 @@ public class AnimeBaseViewController: UIViewController {
         
         if let _ = tabBarController as? CustomTabBarController {
             
-            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Stop, target: self, action: "dismissViewControllerPressed")
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Stop, target: self, action: #selector(AnimeBaseViewController.dismissViewControllerPressed))
             
             navigationController?.navigationBar.tintColor = UIColor.peterRiver()
             navigationController?.navigationBar.barTintColor = UIColor.whiteColor()

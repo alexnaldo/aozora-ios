@@ -22,7 +22,7 @@ public class WebBrowserSelectorViewController: WebBrowserViewController {
         super.viewDidLoad()
         
         // Insert UIBarButtonAction
-        let selectBBI = UIBarButtonItem(title: "Select", style: UIBarButtonItemStyle.Plain, target: self, action: "selectedWebSite:")
+        let selectBBI = UIBarButtonItem(title: "Select", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(WebBrowserSelectorViewController.selectedWebSite(_:)))
         navigationItem.rightBarButtonItem = selectBBI
     }
     

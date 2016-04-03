@@ -59,7 +59,7 @@ public class NewPostViewController: CommentViewController {
         
         if let editingPost = editingPost {
             
-            var postable = editingPost as! Commentable
+            let postable = editingPost as! Commentable
             hasSpoilers = postable.hasSpoilers
             
             if hasSpoilers {
@@ -233,7 +233,7 @@ public class NewPostViewController: CommentViewController {
         }
     }
     
-    func updatePostable(var post: Commentable, let edited: Bool) -> Commentable {
+    func updatePostable(post: Commentable, edited: Bool) -> Commentable {
         if hasSpoilers {
             post.content = textView.text
             post.spoilerContent = spoilerTextView.text

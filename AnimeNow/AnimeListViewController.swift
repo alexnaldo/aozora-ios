@@ -73,7 +73,7 @@ class AnimeListViewController: UIViewController {
         
         updateLayout(currentLayout, withSize: view.bounds.size)
         updateSortType(currentSortType)
-        addRefreshControl(refreshControl, action: "refreshLibrary", forCollectionView: collectionView)
+        addRefreshControl(refreshControl, action: #selector(AnimeListViewController.refreshLibrary), forCollectionView: collectionView)
     }
     
     override func viewWillAppear(animated: Bool) {

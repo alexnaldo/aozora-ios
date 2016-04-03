@@ -130,7 +130,7 @@ class PublicListViewController: UIViewController {
                 var moviesTotalCount = 0
                 var restTotalCount = 0
                 // Set stats
-                for var i = 1 ; i < self.dataSource.count ; i++ {
+                for i in 1  ..< self.dataSource.count  {
                     let animeList = self.dataSource[i]
                     var tvCount = 0
                     var moviesCount = 0
@@ -260,7 +260,7 @@ extension PublicListViewController: UISearchBarDelegate {
             return
         }
         
-        filteredDataSource = dataSource.map { (var animeTypeArray) -> [Anime] in
+        filteredDataSource = dataSource.map { ( animeTypeArray) -> [Anime] in
             func filterText(anime: Anime) -> Bool {
                 return (anime.title!.rangeOfString(searchBar.text!) != nil) ||
                     (anime.genres.joinWithSeparator(" ").rangeOfString(searchBar.text!) != nil)

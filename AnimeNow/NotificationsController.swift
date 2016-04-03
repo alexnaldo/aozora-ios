@@ -10,6 +10,7 @@ import Foundation
 
 import CRToast
 import ANCommonKit
+import Parse
 
 class NotificationsController {
     
@@ -19,10 +20,10 @@ class NotificationsController {
             return BFTask(result: nil)
         }
 
-        let notification = Notification(withoutDataWithObjectId: notificationId)
+        let notification = Notification(outDataWithObjectId: notificationId)
         notification.addUniqueObject(currentUser, forKey: "readBy")
         notification.saveInBackground()
-        
+
         switch objectClass {
         case "_User":
             let targetUser = User.objectWithoutDataWithObjectId(objectId)

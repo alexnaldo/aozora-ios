@@ -60,28 +60,28 @@ public class PostCell: UITableViewCell {
         super.awakeFromNib()
         
         do {
-            let gestureRecognizer = UITapGestureRecognizer(target: self, action: "pressedUserProfile:")
+            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PostCell.pressedUserProfile(_:)))
             gestureRecognizer.numberOfTouchesRequired = 1
             gestureRecognizer.numberOfTapsRequired = 1
             avatar.addGestureRecognizer(gestureRecognizer)
         }
         
         if let imageContent = imageContent {
-            let gestureRecognizer = UITapGestureRecognizer(target: self, action: "pressedOnImage:")
+            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PostCell.pressedOnImage(_:)))
             gestureRecognizer.numberOfTouchesRequired = 1
             gestureRecognizer.numberOfTapsRequired = 1
             imageContent.addGestureRecognizer(gestureRecognizer)
         }
         
         if let username = username {
-            let gestureRecognizer = UITapGestureRecognizer(target: self, action: "pressedUserProfile:")
+            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PostCell.pressedUserProfile(_:)))
             gestureRecognizer.numberOfTouchesRequired = 1
             gestureRecognizer.numberOfTapsRequired = 1
             username.addGestureRecognizer(gestureRecognizer)
         }
         
         if let toUsername = toUsername {
-            let gestureRecognizer = UITapGestureRecognizer(target: self, action: "pressedToUserProfile:")
+            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PostCell.pressedToUserProfile(_:)))
             gestureRecognizer.numberOfTouchesRequired = 1
             gestureRecognizer.numberOfTapsRequired = 1
             toUsername.addGestureRecognizer(gestureRecognizer)

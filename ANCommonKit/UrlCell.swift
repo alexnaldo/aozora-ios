@@ -35,14 +35,14 @@ public class UrlCell: PostCell {
         super.awakeFromNib()
     
         do {
-            let gestureRecognizer = UITapGestureRecognizer(target: self, action: "pressedOnLink:")
+            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UrlCell.pressedOnLink(_:)))
             gestureRecognizer.numberOfTouchesRequired = 1
             gestureRecognizer.numberOfTapsRequired = 1
             linkContentView.addGestureRecognizer(gestureRecognizer)
         }
         
         do {
-            let gestureRecognizer = UITapGestureRecognizer(target: self, action: "pressedOnLink:")
+            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UrlCell.pressedOnLink(_:)))
             gestureRecognizer.numberOfTouchesRequired = 1
             gestureRecognizer.numberOfTapsRequired = 1
             imageContent?.addGestureRecognizer(gestureRecognizer)

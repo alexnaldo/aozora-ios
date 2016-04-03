@@ -65,7 +65,7 @@ class BrowseViewController: UIViewController {
 
         collectionView.registerNibWithClass(AnimeCell)
         
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "changeSeasonalChart")
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(BrowseViewController.changeSeasonalChart))
         navigationBarTitleView.addGestureRecognizer(tapGestureRecognizer)
         
         loadingView = LoaderView(parentView: view)
@@ -73,7 +73,7 @@ class BrowseViewController: UIViewController {
         fetchListType(currentBrowseType)
         updateLayout(withSize: view.bounds.size)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateETACells", name: LibraryUpdatedNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BrowseViewController.updateETACells), name: LibraryUpdatedNotification, object: nil)
         
         navigationController?.setNavigationBarHidden(false, animated: true)
         

@@ -125,7 +125,7 @@ public class CustomThreadViewController: ThreadViewController {
         }
     }
     
-    func updateUIWithGeneralThread(var thread: Thread) {
+    func updateUIWithGeneralThread( thread: Thread) {
         
         title = thread.title
         threadTitle.text = thread.title
@@ -289,7 +289,7 @@ public class CustomThreadViewController: ThreadViewController {
             // Only posts and TimelinePosts
             if let parentPost = parentPost {
                 // Inserting a new reply in-place
-                var parentPost = parentPost as! Commentable
+                let parentPost = parentPost as! Commentable
                 parentPost.replies.append(post)
                 tableView.reloadData()
             } else if parentPost == nil {

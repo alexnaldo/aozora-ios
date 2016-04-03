@@ -88,7 +88,7 @@ class HomeViewController: UIViewController {
 
         canDisplayBannerAds = InAppController.canDisplayAds()
         
-        headerTimer = NSTimer.scheduledTimerWithTimeInterval(10.0, target: self, selector: "moveHeaderView:", userInfo: nil, repeats: true)
+        headerTimer = NSTimer.scheduledTimerWithTimeInterval(10.0, target: self, selector: #selector(HomeViewController.moveHeaderView(_:)), userInfo: nil, repeats: true)
     }
 
     override func viewWillDisappear(animated: Bool) {
