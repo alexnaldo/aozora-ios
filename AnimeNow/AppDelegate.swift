@@ -65,15 +65,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication,
         didReceiveRemoteNotification userInfo: [NSObject : AnyObject],
         fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-        handleIncomingNotification(userInfo, completionHandler: completionHandler)
+        handleIncomingNotification(userInfo as! [String : AnyObject], completionHandler: completionHandler)
     }
     
-    func handleIncomingNotification(userInfo: [NSObject: AnyObject], completionHandler: ((UIBackgroundFetchResult) -> Void)? ) {
+    func handleIncomingNotification(userInfo: [String: AnyObject], completionHandler: ((UIBackgroundFetchResult) -> Void)? ) {
         // Extract the notification data
         if let objectClass = userInfo["targetClass"] as? String,
             let objectId = userInfo["targetID"] as? String,
             let notificationId = userInfo["notificationID"] as? String,
-            let alert = userInfo["aps"]!["alert"] as? String {
+        let aps = userInfo["aps"] as? [String: AnyObject], let alert =  aps["alert"] as? String {
                 
                 let state = UIApplication.sharedApplication().applicationState;
                 if state == UIApplicationState.Background || state == UIApplicationState.Inactive

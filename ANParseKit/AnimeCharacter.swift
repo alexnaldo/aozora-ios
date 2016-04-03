@@ -45,7 +45,7 @@ public class AnimeCharacter: PFObject, PFSubclassing {
         
         var japaneseVoiceActor: Person?
         
-        if let voiceActorsData = data["actors"] as? [AnyObject] {
+        if let voiceActorsData = data["actors"] as? [[String: AnyObject]] {
             for voiceActor in voiceActorsData where (voiceActor["language"] as! String) == "Japanese" {
                 japaneseVoiceActor = Person(
                     personID: (voiceActor["id"] as! Int),

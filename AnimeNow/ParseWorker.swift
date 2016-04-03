@@ -110,7 +110,7 @@ class ParseWorker {
                 }.continueWithBlock{
                     (task: BFTask!) -> AnyObject! in
                     
-                    if let result: AnyObject = task.result {
+                    if let result = task.result as? [String: AnyObject] {
                         let date1 = (result["first_aired"] as! String).date
                         let date2 = anime["startDate"] as! NSDate
                         if NSCalendar.currentCalendar().isDate(date1, inSameDayAsDate: date2) {
