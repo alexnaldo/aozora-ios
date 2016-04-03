@@ -854,7 +854,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9QO-j1-2jt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-69" y="1037"/>
+            <point key="canvasLocation" x="572" y="1031"/>
         </scene>
         <!--Web Browser Selector View Controller-->
         <scene sceneID="XzS-sP-Duh">
@@ -908,7 +908,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EWR-I8-jLv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="631" y="1037"/>
+            <point key="canvasLocation" x="1213" y="1031"/>
         </scene>
     </scenes>
     <resources>
