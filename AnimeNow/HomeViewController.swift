@@ -498,11 +498,14 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
                 case .Genres:
                     self.showGenres()
                 case .Years:
-                    showInAppPurchasesIfNeeded(self.showYears)
+                    self.showYears()
+                    //showInAppPurchasesIfNeeded()
                 case .Studios:
-                    showInAppPurchasesIfNeeded(self.showStudios)
+                    self.showStudios()
+                    //showInAppPurchasesIfNeeded()
                 case .Classifications:
-                    showInAppPurchasesIfNeeded(self.showClassifications)
+                    self.showClassifications()
+                    //showInAppPurchasesIfNeeded()
                 }
             }
             
