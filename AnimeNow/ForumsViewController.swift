@@ -294,11 +294,7 @@ extension ForumsViewController: UITableViewDelegate {
         } else {
             threadController.initWithThread(thread)
         }
-        
-        if !InAppController.hasAnyPro() {
-            threadController.interstitialPresentationPolicy = .Automatic
-        }
-        
+
         navigationController?.pushViewController(threadController, animated: true)
     }
 }

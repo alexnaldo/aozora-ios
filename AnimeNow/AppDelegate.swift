@@ -42,7 +42,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         trackPushOpen(application, didFinishLaunchingWithOptions:launchOptions)
         registerForPushNotifications(application)
-        prepareForAds()
         customizeAppearance()
     
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
@@ -117,13 +116,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: nil)
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
-    }
-    
-    func prepareForAds() {
-        // Ads
-        if !InAppController.hasAnyPro() {
-            UIViewController.prepareInterstitialAds()
-        }
     }
 
     func applicationWillResignActive(application: UIApplication) {

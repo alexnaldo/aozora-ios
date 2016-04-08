@@ -245,9 +245,6 @@ extension SearchViewController: UICollectionViewDelegate {
                 threadController.initWithThread(thread)
             }
             
-            if !InAppController.hasAnyPro() {
-                threadController.interstitialPresentationPolicy = .Automatic
-            }
             navigationController?.pushViewController(threadController, animated: true)
         } else if let string = object as? String {
             guard let browse = UIStoryboard(name: "Browse", bundle: nil).instantiateViewControllerWithIdentifier("BrowseViewController") as? BrowseViewController,

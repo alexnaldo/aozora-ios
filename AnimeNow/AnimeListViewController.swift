@@ -264,10 +264,6 @@ extension AnimeListViewController: AnimeLibraryCellDelegate {
         let threadController = Storyboard.customThreadViewController()
         threadController.initWithEpisode(episode, anime: anime)
         
-        if !InAppController.hasAnyPro() {
-            threadController.interstitialPresentationPolicy = .Automatic
-        }
-        
         navigationController?.pushViewController(threadController, animated: true)
     }
 }

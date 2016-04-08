@@ -147,9 +147,6 @@ extension EpisodesViewController: UICollectionViewDelegate {
         let episode = dataSource[indexPath.row]
         let threadController = Storyboard.customThreadViewController()
         threadController.initWithEpisode(episode, anime: anime)
-        if !InAppController.hasAnyPro() {
-            threadController.interstitialPresentationPolicy = .Automatic
-        }
         
         if let tabBar = tabBarController as? CustomTabBarController {
             tabBar.disableDragDismiss()
