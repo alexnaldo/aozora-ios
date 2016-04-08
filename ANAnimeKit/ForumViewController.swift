@@ -18,10 +18,17 @@ extension ForumViewController: StatusBarVisibilityProtocol {
     }
 }
 
+extension ForumViewController: CustomAnimatorProtocol {
+    func scrollView() -> UIScrollView? {
+        return tableView
+    }
+}
+
 public class ForumViewController: AnimeBaseViewController {
 
     @IBOutlet weak var newThreadButton: UIButton!
     @IBOutlet weak public var navigationBar: UINavigationItem!
+    @IBOutlet weak var tableView: UITableView!
 
     var dataSource: [Thread] = [] {
         didSet {
@@ -49,6 +56,11 @@ public class ForumViewController: AnimeBaseViewController {
         loadingView = LoaderView(parentView: view)
         loadingView.startAnimating()
         fetchAnimeRelatedThreads()
+    }
+
+    public override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        customTabBar.setCurrentViewController(self)
     }
     
     func fetchAnimeRelatedThreads() {

@@ -25,13 +25,10 @@ public class AiringController {
 
         if airingStatus != AnimeStatus.FinishedAiring && nextEpisodeToWatchDate.compare(NSDate()) == .OrderedDescending {
             // Future episode
-            print("Future Episode")
-
             let etaString = nextAirEpisodeDate.etaStringForDate(short: true)
             return (etaString, .Future)
         } else {
 
-            print("Past Episode")
             var episodesBehind = 0
             var newDate = nextEpisodeToWatchDate
 

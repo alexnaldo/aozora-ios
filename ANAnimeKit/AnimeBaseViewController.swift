@@ -8,24 +8,15 @@
 
 import UIKit
 
-
-extension AnimeBaseViewController: RequiresAnimeProtocol {
-    func initWithAnime(anime: Anime) {
-        self.anime = anime
-    }
-}
-
-extension AnimeBaseViewController: CustomAnimatorProtocol {
-    func scrollView() -> UIScrollView {
-        return tableView != nil ? tableView : collectionView
-    }
-}
-
 public class AnimeBaseViewController: UIViewController {
-    var anime: Anime!
-    
-    @IBOutlet public weak var tableView: UITableView!
-    @IBOutlet public weak var collectionView: UICollectionView!
+
+    var anime: Anime {
+        return customTabBar.anime
+    }
+
+    var customTabBar: CustomTabBarController {
+        return tabBarController as! CustomTabBarController
+    }
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,14 +28,6 @@ public class AnimeBaseViewController: UIViewController {
             navigationController?.navigationBar.tintColor = UIColor.peterRiver()
             navigationController?.navigationBar.barTintColor = UIColor.whiteColor()
             navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.blackColor()]
-        }
-    }
-    
-    public override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        if let tabBar = tabBarController as? CustomTabBarController {
-            tabBar.setCurrentViewController(self)
         }
     }
     

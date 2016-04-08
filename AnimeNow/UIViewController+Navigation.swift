@@ -64,10 +64,11 @@ extension UIViewController {
         return animator
     }
 
-    public func presentAnimeModal(anime: Anime) -> ZFModalTransitionAnimator {
+    public func presentAnimeModal(anime: Anime, callback: ((CustomTabBarController) -> Void)? = nil) -> ZFModalTransitionAnimator {
 
         let tabBarController = Storyboard.customTabBarController()
         tabBarController.initWithAnime(anime)
+        callback?(tabBarController)
 
         let animator = ZFModalTransitionAnimator(modalViewController: tabBarController)
         animator.dragable = true

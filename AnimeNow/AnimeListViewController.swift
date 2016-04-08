@@ -207,7 +207,7 @@ class AnimeListViewController: UIViewController {
     
 }
 
-
+// MARK: - UICollectionViewDataSource
 extension AnimeListViewController: UICollectionViewDataSource {
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -238,15 +238,19 @@ extension AnimeListViewController: UICollectionViewDataSource {
 }
 
 
-
+// MARK: - UICollectionViewDelegate
 extension AnimeListViewController: UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
         let anime = animeList[indexPath.row]
-        self.animator = presentAnimeModal(anime)
+        self.animator = presentAnimeModal(anime, callback: { tabBarController in
+            // Show episodes view controller when calling from here
+            tabBarController.selectedIndex = 2
+        })
     }
 }
 
+// MARK: - AnimeLibraryCellDelegate
 extension AnimeListViewController: AnimeLibraryCellDelegate {
     func cellPressedWatched(cell: AnimeLibraryCell, anime: Anime) {
         if let progress = anime.progress {
@@ -268,12 +272,14 @@ extension AnimeListViewController: AnimeLibraryCellDelegate {
     }
 }
 
+// MARK: - RateViewControllerProtocol
 extension AnimeListViewController: RateViewControllerProtocol {
     func rateControllerDidFinishedWith(anime anime: Anime, rating: Float) {
         RateViewController.updateAnime(anime, withRating: rating*2.0)
     }
 }
 
+// MARK: - XLPagerTabStripChildItem
 extension AnimeListViewController: XLPagerTabStripChildItem {
     func titleForPagerTabStripViewController(pagerTabStripViewController: XLPagerTabStripViewController!) -> String! {
         return animeListType.rawValue

@@ -30,6 +30,12 @@ extension AnimeInformationViewController: StatusBarVisibilityProtocol {
     }
 }
 
+extension AnimeInformationViewController: CustomAnimatorProtocol {
+    func scrollView() -> UIScrollView? {
+        return tableView ?? nil
+    }
+}
+
 public class AnimeInformationViewController: AnimeBaseViewController {
     
     let HeaderCellHeight: CGFloat = 39
@@ -40,14 +46,8 @@ public class AnimeInformationViewController: AnimeBaseViewController {
     var canHideStatusBar = true
     var subAnimator: ZFModalTransitionAnimator!
     var playerController: XCDYouTubeVideoPlayerViewController?
-    
+
     @IBOutlet weak var listButton: UIButton!
-    
-    override var anime: Anime! {
-        didSet {
-            updateInformationWithAnime()
-        }
-    }
     
     var loadingView: LoaderView!
     
@@ -68,6 +68,8 @@ public class AnimeInformationViewController: AnimeBaseViewController {
     @IBOutlet weak var popularityRankLabel: UILabel!
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var fanartImageView: UIImageView!
+
+    @IBOutlet weak var tableView: UITableView!
     
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -94,12 +96,19 @@ public class AnimeInformationViewController: AnimeBaseViewController {
         
         // Video notifications
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AnimeInformationViewController.moviePlayerPlaybackDidFinish(_:)), name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
+
+        updateInformationWithAnime()
     }
     
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         canHideStatusBar = true
         self.scrollViewDidScroll(tableView)
+    }
+
+    public override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        customTabBar.setCurrentViewController(self)
     }
     
     func fetchCurrentAnime() {
@@ -115,7 +124,8 @@ public class AnimeInformationViewController: AnimeBaseViewController {
             } else {
                 if let anime = objects?.first as? Anime {
                     anime.progress = self.anime.progress
-                    self.anime = anime
+                    self.customTabBar.anime = anime
+                    self.updateInformationWithAnime()
                 }
             }
         }
@@ -430,7 +440,10 @@ public class AnimeInformationViewController: AnimeBaseViewController {
     // MARK: - Helper Functions
     
     func hideStatusBar() -> Bool {
-        let offset = HeaderViewHeight - self.scrollView().contentOffset.y - TopBarHeight
+        guard let scroll = scrollView() else {
+            return false
+        }
+        let offset = HeaderViewHeight - scroll.contentOffset.y - TopBarHeight
         return offset > StatusBarHeight ? true : false
     }
     

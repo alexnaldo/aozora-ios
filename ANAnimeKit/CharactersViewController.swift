@@ -25,16 +25,29 @@ enum CharacterSection: Int {
     static var allSections: [CharacterSection] = [.Character,.Cast]
 }
 
+extension CharactersViewController: CustomAnimatorProtocol {
+    func scrollView() -> UIScrollView? {
+        return tableView
+    }
+}
+
 public class CharactersViewController: AnimeBaseViewController {
 
     let HeaderCellHeight: CGFloat = 39
-    
+
+    @IBOutlet weak var tableView: UITableView!
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         tableView.estimatedRowHeight = 150.0
         tableView.rowHeight = UITableViewAutomaticDimension
         
         fetchCharactersAndStaff()
+    }
+
+    public override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        customTabBar.setCurrentViewController(self)
     }
     
     func fetchCharactersAndStaff() {

@@ -11,11 +11,7 @@ import UIKit
 import ANCommonKit
 
 protocol CustomAnimatorProtocol {
-    func scrollView() -> UIScrollView
-}
-
-protocol RequiresAnimeProtocol {
-    func initWithAnime(anime: Anime)
+    func scrollView() -> UIScrollView?
 }
 
 protocol StatusBarVisibilityProtocol {
@@ -36,6 +32,7 @@ public class CustomTabBarController: UITabBarController {
         animator.gesture.enabled = true
         animator.setContentScrollView(controller.scrollView())
     }
+
     func disableDragDismiss() {
         animator.gesture.enabled = false
     }
@@ -54,11 +51,6 @@ public class CustomTabBarController: UITabBarController {
         }
         
         delegate = self
-
-        // Set first view controller anime, the rest is set when tab controller delegate
-        let navController = self.viewControllers?.first as! UINavigationController
-        let controller = navController.viewControllers.first as! RequiresAnimeProtocol
-        controller.initWithAnime(anime)
     }
     
     public override func viewWillAppear(animated: Bool) {
@@ -107,14 +99,5 @@ extension CustomTabBarController: UITabBarControllerDelegate {
         }
         
         return true
-    }
-    
-    public func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
-        
-        let navController = viewController as! UINavigationController
-        if let controller = navController.viewControllers.first as? RequiresAnimeProtocol {
-            controller.initWithAnime(anime)
-        }
-        
     }
 }

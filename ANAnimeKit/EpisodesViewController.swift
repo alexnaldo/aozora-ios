@@ -17,8 +17,16 @@ extension EpisodesViewController: StatusBarVisibilityProtocol {
     }
 }
 
+extension EpisodesViewController: CustomAnimatorProtocol {
+    func scrollView() -> UIScrollView? {
+        return collectionView
+    }
+}
+
 class EpisodesViewController: AnimeBaseViewController {
-    
+
+    @IBOutlet weak var collectionView: UICollectionView!
+
     var canFadeImages = true
     var laidOutSubviews = false
     var dataSource: [Episode] = [] {
@@ -34,7 +42,11 @@ class EpisodesViewController: AnimeBaseViewController {
         loadingView = LoaderView(parentView: view)
         
         fetchEpisodes()
-        
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        customTabBar.setCurrentViewController(self)
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
