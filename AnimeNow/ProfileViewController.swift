@@ -57,6 +57,10 @@ public class ProfileViewController: ThreadViewController {
     public func initWithUsername(username: String) {
         self.username = username
     }
+
+    lazy var settingsIcon: UIBarButtonItem = {
+        return UIBarButtonItem(image: UIImage(named: "icon-settings"), style: UIBarButtonItemStyle.Plain, target:self, action: #selector(settingsPressed))
+    }()
     
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -163,6 +167,7 @@ public class ProfileViewController: ThreadViewController {
             self.userProfile = user
 
             if user.isTheCurrentUser() {
+                self.navigationItem.leftBarButtonItem = self.settingsIcon
                 InAppController.updateUserUnlockedContent(user.unlockedContent)
             }
 
@@ -222,10 +227,6 @@ public class ProfileViewController: ThreadViewController {
         
         if let bannerFile = user.banner {
             userBanner.setImageWithPFFile(bannerFile)
-        }
-        
-        if let _ = tabBarController {
-            navigationItem.leftBarButtonItem = nil
         }
         
         let proPlusString = "PRO+"
@@ -324,13 +325,22 @@ public class ProfileViewController: ThreadViewController {
             }
         }
     }
-    
+
     @IBAction func searchPressed(sender: AnyObject) {
         if let tabBar = tabBarController {
             tabBar.presentSearchViewController(.AllAnime)
         }
     }
-    
+
+    @IBAction func settingsPressed(sender: AnyObject) {
+        let settings = UIStoryboard(name: "Settings", bundle: nil).instantiateInitialViewController() as! UINavigationController
+        if UIDevice.isPad() {
+            self.presentSmallViewController(settings, sender: sender)
+        } else {
+            self.animator = self.presentViewControllerModal(settings)
+        }
+    }
+
     public override func replyToThreadPressed(sender: AnyObject) {
         super.replyToThreadPressed(sender)
         
@@ -561,15 +571,6 @@ public class ProfileViewController: ThreadViewController {
                     self.presentSmallViewController(editProfileController, sender: sender)
                 } else {
                     self.presentViewController(editProfileController, animated: true, completion: nil)
-                }
-            }))
-            
-            alert.addAction(UIAlertAction(title: "Settings", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
-                let settings = UIStoryboard(name: "Settings", bundle: nil).instantiateInitialViewController() as! UINavigationController
-                if UIDevice.isPad() {
-                    self.presentSmallViewController(settings, sender: sender)
-                } else {
-                    self.animator = self.presentViewControllerModal(settings)
                 }
             }))
             

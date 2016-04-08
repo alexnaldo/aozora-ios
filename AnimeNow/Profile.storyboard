@@ -520,7 +520,7 @@
                         <barButtonItem key="backBarButtonItem" title="Back" id="2iG-8y-7dR"/>
                         <barButtonItem key="rightBarButtonItem" image="icon-search" id="5c8-zA-vWE" userLabel="Create">
                             <connections>
-                                <action selector="searchPressed:" destination="M5q-uq-HPK" id="fEz-2D-bod"/>
+                                <action selector="settingsPressed:" destination="M5q-uq-HPK" id="fwg-2X-txx"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
