@@ -202,9 +202,87 @@ public class ThreadViewController: UIViewController {
     @IBAction public func replyToThreadPressed(sender: AnyObject) {
         
     }
+
+    // MARK: - Edit Sheet
+
+    func showSheetFor(post post: Commentable, parentPost: Commentable? = nil, indexPath: NSIndexPath) {
+        // If user's comment show delete/edit
+
+        guard let currentUser = User.currentUser(), let postedBy = post.postedBy, let cell = tableView.cellForRowAtIndexPath(indexPath) else {
+            return
+        }
+
+        let administrating = currentUser.isAdmin() && !postedBy.isAdmin() || currentUser.isTopAdmin()
+        if let postedBy = post.postedBy where postedBy.isTheCurrentUser() ||
+            // Current user is admin and posted by non-admin user
+            administrating {
+            showEditPostActionSheet(administrating, canEdit: true, canDelete: true, cell: cell, postedBy: postedBy, currentUser: currentUser, post: post, parentPost: parentPost)
+        }
+    }
+
+    func showEditPostActionSheet(administrating: Bool, canEdit: Bool, canDelete: Bool, cell: UITableViewCell, postedBy: User, currentUser: User, post: Commentable, parentPost: Commentable?) {
+        let alert: UIAlertController!
+
+        if administrating {
+            alert = UIAlertController(title: "Warning: Editing \(postedBy.aozoraUsername) post", message: "Only edit user posts if they are breaking guidelines", preferredStyle: UIAlertControllerStyle.ActionSheet)
+            alert.popoverPresentationController?.sourceView = cell.superview
+            alert.popoverPresentationController?.sourceRect = cell.frame
+        } else {
+            alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+            alert.popoverPresentationController?.sourceView = cell.superview
+            alert.popoverPresentationController?.sourceRect = cell.frame
+        }
+
+        if canEdit {
+            alert.addAction(UIAlertAction(title: "Edit", style: administrating ? UIAlertActionStyle.Destructive : UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction!) -> Void in
+                let newPostViewController = Storyboard.newPostViewController()
+
+                if let post = post as? TimelinePost {
+                    newPostViewController.initWithTimelinePost(self, postedIn: currentUser, editingPost: post)
+                } else if let post = post as? Post, let thread = self.thread {
+                    newPostViewController.initWith(thread, threadType: self.threadType, delegate: self, editingPost: post)
+                }
+                self.animator = self.presentViewControllerModal(newPostViewController)
+            }))
+        }
+
+        if canDelete {
+            alert.addAction(UIAlertAction(title: "Delete", style: UIAlertActionStyle.Destructive, handler: { (alertAction: UIAlertAction!) -> Void in
+                if let post = post as? PFObject {
+                    if let parentPost = parentPost as? PFObject {
+                        // Just delete child post
+                        self.deletePosts([post], parentPost: parentPost, removeParent: false)
+                    } else {
+                        // This is parent post, remove child too
+                        var className = ""
+                        if let _ = post as? Post {
+                            className = "Post"
+                        } else if let _ = post as? TimelinePost {
+                            className = "TimelinePost"
+                        }
+
+                        let childPostsQuery = PFQuery(className: className)
+                        childPostsQuery.whereKey("parentPost", equalTo: post)
+                        childPostsQuery.findObjectsInBackgroundWithBlock({ (result, error) -> Void in
+                            if let result = result {
+                                self.deletePosts(result, parentPost: post, removeParent: true)
+                            } else {
+                                // TODO: Show error
+                            }
+                        })
+                    }
+                }
+            }))
+        }
+
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler:nil))
+
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+
 }
 
-
+// MARK: - UITableViewDataSource
 extension ThreadViewController: UITableViewDataSource {
     
     public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -442,6 +520,7 @@ extension ThreadViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate
 extension ThreadViewController: UITableViewDelegate {
     public func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.1
@@ -491,82 +570,14 @@ extension ThreadViewController: UITableViewDelegate {
             showSheetFor(post: comment, parentPost: post, indexPath: indexPath)
         }
     }
-    func showSheetFor(post post: Commentable, parentPost: Commentable? = nil, indexPath: NSIndexPath) {
-        // If user's comment show delete/edit
-        
-        guard let currentUser = User.currentUser(), let postedBy = post.postedBy, let cell = tableView.cellForRowAtIndexPath(indexPath) else {
-            return
-        }
-        
-        let administrating = currentUser.isAdmin() && !postedBy.isAdmin() || currentUser.isTopAdmin()
-        if let postedBy = post.postedBy where postedBy.isTheCurrentUser() ||
-            // Current user is admin and posted by non-admin user
-            administrating {
-            
-                let alert: UIAlertController!
-                
-                if administrating {
-                    alert = UIAlertController(title: "Warning: Editing \(postedBy.aozoraUsername) post", message: "Only edit user posts if they are breaking guidelines", preferredStyle: UIAlertControllerStyle.ActionSheet)
-                    alert.popoverPresentationController?.sourceView = cell.superview
-                    alert.popoverPresentationController?.sourceRect = cell.frame
-                } else {
-                    alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
-                    alert.popoverPresentationController?.sourceView = cell.superview
-                    alert.popoverPresentationController?.sourceRect = cell.frame
-                }
-                
-                alert.addAction(UIAlertAction(title: "Edit", style: administrating ? UIAlertActionStyle.Destructive : UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction!) -> Void in
-                    let newPostViewController = Storyboard.newPostViewController()
 
-                    if let post = post as? TimelinePost {
-                        newPostViewController.initWithTimelinePost(self, postedIn: currentUser, editingPost: post)
-                    } else if let post = post as? Post, let thread = self.thread {
-                        newPostViewController.initWith(thread, threadType: self.threadType, delegate: self, editingPost: post)
-                    }
-                    self.animator = self.presentViewControllerModal(newPostViewController)
-                }))
-
-                alert.addAction(UIAlertAction(title: "Delete", style: UIAlertActionStyle.Destructive, handler: { (alertAction: UIAlertAction!) -> Void in
-                    if let post = post as? PFObject {
-                        if let parentPost = parentPost as? PFObject {
-                            // Just delete child post
-                            self.deletePosts([post], parentPost: parentPost, removeParent: false)
-                        } else {
-                            // This is parent post, remove child too
-                            var className = ""
-                            if let _ = post as? Post {
-                                className = "Post"
-                            } else if let _ = post as? TimelinePost {
-                                className = "TimelinePost"
-                            }
-                            
-                            let childPostsQuery = PFQuery(className: className)
-                            childPostsQuery.whereKey("parentPost", equalTo: post)
-                            childPostsQuery.findObjectsInBackgroundWithBlock({ (result, error) -> Void in
-                                if let result = result {
-                                    self.deletePosts(result, parentPost: post, removeParent: true)
-                                } else {
-                                    // TODO: Show error
-                                }
-                            })
-                        }
-                    }
-                }))
-                
-                
-                alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler:nil))
-                
-                self.presentViewController(alert, animated: true, completion: nil)
-        }
-    }
-    
     func deletePosts(childPosts: [PFObject] = [], parentPost: PFObject, removeParent: Bool) {
         var allPosts = childPosts
-        
+
         if removeParent {
             allPosts.append(parentPost)
         }
-        
+
         PFObject.deleteAllInBackground(allPosts, block: { (success, error) -> Void in
             if let _ = error {
                 // Show some error
@@ -611,12 +622,14 @@ extension ThreadViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - FetchControllerDelegate
 extension ThreadViewController: FetchControllerDelegate {
     public func didFetchFor(skip skip: Int) {
         refreshControl.endRefreshing()
     }
 }
 
+// MARK: - TTTAttributedLabelDelegate
 extension ThreadViewController: TTTAttributedLabelDelegate {
     
     public func attributedLabel(label: TTTAttributedLabel!, didSelectLinkWithURL url: NSURL!) {
@@ -643,6 +656,7 @@ extension ThreadViewController: TTTAttributedLabelDelegate {
     }
 }
 
+// MARK: - CommentViewControllerDelegate
 extension ThreadViewController: CommentViewControllerDelegate {
     public func commentViewControllerDidFinishedPosting(newPost: PFObject, parentPost: PFObject?, edited: Bool) {
         if let thread = newPost as? Thread {
@@ -651,6 +665,7 @@ extension ThreadViewController: CommentViewControllerDelegate {
     }
 }
 
+// MARK: - PostCellDelegate
 extension ThreadViewController: PostCellDelegate {
     public func postCellSelectedImage(postCell: PostCell) {
         if let post = postForCell(postCell), let imageView = postCell.imageContent {
@@ -689,6 +704,7 @@ extension ThreadViewController: PostCellDelegate {
     }
 }
 
+// MARK: - LinkCellDelegate
 extension ThreadViewController: LinkCellDelegate {
     public func postCellSelectedLink(linkCell: UrlCell) {
         guard let indexPath = tableView.indexPathForCell(linkCell),
@@ -707,6 +723,7 @@ extension ThreadViewController: LinkCellDelegate {
     }
 }
 
+// MARK: - FetchControllerQueryDelegate
 extension ThreadViewController: FetchControllerQueryDelegate {
     
     public func queriesForSkip(skip skip: Int) -> [PFQuery]? {
@@ -747,6 +764,7 @@ extension ThreadViewController: FetchControllerQueryDelegate {
     }
 }
 
+// MARK: - ModalTransitionScrollable
 extension ThreadViewController: ModalTransitionScrollable {
     public var transitionScrollView: UIScrollView? {
         return tableView

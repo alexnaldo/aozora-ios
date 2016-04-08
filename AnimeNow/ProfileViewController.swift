@@ -120,7 +120,21 @@ public class ProfileViewController: ThreadViewController {
         header.frame = frame
         tableView.tableHeaderView = header
     }
-    
+
+    // MARK: - Overrides
+
+    override func showSheetFor(post post: Commentable, parentPost: Commentable?, indexPath: NSIndexPath) {
+        guard let currentUser = User.currentUser(), let postedBy = post.postedBy, let cell = tableView.cellForRowAtIndexPath(indexPath),
+            let userProfile = userProfile where userProfile.isTheCurrentUser() && !userProfile.isAdmin() else {
+                // Fallback to default implementation
+                super.showSheetFor(post: post, parentPost: parentPost, indexPath: indexPath)
+                return
+        }
+
+        // Allow user to delete posts from it's timeline.
+        let canEdit = postedBy == currentUser
+        showEditPostActionSheet(false, canEdit: canEdit, canDelete: true, cell: cell, postedBy: postedBy, currentUser: currentUser, post: post, parentPost: parentPost)
+    }
     
     
     // MARK: - Fetching
