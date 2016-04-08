@@ -20,7 +20,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
 
     var sections: [String] = ["Airing Today", "Current Season", "Explore all anime", "Explore by Genre", "Explore by Year", "Explore by Studio", "Explore by Classification"]
-    var sectionDetails: [String] = ["", "", "with advanced filters", "", "", "", ""]
+    var sectionDetails: [String] = ["", "", "", "", "", "", ""]
     var rightButtonTitle: [String] = ["Calendar", "Seasons", "Discover", "Genres", "Years", "Studios", "Classifications"]
 
     var airingDataSource: [[Anime]] = [[]] {
@@ -65,7 +65,7 @@ class HomeViewController: UIViewController {
 
         sectionDetails[0] = getDayOfWeek()
         sectionDetails[1] = SeasonalChartService.seasonalChartString(0).title
-        sectionDetails[2] = "with advanced filters"
+        sectionDetails[2] = "Top anime lists"
 
         // Updating tableHeaderView depending on if it is iPad or iPhone
         var frame = tableView.tableHeaderView!.frame
