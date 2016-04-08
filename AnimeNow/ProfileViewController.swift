@@ -360,6 +360,7 @@ public class ProfileViewController: ThreadViewController {
             let followingQuery = userProfile!.following().query()
             followingQuery.orderByDescending("activeStart")
             followingQuery.limit = 1000
+            innerQuery.whereKey("postedBy", matchesKey: "objectId", inQuery: followingQuery)
             innerQuery.whereKey("userTimeline", matchesKey: "objectId", inQuery: followingQuery)
         case .Popular:
             innerQuery.whereKeyExists("likedBy")
