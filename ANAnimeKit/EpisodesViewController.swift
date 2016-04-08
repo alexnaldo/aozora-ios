@@ -36,6 +36,7 @@ class EpisodesViewController: AnimeBaseViewController {
     }
     
     var loadingView: LoaderView!
+    var scrollToIndexPath: NSIndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +63,11 @@ class EpisodesViewController: AnimeBaseViewController {
         if !laidOutSubviews {
             laidOutSubviews = true
             updateLayoutWithSize(view.bounds.size)
+            if let indexPath = scrollToIndexPath where
+                indexPath.row + 1 <= self.dataSource.count {
+                scrollToIndexPath = nil
+                self.collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: UICollectionViewScrollPosition.Top, animated: false)
+            }
         }
         
     }
@@ -105,6 +111,10 @@ class EpisodesViewController: AnimeBaseViewController {
         anime.episodeList().continueWithExecutor(BFExecutor.mainThreadExecutor(), withSuccessBlock: { (task: BFTask!) -> AnyObject! in
         
             self.dataSource = task.result as! [Episode]
+            if let animeProgress = self.anime.progress where animeProgress.watchedEpisodes != 0 {
+                self.scrollToIndexPath = NSIndexPath(forRow: animeProgress.watchedEpisodes-1, inSection: 0)
+            }
+
             self.collectionView.animateFadeIn()
             self.loadingView.stopAnimating()
 
