@@ -328,8 +328,8 @@
                                                 <action selector="showSettings:" destination="M5q-uq-HPK" eventType="touchUpInside" id="rSY-R9-knx"/>
                                             </connections>
                                         </button>
-                                        <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="PRO+" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FUt-Aj-Vp8" customClass="SpacerLabel" customModule="AnimeTrakr" customModuleProvider="target">
-                                            <rect key="frame" x="89" y="109" width="48" height="21"/>
+                                        <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PRO+" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FUt-Aj-Vp8" customClass="SpacerLabel" customModule="AnimeTrakr" customModuleProvider="target">
+                                            <rect key="frame" x="89" y="109" width="35" height="21"/>
                                             <color key="backgroundColor" red="1" green="0.68236449359999996" blue="0.1161528146" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="3bN-Zk-K9L"/>
