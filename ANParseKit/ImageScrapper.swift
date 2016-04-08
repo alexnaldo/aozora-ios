@@ -35,50 +35,48 @@ public class ImageData {
 
 public class ImageScrapper {
     
-    var viewController: UIViewController
+    weak var viewController: UIViewController?
     
     public init(viewController: UIViewController) {
         self.viewController = viewController
     }
-    
+
     public func findImagesWithQuery(string: String, animated: Bool) -> BFTask {
         let baseURL = "https://www.google.com/search"
         let queryURL = "?q=\(string)&tbm=isch&safe=active&tbs=isz:m" + (animated ? ",itp:animated" : "")
         let encodedRequest = baseURL + queryURL.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!
         let completion = BFTaskCompletionSource()
         
-        viewController.webScraper.scrape(encodedRequest) { (hpple) -> Void in
+        viewController?.webScraper.scrape(encodedRequest) { [weak self] (hpple) -> Void in
             if hpple == nil {
                 print("hpple is nil")
                 completion.setError(NSError(domain: "aozora", code: 0, userInfo: nil))
                 return
             }
             
-            let results = hpple.searchWithXPathQuery("//div[@id='rg_s']/div/a") as! [TFHppleElement]
+            guard let results = hpple.searchWithXPathQuery("//div[@id='rg_s']/div/div[@class='rg_meta']") as? [TFHppleElement] else {
+                return
+            }
+
             var images: [ImageData] = []
             
             for result in results {
-                
-                let urlString = result.objectForKey("href")
-                if let url = NSURL(string: urlString),
-                    let parameters = BFURL(URL: url).inputQueryParameters,
-                    let imageURL = parameters["imgurl"] as? String,
-                    let sizeRaw = result.hppleElementFor(path: [1,0,0,0])?.content {
-                        
-                        let values = sizeRaw.componentsSeparatedByString(" ")[1]
-                        let valuesFiltered = values.componentsSeparatedByString(" × ")
-                        let width = Int(valuesFiltered[0])!
-                        let height = Int(valuesFiltered[1])!
-                        
-                        if width <= 1400 && height <= 1400 {
-                            if animated && imageURL.endsWith(".gif") {
-                                let imageData = ImageData(url: imageURL, width: width, height: height)
-                                images.append(imageData)
-                            } else if !animated && (imageURL.endsWith(".jpg") || imageURL.endsWith(".jpeg") || imageURL.endsWith(".png")) {
-                                let imageData = ImageData(url: imageURL, width: width, height: height)
-                                images.append(imageData)
-                            }
+                let jsonString = result.text() ?? ""
+
+                if let jsonDic = self?.convertStringToDictionary(jsonString),
+                let width = jsonDic["ow"] as? Int,
+                let height = jsonDic["oh"] as? Int,
+                let imageURL = jsonDic["ou"] as? String {
+
+                    if width <= 1400 && height <= 1400 {
+                        if animated && imageURL.endsWith(".gif") {
+                            let imageData = ImageData(url: imageURL, width: width, height: height)
+                            images.append(imageData)
+                        } else if !animated && (imageURL.endsWith(".jpg") || imageURL.endsWith(".jpeg") || imageURL.endsWith(".png")) {
+                            let imageData = ImageData(url: imageURL, width: width, height: height)
+                            images.append(imageData)
                         }
+                    }
                 }
             }
             
@@ -87,6 +85,17 @@ public class ImageScrapper {
         }
         
         return completion.task
+    }
+
+    func convertStringToDictionary(text: String) -> [String:AnyObject]? {
+        if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
+            do {
+                return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String:AnyObject]
+            } catch let error as NSError {
+                print(error)
+            }
+        }
+        return nil
     }
 }
 

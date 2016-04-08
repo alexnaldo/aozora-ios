@@ -62,12 +62,12 @@ public class ImagesViewController: UIViewController {
         collectionView.reloadData()
         loadingView.startAnimating()
         
-        imageScrapper.findImagesWithQuery(query, animated: animated).continueWithExecutor(BFExecutor.mainThreadExecutor(), withSuccessBlock: { (task: BFTask!) -> AnyObject! in
+        imageScrapper.findImagesWithQuery(query, animated: animated).continueWithExecutor(BFExecutor.mainThreadExecutor(), withSuccessBlock: { [weak self] (task: BFTask!) -> AnyObject! in
             
             let result = task.result as! [ImageData]
-            self.dataSource = result
-            self.collectionView.reloadData()
-            self.loadingView.stopAnimating()
+            self?.dataSource = result
+            self?.collectionView.reloadData()
+            self?.loadingView.stopAnimating()
             return nil
         })
     }
@@ -101,12 +101,12 @@ extension ImagesViewController: UICollectionViewDataSource {
             if let image = imageDatasource[imageData.url] {
                 cell.animatedImageView.animatedImage = image
             } else {
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { [weak self] in
                     // do some task
                     let image = FLAnimatedImage(GIFData: NSData(contentsOfURL: NSURL(string: imageData.url)!))
                     dispatch_async(dispatch_get_main_queue(), {
                         // update some UI
-                        self.imageDatasource[imageData.url] = image
+                        self?.imageDatasource[imageData.url] = image
                         if cell.loadingURL == imageData.url {
                             cell.animatedImageView.animatedImage = image
                         }

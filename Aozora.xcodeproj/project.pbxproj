@@ -416,6 +416,8 @@
 		DAD486B01C6EA3ED0045B769 /* Notifications.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAD486AE1C6EA3ED0045B769 /* Notifications.storyboard */; };
 		DAD67E061B7292D8000BB325 /* Resources.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAC3F3E01B5E989E001D6072 /* Resources.xcassets */; };
 		DAE43C3A1B2F971800C3092D /* UIView+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE43C391B2F971800C3092D /* UIView+Animation.swift */; };
+		DAE507311CB76D1E003E216F /* SpacerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE507301CB76D1E003E216F /* SpacerLabel.swift */; };
+		DAE507321CB76EB8003E216F /* SpacerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE507301CB76D1E003E216F /* SpacerLabel.swift */; };
 		DAE7A7191B2105FD00788614 /* AnimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE7A7181B2105FD00788614 /* AnimeCell.swift */; };
 		DAF357061B4593E200629A3D /* LibraryAnimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF357051B4593E200629A3D /* LibraryAnimeCell.swift */; };
 		DAF618761B377CA700286517 /* AnimeLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF618751B377CA700286517 /* AnimeLibraryViewController.swift */; };
@@ -787,6 +789,7 @@
 		DAE43C331B2BC3B700C3092D /* AnimeDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeDetail.swift; sourceTree = "<group>"; };
 		DAE43C371B2D5BC800C3092D /* Atarashii.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Atarashii.swift; sourceTree = "<group>"; };
 		DAE43C391B2F971800C3092D /* UIView+Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Animation.swift"; path = "../AnimeNow/UIView+Animation.swift"; sourceTree = "<group>"; };
+		DAE507301CB76D1E003E216F /* SpacerLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpacerLabel.swift; sourceTree = "<group>"; };
 		DAE64EEB1B73CCE4005A984A /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		DAE7A7181B2105FD00788614 /* AnimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeCell.swift; sourceTree = "<group>"; };
 		DAF357051B4593E200629A3D /* LibraryAnimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryAnimeCell.swift; sourceTree = "<group>"; };
@@ -1497,6 +1500,7 @@
 				DAC13BEE1B3EEF250013D479 /* AnimeCell.xib */,
 				DAE7A7181B2105FD00788614 /* AnimeCell.swift */,
 				DAF357051B4593E200629A3D /* LibraryAnimeCell.swift */,
+				DAE507301CB76D1E003E216F /* SpacerLabel.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -2247,6 +2251,7 @@
 				DAA546E01BA1A0C4003989DE /* LinkCell.swift in Sources */,
 				DA8D71001C6DD0EA0016A332 /* TagsViewController.swift in Sources */,
 				DA4595631B83C3500044013E /* SignInViewController.swift in Sources */,
+				DAE507311CB76D1E003E216F /* SpacerLabel.swift in Sources */,
 				DA2991E61C6DD10500CCB04D /* AnimeCast.swift in Sources */,
 				DAA546E11BA1A0C4003989DE /* TitleCell.swift in Sources */,
 				DA2991F11C6DD10500CCB04D /* ThreadTag.swift in Sources */,
@@ -2430,6 +2435,7 @@
 				DAA576C61C66EC2D007E81E6 /* LinkCell.swift in Sources */,
 				DA8D70F71C6DD0EA0016A332 /* TagsViewController.swift in Sources */,
 				DAA576C71C66EC2D007E81E6 /* SignInViewController.swift in Sources */,
+				DAE507321CB76EB8003E216F /* SpacerLabel.swift in Sources */,
 				DA2991D61C6DD10500CCB04D /* AnimeCast.swift in Sources */,
 				DAA576C81C66EC2D007E81E6 /* TitleCell.swift in Sources */,
 				DA2991E11C6DD10500CCB04D /* ThreadTag.swift in Sources */,
