@@ -103,6 +103,10 @@ public class Anime: PFObject, PFSubclassing {
                 return nil
             }
 
+            episodes.forEach{ episode in
+                episode.anime = self
+            }
+
             self.cachedEpisodeList = episodes
             return nil
             

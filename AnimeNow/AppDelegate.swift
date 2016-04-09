@@ -230,10 +230,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ThreadTag.registerSubclass()
         Notification.registerSubclass()
         
-        Parse.enableLocalDatastore()
+        //Parse.enableLocalDatastore()
 
-        Parse.setApplicationId(AozoraKeys().parseApplicationId(),
-            clientKey: AozoraKeys().parseClientKey())
+        let configuration = ParseClientConfiguration {
+            $0.applicationId = "AneKeKPLygTGmVmqWsY6totXXTQfk8"//AozoraKeys().parseApplicationId()
+            $0.clientKey = " "//AozoraKeys().parseClientKey()
+            $0.server = "http://aozora-server.us-east-1.elasticbeanstalk.com/parse"
+        }
+        Parse.initializeWithConfiguration(configuration)
+
+//        Parse.setApplicationId(AozoraKeys().parseApplicationId(),
+//                               clientKey: AozoraKeys().parseClientKey())
     }
     
     func customizeAppearance() {
