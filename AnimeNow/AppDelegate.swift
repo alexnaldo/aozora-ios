@@ -33,6 +33,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         iRate.sharedInstance().verboseLogging = false
     }
 
+    func initializeParse() {
+        AnimeDetail.registerSubclass()
+        AnimeCast.registerSubclass()
+        AnimeCharacter.registerSubclass()
+        AnimeRelation.registerSubclass()
+        AnimeReview.registerSubclass()
+        Anime.registerSubclass()
+        SeasonalChart.registerSubclass()
+        Episode.registerSubclass()
+        UserDetails.registerSubclass()
+        User.registerSubclass()
+        TimelinePost.registerSubclass()
+        Thread.registerSubclass()
+        Post.registerSubclass()
+        AnimeProgress.registerSubclass()
+        ThreadTag.registerSubclass()
+        Notification.registerSubclass()
+
+        let configuration = ParseClientConfiguration {
+            $0.applicationId = AozoraKeys().parseApplicationId()
+            $0.clientKey = " "
+            //$0.server = "http://8f12bab1.ngrok.io/parse"
+            $0.server = AozoraKeys().parseServerURL()
+            $0.localDatastoreEnabled = true
+        }
+        Parse.initializeWithConfiguration(configuration)
+    }
+
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         Fabric.with([Crashlytics()])
@@ -211,34 +239,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     // MARK: - Internal functions
-    
-    func initializeParse() {
-        AnimeDetail.registerSubclass()
-        AnimeCast.registerSubclass()
-        AnimeCharacter.registerSubclass()
-        AnimeRelation.registerSubclass()
-        AnimeReview.registerSubclass()
-        Anime.registerSubclass()
-        SeasonalChart.registerSubclass()
-        Episode.registerSubclass()
-        UserDetails.registerSubclass()
-        User.registerSubclass()
-        TimelinePost.registerSubclass()
-        Thread.registerSubclass()
-        Post.registerSubclass()
-        AnimeProgress.registerSubclass()
-        ThreadTag.registerSubclass()
-        Notification.registerSubclass()
 
-        let configuration = ParseClientConfiguration {
-            $0.applicationId = AozoraKeys().parseApplicationId()
-            $0.clientKey = " "
-            $0.server = AozoraKeys().parseServerURL()
-            $0.localDatastoreEnabled = true
-        }
-        Parse.initializeWithConfiguration(configuration)
-    }
-    
     func customizeAppearance() {
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         UINavigationBar.appearance().barTintColor = UIColor.darkBlue()
