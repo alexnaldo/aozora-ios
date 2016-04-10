@@ -82,7 +82,8 @@ public class ReminderController {
             
             let query = Anime.query()!
             query.whereKey("myAnimeListID", containedIn: idList)
-            query.findAllObjectsInBackground()
+            query.limit = 2000
+            query.findObjectsInBackground()
                 .continueWithExecutor(BFExecutor.mainThreadExecutor(), withSuccessBlock: { (task: BFTask!) -> AnyObject! in
                     
                     guard let animeList = task.result as? [Anime] else {

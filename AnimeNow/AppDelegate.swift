@@ -229,18 +229,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AnimeProgress.registerSubclass()
         ThreadTag.registerSubclass()
         Notification.registerSubclass()
-        
-        //Parse.enableLocalDatastore()
 
         let configuration = ParseClientConfiguration {
-            $0.applicationId = "AneKeKPLygTGmVmqWsY6totXXTQfk8"//AozoraKeys().parseApplicationId()
-            $0.clientKey = " "//AozoraKeys().parseClientKey()
-            $0.server = "http://aozora-server.us-east-1.elasticbeanstalk.com/parse"
+            $0.applicationId = AozoraKeys().parseApplicationId()
+            $0.clientKey = " "
+            $0.server = AozoraKeys().parseServerURL()
+            $0.localDatastoreEnabled = true
         }
         Parse.initializeWithConfiguration(configuration)
-
-//        Parse.setApplicationId(AozoraKeys().parseApplicationId(),
-//                               clientKey: AozoraKeys().parseClientKey())
     }
     
     func customizeAppearance() {

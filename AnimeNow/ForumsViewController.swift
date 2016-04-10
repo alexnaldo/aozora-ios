@@ -199,7 +199,8 @@ class ForumsViewController: UIViewController {
         query.whereKey("startDate", greaterThanOrEqualTo: NSDate().dateByAddingTimeInterval(-3*30*24*60*60))
         query.whereKey("status", equalTo: "currently airing")
         query.orderByAscending("rank")
-        query.findAllObjectsInBackground().continueWithSuccessBlock { (task: BFTask!) -> AnyObject! in
+        query.limit = 100
+        query.findObjectsInBackground().continueWithSuccessBlock { (task: BFTask!) -> AnyObject! in
             self.animeDataSource = task.result as! [Anime]
             return nil
         }

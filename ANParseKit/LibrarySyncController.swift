@@ -35,8 +35,8 @@ public class LibrarySyncController {
         let progressQuery = AnimeProgress.query()!
         progressQuery.whereKey("user", equalTo: user)
         progressQuery.includeKey("anime")
-        
-        return progressQuery.findAllObjectsInBackground().continueWithSuccessBlock({ (task: BFTask!) -> AnyObject! in
+        progressQuery.limit = 2000
+        return progressQuery.findObjectsInBackground().continueWithSuccessBlock({ (task: BFTask!) -> AnyObject! in
             
             let list = task.result as! [AnimeProgress]
             
@@ -122,7 +122,8 @@ public class LibrarySyncController {
             print("Need to create \(malProgressToCreateIDs.count) AnimeProgress on Parse")
             let query = Anime.query()!
             query.whereKey("myAnimeListID", containedIn: malProgressToCreateIDs)
-            return query.findAllObjectsInBackground()
+            query.limit = 2000
+            return query.findObjectsInBackground()
                 .continueWithSuccessBlock({ (task: BFTask!) -> AnyObject! in
                     let animeToCreate = task.result as! [Anime]
                     print("Creating \(animeToCreate.count) AnimeProgress on Parse")

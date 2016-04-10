@@ -239,8 +239,10 @@ public class CustomThreadViewController: ThreadViewController {
     
     // MARK: - FetchControllerQueryDelegate
     
-    public override func queriesForSkip(skip skip: Int) -> [PFQuery]? {
-        
+    public override func resultsForSkip(skip skip: Int) -> BFTask? {
+
+        let queryBatch = QueryBatch()
+
         let innerQuery = Post.query()!
         innerQuery.skip = skip
         innerQuery.limit = FetchLimit
@@ -253,11 +255,12 @@ public class CustomThreadViewController: ThreadViewController {
         
         let repliesQuery = Post.query()!
         repliesQuery.skip = 0
-        repliesQuery.whereKey("parentPost", matchesKey: "objectId", inQuery: innerQuery)
         repliesQuery.orderByAscending("createdAt")
         repliesQuery.includeKey("postedBy")
+
+        queryBatch.whereQuery(repliesQuery, matchesKey: "parentPost", onQuery: innerQuery)
         
-        return [query, repliesQuery]
+        return queryBatch.executeQueries([query, repliesQuery])
     }
     
     // MARK: - TTTAttributedLabelDelegate

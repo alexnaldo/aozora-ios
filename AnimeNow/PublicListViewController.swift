@@ -99,7 +99,8 @@ class PublicListViewController: UIViewController {
         let query = AnimeProgress.query()!
         query.includeKey("anime")
         query.whereKey("user", equalTo: userProfile)
-        query.findAllObjectsInBackground()
+        query.limit = 2000
+        query.findObjectsInBackground()
             .continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task: BFTask!) -> AnyObject! in
         
             if var result = task.result as? [AnimeProgress] {
