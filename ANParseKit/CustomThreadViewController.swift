@@ -243,14 +243,12 @@ public class CustomThreadViewController: ThreadViewController {
 
         let queryBatch = QueryBatch()
 
-        let innerQuery = Post.query()!
-        innerQuery.skip = skip
-        innerQuery.limit = FetchLimit
-        innerQuery.whereKey("thread", equalTo: thread!)
-        innerQuery.whereKey("replyLevel", equalTo: 0)
-        innerQuery.orderByDescending("updatedAt")
-        
-        let query = innerQuery.copy() as! PFQuery
+        let query = Post.query()!
+        query.skip = skip
+        query.limit = FetchLimit
+        query.whereKey("thread", equalTo: thread!)
+        query.whereKey("replyLevel", equalTo: 0)
+        query.orderByDescending("updatedAt")
         query.includeKey("postedBy")
         
         let repliesQuery = Post.query()!
@@ -258,7 +256,7 @@ public class CustomThreadViewController: ThreadViewController {
         repliesQuery.orderByAscending("createdAt")
         repliesQuery.includeKey("postedBy")
 
-        queryBatch.whereQuery(repliesQuery, matchesKey: "parentPost", onQuery: innerQuery)
+        queryBatch.whereQuery(repliesQuery, matchesKey: "parentPost", onQuery: query)
         
         return queryBatch.executeQueries([query, repliesQuery])
     }

@@ -70,6 +70,10 @@ class QueryBatch {
     // The idea is that this function executes the queries asynchronously and returns a BFTask of all the results, it also should handle the case that one query depends on other and execute it only once
     func executeQueries(queries: [PFQuery]) -> BFTask {
 
+        for query in queries {
+            addQuery(query)
+        }
+
         var result: [PFQuery: [PFObject]] = [:]
         var leftQueries = queryBuilds
         var task = BFTask(result: nil)
