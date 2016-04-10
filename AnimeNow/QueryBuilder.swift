@@ -28,43 +28,26 @@ class QueryBatch {
 
     private var queryBuilds: [QueryBuilder] = []
 
-    func addQuery(query: PFQuery) {
-        var query1Builder: QueryBuilder!
-        for queryBuilder in queryBuilds {
-            if queryBuilder.query == query {
-                query1Builder = queryBuilder
+    private func addQuery(query: PFQuery) -> QueryBuilder {
+        var queryBuilder: QueryBuilder!
+        for builder in queryBuilds {
+            if builder.query == query {
+                queryBuilder = builder
             }
         }
-        if query1Builder == nil {
-            query1Builder = QueryBuilder(query: query)
-            queryBuilds.append(query1Builder)
+        if queryBuilder == nil {
+            queryBuilder = QueryBuilder(query: query)
+            queryBuilds.append(queryBuilder)
         }
+
+        return queryBuilder
     }
 
     func whereQuery(query1: PFQuery, matchesKey key: String, onQuery query2: PFQuery) {
-        var query1Builder: QueryBuilder!
-        var query2Builder: QueryBuilder!
+        let queryBuilder = addQuery(query1)
+        let _ = addQuery(query2)
 
-        for queryBuilder in queryBuilds {
-            if queryBuilder.query == query1 {
-                query1Builder = queryBuilder
-            }
-            if queryBuilder.query == query2 {
-                query2Builder = queryBuilder
-            }
-        }
-
-        if query1Builder == nil {
-            query1Builder = QueryBuilder(query: query1)
-            queryBuilds.append(query1Builder)
-        }
-
-        if query2Builder == nil {
-            query2Builder = QueryBuilder(query: query2)
-            queryBuilds.append(query2Builder)
-        }
-
-        query1Builder.addDependency(query2, matchingKey: key)
+        queryBuilder.addDependency(query2, matchingKey: key)
     }
 
     // The idea is that this function executes the queries asynchronously and returns a BFTask of all the results, it also should handle the case that one query depends on other and execute it only once
