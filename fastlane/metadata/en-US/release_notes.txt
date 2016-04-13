@@ -1,0 +1,2 @@
+- Explore by year, studio and classification is now unlocked for free!
+- Fixed crash when posting images.
