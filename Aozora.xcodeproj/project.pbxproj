@@ -812,6 +812,7 @@ fi
 				<string>DA4F15A51C6EBD7400C71227</string>
 				<string>DA2992021C6DD11100CCB04D</string>
 				<string>DAA546DF1BA1A0C4003989DE</string>
+				<string>DA7996E01CBE0AC800AD7EAD</string>
 				<string>DA8D710F1C6DD0F60016A332</string>
 				<string>DA4F159F1C6EBCF600C71227</string>
 				<string>DAF618761B377CA700286517</string>
@@ -5133,6 +5134,33 @@ buildNumber=$(($buildNumber + 1))
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
+		<key>DA7996DF1CBE0AC800AD7EAD</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>PFQuery+Query.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>DA7996E01CBE0AC800AD7EAD</key>
+		<dict>
+			<key>fileRef</key>
+			<string>DA7996DF1CBE0AC800AD7EAD</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>DA7996E11CBE0AC800AD7EAD</key>
+		<dict>
+			<key>fileRef</key>
+			<string>DA7996DF1CBE0AC800AD7EAD</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
 		<key>DA7A16951C6DD0BC00AA2882</key>
 		<dict>
 			<key>fileRef</key>
@@ -6448,6 +6476,7 @@ fi
 				<string>DA4F15A61C6EBD7400C71227</string>
 				<string>DA2992001C6DD11100CCB04D</string>
 				<string>DAA576BA1C66EC2D007E81E6</string>
+				<string>DA7996E11CBE0AC800AD7EAD</string>
 				<string>DA8D710C1C6DD0F50016A332</string>
 				<string>DA4F15A01C6EBCF600C71227</string>
 				<string>DAA576BB1C66EC2D007E81E6</string>
@@ -8384,6 +8413,7 @@ buildNumber=$(($buildNumber + 1))
 				<string>DA03F15B1B8B818E00402AC4</string>
 				<string>DA7EDDC81C1FED4E0097D818</string>
 				<string>DAA546D51BA090C0003989DE</string>
+				<string>DA7996DF1CBE0AC800AD7EAD</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
