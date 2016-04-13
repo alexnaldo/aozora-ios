@@ -30,18 +30,20 @@ platform :ios do
   desc "Submit a new Beta Build to Apple TestFlight"
   desc "This will also make sure the profile is up to date"
   lane :beta do
-    ensure_git_status_clean
+    #ensure_git_status_clean
 
     increment_build_number
+    increment_version_number(bump_type: "patch")
 
-    match(type: "appstore") # more information: https://codesigning.guide
+    #match(type: "appstore") # more information: https://codesigning.guide
     gym(scheme: "Aozora") # Build your app - more options available
-    pilot
-
+    
     clean_build_artifacts
 
     commit_version_bump
     push_to_git_remote
+
+    pilot
 
     # sh "your_script.sh"
     # You can also use other beta testing services here (run `fastlane actions`)
