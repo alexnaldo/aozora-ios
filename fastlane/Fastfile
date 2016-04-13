@@ -16,11 +16,15 @@ fastlane_version "1.80.0"
 
 default_platform :ios
 
+def get_version_number
+  `/usr/libexec/PlistBuddy -c 'Print CFBundleShortVersionString' ../AnimeTrakr-Info.plist`.strip
+end
+
 platform :ios do
+
+  # Store the current CFBundleVersion and CFBundleShortVersionString in the fastlane context before every lane.
   before_all do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
-    #cocoapods
-    
   end
 
   desc "Runs all the tests"
@@ -33,27 +37,23 @@ platform :ios do
   lane :beta do |options|
     patch = options[:patch]
 
-    #ensure_git_status_clean
-
+    ensure_git_status_clean
     increment_build_number
-    if patch
-      increment_version_number(bump_type: "patch")
-    end
-
-    # Get current version number
-    version = get_version_number(xcodeproj: "Aozora.xcodeproj")
 
     # Generate release notes from CHANGELOG
     changelog_filename = '../CHANGELOG.yml'
     changelog_yaml = YAML.load_file(changelog_filename)
     release_notes = changelog_yaml['upcoming'].map{ |note| note.prepend '- ' }.join("\n")
 
-    # Add a changelog entry for this version, 
-    # yes, there is a reason for the EOS content to be on the left.
-    changelog_contents = File.read(changelog_filename)
-    existing_releases = changelog_contents.split('releases:').last
-    this_release = changelog_yaml['upcoming'].map{ |note| note.prepend '  ' }.join("\n")
-    changelog_contents = <<-EOS
+    if patch
+      version = increment_version_number(bump_type: "patch")
+
+      # Add a changelog entry for this version, 
+      # yes, there is a reason for the EOS content to be on the left.
+      changelog_contents = File.read(changelog_filename)
+      existing_releases = changelog_contents.split('releases:').last
+      this_release = changelog_yaml['upcoming'].map{ |note| note.prepend '  ' }.join("\n")
+      changelog_contents = <<-EOS
 upcoming:
 
 releases:
@@ -64,8 +64,10 @@ releases:
 #{existing_releases}
 EOS
 
-    File.open(changelog_filename, 'w') { |file| file.puts changelog_contents }
+      File.open(changelog_filename, 'w') { |file| file.puts changelog_contents }
+    end
 
+    # Get fresh certificates
     sigh
 
     #match(type: "appstore") # more information: https://codesigning.guide
@@ -107,3 +109,5 @@ end
 
 # fastlane reports which actions are used
 # No personal data is recorded. Learn more at https://github.com/fastlane/enhancer
+
+

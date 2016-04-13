@@ -1,10 +1,16 @@
 upcoming:
-- test 1.
-- test 2.
-- test 3.. :D
+- new cars
+- new dinasours
 
 releases:
 - version: 5.7.4
   date: April 13 2016
   notes:
+  - test
+
+- version: 5.7.4
+  date: April 13 2016
+  notes:
   - Preparing the users for the parse-server migration
+
+
