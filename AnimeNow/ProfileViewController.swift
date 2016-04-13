@@ -356,8 +356,10 @@ public class ProfileViewController: ThreadViewController {
     
     // MARK: - FetchControllerQueryDelegate
     
-    public override func queriesForSkip(skip skip: Int) -> [PFQuery]? {
-        
+    public override func resultsForSkip(skip skip: Int) -> BFTask? {
+
+        let queryBatch = QueryBatch()
+
         let innerQuery = TimelinePost.query()!
         innerQuery.skip = skip
         innerQuery.limit = FetchLimit
@@ -370,8 +372,7 @@ public class ProfileViewController: ThreadViewController {
             let followingQuery = userProfile!.following().query()
             followingQuery.orderByDescending("activeStart")
             followingQuery.limit = 1000
-            innerQuery.whereKey("postedBy", matchesKey: "objectId", inQuery: followingQuery)
-            innerQuery.whereKey("userTimeline", matchesKey: "objectId", inQuery: followingQuery)
+            queryBatch.whereQuery(innerQuery, matchesKey: "postedBy", onQuery: followingQuery)
         case .Popular:
             innerQuery.whereKeyExists("likedBy")
         case .Me:
@@ -383,16 +384,17 @@ public class ProfileViewController: ThreadViewController {
         query.includeKey("episode")
         query.includeKey("postedBy")
         query.includeKey("userTimeline")
+        query.limit = FetchLimit
         
         let repliesQuery = TimelinePost.query()!
-        repliesQuery.skip = 0
-        repliesQuery.whereKey("parentPost", matchesKey: "objectId", inQuery: innerQuery)
         repliesQuery.orderByAscending("createdAt")
         repliesQuery.includeKey("episode")
         repliesQuery.includeKey("postedBy")
         repliesQuery.includeKey("userTimeline")
-        
-        return [query, repliesQuery]
+        queryBatch.whereQuery(repliesQuery, matchesKey: "parentPost", onQuery: query)
+        repliesQuery.limit = 2000
+
+        return queryBatch.executeQueries([query, repliesQuery])
     }
     
     

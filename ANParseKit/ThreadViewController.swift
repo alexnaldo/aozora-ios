@@ -726,9 +726,8 @@ extension ThreadViewController: LinkCellDelegate {
 // MARK: - FetchControllerQueryDelegate
 extension ThreadViewController: FetchControllerQueryDelegate {
     
-    public func queriesForSkip(skip skip: Int) -> [PFQuery]? {
-        let query = PFQuery()
-        return [query]
+    public func resultsForSkip(skip skip: Int) -> BFTask? {
+        return nil
     }
     
     public func processResult(result result: [PFObject], dataSource: [PFObject]) -> [PFObject] {

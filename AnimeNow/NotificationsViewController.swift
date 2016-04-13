@@ -194,7 +194,7 @@ extension NotificationsViewController: UITableViewDelegate {
 }
 
 extension NotificationsViewController: FetchControllerQueryDelegate {
-    func queriesForSkip(skip skip: Int) -> [PFQuery]? {
+    func resultsForSkip(skip skip: Int) -> BFTask? {
         return nil
     }
     func processResult(result result: [PFObject], dataSource: [PFObject]) -> [PFObject] {

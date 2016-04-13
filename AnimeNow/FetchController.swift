@@ -13,7 +13,7 @@ public protocol FetchControllerDelegate: class {
 }
 
 public protocol FetchControllerQueryDelegate: class {
-    func queriesForSkip(skip skip: Int) -> [PFQuery]?
+    func resultsForSkip(skip skip: Int) -> BFTask? // [PFObject]
     func processResult(result result: [PFObject], dataSource: [PFObject]) -> [PFObject]
 }
 
@@ -133,35 +133,27 @@ public class FetchController {
     }
     
     func fetchWith(skip skip: Int) -> BFTask {
-        
-        var secondaryQuery: PFQuery? = nil
-        if let queries = queryDelegate?.queriesForSkip(skip: skip) where queries.count > 1 {
-            self.query = queries.first
-            secondaryQuery = queries[1]
+
+        var allData:[PFObject] = []
+
+        var task: BFTask!
+
+        if let resultsTask = queryDelegate?.resultsForSkip(skip: skip) {
+            task = resultsTask
         } else if let query = query {
             query.skip = skip
+            task = query.findObjectsInBackground()
         } else {
             return BFTask(result: nil)
         }
         
-        var allData:[PFObject] = []
-        
-        let fetchTask = query!.findObjectsInBackground().continueWithSuccessBlock({ (task: BFTask!) -> AnyObject! in
-            allData += task.result as! [PFObject]
+        return task.continueWithSuccessBlock({ (task: BFTask!) -> AnyObject! in
+
+            let posts = task.result as! [PFObject]
+            allData += posts
             return nil
-        })
-        
-        var fetchTask2 = BFTask(result: nil)
-        if let secondaryQuery = secondaryQuery {
-            fetchTask2 = secondaryQuery.findAllObjectsInBackground().continueWithSuccessBlock({ (task: BFTask!) -> AnyObject! in
-                let result = task.result as! [PFObject]
-                print(result.count)
-                allData += result
-                return nil
-            })
-        }
-            
-        let allFetchTasks = BFTask(forCompletionOfAllTasks: [fetchTask, fetchTask2]).continueWithExecutor(BFExecutor.mainThreadExecutor(), withSuccessBlock: { (task: BFTask!) -> AnyObject! in
+
+        }).continueWithExecutor(BFExecutor.mainThreadExecutor(), withSuccessBlock: { (task: BFTask!) -> AnyObject! in
             
             if let processedResult = self.queryDelegate?.processResult(result: allData, dataSource: self.dataSource) {
                 allData = processedResult
@@ -207,7 +199,5 @@ public class FetchController {
             }
             return nil
         })
-
-        return allFetchTasks
     }
 }

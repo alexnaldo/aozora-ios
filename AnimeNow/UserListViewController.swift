@@ -60,7 +60,8 @@ class UserListViewController: UIViewController {
             // Find all relations
             let relationQuery = User.currentUser()!.following().query()
             relationQuery.whereKey("objectId", containedIn: userIDs)
-            return relationQuery.findAllObjectsInBackground()
+            relationQuery.limit = 2000
+            return relationQuery.findObjectsInBackground()
             
         }.continueWithExecutor(BFExecutor.mainThreadExecutor(), withSuccessBlock:  { (task: BFTask!) -> AnyObject? in
             

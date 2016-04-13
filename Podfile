@@ -5,12 +5,12 @@ plugin 'cocoapods-keys', {
     :project => 'Aozora',
     :keys => [
     'ParseApplicationId',
-    'ParseClientKey',
     'TrakrV1ApiKey',
     'TrakrV2ClientId',
     'TraktV2ClientSecret',
     'AnilistClientID',
-    'AnilistClientSecret'
+    'AnilistClientSecret',
+    'ParseServerURL'
     ]
 }
 

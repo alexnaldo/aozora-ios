@@ -60,8 +60,10 @@ public class NotificationThreadViewController: ThreadViewController {
     
     // MARK: - FetchControllerQueryDelegate
     
-    public override func queriesForSkip(skip skip: Int) -> [PFQuery]? {
-        super.queriesForSkip(skip: skip)
+    public override func resultsForSkip(skip skip: Int) -> BFTask? {
+
+        let queryBatch = QueryBatch()
+
         var innerQuery: PFQuery!
         var repliesQuery: PFQuery!
         if let timelinePost = timelinePost as? TimelinePost {
@@ -81,11 +83,11 @@ public class NotificationThreadViewController: ThreadViewController {
         query.includeKey("userTimeline")
         
         repliesQuery.skip = 0
-        repliesQuery.whereKey("parentPost", matchesKey: "objectId", inQuery: innerQuery)
         repliesQuery.orderByAscending("createdAt")
         repliesQuery.includeKey("postedBy")
+        queryBatch.whereQuery(repliesQuery, matchesKey: "parentPost", onQuery: query)
         
-        return [query, repliesQuery]
+        return queryBatch.executeQueries([query, repliesQuery])
     }
 
     
