@@ -29,3 +29,4 @@ Pods/**
 *.playground/**
 
 /AnimeNow.xcworkspace/
+fastlane/report.xml
