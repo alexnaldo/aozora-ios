@@ -33,34 +33,38 @@ platform :ios do
   lane :beta do |options|
     patch = options[:patch]
 
-    ensure_git_status_clean
+    #ensure_git_status_clean
 
     increment_build_number
     if patch
       increment_version_number(bump_type: "patch")
     end
 
+    # Get current version number
+    version = get_version_number(xcodeproj: "Aozora.xcodeproj")
+
     # Generate release notes from CHANGELOG
     changelog_filename = '../CHANGELOG.yml'
     changelog_yaml = YAML.load_file(changelog_filename)
     release_notes = changelog_yaml['upcoming'].map{ |note| note.prepend '- ' }.join("\n")
 
-    # Add a changelog entry for this version
+    # Add a changelog entry for this version, 
+    # yes, there is a reason for the EOS content to be on the left.
+    changelog_contents = File.read(changelog_filename)
+    existing_releases = changelog_contents.split('releases:').last
+    this_release = changelog_yaml['upcoming'].map{ |note| note.prepend '  ' }.join("\n")
+    changelog_contents = <<-EOS
+upcoming:
 
-      changelog_contents = File.read(changelog_filename)
-      existing_releases = changelog_contents.split('releases:').last
-      this_release = changelog_yaml['upcoming'].map{ |note| note.prepend '  ' }.join("\n")
-      changelog_contents = <<-EOS
-    upcoming:
-    releases:
-    - version: #{version}
-      date: #{Time.new.strftime("%B %d %Y")}
-      notes:
-    #{this_release}
-    #{existing_releases}
-    EOS
+releases:
+- version: #{version}
+  date: #{Time.new.strftime("%B %d %Y")}
+  notes:
+#{this_release}
+#{existing_releases}
+EOS
 
-      File.open(changelog_filename, 'w') { |file| file.puts changelog_contents }
+    File.open(changelog_filename, 'w') { |file| file.puts changelog_contents }
 
     sigh
 
