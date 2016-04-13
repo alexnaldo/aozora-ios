@@ -1,0 +1,9 @@
+upcoming:
+- Test 1.
+- Test 3.
+
+releases:
+- version: 5.7.4
+  date: April 13 2016
+  notes:
+  - Preparing the users for the parse-server migration

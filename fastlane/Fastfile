@@ -8,6 +8,7 @@
 
 # If you want to automatically update fastlane if a new version is available:
 # update_fastlane
+require 'yaml'
 
 # This is the minimum version number required.
 # Update this, if you use features of a newer version
@@ -30,39 +31,54 @@ platform :ios do
   desc "Submit a new Beta Build to Apple TestFlight"
   desc "This will also make sure the profile is up to date"
   lane :beta do
+    patch = options[:patch]
+
     ensure_git_status_clean
+
     increment_build_number
+    if patch
+      increment_version_number(bump_type: "patch")
+    end
+
+    # Generate release notes from CHANGELOG
+    changelog_filename = '../CHANGELOG.yml'
+    changelog_yaml = YAML.load_file(changelog_filename)
+    release_notes = changelog_yaml['upcoming'].map{ |note| note.prepend '- ' }.join("\n")
+
+    # Add a changelog entry for this version
+
+      changelog_contents = File.read(changelog_filename)
+      existing_releases = changelog_contents.split('releases:').last
+      this_release = changelog_yaml['upcoming'].map{ |note| note.prepend '  ' }.join("\n")
+      changelog_contents = <<-EOS
+    upcoming:
+    releases:
+    - version: #{version}
+      date: #{Time.new.strftime("%B %d %Y")}
+      notes:
+    #{this_release}
+    #{existing_releases}
+    EOS
+
+      File.open(changelog_filename, 'w') { |file| file.puts changelog_contents }
+
+    sigh
 
     #match(type: "appstore") # more information: https://codesigning.guide
     gym(scheme: "Aozora") # Build your app - more options available
     
-    pilot
+    pilot(#distribute_external: true, 
+        changelog: release_notes)
 
     clean_build_artifacts
 
     commit_version_bump
+    if patch
+      add_git_tag
+    end
     push_to_git_remote
 
   end
-
-  desc "Deploy a new version to the App Store"
-  lane :appstore do
-
-    ensure_git_status_clean
-    increment_build_number
-    increment_version_number(bump_type: "patch")
-
-    #match(type: "appstore") # more information: https://codesigning.guide
-    gym(scheme: "Aozora") # Build your app - more options available
-    
-    pilot
-
-    clean_build_artifacts
-
-    commit_version_bump
-    push_to_git_remote
-  end
-
   # You can define as many lanes as you want
 
   after_all do |lane|
