@@ -1,4 +1,5 @@
 upcoming:
+- Users can't delete other users posts anymore.
 - Preparing app for new aozora parse-server.
 - Fixed user timelines showing posts from all users.
 - Improved iPad layout.
