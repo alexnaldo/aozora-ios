@@ -11,6 +11,7 @@ import UIKit
 import ANCommonKit
 
 public class RootTabBar: UITabBarController {
+    public static let LastOpenTab = "Defaults.LastOpenTab"
     public static let ShowedMyAnimeListLoginDefault = "Defaults.ShowedMyAnimeListLogin"
     
     var selectedDefaultTabOnce = false
@@ -28,19 +29,8 @@ public class RootTabBar: UITabBarController {
         
         if !selectedDefaultTabOnce {
             selectedDefaultTabOnce = true
-            if let value = NSUserDefaults.standardUserDefaults().valueForKey(DefaultLoadingScreen) as? String {
-                switch value {
-                case "Season":
-                    break
-                case "Library":
-                    selectedIndex = 1
-                case "Profile":
-                    selectedIndex = 2
-                case "Forum":
-                    selectedIndex = 4
-                default:
-                    break
-                }
+            if let value = NSUserDefaults.standardUserDefaults().valueForKey(RootTabBar.LastOpenTab) as? Int {
+                selectedIndex = value
             }
         }
     }
@@ -82,8 +72,7 @@ extension RootTabBar: NotificationsViewControllerDelegate {
 
 extension RootTabBar: UITabBarControllerDelegate {
     public func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
-        
-        
+
         if let navController = viewController as? UINavigationController {
             
             let profileController = navController.viewControllers.first as? ProfileViewController
@@ -113,6 +102,12 @@ extension RootTabBar: UITabBarControllerDelegate {
         }
         
         return true
+    }
+
+    public func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+        // Update the selected index
+        NSUserDefaults.standardUserDefaults().setObject(selectedIndex, forKey: RootTabBar.LastOpenTab)
+        NSUserDefaults.standardUserDefaults().synchronize()
     }
 }
 

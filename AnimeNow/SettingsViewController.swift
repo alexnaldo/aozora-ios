@@ -12,7 +12,7 @@ import iRate
 import ANCommonKit
 import FBSDKShareKit
 
-let DefaultLoadingScreen = "Defaults.InitialLoadingScreen";
+import uservoice_iphone_sdk
 
 class SettingsViewController: UITableViewController {
     
@@ -29,6 +29,18 @@ class SettingsViewController: UITableViewController {
         super.viewDidLoad()
         
         facebookLikeButton.objectID = "https://www.facebook.com/AozoraApp"
+
+        let config = UVConfig(site: "aozora.uservoice.com")
+
+        if let infoDictionary = NSBundle.mainBundle().infoDictionary,
+            let marketingVersion = infoDictionary["CFBundleShortVersionString"],
+            let buildNumber = infoDictionary["CFBundleVersion"] {
+            config.customFields = ["build": "\(marketingVersion) (\(buildNumber))"]
+
+            UVStyleSheet.instance().navigationBarTextColor = .blackColor()
+            UVStyleSheet.instance().navigationBarTintColor = .blackColor()
+        }
+        UserVoice.initialize(config)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -126,36 +138,14 @@ class SettingsViewController: UITableViewController {
                 NSUserDefaults.standardUserDefaults().setBool(true, forKey: RootTabBar.ShowedMyAnimeListLoginDefault)
                 NSUserDefaults.standardUserDefaults().synchronize()
             }
-            
-        case (0,2):
-            // Select initial tab
-            let alert = UIAlertController(title: "Select Initial Tab", message: "This tab will load when application starts", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Season", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                NSUserDefaults.standardUserDefaults().setValue("Season", forKey: DefaultLoadingScreen)
-                NSUserDefaults.standardUserDefaults().synchronize()
-            }))
-            alert.addAction(UIAlertAction(title: "Library", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                NSUserDefaults.standardUserDefaults().setValue("Library", forKey: DefaultLoadingScreen)
-                NSUserDefaults.standardUserDefaults().synchronize()
-            }))
-            alert.addAction(UIAlertAction(title: "Profile", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                NSUserDefaults.standardUserDefaults().setValue("Profile", forKey: DefaultLoadingScreen)
-                NSUserDefaults.standardUserDefaults().synchronize()
-            }))
-            alert.addAction(UIAlertAction(title: "Forum", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                NSUserDefaults.standardUserDefaults().setValue("Forum", forKey: DefaultLoadingScreen)
-                NSUserDefaults.standardUserDefaults().synchronize()
-            }))
-            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
-            }))
-            
-            self.presentViewController(alert, animated: true, completion: nil)
-            
         case (1,0):
+            // Uservoice
+            UserVoice.presentUserVoiceInterfaceForParentViewController(self)
+        case (2,0):
             // Unlock features
             let controller = UIStoryboard(name: "InApp", bundle: nil).instantiateViewControllerWithIdentifier("InAppPurchaseViewController") as! InAppPurchaseViewController
             navigationController?.pushViewController(controller, animated: true)
-        case (1,1):
+        case (2,1):
             // Restore purchases
             InAppPurchaseController.restorePurchases().continueWithBlock({ (task: BFTask!) -> AnyObject! in
                 
@@ -168,13 +158,11 @@ class SettingsViewController: UITableViewController {
                 
                 return nil
             })
-        case (2,0):
+
+        case (3,0):
             // Rate app
             iRate.sharedInstance().openRatingsPageInAppStore()
-        case (2,1):
-            // Recommend to friends
-            DialogController.sharedInstance.showFBAppInvite(self)
-        case (3,0):
+        case (4,0):
             // Open Facebook
             var url: NSURL?
             if let twitterScheme = NSURL(string: "fb://requests") where UIApplication.sharedApplication().canOpenURL(twitterScheme) {
@@ -183,7 +171,7 @@ class SettingsViewController: UITableViewController {
                 url = NSURL(string: FacebookPageURL)
             }
             UIApplication.sharedApplication().openURL(url!)
-        case (3,1):
+        case (4,1):
             // Open Twitter
             var url: NSURL?
             if let twitterScheme = NSURL(string: "twitter://") where UIApplication.sharedApplication().canOpenURL(twitterScheme) {
@@ -205,22 +193,24 @@ class SettingsViewController: UITableViewController {
         case 0:
             return nil
         case 1:
+            return "Before sending a message, please first read the Knowledge base."
+        case 2:
             var message = ""
             if let user = User.currentUser() where
                     user.hasTrial() &&
                     !InAppController.purchasedPro() &&
                     !InAppController.purchasedProPlus() {
-                message = "** You're on a 15 day PRO trial **\n"
+                message = "✨ You're on a 15 day PRO trial 🎋 ✨\n"
             }
-            message += "Going PRO unlocks all features and help us keep improving the app"
+            message += "Going PRO unlocks all features and help us keep improving the app 👍"
             return message
-        case 2:
-            return "If you're looking for support drop us a message on Facebook or Twitter"
         case 3:
+            return nil
+        case 4:
             let version = NSBundle.mainBundle().infoDictionary!["CFBundleShortVersionString"] as! String
             let build = NSBundle.mainBundle().infoDictionary!["CFBundleVersion"] as! String
             let animeApp = AppEnvironment.application().rawValue
-            return "Created by Anime fans for Anime fans, enjoy!\n\(animeApp) \(version) (\(build))"
+            return "Created by anime fans for anime fans, enjoy!\n\(animeApp) \(version) (\(build))"
         default:
             return nil
         }

@@ -19,6 +19,7 @@ PODS:
   - SDWebImage/Core (3.7.5)
   - Shimmer (1.0.2)
   - TTTAttributedLabel (1.13.4)
+  - uservoice-iphone-sdk (3.2.7)
   - XCDYouTubeKit (2.4.3)
   - XLPagerTabStrip (1.1.1)
 
@@ -37,6 +38,7 @@ DEPENDENCIES:
   - SDWebImage (~> 3.7.2)
   - Shimmer
   - TTTAttributedLabel (~> 1.13.4)
+  - uservoice-iphone-sdk (~> 3.2)
   - XCDYouTubeKit (~> 2.4.1)
   - XLPagerTabStrip (~> 1.1.1)
 
@@ -59,6 +61,7 @@ SPEC CHECKSUMS:
   SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
   Shimmer: c5374be1c2b0c9e292fb05b339a513cf291cac86
   TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f
+  uservoice-iphone-sdk: 9abf27254c8488d7b72d70fb9b621132d6beebd4
   XCDYouTubeKit: a4a1a60faa7bc97744a1184501e82ef10ca15897
   XLPagerTabStrip: 222995115ef0d3a7134073b02d38023592835c17
 
