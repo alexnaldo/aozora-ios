@@ -87,6 +87,7 @@ EOS
       }
     )
 
+    ENV["DELIVER_ITMSTRANSPORTER_ADDITIONAL_UPLOAD_PARAMETERS"] = "-t DAV"
     pilot(distribute_external: true, changelog: release_notes)
 
     clean_build_artifacts
