@@ -1,16 +1,4 @@
 upcoming:
-- new cars
-- new dinasours
+- Fixed user timelines showing posts from all users.
 
 releases:
-- version: 5.7.4
-  date: April 13 2016
-  notes:
-  - test
-
-- version: 5.7.4
-  date: April 13 2016
-  notes:
-  - Preparing the users for the parse-server migration
-
-

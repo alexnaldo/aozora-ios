@@ -360,11 +360,11 @@ public class ProfileViewController: ThreadViewController {
 
         let queryBatch = QueryBatch()
 
-        let innerQuery = TimelinePost.query()!
-        innerQuery.skip = skip
-        innerQuery.limit = FetchLimit
-        innerQuery.whereKey("replyLevel", equalTo: 0)
-        innerQuery.orderByDescending("createdAt")
+        let query = TimelinePost.query()!
+        query.skip = skip
+        query.limit = FetchLimit
+        query.whereKey("replyLevel", equalTo: 0)
+        query.orderByDescending("createdAt")
         
         let selectedFeed = SelectedFeed(rawValue: segmentedControl.selectedSegmentIndex)!
         switch selectedFeed {
@@ -372,15 +372,14 @@ public class ProfileViewController: ThreadViewController {
             let followingQuery = userProfile!.following().query()
             followingQuery.orderByDescending("activeStart")
             followingQuery.limit = 1000
-            queryBatch.whereQuery(innerQuery, matchesKey: "postedBy", onQuery: followingQuery)
+            queryBatch.whereQuery(query, matchesKey: "postedBy", onQuery: followingQuery)
         case .Popular:
-            innerQuery.whereKeyExists("likedBy")
+            query.whereKeyExists("likedBy")
         case .Me:
-            innerQuery.whereKey("userTimeline", equalTo: userProfile!)
+            query.whereKey("userTimeline", equalTo: userProfile!)
         }
         
         // 'Feed' query
-        let query = innerQuery.copy() as! PFQuery
         query.includeKey("episode")
         query.includeKey("postedBy")
         query.includeKey("userTimeline")

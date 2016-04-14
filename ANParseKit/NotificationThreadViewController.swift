@@ -64,21 +64,20 @@ public class NotificationThreadViewController: ThreadViewController {
 
         let queryBatch = QueryBatch()
 
-        var innerQuery: PFQuery!
+        var query: PFQuery!
         var repliesQuery: PFQuery!
         if let timelinePost = timelinePost as? TimelinePost {
-            innerQuery = TimelinePost.query()!
-            innerQuery.whereKey("objectId", equalTo: timelinePost.objectId!)
+            query = TimelinePost.query()!
+            query.whereKey("objectId", equalTo: timelinePost.objectId!)
             
             repliesQuery = TimelinePost.query()!
         } else if let post = post as? Post {
-            innerQuery = Post.query()!
-            innerQuery.whereKey("objectId", equalTo: post.objectId!)
+            query = Post.query()!
+            query.whereKey("objectId", equalTo: post.objectId!)
             
             repliesQuery = Post.query()!
         }
         
-        let query = innerQuery.copy() as! PFQuery
         query.includeKey("postedBy")
         query.includeKey("userTimeline")
         
