@@ -12,6 +12,11 @@ require 'yaml'
 
 # This is the minimum version number required.
 # Update this, if you use features of a newer version
+
+# INSTRUCTIONS
+# RUN: fastlane beta patch:false
+# 
+
 fastlane_version "1.80.0"
 
 default_platform :ios
@@ -24,7 +29,7 @@ platform :ios do
 
   # Store the current CFBundleVersion and CFBundleShortVersionString in the fastlane context before every lane.
   before_all do
-    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
+    ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
   end
 
   desc "Runs all the tests"
@@ -35,10 +40,11 @@ platform :ios do
   desc "Submit a new Beta Build to Apple TestFlight"
   desc "This will also make sure the profile is up to date"
   lane :beta do |options|
+    # Increase the app version number
     patch = options[:patch]
 
     ensure_git_status_clean
-    increment_build_number
+    build_number = increment_build_number
 
     # Generate release notes from CHANGELOG
     changelog_filename = '../CHANGELOG.yml'
@@ -73,8 +79,15 @@ EOS
     #match(type: "appstore") # more information: https://codesigning.guide
     gym(scheme: "Aozora") # Build your app - more options available
     
-    pilot(#distribute_external: true, 
-        changelog: release_notes)
+    slack(
+      message: "New Aozora build (#{build_number}) incoming :tanabata_tree::rocket:",
+      default_payloads: [],
+      payload: {
+        "Release Notes" => release_notes
+      }
+    )
+
+    pilot(distribute_external: true, changelog: release_notes)
 
     clean_build_artifacts
 
