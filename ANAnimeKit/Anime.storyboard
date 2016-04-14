@@ -696,7 +696,7 @@
                                 <color key="backgroundColor" white="0.94916466489999995" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="800" id="2vO-hf-YGm">
-                                        <variation key="heightClass=regular-widthClass=regular" constant="600"/>
+                                        <variation key="heightClass=regular-widthClass=regular" constant="748"/>
                                     </constraint>
                                 </constraints>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="uzE-z2-ehP">
@@ -730,9 +730,6 @@
                                                         <mask key="constraints">
                                                             <exclude reference="mQF-Sw-p89"/>
                                                         </mask>
-                                                    </variation>
-                                                    <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                                        <rect key="frame" x="8" y="8" width="784" height="31"/>
                                                     </variation>
                                                 </label>
                                             </subviews>

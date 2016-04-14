@@ -157,7 +157,7 @@
         <!--Profile-->
         <scene sceneID="mQm-aZ-M6o">
             <objects>
-                <viewController storyboardIdentifier="ProfileViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="M5q-uq-HPK" customClass="ProfileViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfileViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="M5q-uq-HPK" customClass="ProfileViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UR8-Cc-VZl"/>
                         <viewControllerLayoutGuide type="bottom" id="xjQ-kx-jPV"/>
@@ -171,12 +171,12 @@
                                 <color key="backgroundColor" white="0.94916466489999995" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="700" id="bg2-OX-g5c">
-                                        <variation key="heightClass=regular-widthClass=regular" constant="600"/>
+                                        <variation key="heightClass=regular-widthClass=regular" constant="748"/>
                                     </constraint>
                                 </constraints>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="-50" maxY="0.0"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="nYJ-CX-2KS">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="317"/>
+                                    <rect key="frame" x="0.0" y="64" width="600" height="317"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="asH-I6-fJz" userLabel="Banner">
@@ -187,6 +187,9 @@
                                                     <variation key="heightClass=regular-widthClass=regular" constant="170"/>
                                                 </constraint>
                                             </constraints>
+                                            <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                                <rect key="frame" x="-10" y="0.0" width="748" height="170"/>
+                                            </variation>
                                         </imageView>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9bT-p7-f1f" userLabel="Profile">
                                             <rect key="frame" x="12" y="100" width="60" height="60"/>
@@ -226,6 +229,9 @@
                                                     <integer key="value" value="3"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
+                                            <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                                <rect key="frame" x="710" y="175" width="10" height="30"/>
+                                            </variation>
                                             <connections>
                                                 <action selector="followOrUnfollow:" destination="M5q-uq-HPK" eventType="touchUpInside" id="Nub-eh-V9d"/>
                                             </connections>
@@ -285,6 +291,9 @@
                                                     <exclude reference="chY-pJ-w6o"/>
                                                 </mask>
                                             </variation>
+                                            <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                                <rect key="frame" x="12" y="249" width="708" height="0.0"/>
+                                            </variation>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5yX-hf-St0">
                                             <rect key="frame" x="12" y="249" width="143" height="30"/>
@@ -324,6 +333,9 @@
                                                 <color key="titleColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                                <rect key="frame" x="662" y="175" width="40" height="30"/>
+                                            </variation>
                                             <connections>
                                                 <action selector="showSettings:" destination="M5q-uq-HPK" eventType="touchUpInside" id="rSY-R9-knx"/>
                                             </connections>
