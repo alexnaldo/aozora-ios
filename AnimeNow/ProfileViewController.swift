@@ -137,7 +137,8 @@ public class ProfileViewController: ThreadViewController {
 
         // Allow user to delete posts from it's timeline.
         let canEdit = postedBy == currentUser
-        showEditPostActionSheet(false, canEdit: canEdit, canDelete: true, cell: cell, postedBy: postedBy, currentUser: currentUser, post: post, parentPost: parentPost)
+        let canDelete = SelectedFeed(rawValue: segmentedControl.selectedSegmentIndex)! == .Me
+        showEditPostActionSheet(false, canEdit: canEdit, canDelete: canDelete, cell: cell, postedBy: postedBy, currentUser: currentUser, post: post, parentPost: parentPost)
     }
     
     
