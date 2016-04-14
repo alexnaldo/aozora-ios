@@ -335,7 +335,7 @@ public class ProfileViewController: ThreadViewController {
     @IBAction func settingsPressed(sender: AnyObject) {
         let settings = UIStoryboard(name: "Settings", bundle: nil).instantiateInitialViewController() as! UINavigationController
         if UIDevice.isPad() {
-            self.presentSmallViewController(settings, sender: sender)
+            self.presentSmallViewController(settings, sender: navigationController!.navigationBar)
         } else {
             self.animator = self.presentViewControllerModal(settings)
         }
