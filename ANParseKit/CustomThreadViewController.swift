@@ -255,6 +255,7 @@ public class CustomThreadViewController: ThreadViewController {
         repliesQuery.skip = 0
         repliesQuery.orderByAscending("createdAt")
         repliesQuery.includeKey("postedBy")
+        repliesQuery.limit = 2000
 
         queryBatch.whereQuery(repliesQuery, matchesKey: "parentPost", onQuery: query)
         
