@@ -23,7 +23,7 @@ public class RootTabBar: UITabBarController {
         LibraryController.sharedInstance.fetchAnimeList(false)
         delegate = self
     }
-    
+
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
