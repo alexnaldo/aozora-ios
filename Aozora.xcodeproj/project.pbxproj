@@ -17,7 +17,6 @@
 		DA10E9121C60774F0023F41F /* badge-red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA10E9101C60774F0023F41F /* badge-red@2x.png */; };
 		DA13806E1B6DC08300C53560 /* UIViewController+Aozora.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA13806D1B6DC08300C53560 /* UIViewController+Aozora.swift */; };
 		DA27D1971AF1BA9D00CC854E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27D1961AF1BA9D00CC854E /* AppDelegate.swift */; };
-		DA27D1991AF1BA9D00CC854E /* ParseWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27D1981AF1BA9D00CC854E /* ParseWorker.swift */; };
 		DA27D19C1AF1BA9D00CC854E /* Season.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA27D19A1AF1BA9D00CC854E /* Season.storyboard */; };
 		DA27D19E1AF1BA9D00CC854E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA27D19D1AF1BA9D00CC854E /* Images.xcassets */; };
 		DA27D1A11AF1BA9D00CC854E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA27D19F1AF1BA9D00CC854E /* LaunchScreen.xib */; };
@@ -250,7 +249,6 @@
 		DAA576C81C66EC2D007E81E6 /* TitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4167E61B275D3800847F56 /* TitleCell.swift */; };
 		DAA576C91C66EC2D007E81E6 /* PublicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA26C8D1BCC92B1001CF62D /* PublicListViewController.swift */; };
 		DAA576CA1C66EC2D007E81E6 /* AnimeInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4167D11B273B7100847F56 /* AnimeInformationViewController.swift */; };
-		DAA576CC1C66EC2D007E81E6 /* ParseWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27D1981AF1BA9D00CC854E /* ParseWorker.swift */; };
 		DAA576CD1C66EC2D007E81E6 /* UserProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0B260B1B75192400A770AE /* UserProfileManager.swift */; };
 		DAA576CE1C66EC2D007E81E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27D1961AF1BA9D00CC854E /* AppDelegate.swift */; };
 		DAA576CF1C66EC2D007E81E6 /* RateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACD6AAB1B62E54F00DDA55C /* RateViewController.swift */; };
@@ -587,7 +585,6 @@
 		DA27D1911AF1BA9D00CC854E /* Aozora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aozora.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA27D1951AF1BA9D00CC854E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA27D1961AF1BA9D00CC854E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DA27D1981AF1BA9D00CC854E /* ParseWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ParseWorker.swift; path = ../AnimeNow/ParseWorker.swift; sourceTree = "<group>"; };
 		DA27D19B1AF1BA9D00CC854E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Season.storyboard; sourceTree = "<group>"; };
 		DA27D19D1AF1BA9D00CC854E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DA27D1A01AF1BA9D00CC854E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -1512,7 +1509,6 @@
 		DAF6186E1B377BBF00286517 /* DBServices */ = {
 			isa = PBXGroup;
 			children = (
-				DA27D1981AF1BA9D00CC854E /* ParseWorker.swift */,
 				DA6E13121B10F56B00B278B0 /* SeasonalChartService.swift */,
 				DACCF35E1B111016006A13EB /* AnimeService.swift */,
 			);
@@ -2266,7 +2262,6 @@
 				DA2991FE1C6DD10A00CCB04D /* String+Utils.swift in Sources */,
 				DA2991F91C6DD10A00CCB04D /* String+Validations.swift in Sources */,
 				DA32EBE11C6A87720090CD51 /* StringFormatter.swift in Sources */,
-				DA27D1991AF1BA9D00CC854E /* ParseWorker.swift in Sources */,
 				DA2991E71C6DD10500CCB04D /* Anime.swift in Sources */,
 				DAA546FC1BA1AC48003989DE /* UserProfileManager.swift in Sources */,
 				DA2991E41C6DD10500CCB04D /* AnimeRelation.swift in Sources */,
@@ -2451,7 +2446,6 @@
 				DA2991F81C6DD10900CCB04D /* String+Utils.swift in Sources */,
 				DA2991F31C6DD10900CCB04D /* String+Validations.swift in Sources */,
 				DA32EBE21C6A87720090CD51 /* StringFormatter.swift in Sources */,
-				DAA576CC1C66EC2D007E81E6 /* ParseWorker.swift in Sources */,
 				DA2991D71C6DD10500CCB04D /* Anime.swift in Sources */,
 				DAA576CD1C66EC2D007E81E6 /* UserProfileManager.swift in Sources */,
 				DA2991D41C6DD10500CCB04D /* AnimeRelation.swift in Sources */,

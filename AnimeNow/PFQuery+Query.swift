@@ -22,7 +22,8 @@ extension PFQuery {
                     return BFTask(result: [])
                 }
 
-                if result.count == self.limit {
+                // Parse has a limit of 10000 for maximum skip
+                if result.count == self.limit && skip < 10000 {
                     return self.findAllObjectsInBackground(with: self.skip + self.limit)
                         .continueWithSuccessBlock({ (previousTask: BFTask!) -> AnyObject! in
                             guard let newResults = previousTask.result as? [PFObject] else {
