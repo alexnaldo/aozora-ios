@@ -17,7 +17,17 @@ class ChartController {
         let query = Anime.query()!
         query.whereKey("startDate", greaterThanOrEqualTo: seasonalChart.startDate)
         query.whereKey("startDate", lessThanOrEqualTo: seasonalChart.endDate)
-        return query
+
+        let query2 = Anime.query()!
+
+        let laterDate = seasonalChart.startDate.compare(NSDate()) == NSComparisonResult.OrderedAscending ? NSDate() : seasonalChart.startDate
+        query2.whereKey("endDate", greaterThanOrEqualTo: laterDate)
+        query2.whereKey("endDate", lessThanOrEqualTo: seasonalChart.endDate)
+
+        let orQuery = PFQuery.orQueryWithSubqueries([query, query2])
+        orQuery.orderByDescending("membersCount")
+
+        return orQuery
     }
 
     class func allSeasonsQuery() -> PFQuery {

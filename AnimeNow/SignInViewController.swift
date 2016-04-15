@@ -72,7 +72,7 @@ class SignInViewController: UIViewController {
             
             if let error = error {
                 let errorMessage = (error.userInfo["error"] as? String) ?? "Unknown error"
-                let alert = UIAlertController(title: "Hmm", message: errorMessage+". If you signed in with Facebook, login in with Facebook is required.", preferredStyle: UIAlertControllerStyle.Alert)
+                let alert = UIAlertController(title: "Hmm", message: errorMessage+". Try again or login with Facebook if you signed up with Facebook.", preferredStyle: UIAlertControllerStyle.Alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
                 
                 

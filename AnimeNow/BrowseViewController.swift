@@ -196,7 +196,7 @@ class BrowseViewController: UIViewController {
         if let navigationController = navigationController {
             let controller = Storyboard.filterViewController()
             controller.delegate = self
-            controller.initWith(configuration: currentConfiguration, selectedGenres: selectedGenres)
+            controller.initWith(configuration: currentConfiguration, selectedGenres: selectedGenres, shouldContractSections: true)
             animator = navigationController.presentViewControllerModal(controller)
         }   
     }
