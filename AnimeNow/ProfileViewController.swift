@@ -437,34 +437,35 @@ public class ProfileViewController: ThreadViewController {
         alert.addAction(UIAlertAction(title: "Mute", style: UIAlertActionStyle.Destructive, handler: {
             (alertAction: UIAlertAction) -> Void in
             
-            let alertController = UIAlertController(title: "Mute", message: "Enter duration in minutes to mute", preferredStyle: .Alert)
+            let alertController = UIAlertController(title: "Mute", message: "Enter duration in days", preferredStyle: .Alert)
             
             alertController.addTextFieldWithConfigurationHandler(
                 {(textField: UITextField!) in
-                    textField.placeholder = "Enter duration in minutes"
+                    textField.placeholder = "Enter duration in days"
                     textField.textColor = UIColor.blackColor()
                     textField.keyboardType = UIKeyboardType.NumberPad
                 })
             
             let action = UIAlertAction(title: "Submit",
                 style: UIAlertActionStyle.Default,
-                handler: {[weak self]
-                    (paramAction:UIAlertAction!) in
+                handler: { [weak self] (paramAction: UIAlertAction!) in
                     
                     if let textField = alertController.textFields {
-                        
                         let durationTextField = textField as [UITextField]
                         
-                        guard let controller = self, let userProfile = self?.userProfile, let durationText = durationTextField[0].text, let duration = Double(durationText) else {
+                        guard let controller = self,
+                            let userProfile = self?.userProfile,
+                            let durationText = durationTextField[0].text,
+                            let duration = Double(durationText) else {
                             self?.presentBasicAlertWithTitle("Woops", message: "Your mute duration is too long or you have entered characters.")
                             return
                         }
                         
-                        let date = NSDate().dateByAddingTimeInterval(duration * 60.0)
+                        let date = NSDate().dateByAddingTimeInterval(duration * 60.0 * 60.0 * 24.0)
                         userProfile.details.mutedUntil = date
                         userProfile.saveInBackground()
                         
-                        controller.presentBasicAlertWithTitle("Muted user", message: "You have muted " + self!.userProfile!.username!)
+                        controller.presentBasicAlertWithTitle("Muted user", message: "You have muted " + userProfile.aozoraUsername)
 
                     }
                 })
@@ -548,16 +549,12 @@ public class ProfileViewController: ThreadViewController {
             }
         }))
         
-        guard let currentUser = User.currentUser() else {
+        guard let currentUser = User.currentUser(), let userProfile = userProfile else {
             return
         }
-    
-        if currentUser.isAdmin() && !userProfile!.isAdmin() || currentUser.isTopAdmin() {
-        
-            guard let userProfile = userProfile else {
-                return
-            }
-            
+
+        let hasPermissionsToMute = currentUser.isAdmin() && !userProfile.isAdmin() || currentUser.isTopAdmin()
+        if hasPermissionsToMute && currentUser != userProfile {
             if let _ = userProfile.details.mutedUntil {
                 addUnmuteUserAction(alert)
             } else {
@@ -565,7 +562,7 @@ public class ProfileViewController: ThreadViewController {
             }
         }
         
-        if let userProfile = userProfile where userProfile.isTheCurrentUser() {
+        if userProfile.isTheCurrentUser() {
             alert.addAction(UIAlertAction(title: "Edit Profile", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
                 let editProfileController =  UIStoryboard(name: "Profile", bundle: nil).instantiateViewControllerWithIdentifier("EditProfileViewController") as! EditProfileViewController
                 editProfileController.delegate = self
