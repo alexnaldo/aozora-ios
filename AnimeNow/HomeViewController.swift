@@ -171,7 +171,6 @@ class HomeViewController: UIViewController {
                     // Seasonal Chart datasource
                     self.currentSeasonalChartDataSource = result
                         .filter({$0.type == "TV"})
-                        .sort({ $0.rank < $1.rank})
 
                     // Top Banner DataSource
                     self.currentSeasonalChartWithFanart = self.currentSeasonalChartDataSource
@@ -192,6 +191,7 @@ class HomeViewController: UIViewController {
         let query = Anime.query()!
         query.whereKeyExists("startDateTime")
         query.whereKey("status", equalTo: "currently airing")
+        query.orderByDescending("membersScore")
         query.findObjectsInBackgroundWithBlock({ (result, error) -> Void in
 
             if let result = result as? [Anime] {
@@ -328,10 +328,8 @@ private extension HomeViewController {
         dateFormat.dateFormat = "MMM yyyy"
 
         for seasonalChart in chartsDataSource {
-            let query = Anime.query()!
-            query.whereKey("startDate", greaterThanOrEqualTo: seasonalChart.startDate)
-            query.whereKey("startDate", lessThanOrEqualTo: seasonalChart.endDate)
-            query.orderByDescending("membersScore")
+
+            let query = ChartController.seasonalChartAnimeQuery(seasonalChart)
 
             let subtitle = "\(dateFormat.stringFromDate(seasonalChart.startDate)) - \(dateFormat.stringFromDate(seasonalChart.endDate))"
             let data: BrowseData = (title: seasonalChart.title, subtitle: subtitle, detailTitle: "See All", anime: [], query: query, fetching: false)
