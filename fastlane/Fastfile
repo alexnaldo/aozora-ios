@@ -14,16 +14,13 @@ require 'yaml'
 # Update this, if you use features of a newer version
 
 # INSTRUCTIONS
-# RUN: fastlane beta patch:false
-# 
+# RUN: fastlane send patch:false
 
 fastlane_version "1.80.0"
 
 default_platform :ios
 
-def get_version_number
-  `/usr/libexec/PlistBuddy -c 'Print CFBundleShortVersionString' ../AnimeTrakr-Info.plist`.strip
-end
+
 
 platform :ios do
 
@@ -39,20 +36,34 @@ platform :ios do
 
   desc "Submit a new Beta Build to Apple TestFlight"
   desc "This will also make sure the profile is up to date"
-  lane :beta do |options|
+  lane :deploy do |options|
     # Increase the app version number
-    patch = options[:patch]
+    patch = options[:patch] # Bool
+    minor = options[:minor] # Bool
+    major = options[:major] # Bool
+    testflight = options[:testflight] # Bool
+    release_app = options[:release] # Bool
 
-    ensure_git_status_clean
-    build_number = increment_build_number
+
+    #ensure_git_status_clean
+    build_number = increment_build_number({
+      build_number: latest_testflight_build_number + 1
+    })
 
     # Generate release notes from CHANGELOG
     changelog_filename = '../CHANGELOG.yml'
     changelog_yaml = YAML.load_file(changelog_filename)
     release_notes = changelog_yaml['upcoming'].map{ |note| note.prepend '- ' }.join("\n")
 
-    if patch
-      version = increment_version_number(bump_type: "patch")
+    version = get_aozora_version_number
+    if patch || minor || major
+      if patch
+        version = increment_version_number(bump_type: "patch")
+      elsif minor
+        version = increment_version_number(bump_type: "minor")
+      elsif major
+        version = increment_version_number(bump_type: "major")
+      end
 
       # Add a changelog entry for this version, 
       # yes, there is a reason for the EOS content to be on the left.
@@ -79,24 +90,42 @@ EOS
     #match(type: "appstore") # more information: https://codesigning.guide
     gym(scheme: "Aozora") # Build your app - more options available
     
-    slack(
-      message: "New Aozora build (#{build_number}) incoming :tanabata_tree::rocket:",
-      default_payloads: [],
-      payload: {
-        "Release Notes" => release_notes
-      }
-    )
-
+    # Set this environment if you're behind a firewall, used by deliver and pilot
     ENV["DELIVER_ITMSTRANSPORTER_ADDITIONAL_UPLOAD_PARAMETERS"] = "-t DAV"
-    pilot(distribute_external: true, changelog: release_notes)
+
+    # Send AppStore udpate
+    if release_app
+      deliver
+    end
+
+    if testflight
+      slack(
+        message: "New Aozora build #{version}(#{build_number}) incoming :tanabata_tree::rocket:",
+        default_payloads: [],
+        payload: {
+          "Release Notes" => release_notes
+        }
+      )
+
+      # Send to TestFlight and distribute!
+      pilot(distribute_external: true, changelog: release_notes)
+    end
 
     clean_build_artifacts
 
-    commit_version_bump
-    if patch
+    # Can't use commit_version_bump to include changelog changes
+    sh "git add .. ; git commit -m 'Deploying version #{version}(#{build_number}).'" 
+
+    if patch || minor || major
       add_git_tag
     end
     push_to_git_remote
+
+    if testflight
+      slack(
+        message: "New Aozora build #{version}(#{build_number}) is out! :rocket:,\n if you haven't already read the beta wiki: https://goo.gl/SUC2oO",
+      )
+    end
 
   end
   # You can define as many lanes as you want
@@ -114,6 +143,9 @@ EOS
     #   message: exception.message,
     #   success: false
     # )
+    puts "Unable to deploy, resetting git repository."
+    clean_build_artifacts
+    reset_git_repo
   end
 end
 
@@ -124,4 +156,10 @@ end
 # fastlane reports which actions are used
 # No personal data is recorded. Learn more at https://github.com/fastlane/enhancer
 
+def get_aozora_version_number
+  `/usr/libexec/PlistBuddy -c 'Print CFBundleShortVersionString' ../AnimeNow/Info.plist`.strip
+end
 
+def get_anime_trakr_version_number
+  `/usr/libexec/PlistBuddy -c 'Print CFBundleShortVersionString' ../AnimeTrakr-Info.plist`.strip
+end
