@@ -9,6 +9,25 @@
 import Foundation
 import ANCommonKit
 
+struct RegexHelper {
+    let regex: NSRegularExpression?
+
+    init(_ pattern: String) {
+        regex = try! NSRegularExpression(pattern: pattern,
+                                         options: .CaseInsensitive)
+    }
+
+    func match(input: String) -> Bool {
+        if let matches = regex?.matchesInString(input,
+                                                options: [],
+                                                range: NSMakeRange(0, input.characters.count)) {
+            return matches.count > 0
+        } else {
+            return false
+        }
+    }
+}
+
 extension String {
     public func validEmail(viewController: UIViewController) -> Bool {
         let emailRegex = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
@@ -32,10 +51,13 @@ extension String {
     }
     
     public func validUsername(viewController: UIViewController) -> Bool {
-        
+
         switch self {
         case _ where self.characters.count < 3:
             viewController.presentBasicAlertWithTitle("Invalid username", message: "Make it 3 characters or longer")
+            return false
+        case _ where !RegexHelper("^[a-zA-z0-9]*$").match(self):
+            viewController.presentBasicAlertWithTitle("Invalid username", message: "Can't have special characters, use letter or numbers 👍")
             return false
         case _ where self.rangeOfString(" ") != nil:
             viewController.presentBasicAlertWithTitle("Invalid username", message: "It can't have spaces")
