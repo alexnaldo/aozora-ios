@@ -53,6 +53,8 @@ class FilterViewController: UIViewController {
     var selectedGenres: [String] = []
     var filteredDataSource: [[String]] = []
     var sectionsDataSource: Configuration = []
+
+    var shouldContractSections: Bool = false
     
     var filteringSomething: Bool {
         get {
@@ -63,11 +65,16 @@ class FilterViewController: UIViewController {
         }
     }
     
-    func initWith(configuration configuration: Configuration, selectedGenres: [String]? = []) {
+    func initWith(configuration configuration: Configuration, selectedGenres: [String] = [], shouldContractSections: Bool = false) {
         sectionsDataSource = configuration
-        self.selectedGenres = selectedGenres!
-        for (_, _, _) in sectionsDataSource {
-            filteredDataSource.append([])
+        self.selectedGenres = selectedGenres
+        self.shouldContractSections = shouldContractSections
+        for (_, _, dataSource) in sectionsDataSource {
+            if shouldContractSections {
+                filteredDataSource.append([])
+            } else {
+                filteredDataSource.append(dataSource)
+            }
         }
     }
     
@@ -206,8 +213,11 @@ extension FilterViewController: UICollectionViewDelegate {
         case .Studio: fallthrough
         case .Year:
             sectionsDataSource[indexPath.section].value = string
-            filteredDataSource[indexPath.section] = []
-            expandedSection = nil
+            if shouldContractSections {
+                filteredDataSource[indexPath.section] = []
+                expandedSection = nil
+            }
+
             collectionView.reloadData()
         case .Genres:
             if let index = selectedGenres.indexOf(string) {
@@ -258,16 +268,18 @@ extension FilterViewController: BasicCollectionReusableViewDelegate {
             // Do nothing
             return;
         }
-        
-        if let expandedSection = expandedSection {
-            filteredDataSource[expandedSection] = []
-        }
-        
-        if section != expandedSection {
-            expandedSection = section
-            filteredDataSource[section] = sectionsDataSource[section].dataSource
-        } else {
-            expandedSection = nil
+
+        if shouldContractSections {
+            if let expandedSection = expandedSection {
+                filteredDataSource[expandedSection] = []
+            }
+
+            if section != expandedSection {
+                expandedSection = section
+                filteredDataSource[section] = sectionsDataSource[section].dataSource
+            } else {
+                expandedSection = nil
+            }
         }
         
         collectionView.reloadData()
