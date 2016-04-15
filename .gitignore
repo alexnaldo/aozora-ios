@@ -30,3 +30,4 @@ Pods/**
 
 /AnimeNow.xcworkspace/
 fastlane/report.xml
+AppStore_com.anytap.Aozora.mobileprovision

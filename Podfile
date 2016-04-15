@@ -39,6 +39,7 @@ target 'Aozora' do
     pod 'RSKImageCropper'
     pod 'FLAnimatedImage', '~> 1.0'
     pod 'CRToast', '~> 0.0.7'
+    pod 'uservoice-iphone-sdk', '~> 3.2'
 end
 
 

@@ -16,7 +16,7 @@ class HomeViewController: UIViewController {
         case AiringToday, CurrentSeason, ExploreAll, Genres, Years, Studios, Classifications
     }
 
-    @IBOutlet weak var headerViewController: UICollectionView!
+    @IBOutlet weak var headerViewController: UICollectionView?
     @IBOutlet weak var tableView: UITableView!
 
     var sections: [String] = ["Airing Today", "Current Season", "Explore all anime", "Explore by Genre", "Explore by Year", "Explore by Studio", "Explore by Classification"]
@@ -31,7 +31,7 @@ class HomeViewController: UIViewController {
 
     var currentSeasonalChartDataSource: [Anime] = [] {
         didSet {
-            headerViewController.reloadData()
+            headerViewController?.reloadData()
             tableView.reloadData()
         }
     }
@@ -109,25 +109,28 @@ class HomeViewController: UIViewController {
             return
         }
 
-        let nextIndexPath = self.headerCellIndexPath(next: false)
-        let headerSize = CGSize(width: size.width, height: self.headerViewController.bounds.size.height)
+        guard let headerViewController = headerViewController else {
+            return
+        }
+
+        let nextIndexPath = headerCellIndexPath(next: false)
+        let headerSize = CGSize(width: size.width, height: headerViewController.bounds.size.height)
 
         coordinator.animateAlongsideTransition({ (context) in
 
             self.updateHeaderViewControllerLayout(headerSize)
-            self.headerViewController.reloadData()
+            headerViewController.reloadData()
 
         }) { (context) in
             if let nextIndexPath = nextIndexPath {
                 let rect = CGRect(x: CGFloat(nextIndexPath.row) * headerSize.width, y: 0, width: headerSize.width, height: headerSize.height)
-                print(rect)
-                self.headerViewController.scrollRectToVisible(rect, animated: false)
+                headerViewController.scrollRectToVisible(rect, animated: false)
             }
         }
     }
 
     func updateHeaderViewControllerLayout(withSize: CGSize) {
-        guard let layout = headerViewController.collectionViewLayout as? UICollectionViewFlowLayout else {
+        guard let layout = headerViewController?.collectionViewLayout as? UICollectionViewFlowLayout else {
             return
         }
 
@@ -239,14 +242,14 @@ class HomeViewController: UIViewController {
 
     func moveHeaderView(timer: NSTimer) {
         if let nextIndexPath = headerCellIndexPath(next: true) {
-            headerViewController.scrollToItemAtIndexPath(nextIndexPath, atScrollPosition: .CenteredHorizontally, animated: true)
+            headerViewController?.scrollToItemAtIndexPath(nextIndexPath, atScrollPosition: .CenteredHorizontally, animated: true)
         }
     }
 
     func headerCellIndexPath(next next: Bool) -> NSIndexPath? {
         let lastIndex = currentSeasonalChartWithFanart.count - 1
 
-        guard let visibleCellIdx = headerViewController.indexPathsForVisibleItems().last where lastIndex > 0 else {
+        guard let visibleCellIdx = headerViewController?.indexPathsForVisibleItems().last where lastIndex > 0 else {
             return nil
         }
 

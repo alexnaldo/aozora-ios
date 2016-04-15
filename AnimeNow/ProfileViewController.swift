@@ -137,7 +137,8 @@ public class ProfileViewController: ThreadViewController {
 
         // Allow user to delete posts from it's timeline.
         let canEdit = postedBy == currentUser
-        showEditPostActionSheet(false, canEdit: canEdit, canDelete: true, cell: cell, postedBy: postedBy, currentUser: currentUser, post: post, parentPost: parentPost)
+        let canDelete = SelectedFeed(rawValue: segmentedControl.selectedSegmentIndex)! == .Me
+        showEditPostActionSheet(false, canEdit: canEdit, canDelete: canDelete, cell: cell, postedBy: postedBy, currentUser: currentUser, post: post, parentPost: parentPost)
     }
     
     
@@ -335,7 +336,7 @@ public class ProfileViewController: ThreadViewController {
     @IBAction func settingsPressed(sender: AnyObject) {
         let settings = UIStoryboard(name: "Settings", bundle: nil).instantiateInitialViewController() as! UINavigationController
         if UIDevice.isPad() {
-            self.presentSmallViewController(settings, sender: sender)
+            self.presentSmallViewController(settings, sender: navigationController!.navigationBar)
         } else {
             self.animator = self.presentViewControllerModal(settings)
         }
@@ -360,11 +361,11 @@ public class ProfileViewController: ThreadViewController {
 
         let queryBatch = QueryBatch()
 
-        let innerQuery = TimelinePost.query()!
-        innerQuery.skip = skip
-        innerQuery.limit = FetchLimit
-        innerQuery.whereKey("replyLevel", equalTo: 0)
-        innerQuery.orderByDescending("createdAt")
+        let query = TimelinePost.query()!
+        query.skip = skip
+        query.limit = FetchLimit
+        query.whereKey("replyLevel", equalTo: 0)
+        query.orderByDescending("createdAt")
         
         let selectedFeed = SelectedFeed(rawValue: segmentedControl.selectedSegmentIndex)!
         switch selectedFeed {
@@ -372,15 +373,14 @@ public class ProfileViewController: ThreadViewController {
             let followingQuery = userProfile!.following().query()
             followingQuery.orderByDescending("activeStart")
             followingQuery.limit = 1000
-            queryBatch.whereQuery(innerQuery, matchesKey: "postedBy", onQuery: followingQuery)
+            queryBatch.whereQuery(query, matchesKey: "postedBy", onQuery: followingQuery)
         case .Popular:
-            innerQuery.whereKeyExists("likedBy")
+            query.whereKeyExists("likedBy")
         case .Me:
-            innerQuery.whereKey("userTimeline", equalTo: userProfile!)
+            query.whereKey("userTimeline", equalTo: userProfile!)
         }
         
         // 'Feed' query
-        let query = innerQuery.copy() as! PFQuery
         query.includeKey("episode")
         query.includeKey("postedBy")
         query.includeKey("userTimeline")

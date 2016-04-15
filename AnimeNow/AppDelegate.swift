@@ -63,9 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Parse.enableLocalDatastore()
         Parse.setApplicationId(AozoraKeys().parseApplicationId(),
                                clientKey: AozoraKeys().parseClientKey())
-//        PFUser.enableRevocableSessionInBackgroundWithBlock { (error) in
-//            print(error)
-//        }
+        PFUser.enableRevocableSessionInBackground()
     }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -192,11 +190,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             user.active = true
             user.activeStart = NSDate()
             user.saveInBackgroundWithBlock({ (success, error) -> Void in
+
+                guard let error = error where error.domain == PFParseErrorDomain else {
+                    return
+                }
+                
                 // Checking for invalid sessions
-                if let error = error where error.code == 209 || error.code == 208 {
-                    if let controller = UIApplication.topViewController() {
-                        controller.presentBasicAlertWithTitle("Error", message: error.description)
-                    }
+                if error.code == 209 || error.code == 206 {
+                    WorkflowController.presentOnboardingController(true)
                 }
             })
         }
