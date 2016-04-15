@@ -42,8 +42,12 @@ platform :ios do
     minor = options[:minor] # Bool
     major = options[:major] # Bool
     testflight = options[:testflight] # Bool
-    release_app = options[:release] # Bool
+    appstore = options[:appstore] # Bool
 
+    # A increment_version_number is required, force patch if needed
+    if release && !patch && !minor && !major
+      patch = true
+    end
 
     #ensure_git_status_clean
     build_number = increment_build_number({
@@ -94,7 +98,7 @@ EOS
     ENV["DELIVER_ITMSTRANSPORTER_ADDITIONAL_UPLOAD_PARAMETERS"] = "-t DAV"
 
     # Send AppStore udpate
-    if release_app
+    if appstore
       deliver
     end
 
