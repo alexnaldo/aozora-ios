@@ -25,6 +25,6 @@
 
 #import <iAd/iAd.h>
 
-
+#import <PINRemoteImage/PINRemoteImage.h>
 
 #endif

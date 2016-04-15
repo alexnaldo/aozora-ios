@@ -94,29 +94,8 @@ extension ImagesViewController: UICollectionViewDataSource {
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("imageCell", forIndexPath: indexPath) as! BasicCollectionCell
         let imageData = dataSource[indexPath.row]
-        cell.loadingURL = imageData.url
-        cell.animatedImageView.animatedImage = nil
-        cell.animatedImageView.image = nil
-        if segmentedControl.selectedSegmentIndex == 1 {
-            if let image = imageDatasource[imageData.url] {
-                cell.animatedImageView.animatedImage = image
-            } else {
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { [weak self] in
-                    // do some task
-                    let image = FLAnimatedImage(GIFData: NSData(contentsOfURL: NSURL(string: imageData.url)!))
-                    dispatch_async(dispatch_get_main_queue(), {
-                        // update some UI
-                        self?.imageDatasource[imageData.url] = image
-                        if cell.loadingURL == imageData.url {
-                            cell.animatedImageView.animatedImage = image
-                        }
-                    });
-                });
-            }
-        } else {
-            cell.animatedImageView.setImageFrom(urlString: imageData.url, animated: false, options: SDWebImageOptions.CacheMemoryOnly)
-        }
-        
+        cell.animatedImageView.setImageFrom(urlString: imageData.url, animated: false)
+
         return cell
     }
 }

@@ -23,7 +23,7 @@ def common_pods
     pod 'TTTAttributedLabel', '~> 1.13.4'
     pod 'MMWormhole', '~> 2.0.0'
     pod 'FLAnimatedImage', '~> 1.0'
-
+    pod 'PINRemoteImage', '~> 2.0'
 end
 
 target 'Aozora' do

@@ -8,6 +8,7 @@
 
 import Foundation
 import TTTAttributedLabel
+import FLAnimatedImage
 
 public protocol PostCellDelegate: class {
     func postCellSelectedImage(postCell: PostCell)
@@ -26,7 +27,7 @@ public class PostCell: UITableViewCell {
     @IBOutlet weak public var toIcon: UILabel?
     @IBOutlet weak public var toUsername: UILabel?
     
-    @IBOutlet weak public var imageContent: UIImageView?
+    @IBOutlet weak public var imageContent: FLAnimatedImageView?
     @IBOutlet weak public var imageHeightConstraint: NSLayoutConstraint?
     @IBOutlet weak public var textContent: TTTAttributedLabel!
     @IBOutlet weak public var onlineIndicator: UIImageView!

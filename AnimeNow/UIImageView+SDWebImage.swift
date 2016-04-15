@@ -7,41 +7,33 @@
 //
 
 import UIKit
-import SDWebImage
+import FLAnimatedImage
+import PINRemoteImage
 
 extension UIImageView {
-    
-    public func setImageFrom(urlString urlString:String!, animated:Bool = false, options: SDWebImageOptions? = nil)
-    {
-        if let url = NSURL(string: urlString) {
-            if !animated {
-                if let options = options {
-                    self.sd_setImageWithURL(url, placeholderImage: nil, options: options)
-                } else {
-                    self.sd_setImageWithURL(url, placeholderImage: nil)
-                }
-            } else {
-                self.layer.removeAllAnimations()
-                self.sd_cancelCurrentImageLoad()
 
-                if let options = options {
-                    self.sd_setImageWithURL(url, placeholderImage: nil, options: options, completed: { (image, error, cacheType, url) -> Void in
-                        self.alpha = 0
-                        UIView.transitionWithView(self, duration: 0.5, options: [], animations: { () -> Void in
-                            self.image = image
-                            self.alpha = 1
-                            }, completion: nil)
-                    })
-                } else {
-                    self.sd_setImageWithURL(url, placeholderImage: nil, completed: { (image, error, cacheType, url) -> Void in
-                        self.alpha = 0
-                        UIView.transitionWithView(self, duration: 0.5, options: [], animations: { () -> Void in
-                            self.image = image
-                            self.alpha = 1
-                            }, completion: nil)
-                    })
-                }
-            }
+    public func setImageFrom(urlString urlString:String!, animated:Bool = false)
+    {
+        guard let url = NSURL(string: urlString) else {
+            return
+        }
+
+        layer.removeAllAnimations()
+        pin_cancelImageDownload()
+        image = nil
+        (self as? FLAnimatedImageView)?.animatedImage = nil
+
+        if !animated {
+            pin_setImageFromURL(url)
+        } else {
+            pin_setImageFromURL(url, completion: { [weak self] result in
+                guard let _self = self else { return }
+                _self.alpha = 0
+                UIView.transitionWithView(_self, duration: 0.5, options: [], animations: { () -> Void in
+                    _self.image = result.image
+                    _self.alpha = 1
+                    }, completion: nil)
+                })
         }
     }
 }
