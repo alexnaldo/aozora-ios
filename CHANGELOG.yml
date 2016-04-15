@@ -1,7 +1,12 @@
 upcoming:
-- Users can't delete other users posts anymore.
-- Preparing app for new aozora parse-server.
-- Fixed user timelines showing posts from all users.
-- Improved iPad layout.
 
 releases:
+- version: 5.7.5
+  date: April 14 2016
+  notes:
+  - Users can't delete other users posts anymore.
+  - Preparing app for new aozora parse-server.
+  - Fixed user timelines showing posts from all users.
+  - Improved iPad layout.
+
+

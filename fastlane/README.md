@@ -11,9 +11,9 @@ sudo gem install fastlane
 fastlane ios test
 ```
 Runs all the tests
-### ios send
+### ios deploy
 ```
-fastlane ios send
+fastlane ios deploy
 ```
 Submit a new Beta Build to Apple TestFlight
 
