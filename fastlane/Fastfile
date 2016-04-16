@@ -142,7 +142,8 @@ EOS
     # )
     puts "Unable to deploy, resetting git repository."
     clean_build_artifacts
-    reset_git_repo
+    # If you want 'git clean' to be skipped, thus NOT deleting untracked files like '.env'. Optional, defaults to false.
+    reset_git_repo(skip_clean: true)
   end
 end
 
