@@ -130,7 +130,7 @@ class ThreadViewController: UIViewController {
         
         let newPostViewController = Storyboard.newPostViewController()
 
-        if let post = post as? ThreadPostable, let thread = thread where !thread.locked {
+        if let post = post as? ThreadPostable, let thread = thread {
             if thread.locked {
                 presentBasicAlertWithTitle("Thread is locked")
             } else {
@@ -183,15 +183,17 @@ class ThreadViewController: UIViewController {
             return
         }
         
-        if let post = post as? PFObject where !post.dirty {
-            let likedBy = (post as! Commentable).likedBy ?? []
+        if let postObject = post as? PFObject where !postObject.dirty {
+            let likedBy = post.likedBy ?? []
             let currentUser = User.currentUser()!
             if likedBy.contains(currentUser) {
-                post.removeObject(currentUser, forKey: "likedBy")
+                postObject.removeObject(currentUser, forKey: "likedBy")
+                post.incrementLikeCount(byAmount: -1)
             } else {
-                post.addUniqueObject(currentUser, forKey: "likedBy")
+                postObject.addUniqueObject(currentUser, forKey: "likedBy")
+                post.incrementLikeCount(byAmount: 1)
             }
-            post.saveInBackground()
+            postObject.saveInBackground()
         }
     }
     
@@ -573,23 +575,14 @@ extension ThreadViewController: UITableViewDelegate {
             if let _ = error {
                 // Show some error
             } else {
-                
-                func decrementPostCount() {
-                    for post in allPosts {
-                        (post["postedBy"] as? User)?.incrementPostCount(-1)
-                    }
+
+                for post in allPosts {
+                    (post["postedBy"] as? User)?.incrementPostCount(-1)
                 }
-                
-                if let thread = self.thread where !thread.isForumGame {
-                    // Decrement post counts only if thread does not contain #ForumGame tag
-                    decrementPostCount()
-                } else {
-                    decrementPostCount()
-                }
-                
+
                 self.thread?.incrementReplyCount(byAmount: -allPosts.count)
                 self.thread?.saveInBackground()
-                
+
                 if removeParent {
                     // Delete parent post, and entire section
                     if let section = self.fetchController.dataSource.indexOf(parentPost) {
@@ -603,6 +596,10 @@ extension ThreadViewController: UITableViewDelegate {
                         parentPost.replies.removeAtIndex(index)
                         self.tableView.reloadData()
                     }
+
+                    // Decrement parentPost reply count
+                    parentPost.incrementReplyCount(byAmount: -childPosts.count)
+                    (parentPost as! PFObject).saveInBackground()
                 }
             }
         })

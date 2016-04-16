@@ -129,6 +129,7 @@ public class NewPostViewController: CommentViewController {
             
             if let parentPost = parentPost as? TimelinePost {
                 parentPost.addUniqueObject(postedBy!, forKey: "subscribers")
+                parentPost.incrementReplyCount(byAmount: 1)
                 parentSaveTask = parentPost.saveInBackground()
             } else {
                 if postedBy! != postedIn {
@@ -181,6 +182,7 @@ public class NewPostViewController: CommentViewController {
             
             if let parentPost = parentPost as? Post {
                 parentPost.addUniqueObject(postedBy!, forKey: "subscribers")
+                parentPost.incrementReplyCount(byAmount: 1)
                 parentSaveTask = parentPost.saveInBackground()
             } else {
                 post.subscribers = [postedBy!]
