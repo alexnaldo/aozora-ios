@@ -42,6 +42,7 @@ platform :ios do
     minor = options[:minor] # Bool
     major = options[:major] # Bool
     testflight = options[:testflight] # Bool
+    waitTestflight = options[:waitTestflight] # Bool
     appstore = options[:appstore] # Bool
 
     # A increment_version_number is required, force patch if needed
@@ -111,7 +112,12 @@ EOS
         )
       end
       # Send to TestFlight and distribute!
-      pilot(distribute_external: true, changelog: release_notes)
+      if waitTestflight
+        pilot(distribute_external: true, changelog: release_notes)
+      elsif 
+        pilot(skip_submission: true)
+      end
+      
       if !patch && !minor && !major
         slack(
           message: "New Aozora build #{version}(#{build_number}) is out! :rocket:,\n if you haven't already read the beta wiki: https://goo.gl/SUC2oO",
