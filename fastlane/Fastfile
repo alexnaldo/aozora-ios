@@ -58,15 +58,15 @@ platform :ios do
     release_notes = changelog_yaml['upcoming'].map{ |note| note.prepend '- ' }.join("\n")
 
     version = get_aozora_version_number
-    if patch || minor || major
-      if patch
-        version = increment_version_number(bump_type: "patch")
-      elsif minor
-        version = increment_version_number(bump_type: "minor")
-      elsif major
-        version = increment_version_number(bump_type: "major")
-      end
+    if patch
+      version = increment_version_number(bump_type: "patch")
+    elsif minor
+      version = increment_version_number(bump_type: "minor")
+    elsif major
+      version = increment_version_number(bump_type: "major")
+    end
 
+    if appstore
       # Add a changelog entry for this version, 
       # yes, there is a reason for the EOS content to be on the left.
       changelog_contents = File.read(changelog_filename)
@@ -98,21 +98,23 @@ EOS
     # Send AppStore udpate
     if appstore
       deliver
-    end
+      add_git_tag
 
-    if testflight
-      if !patch && !minor && !major
-        slack(
-          message: "New Aozora build #{version}(#{build_number}) incoming :tanabata_tree::rocket:",
-          default_payloads: [],
-          payload: {
-            "Release Notes" => release_notes
-          }
-        )
-      end
-
+    elsif testflight
+      slack(
+        message: "New Aozora build #{version}(#{build_number}) incoming :tanabata_tree::rocket:",
+        default_payloads: [],
+        payload: {
+          "Release Notes" => release_notes
+        }
+      )
+    
       # Send to TestFlight and distribute!
       pilot(distribute_external: true, changelog: release_notes)
+
+      slack(
+        message: "New Aozora build #{version}(#{build_number}) is out! :rocket:,\n if you haven't already read the beta wiki: https://goo.gl/SUC2oO",
+      )
     end
 
     clean_build_artifacts
@@ -120,16 +122,7 @@ EOS
     # Can't use commit_version_bump to include changelog changes
     sh "git add .. ; git commit -m 'Deploying version #{version}(#{build_number}).'" 
 
-    if patch || minor || major
-      add_git_tag
-    end
     push_to_git_remote
-
-    if testflight
-      slack(
-        message: "New Aozora build #{version}(#{build_number}) is out! :rocket:,\n if you haven't already read the beta wiki: https://goo.gl/SUC2oO",
-      )
-    end
 
   end
   # You can define as many lanes as you want
