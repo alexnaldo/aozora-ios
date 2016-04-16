@@ -101,20 +101,22 @@ EOS
       add_git_tag
 
     elsif testflight
-      slack(
-        message: "New Aozora build #{version}(#{build_number}) incoming :tanabata_tree::rocket:",
-        default_payloads: [],
-        payload: {
-          "Release Notes" => release_notes
-        }
-      )
-    
+      if !patch && !minor && !major
+        slack(
+          message: "New Aozora build #{version}(#{build_number}) incoming :tanabata_tree::rocket:",
+          default_payloads: [],
+          payload: {
+            "Release Notes" => release_notes
+          }
+        )
+      end
       # Send to TestFlight and distribute!
       pilot(distribute_external: true, changelog: release_notes)
-
-      slack(
-        message: "New Aozora build #{version}(#{build_number}) is out! :rocket:,\n if you haven't already read the beta wiki: https://goo.gl/SUC2oO",
-      )
+      if !patch && !minor && !major
+        slack(
+          message: "New Aozora build #{version}(#{build_number}) is out! :rocket:,\n if you haven't already read the beta wiki: https://goo.gl/SUC2oO",
+        )
+      end
     end
 
     clean_build_artifacts
