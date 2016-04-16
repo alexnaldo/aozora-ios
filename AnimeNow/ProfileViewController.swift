@@ -378,7 +378,7 @@ class ProfileViewController: ThreadViewController {
             followingQuery.limit = 1000
             queryBatch.whereQuery(query, matchesKey: "postedBy", onQuery: followingQuery)
         case .Popular:
-            query.whereKeyExists("likedBy")
+            query.whereKey("likeCount", greaterThan: 9)
         case .Me:
             query.whereKey("userTimeline", equalTo: userProfile!)
         }
