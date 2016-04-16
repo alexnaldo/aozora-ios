@@ -27,6 +27,7 @@ protocol PostCellProtocol: class {
     weak var textContent: TTTAttributedLabel! { get }
     weak var playButton: UIButton? { get }
     weak var actionsView: PostActionsView? { get }
+    var isComment: Bool { get }
 }
 
 class PostCell: UITableViewCell, PostCellProtocol {
@@ -47,6 +48,10 @@ class PostCell: UITableViewCell, PostCellProtocol {
         case Text
         case Image
         case Video
+    }
+
+    var isComment: Bool {
+        return false
     }
     
     class func registerNibFor(tableView tableView: UITableView) {

@@ -12,12 +12,12 @@ typealias ActionCallback = () -> Void
 
 final class PostActionsView: UIView {
 
-    @IBOutlet weak var showLikesConstraint: NSLayoutConstraint!
+    @IBOutlet weak var showLikesConstraint: NSLayoutConstraint?
 
-    @IBOutlet weak var replyButton: UIButton!
+    @IBOutlet weak var replyButton: UIButton?
     @IBOutlet weak var likeButton: UIButton!
-    @IBOutlet weak var likeCountLabel: UIButton!
-    @IBOutlet weak var commentCountLabel: UIButton!
+    @IBOutlet weak var likeCountLabel: UIButton?
+    @IBOutlet weak var commentCountLabel: UIButton?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,11 +32,28 @@ final class PostActionsView: UIView {
     var showDetails: Bool = false {
         didSet {
             if showDetails {
-                showLikesConstraint.constant = 34
+                showLikesConstraint?.constant = 34
             } else {
-                showLikesConstraint.constant = 0
+                showLikesConstraint?.constant = 0
             }
         }
+    }
+
+    func setupWithSmallLikeStatus(liked: Bool, likeCount: Int) {
+        if liked {
+            likeButton.setImage(UIImage(named: "icon-like-filled-small"), forState: .Normal)
+        } else {
+            likeButton.setImage(UIImage(named: "icon-like-empty-small"), forState: .Normal)
+        }
+
+        if likeCount == 0 {
+            likeButton.setTitle("", forState: .Normal)
+            likeCountLabel?.hidden = true
+        } else {
+            likeButton.setTitle(" \(likeCount)", forState: .Normal)
+            likeCountLabel?.hidden = false
+        }
+
     }
 
     func setupWithLikeStatus(liked: Bool, likeCount: Int, commentCount: Int) {
@@ -47,10 +64,10 @@ final class PostActionsView: UIView {
         }
 
         let likeString = likeCount == 1 ? "like" : "likes"
-        likeCountLabel.setTitle(" \(likeCount) \(likeString)", forState: .Normal)
+        likeCountLabel?.setTitle(" \(likeCount) \(likeString)", forState: .Normal)
 
         let commentString = commentCount == 1 ? "comment" : "comments"
-        commentCountLabel.setTitle("\(commentCount) \(commentString)", forState: .Normal)
+        commentCountLabel?.setTitle("\(commentCount) \(commentString)", forState: .Normal)
 
         showDetails = likeCount > 0
     }
@@ -65,7 +82,7 @@ final class PostActionsView: UIView {
 
     @IBAction func replyPressed(sender: AnyObject) {
         replyCallback?()
-        replyButton.animateBounce()
+        replyButton?.animateBounce()
     }
 
     @IBAction func likePressed(sender: AnyObject) {

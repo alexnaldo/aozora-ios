@@ -80,6 +80,31 @@
                             <action selector="likePressed:" destination="IM6-bn-eHv" eventType="touchUpInside" id="8nT-bk-yMb"/>
                         </connections>
                     </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Qi-Oj-R1x">
+                        <rect key="frame" x="129" y="24" width="45" height="35"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="52" id="CMP-yD-USc"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="Vbk-yt-1LS"/>
+                            <constraint firstAttribute="height" constant="35" id="q2E-3C-xif"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="skH-gk-gei"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <inset key="contentEdgeInsets" minX="4" minY="0.0" maxX="4" maxY="0.0"/>
+                        <state key="normal" title="· likes">
+                            <color key="titleColor" white="0.64999997620000005" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="CMP-yD-USc"/>
+                                <exclude reference="Vbk-yt-1LS"/>
+                                <exclude reference="skH-gk-gei"/>
+                            </mask>
+                        </variation>
+                        <connections>
+                            <action selector="showLikesPressed:" destination="IM6-bn-eHv" eventType="touchUpInside" id="Dn9-Og-ZMX"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="0.97999999999999998" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
@@ -88,12 +113,14 @@
                     <constraint firstItem="0Fi-RL-vt3" firstAttribute="centerY" secondItem="dBO-Hh-gNw" secondAttribute="centerY" constant="0.75" id="5YC-Tv-sy9"/>
                     <constraint firstItem="LsI-8q-6wZ" firstAttribute="bottom" secondItem="l7o-JT-JFL" secondAttribute="bottom" id="DuP-b9-hCg"/>
                     <constraint firstItem="LsI-8q-6wZ" firstAttribute="trailing" secondItem="l7o-JT-JFL" secondAttribute="trailing" id="EgK-5G-sGQ"/>
+                    <constraint firstItem="2Qi-Oj-R1x" firstAttribute="leading" secondItem="0Fi-RL-vt3" secondAttribute="trailing" id="HqR-i9-sqa"/>
                     <constraint firstItem="l7o-JT-JFL" firstAttribute="leading" secondItem="CE8-oB-25Y" secondAttribute="leading" constant="8" id="LJ7-Fu-HzH"/>
                     <constraint firstItem="0Fi-RL-vt3" firstAttribute="leading" secondItem="dBO-Hh-gNw" secondAttribute="trailing" constant="4" id="PKS-pM-hFv"/>
                     <constraint firstItem="IIt-M3-Ebc" firstAttribute="leading" secondItem="l7o-JT-JFL" secondAttribute="trailing" constant="8" id="RWG-CZ-iFu"/>
                     <constraint firstItem="dBO-Hh-gNw" firstAttribute="top" secondItem="IIt-M3-Ebc" secondAttribute="bottom" id="SaW-HI-dGt"/>
                     <constraint firstItem="IIt-M3-Ebc" firstAttribute="leading" secondItem="dBO-Hh-gNw" secondAttribute="leading" id="Su4-Ju-2fW"/>
                     <constraint firstItem="IIt-M3-Ebc" firstAttribute="top" secondItem="CE8-oB-25Y" secondAttribute="topMargin" id="dId-hZ-2TR"/>
+                    <constraint firstItem="2Qi-Oj-R1x" firstAttribute="centerY" secondItem="0Fi-RL-vt3" secondAttribute="centerY" id="hHQ-u7-twG"/>
                     <constraint firstAttribute="trailing" secondItem="IIt-M3-Ebc" secondAttribute="trailing" constant="8" id="r2i-si-0WV"/>
                 </constraints>
             </tableViewCellContentView>
@@ -101,6 +128,7 @@
                 <outlet property="avatar" destination="l7o-JT-JFL" id="Awu-BU-FMb"/>
                 <outlet property="date" destination="dBO-Hh-gNw" id="mNV-nQ-Ncy"/>
                 <outlet property="likeButton" destination="0Fi-RL-vt3" id="cq1-tR-LzY"/>
+                <outlet property="likes" destination="2Qi-Oj-R1x" id="aib-uU-88d"/>
                 <outlet property="onlineIndicator" destination="LsI-8q-6wZ" id="erk-lE-J2Z"/>
                 <outlet property="textContent" destination="IIt-M3-Ebc" id="7Ys-vu-eDi"/>
             </connections>

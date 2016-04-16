@@ -96,6 +96,31 @@
                             <action selector="likePressed:" destination="IM6-bn-eHv" eventType="touchUpInside" id="ep8-Cz-Akl"/>
                         </connections>
                     </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7bA-8b-Kxx">
+                        <rect key="frame" x="129" y="189" width="45" height="35"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="1QW-g5-b8f"/>
+                            <constraint firstAttribute="height" constant="35" id="5TY-z7-aBA"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="rdD-OH-qhW"/>
+                            <constraint firstAttribute="width" constant="52" id="tZH-5o-QGD"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <inset key="contentEdgeInsets" minX="4" minY="0.0" maxX="4" maxY="0.0"/>
+                        <state key="normal" title="· likes">
+                            <color key="titleColor" white="0.64999997620000005" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="tZH-5o-QGD"/>
+                                <exclude reference="rdD-OH-qhW"/>
+                                <exclude reference="1QW-g5-b8f"/>
+                            </mask>
+                        </variation>
+                        <connections>
+                            <action selector="showLikesPressed:" destination="IM6-bn-eHv" eventType="touchUpInside" id="HNn-V9-lav"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="0.97999999999999998" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
@@ -113,8 +138,10 @@
                     <constraint firstItem="dBO-Hh-gNw" firstAttribute="top" secondItem="I4l-rA-bmP" secondAttribute="bottom" constant="8.5" id="afP-CG-QfB"/>
                     <constraint firstItem="RYD-4Y-Aas" firstAttribute="leading" secondItem="dBO-Hh-gNw" secondAttribute="trailing" constant="4" id="bpT-cb-Nic"/>
                     <constraint firstItem="IIt-M3-Ebc" firstAttribute="top" secondItem="CE8-oB-25Y" secondAttribute="topMargin" id="dId-hZ-2TR"/>
+                    <constraint firstItem="7bA-8b-Kxx" firstAttribute="leading" secondItem="RYD-4Y-Aas" secondAttribute="trailing" id="gCJ-s0-OfM"/>
                     <constraint firstItem="I4l-rA-bmP" firstAttribute="leading" secondItem="CE8-oB-25Y" secondAttribute="leadingMargin" constant="43" id="s3O-rP-sB3"/>
                     <constraint firstItem="I4l-rA-bmP" firstAttribute="trailing" secondItem="CE8-oB-25Y" secondAttribute="trailingMargin" id="tov-yA-TSB"/>
+                    <constraint firstItem="7bA-8b-Kxx" firstAttribute="centerY" secondItem="RYD-4Y-Aas" secondAttribute="centerY" id="uln-qx-dMR"/>
                     <constraint firstItem="I4l-rA-bmP" firstAttribute="top" secondItem="IIt-M3-Ebc" secondAttribute="bottom" constant="8.5" id="wkR-Uv-4X5"/>
                 </constraints>
             </tableViewCellContentView>
@@ -124,6 +151,7 @@
                 <outlet property="imageContent" destination="I4l-rA-bmP" id="Fe2-6h-b5g"/>
                 <outlet property="imageHeightConstraint" destination="6nc-GJ-d8e" id="QMe-0W-nAw"/>
                 <outlet property="likeButton" destination="RYD-4Y-Aas" id="c5g-Qw-G3C"/>
+                <outlet property="likes" destination="7bA-8b-Kxx" id="akS-er-gkz"/>
                 <outlet property="onlineIndicator" destination="uxM-Pn-L6F" id="N3s-dT-1gk"/>
                 <outlet property="playButton" destination="XA6-jf-YTc" id="HVj-d9-6FA"/>
                 <outlet property="textContent" destination="IIt-M3-Ebc" id="tyh-A1-7Ru"/>

@@ -502,7 +502,11 @@ extension ThreadViewController: UITableViewDataSource {
         guard let currentUser = User.currentUser() else { return }
         let likedBy = post.likedBy ?? []
         let liked = likedBy.contains(currentUser)
-        cell.actionsView?.setupWithLikeStatus(liked, likeCount: likedBy.count, commentCount: post.replies.count)
+        if cell.isComment {
+            cell.actionsView?.setupWithSmallLikeStatus(liked, likeCount: likedBy.count)
+        } else {
+            cell.actionsView?.setupWithLikeStatus(liked, likeCount: likedBy.count, commentCount: post.replies.count)
+        }
     }
 }
 

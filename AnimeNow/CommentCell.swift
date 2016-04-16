@@ -23,13 +23,30 @@ class CommentCell: UITableViewCell, PostCellProtocol {
 
     @IBOutlet weak var playButton: UIButton?
 
-    // Just to conform to protocol, refactor later..
-    weak var userView: PostUserView?
-    weak var actionsView: PostActionsView?
-    // --
+    @IBOutlet weak var likes: UIButton!
+
+    var userView: PostUserView?
+    var actionsView: PostActionsView?
 
     weak var delegate: PostCellDelegate?
     var currentIndexPath: NSIndexPath!
+
+    var isComment: Bool {
+        return true
+    }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        userView = PostUserView()
+        userView?.onlineIndicator = onlineIndicator
+        userView?.avatar = avatar
+        userView?.date = date
+
+        actionsView = PostActionsView()
+        actionsView?.likeButton = likeButton
+        actionsView?.likeCountLabel = likes
+    }
 
     enum CommentType {
         case Text
@@ -48,6 +65,10 @@ class CommentCell: UITableViewCell, PostCellProtocol {
             let listNib = UINib(nibName: "CommentImageCell", bundle: nil)
             tableView.registerNib(listNib, forCellReuseIdentifier: "CommentImageCell")
         }
+    }
+
+    @IBAction func showLikesPressed(sender: AnyObject) {
+        delegate?.postCellSelectedShowLikes(self)
     }
 
     @IBAction func likePressed(sender: AnyObject) {
