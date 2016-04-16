@@ -3,6 +3,7 @@ upcoming:
 - Improved post layout with like count.
 - See who liked your posts.
 - Improved profile layout.
+- Popular section is now working.
 
 releases:
 - version: 5.7.5
