@@ -101,13 +101,15 @@ EOS
     end
 
     if testflight
-      slack(
-        message: "New Aozora build #{version}(#{build_number}) incoming :tanabata_tree::rocket:",
-        default_payloads: [],
-        payload: {
-          "Release Notes" => release_notes
-        }
-      )
+      if !patch && !minor && !major
+        slack(
+          message: "New Aozora build #{version}(#{build_number}) incoming :tanabata_tree::rocket:",
+          default_payloads: [],
+          payload: {
+            "Release Notes" => release_notes
+          }
+        )
+      end
 
       # Send to TestFlight and distribute!
       pilot(distribute_external: true, changelog: release_notes)
@@ -145,7 +147,9 @@ EOS
     #   message: exception.message,
     #   success: false
     # )
-
+    puts "Unable to deploy, resetting git repository."
+    clean_build_artifacts
+    reset_git_repo
   end
 end
 
