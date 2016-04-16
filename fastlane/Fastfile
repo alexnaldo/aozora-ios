@@ -50,9 +50,7 @@ platform :ios do
     end
 
     ensure_git_status_clean
-    build_number = increment_build_number({
-      build_number: latest_testflight_build_number + 1
-    })
+    build_number = increment_build_number
 
     # Generate release notes from CHANGELOG
     changelog_filename = '../CHANGELOG.yml'
