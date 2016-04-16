@@ -145,9 +145,7 @@ EOS
     #   message: exception.message,
     #   success: false
     # )
-    puts "Unable to deploy, resetting git repository."
-    clean_build_artifacts
-    reset_git_repo
+
   end
 end
 
