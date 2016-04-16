@@ -481,7 +481,7 @@ extension ThreadViewController: UITableViewDataSource {
     func prepareForVideo(playButton: UIButton?, imageView: UIImageView?, imageHeightConstraint: NSLayoutConstraint?, youtubeID: String?) {
         if let playButton = playButton {
             if let youtubeID = youtubeID {
-                let urlString = "https://i.ytimg.com/vi/\(youtubeID)/maxresdefault.jpg"
+                let urlString = "https://i.ytimg.com/vi/\(youtubeID)/hqdefault.jpg"
                 imageView?.setImageFrom(urlString: urlString, animated: false)
                 imageHeightConstraint?.constant = baseWidth * CGFloat(180)/CGFloat(340)
                 
@@ -506,9 +506,9 @@ extension ThreadViewController: UITableViewDataSource {
         let likedBy = post.likedBy ?? []
         let liked = likedBy.contains(currentUser)
         if cell.isComment {
-            cell.actionsView?.setupWithSmallLikeStatus(liked, likeCount: likedBy.count)
+            cell.actionsView?.setupWithSmallLikeStatus(liked, likeCount: post.likeCount)
         } else {
-            cell.actionsView?.setupWithLikeStatus(liked, likeCount: likedBy.count, commentCount: post.replies.count)
+            cell.actionsView?.setupWithLikeStatus(liked, likeCount: post.likeCount, commentCount: post.replyCount)
         }
     }
 }
