@@ -4,8 +4,6 @@ platform :ios, '8.0'
 inhibit_all_warnings!
 use_frameworks!
 
-
-
 def common_pods
     pod 'Alamofire', '~> 2.0'
     pod 'SDWebImage', '~> 3.7.2'
