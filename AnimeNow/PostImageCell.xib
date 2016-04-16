@@ -86,10 +86,12 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="actionsView" destination="PpW-uQ-Zy1" id="9lU-2M-PL6"/>
                 <outlet property="imageContent" destination="7Ot-hi-3MU" id="0wf-R1-sRI"/>
                 <outlet property="imageHeightConstraint" destination="cq0-Qc-11O" id="VSy-ko-JRc"/>
                 <outlet property="playButton" destination="2fU-I8-swY" id="oYH-XN-hSg"/>
                 <outlet property="textContent" destination="IIt-M3-Ebc" id="v5M-FB-9Ee"/>
+                <outlet property="userView" destination="oHn-Wv-K2n" id="cf5-mi-Uye"/>
             </connections>
             <point key="canvasLocation" x="458" y="554.5"/>
         </tableViewCell>

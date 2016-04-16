@@ -89,5 +89,21 @@ extension UIViewController {
         controller.initWithSearchScope(searchScope)
         presentViewController(navigation, animated: true, completion: nil)
     }
+
+    func presentSmallViewController(viewController: UIViewController, sender: AnyObject) {
+        viewController.modalPresentationStyle = .Popover
+        viewController.preferredContentSize = CGSizeMake(320, 500)
+
+        let popoverMenuViewController = viewController.popoverPresentationController
+        popoverMenuViewController?.permittedArrowDirections = .Any
+        popoverMenuViewController?.sourceView = sender.superview
+        popoverMenuViewController?.sourceRect = sender.frame
+
+        if UIDevice.isPad() {
+            navigationController?.presentViewController(viewController, animated: true, completion: nil)
+        } else {
+            navigationController?.pushViewController(viewController, animated: true)
+        }
+    }
     
 }

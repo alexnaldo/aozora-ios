@@ -42,7 +42,11 @@ class ProfileViewController: ThreadViewController {
     @IBOutlet weak var segmentedControlTopSpaceConstraint: NSLayoutConstraint!
     @IBOutlet weak var tableHeaderViewBottomSpaceConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var segmentedControl: ADVSegmentedControl! {
+        didSet {
+            segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged(_:)), forControlEvents: .ValueChanged)
+        }
+    }
     @IBOutlet weak var segmentedControlHeight: NSLayoutConstraint!
     
     var userProfile: User?
@@ -68,9 +72,9 @@ class ProfileViewController: ThreadViewController {
         
         if userProfile == nil && username == nil {
             userProfile = User.currentUser()!
-            segmentedControl.selectedSegmentIndex = SelectedFeed.Feed.rawValue
+            segmentedControl.selectedIndex = SelectedFeed.Feed.rawValue
         } else {
-            segmentedControl.selectedSegmentIndex = SelectedFeed.Me.rawValue
+            segmentedControl.selectedIndex = SelectedFeed.Me.rawValue
             tableBottomSpaceConstraint.constant = 0
         }
         
@@ -136,7 +140,7 @@ class ProfileViewController: ThreadViewController {
 
         // Allow user to delete posts from it's timeline.
         let canEdit = postedBy == currentUser
-        let canDelete = SelectedFeed(rawValue: segmentedControl.selectedSegmentIndex)! == .Me
+        let canDelete = SelectedFeed(rawValue: segmentedControl.selectedIndex)! == .Me
         showEditPostActionSheet(false, canEdit: canEdit, canDelete: canDelete, cell: cell, postedBy: postedBy, currentUser: currentUser, post: post, parentPost: parentPost)
     }
     
@@ -366,7 +370,7 @@ class ProfileViewController: ThreadViewController {
         query.whereKey("replyLevel", equalTo: 0)
         query.orderByDescending("createdAt")
         
-        let selectedFeed = SelectedFeed(rawValue: segmentedControl.selectedSegmentIndex)!
+        let selectedFeed = SelectedFeed(rawValue: segmentedControl.selectedIndex)!
         switch selectedFeed {
         case .Feed:
             let followingQuery = userProfile!.following().query()
@@ -493,28 +497,12 @@ class ProfileViewController: ThreadViewController {
             userProfile.saveInBackground()
             
             self.presentBasicAlertWithTitle("Unmuted user", message: "You have unmuted " + username)
-            
-            
         }))
     }
     
     // MARK: - IBActions
     
-    func presentSmallViewController(viewController: UIViewController, sender: AnyObject) {
-        viewController.modalPresentationStyle = .Popover
-        viewController.preferredContentSize = CGSizeMake(320, 500)
-        
-        let popoverMenuViewController = viewController.popoverPresentationController
-        popoverMenuViewController?.permittedArrowDirections = .Any
-        popoverMenuViewController?.sourceView = sender.superview
-        popoverMenuViewController?.sourceRect = sender.frame
-        
-        if UIDevice.isPad() {
-            navigationController?.presentViewController(viewController, animated: true, completion: nil)
-        } else {
-            navigationController?.pushViewController(viewController, animated: true)
-        }
-    }
+
     
     @IBAction func showFollowingUsers(sender: AnyObject) {
         let userListController = Storyboard.userListViewController()

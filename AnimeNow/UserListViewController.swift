@@ -18,7 +18,7 @@ class UserListViewController: UIViewController {
     
     var dataSource: [User] = []
     var user: User?
-    var query: PFQuery!
+    var query: PFQuery?
     var titleToSet = ""
     var animator: ZFModalTransitionAnimator!
     
@@ -27,7 +27,7 @@ class UserListViewController: UIViewController {
         self.query = query
         titleToSet = title
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,8 +37,11 @@ class UserListViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         
         loadingView = LoaderView(parentView: view)
-        
-        fetchUserFriends()
+
+        if let query = query {
+            fetchUserFriends(query)
+        }
+
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -46,7 +49,7 @@ class UserListViewController: UIViewController {
         tableView.reloadData()
     }
     
-    func fetchUserFriends() {
+    func fetchUserFriends(query: PFQuery) {
         
         loadingView.startAnimating()
         query.limit = 1000
@@ -55,7 +58,7 @@ class UserListViewController: UIViewController {
             
             self.dataSource = result
             
-            let userIDs = result.map( {$0.objectId!} )
+            let userIDs = result.flatMap{ $0.objectId }
             
             // Find all relations
             let relationQuery = User.currentUser()!.following().query()

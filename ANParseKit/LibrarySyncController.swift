@@ -113,9 +113,7 @@ public class LibrarySyncController {
                 malProgressToCreate.append(malProgress)
             }
             
-            let malProgressToCreateIDs = malProgressToCreate.map({ (malProgress: MALProgress) -> Int in
-                return malProgress.myAnimeListID
-            })
+            let malProgressToCreateIDs = malProgressToCreate.map{ $0.myAnimeListID }
             
             guard malProgressToCreateIDs.count > 0 else {
                 return BFTask(result: allAnime)

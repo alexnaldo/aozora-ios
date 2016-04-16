@@ -16,6 +16,8 @@ final class PostActionsView: UIView {
 
     @IBOutlet weak var replyButton: UIButton!
     @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var likeCountLabel: UIButton!
+    @IBOutlet weak var commentCountLabel: UIButton!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,16 +39,27 @@ final class PostActionsView: UIView {
         }
     }
 
-    func showLikeAsLiked() {
-        //likeButton.
-    }
+    func setupWithLikeStatus(liked: Bool, likeCount: Int, commentCount: Int) {
+        if liked {
+            likeButton.setImage(UIImage(named: "icon-like-filled"), forState: .Normal)
+        } else {
+            likeButton.setImage(UIImage(named: "icon-like-empty"), forState: .Normal)
+        }
 
-    func showLikeAsNotLiked() {
+        let likeString = likeCount == 1 ? "like" : "likes"
+        likeCountLabel.setTitle(" \(likeCount) \(likeString)", forState: .Normal)
 
+        let commentString = commentCount == 1 ? "comment" : "comments"
+        commentCountLabel.setTitle("\(commentCount) \(commentString)", forState: .Normal)
     }
 
     var replyCallback: ActionCallback!
     var likeCallback: ActionCallback!
+    var showLikesCallback: ActionCallback!
+
+    @IBAction func showLikesPressed(sender: AnyObject) {
+        showLikesCallback?()
+    }
 
     @IBAction func replyPressed(sender: AnyObject) {
         replyCallback?()

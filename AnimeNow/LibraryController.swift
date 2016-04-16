@@ -44,13 +44,8 @@ public class LibraryController {
         fetchTask.continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task: BFTask) -> BFTask in
             
             if let result = task.result as? [Anime] {
-                self.library = result
-
-                let libraryWithProgress = result
-                    .filter({ $0.progress != nil })
-
-                self.progress = libraryWithProgress
-                    .map({ $0.progress! })
+                self.library = result.filter{ $0.progress != nil }
+                self.progress = result.flatMap({ $0.progress })
 
                 self.updateWatchingWormhole()
 
@@ -72,10 +67,9 @@ public class LibraryController {
         }
 
         let watchingAnime = library
-            .filter({ $0.progress != nil })
-            .filter({
-                $0.progress!.list == AozoraList.Watching.rawValue
-            }).map { (anime) -> AnimeData in
+            .filter {
+                $0.progress?.list == AozoraList.Watching.rawValue
+            }.map { (anime) -> AnimeData in
                 let firstAired = anime.startDateTime ?? anime.startDate
 
                 return AnimeData(
@@ -85,7 +79,7 @@ public class LibraryController {
                     episodes: anime.episodes,
                     status: AnimeStatus(rawValue: anime.status) ?? .NotYetAired
                 )
-        }
+            }
 
         wormhole.passWatchingList(watchingAnime)
     }

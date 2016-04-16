@@ -415,7 +415,7 @@ extension ThreadViewController: UITableViewDataSource {
         }
         
         // Like button
-        updateLikeButton(cell, post: post)
+        updateActionsView(cell, post: post)
         
         let postedByUsername = post.postedBy?.aozoraUsername ?? ""
         // Updates to each style
@@ -497,13 +497,15 @@ extension ThreadViewController: UITableViewDataSource {
         textContent.delegate = self;
     }
     
-    func updateLikeButton(cell: PostCellProtocol, post: Commentable) {
-        if let likedBy = post.likedBy,
-            let currentUser = User.currentUser() where likedBy.contains(currentUser) {
-            cell.actionsView?.showLikeAsLiked()
-        } else {
-            cell.actionsView?.showLikeAsNotLiked()
+    func updateActionsView(cell: PostCellProtocol, post: Commentable) {
+
+        guard let likedBy = post.likedBy,
+            let currentUser = User.currentUser() else {
+                return
         }
+
+        let liked = likedBy.contains(currentUser)
+        cell.actionsView?.setupWithLikeStatus(liked, likeCount: likedBy.count, commentCount: post.replies.count)
     }
 }
 
@@ -686,8 +688,27 @@ extension ThreadViewController: PostCellDelegate {
     func postCellSelectedLike(postCell: PostCellProtocol) {
         if let post = postForCell(postCell) {
             like(post)
-            updateLikeButton(postCell, post: post)
+            updateActionsView(postCell, post: post)
         }
+    }
+
+
+    func postCellSelectedShowLikes(postCell: PostCellProtocol) {
+
+        guard let post = postForCell(postCell), likedBy = post.likedBy else {
+            return
+        }
+
+        let userListController = Storyboard.userListViewController()
+
+        let likedByIds = likedBy.flatMap{ $0.objectId }
+        let query = User.query()!
+        query.whereKey("objectId", containedIn: likedByIds)
+        query.orderByAscending("aozoraUsername")
+        query.limit = 1000
+        userListController.initWithQuery(query, title: "Liked by", user: User.currentUser())
+        userListController.hidesBottomBarWhenPushed = true
+        self.presentSmallViewController(userListController, sender: view)
     }
 }
 

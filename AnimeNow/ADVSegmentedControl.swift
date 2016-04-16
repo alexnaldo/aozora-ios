@@ -114,19 +114,7 @@ import UIKit
     override func layoutSubviews() {
         super.layoutSubviews()
 
-
-
-        var selectFrame = self.bounds
-        let newWidth = CGRectGetWidth(selectFrame) / CGFloat(items.count)
-        selectFrame.origin.y = selectFrame.size.height - 4
-        selectFrame.size.width = newWidth
-        selectFrame.size.height = 4
-
-        thumbView.frame = selectFrame
-        thumbView.backgroundColor = thumbColor
-
-        //displayNewSelectedIndex()
-
+        displayNewSelectedIndex()
     }
 
     override func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {

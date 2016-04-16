@@ -14,7 +14,7 @@
             <connections>
                 <outlet property="avatar" destination="j5q-oN-7gy" id="QX3-jP-nh1"/>
                 <outlet property="date" destination="a2A-v3-VNr" id="X3u-jc-OL0"/>
-                <outlet property="onlineIndicator" destination="j5q-oN-7gy" id="nUb-5a-Cw5"/>
+                <outlet property="onlineIndicator" destination="PNp-Kl-eR0" id="UzF-xt-2XH"/>
                 <outlet property="toIcon" destination="CgP-5a-u9w" id="s4j-Ee-oBi"/>
                 <outlet property="toUsername" destination="q86-io-Enr" id="Sjd-3Y-pA3"/>
                 <outlet property="username" destination="fWe-zS-ClK" id="41f-rh-zaW"/>
@@ -35,8 +35,8 @@
                     <nil key="highlightedColor"/>
                     <variation key="default">
                         <mask key="constraints">
-                            <exclude reference="yQf-R3-w1v"/>
                             <exclude reference="sGG-YV-fzg"/>
+                            <exclude reference="yQf-R3-w1v"/>
                         </mask>
                     </variation>
                 </label>

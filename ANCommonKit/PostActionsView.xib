@@ -13,7 +13,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PostActionsView" customModule="AnimeTrakr" customModuleProvider="target">
             <connections>
+                <outlet property="commentCountLabel" destination="GZZ-Lb-ngf" id="7KE-GV-mW6"/>
                 <outlet property="likeButton" destination="BKI-UF-48X" id="EX8-Xf-lEX"/>
+                <outlet property="likeCountLabel" destination="W6o-4a-OfW" id="VDM-IF-WxH"/>
                 <outlet property="replyButton" destination="Y56-cI-35D" id="ZYK-bQ-lTb"/>
                 <outlet property="showLikesConstraint" destination="Mcg-ml-XuO" id="OzM-oZ-fTZ"/>
             </connections>
@@ -40,6 +42,9 @@
                             <exclude reference="eFg-9H-YL4"/>
                         </mask>
                     </variation>
+                    <connections>
+                        <action selector="replyPressed:" destination="-1" eventType="touchUpInside" id="mf6-LF-Nb6"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BKI-UF-48X">
                     <rect key="frame" x="4" y="4" width="44" height="38"/>
@@ -58,11 +63,14 @@
                     </state>
                     <variation key="default">
                         <mask key="constraints">
-                            <exclude reference="pRf-7p-xKL"/>
                             <exclude reference="ey5-wg-MHM"/>
+                            <exclude reference="pRf-7p-xKL"/>
                             <exclude reference="quS-Hb-hFi"/>
                         </mask>
                     </variation>
+                    <connections>
+                        <action selector="likePressed:" destination="-1" eventType="touchUpInside" id="nuo-5C-EhX"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CWy-6e-nnn">
                     <rect key="frame" x="92" y="4" width="44" height="38.5"/>
@@ -113,6 +121,9 @@
                             <exclude reference="vFe-Cg-0Wj"/>
                         </mask>
                     </variation>
+                    <connections>
+                        <action selector="showLikesPressed:" destination="-1" eventType="touchUpInside" id="d94-2b-Iwk"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GZZ-Lb-ngf">
                     <rect key="frame" x="512" y="46" width="76" height="30"/>
@@ -139,6 +150,9 @@
                             <exclude reference="TaB-tP-kRU"/>
                         </mask>
                     </variation>
+                    <connections>
+                        <action selector="replyPressed:" destination="-1" eventType="touchUpInside" id="vDc-r1-UTl"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

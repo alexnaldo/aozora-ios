@@ -59,9 +59,9 @@
             </tableViewCellContentView>
             <gestureRecognizers/>
             <connections>
-                <outlet property="actionsView" destination="C2g-82-Q5W" id="Kcd-aC-ffc"/>
+                <outlet property="actionsView" destination="C2g-82-Q5W" id="m3a-JS-opW"/>
                 <outlet property="textContent" destination="IIt-M3-Ebc" id="6ub-ie-VQM"/>
-                <outlet property="userView" destination="Azh-0z-DNT" id="QXm-Ll-xTp"/>
+                <outlet property="userView" destination="Azh-0z-DNT" id="xSz-hb-xiw"/>
             </connections>
             <point key="canvasLocation" x="458" y="457"/>
         </tableViewCell>

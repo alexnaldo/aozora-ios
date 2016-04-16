@@ -16,6 +16,7 @@ protocol PostCellDelegate: class {
     func postCellSelectedToUserProfile(postCell: PostCellProtocol)
     func postCellSelectedComment(postCell: PostCellProtocol)
     func postCellSelectedLike(postCell: PostCellProtocol)
+    func postCellSelectedShowLikes(postCell: PostCellProtocol)
 }
 
 protocol PostCellProtocol: class {
@@ -64,6 +65,10 @@ class PostCell: UITableViewCell, PostCellProtocol {
             gestureRecognizer.numberOfTouchesRequired = 1
             gestureRecognizer.numberOfTapsRequired = 1
             imageContent.addGestureRecognizer(gestureRecognizer)
+        }
+
+        actionsView?.showLikesCallback = {
+            self.delegate?.postCellSelectedShowLikes(self)
         }
 
         actionsView?.likeCallback = {
