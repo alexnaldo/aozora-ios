@@ -9,21 +9,21 @@
 import UIKit
 import TTTAttributedLabel
 
-public protocol LinkCellDelegate: PostCellDelegate {
+protocol LinkCellDelegate: PostCellDelegate {
     func postCellSelectedLink(linkCell: UrlCell)
 }
 
-public class UrlCell: PostCell {
+class UrlCell: PostCell {
     
-    @IBOutlet public weak var linkTitleLabel: UILabel!
-    @IBOutlet public weak var linkContentLabel: UILabel!
-    @IBOutlet public weak var linkUrlLabel: UILabel!
+    @IBOutlet weak var linkTitleLabel: UILabel!
+    @IBOutlet weak var linkContentLabel: UILabel!
+    @IBOutlet weak var linkUrlLabel: UILabel!
     
     @IBOutlet weak var linkContentView: UIView!
     
-    public weak var linkDelegate: LinkCellDelegate?
+    weak var linkDelegate: LinkCellDelegate?
     
-    public override class func registerNibFor(tableView tableView: UITableView) {
+    override class func registerNibFor(tableView tableView: UITableView) {
         
         super.registerNibFor(tableView: tableView)
         
@@ -31,18 +31,18 @@ public class UrlCell: PostCell {
         tableView.registerNib(listNib, forCellReuseIdentifier: "UrlCell")
     }
     
-    public override func awakeFromNib() {
+    override func awakeFromNib() {
         super.awakeFromNib()
     
         do {
-            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UrlCell.pressedOnLink(_:)))
+            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(pressedOnLink(_:)))
             gestureRecognizer.numberOfTouchesRequired = 1
             gestureRecognizer.numberOfTapsRequired = 1
             linkContentView.addGestureRecognizer(gestureRecognizer)
         }
         
         do {
-            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UrlCell.pressedOnLink(_:)))
+            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(pressedOnLink(_:)))
             gestureRecognizer.numberOfTouchesRequired = 1
             gestureRecognizer.numberOfTapsRequired = 1
             imageContent?.addGestureRecognizer(gestureRecognizer)

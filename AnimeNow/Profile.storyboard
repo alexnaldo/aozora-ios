@@ -371,7 +371,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.97254902124404907" green="0.97254902124404907" blue="0.97254902124404907" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="9bT-p7-f1f" firstAttribute="leading" secondItem="nYJ-CX-2KS" secondAttribute="leading" constant="12" id="1y7-RL-058"/>
                                         <constraint firstItem="5yX-hf-St0" firstAttribute="leading" secondItem="nYJ-CX-2KS" secondAttribute="leading" constant="12" id="2IZ-T0-wcv"/>
@@ -433,7 +433,7 @@
                                             <constraint firstAttribute="height" constant="1" id="jwU-z9-fAE"/>
                                         </constraints>
                                     </view>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="B3n-Tx-huN">
+                                    <segmentedControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="B3n-Tx-huN">
                                         <rect key="frame" x="8" y="8" width="584" height="29"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="28" id="EbO-GG-xXk"/>
@@ -453,10 +453,37 @@
                                             <action selector="segmentedControlValueChanged:" destination="M5q-uq-HPK" eventType="valueChanged" id="3PQ-Yg-TPL"/>
                                         </connections>
                                     </segmentedControl>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cgm-Po-HcN" customClass="ADVSegmentedControl" customModule="AnimeTrakr" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="8" width="600" height="36"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="meL-tG-3gD"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedLabelColor">
+                                                <color key="value" red="0.20392157137393951" green="0.59607845544815063" blue="0.85882353782653809" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="unselectedLabelColor">
+                                                <color key="value" red="0.20392157137393951" green="0.59607845544815063" blue="0.85882353782653809" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="thumbColor">
+                                                <color key="value" red="0.20392157137393951" green="0.59607845544815063" blue="0.85882353782653809" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.20392157137393951" green="0.59607845544815063" blue="0.85882353782653809" alpha="0.0" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="meL-tG-3gD"/>
+                                            </mask>
+                                        </variation>
+                                    </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.97254902124404907" green="0.97254902124404907" blue="0.97254902124404907" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="B3n-Tx-huN" firstAttribute="leading" secondItem="zBp-r0-AD0" secondAttribute="leading" constant="8" id="ASm-eU-7DW"/>
+                                    <constraint firstAttribute="trailing" secondItem="cgm-Po-HcN" secondAttribute="trailing" id="FjU-u6-fAS"/>
                                     <constraint firstAttribute="trailing" secondItem="B3n-Tx-huN" secondAttribute="trailing" constant="8" id="GMs-Ps-7Kg"/>
                                     <constraint firstItem="ehK-8p-bzI" firstAttribute="leading" secondItem="zBp-r0-AD0" secondAttribute="leading" id="Kre-jx-mub"/>
                                     <constraint firstAttribute="trailing" secondItem="ehK-8p-bzI" secondAttribute="trailing" id="Krw-8n-UCm"/>
@@ -464,11 +491,16 @@
                                     <constraint firstAttribute="height" constant="44" id="PGs-uL-Tck"/>
                                     <constraint firstAttribute="bottom" secondItem="B3n-Tx-huN" secondAttribute="bottom" constant="8" id="Plc-oZ-Zts"/>
                                     <constraint firstAttribute="trailing" secondItem="B3n-Tx-huN" secondAttribute="trailing" constant="8" id="PmD-fH-bOz"/>
+                                    <constraint firstItem="cgm-Po-HcN" firstAttribute="top" secondItem="zBp-r0-AD0" secondAttribute="top" constant="8" id="RBa-IA-IZ2"/>
                                     <constraint firstAttribute="bottom" secondItem="ehK-8p-bzI" secondAttribute="bottom" constant="-1" id="XKX-se-d4v"/>
+                                    <constraint firstItem="cgm-Po-HcN" firstAttribute="leading" secondItem="zBp-r0-AD0" secondAttribute="leading" id="XP5-mg-rUH"/>
+                                    <constraint firstItem="cgm-Po-HcN" firstAttribute="centerY" secondItem="zBp-r0-AD0" secondAttribute="centerY" id="hRB-vV-yuW"/>
                                     <constraint firstItem="B3n-Tx-huN" firstAttribute="leading" secondItem="zBp-r0-AD0" secondAttribute="leading" constant="8" id="tEx-0h-GQ4"/>
+                                    <constraint firstAttribute="bottom" secondItem="cgm-Po-HcN" secondAttribute="bottom" id="v8v-Py-7Ub"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="hRB-vV-yuW"/>
                                         <exclude reference="L4H-kr-0ky"/>
                                         <exclude reference="PmD-fH-bOz"/>
                                         <exclude reference="tEx-0h-GQ4"/>

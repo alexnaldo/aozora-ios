@@ -1,10 +1,13 @@
 upcoming:
+- GIFs use a lot less memory.
+- Improved post layout with like count.
+- Improved profile layout.
 
 releases:
 - version: 5.7.5
   date: April 14 2016
   notes:
-  - Users can't delete other users posts anymore.
+  - Fixed users deleting other users posts anymore.
   - Preparing app for new aozora parse-server.
   - Fixed user timelines showing posts from all users.
   - Improved iPad layout.

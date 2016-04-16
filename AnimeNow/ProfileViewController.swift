@@ -11,7 +11,7 @@ import ANCommonKit
 import TTTAttributedLabel
 import XCDYouTubeKit
 
-public class ProfileViewController: ThreadViewController {
+class ProfileViewController: ThreadViewController {
     
     enum SelectedFeed: Int {
         case Feed = 0
@@ -24,7 +24,6 @@ public class ProfileViewController: ThreadViewController {
     @IBOutlet weak var userAvatar: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var userBanner: UIImageView!
-    @IBOutlet weak var animeListButton: UIButton!
     @IBOutlet weak var followButton: UIButton!
     @IBOutlet weak var followingButton: UIButton!
     @IBOutlet weak var followersButton: UIButton!
@@ -46,15 +45,15 @@ public class ProfileViewController: ThreadViewController {
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var segmentedControlHeight: NSLayoutConstraint!
     
-    public var userProfile: User?
+    var userProfile: User?
     var username: String?
 
     
-    public func initWithUser(user: User) {
+    func initWithUser(user: User) {
         self.userProfile = user
     }
     
-    public func initWithUsername(username: String) {
+    func initWithUsername(username: String) {
         self.username = username
     }
 
@@ -62,7 +61,7 @@ public class ProfileViewController: ThreadViewController {
         return UIBarButtonItem(image: UIImage(named: "icon-settings"), style: UIBarButtonItemStyle.Plain, target:self, action: #selector(settingsPressed))
     }()
     
-    override public func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         segmentedControlView.hidden = true
@@ -86,7 +85,7 @@ public class ProfileViewController: ThreadViewController {
         fetchPosts()
     }
     
-    public override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
         canDisplayBannerAds = InAppController.canDisplayAds()
@@ -144,7 +143,7 @@ public class ProfileViewController: ThreadViewController {
     
     // MARK: - Fetching
     
-    override public func fetchPosts() {
+    override func fetchPosts() {
         super.fetchPosts()
         let username = self.username ?? userProfile!.aozoraUsername
         fetchUserDetails(username)
@@ -342,7 +341,7 @@ public class ProfileViewController: ThreadViewController {
         }
     }
 
-    public override func replyToThreadPressed(sender: AnyObject) {
+    override func replyToThreadPressed(sender: AnyObject) {
         super.replyToThreadPressed(sender)
         
         if let profile = userProfile where User.currentUserLoggedIn() {
@@ -357,7 +356,7 @@ public class ProfileViewController: ThreadViewController {
     
     // MARK: - FetchControllerQueryDelegate
     
-    public override func resultsForSkip(skip skip: Int) -> BFTask? {
+    override func resultsForSkip(skip skip: Int) -> BFTask? {
 
         let queryBatch = QueryBatch()
 
@@ -400,7 +399,7 @@ public class ProfileViewController: ThreadViewController {
     
     // MARK: - CommentViewControllerDelegate
     
-    public override func commentViewControllerDidFinishedPosting(newPost: PFObject, parentPost: PFObject?, edited: Bool) {
+    override func commentViewControllerDidFinishedPosting(newPost: PFObject, parentPost: PFObject?, edited: Bool) {
         super.commentViewControllerDidFinishedPosting(newPost, parentPost: parentPost, edited: edited)
         
         if edited {
@@ -424,7 +423,7 @@ public class ProfileViewController: ThreadViewController {
     
     // MARK: - FetchControllerDelegate
     
-    public override func didFetchFor(skip skip: Int) {
+    override func didFetchFor(skip skip: Int) {
         super.didFetchFor(skip: skip)
         if let userProfile = userProfile where userProfile.isTheCurrentUser() && segmentedControlView.hidden {
             segmentedControlView.hidden = false

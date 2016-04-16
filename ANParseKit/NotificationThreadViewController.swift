@@ -10,13 +10,13 @@ import Foundation
 import TTTAttributedLabel
 import ANCommonKit
 
-public class NotificationThreadViewController: ThreadViewController {
+class NotificationThreadViewController: ThreadViewController {
     
     @IBOutlet weak var viewMoreButton: UIButton!
     var timelinePost: TimelinePostable?
     var post: ThreadPostable?
     
-    public func initWithPost(post: Postable) {
+    func initWithPost(post: Postable) {
         if let timelinePost = post as? TimelinePostable {
             self.timelinePost = timelinePost
         } else if let threadPost = post as? ThreadPostable {
@@ -26,7 +26,7 @@ public class NotificationThreadViewController: ThreadViewController {
         self.threadType = .Custom
     }
     
-    override public func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         if let timelinePost = timelinePost where timelinePost.userTimeline.isTheCurrentUser() {
@@ -43,7 +43,7 @@ public class NotificationThreadViewController: ThreadViewController {
         }
     }
     
-    override public func updateUIWithThread(thread: Thread) {
+    override func updateUIWithThread(thread: Thread) {
         super.updateUIWithThread(thread)
         
         title = "Loading..."
@@ -53,14 +53,14 @@ public class NotificationThreadViewController: ThreadViewController {
         }
     }
     
-    override public func fetchPosts() {
+    override func fetchPosts() {
         super.fetchPosts()
         fetchController.configureWith(self, queryDelegate: self, tableView: tableView, limit: FetchLimit, datasourceUsesSections: true)
     }
     
     // MARK: - FetchControllerQueryDelegate
     
-    public override func resultsForSkip(skip skip: Int) -> BFTask? {
+    override func resultsForSkip(skip skip: Int) -> BFTask? {
 
         let queryBatch = QueryBatch()
 
@@ -92,7 +92,7 @@ public class NotificationThreadViewController: ThreadViewController {
     
     // MARK: - CommentViewControllerDelegate
 
-    public override func commentViewControllerDidFinishedPosting(post: PFObject, parentPost: PFObject?, edited: Bool) {
+    override func commentViewControllerDidFinishedPosting(post: PFObject, parentPost: PFObject?, edited: Bool) {
         super.commentViewControllerDidFinishedPosting(post, parentPost: parentPost, edited: edited)
         
         if edited {
@@ -118,7 +118,7 @@ public class NotificationThreadViewController: ThreadViewController {
     
     // MARK: - FetchControllerDelegate
 
-    public override func didFetchFor(skip skip: Int) {
+    override func didFetchFor(skip skip: Int) {
         super.didFetchFor(skip: skip)
         let post = fetchController.objectInSection(0)
         if let post = post as? TimelinePostable {
@@ -130,7 +130,7 @@ public class NotificationThreadViewController: ThreadViewController {
     
     // MARK: - IBAction
     
-    public override func replyToThreadPressed(sender: AnyObject) {
+    override func replyToThreadPressed(sender: AnyObject) {
         super.replyToThreadPressed(sender)
         
         if let thread = thread where User.currentUserLoggedIn() {
@@ -144,7 +144,7 @@ public class NotificationThreadViewController: ThreadViewController {
         }
     }
 
-    public override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if let timelinePost = timelinePost where timelinePost.userTimeline.isTheCurrentUser() {
             return CGFloat.min
         } else {
@@ -182,7 +182,7 @@ public class NotificationThreadViewController: ThreadViewController {
 
 
 extension NotificationThreadViewController: UINavigationBarDelegate {
-    public func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
+    func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
         return UIBarPosition.TopAttached
     }
 }

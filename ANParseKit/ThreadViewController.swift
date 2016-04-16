@@ -12,18 +12,18 @@ import TTTAttributedLabel
 import XCDYouTubeKit
 
 // Class intended to be subclassed
-public class ThreadViewController: UIViewController {
+class ThreadViewController: UIViewController {
    
-    public let FetchLimit = 12
+    let FetchLimit = 12
     
-    @IBOutlet public weak var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
     
-    public var thread: Thread?
-    public var threadType: ThreadType!
+    var thread: Thread?
+    var threadType: ThreadType!
     
-    public var fetchController = FetchController()
-    public var refreshControl = UIRefreshControl()
-    public var loadingView: LoaderView!
+    var fetchController = FetchController()
+    var refreshControl = UIRefreshControl()
+    var loadingView: LoaderView!
     
     var animator: ZFModalTransitionAnimator!
     var playerController: XCDYouTubeVideoPlayerViewController?
@@ -38,12 +38,12 @@ public class ThreadViewController: UIViewController {
         }
     }
     
-    public func initWithThread(thread: Thread) {
+    func initWithThread(thread: Thread) {
         self.thread = thread
         self.threadType = .Custom
     }
     
-    override public func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ThreadViewController.moviePlayerPlaybackDidFinish(_:)), name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
@@ -73,22 +73,22 @@ public class ThreadViewController: UIViewController {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
-    public func updateUIWithThread(thread: Thread) {
+    func updateUIWithThread(thread: Thread) {
         fetchPosts()
     }
     
     // MARK: - Fetching
-    public func fetchThread() {
+    func fetchThread() {
         
     }
     
-    public func fetchPosts() {
+    func fetchPosts() {
 
     }
     
     // MARK: - Internal functions
     
-    public func openProfile(user: User) {
+    func openProfile(user: User) {
         if let profileController = self as? ProfileViewController {
             if profileController.userProfile != user && !user.isTheCurrentUser() {
                 openProfileNow(user)
@@ -110,18 +110,18 @@ public class ThreadViewController: UIViewController {
         navigationController?.pushViewController(profileController, animated: true)
     }
     
-    public func showImage(imageURLString: String, imageView: UIImageView) {
+    func showImage(imageURLString: String, imageView: UIImageView) {
         if let imageURL = NSURL(string: imageURLString) {
             presentImageViewController(imageView, imageUrl: imageURL)
         }
     }
     
-    public func playTrailer(videoID: String) {
+    func playTrailer(videoID: String) {
         playerController = XCDYouTubeVideoPlayerViewController(videoIdentifier: videoID)
         presentMoviePlayerViewControllerAnimated(playerController)
     }
     
-    public func replyTo(post: Commentable) {
+    func replyTo(post: Commentable) {
         guard User.currentUserLoggedIn() else {
             presentBasicAlertWithTitle("Login first", message: "Select 'Me' tab")
             return
@@ -159,9 +159,10 @@ public class ThreadViewController: UIViewController {
         return post.replies.count - 5 + indexPath.row
     }
     
-    public func postForCell(cell: UITableViewCell) -> Commentable? {
-        if let indexPath = tableView.indexPathForCell(cell), let post = fetchController.objectAtIndex(indexPath.section) as? Commentable {
-            if indexPath.row == 0 {
+    func postForCell(cell: PostCellProtocol) -> Commentable? {
+        let indexPath = cell.currentIndexPath
+        if let post = fetchController.objectAtIndex(indexPath.row) as? Commentable {
+            if cell.currentIndexPath.row == 0 {
                 return post
             // TODO organize this code better it has dup lines everywhere D:
             } else if shouldShowAllRepliesForPost(post, forIndexPath: indexPath) {
@@ -175,7 +176,7 @@ public class ThreadViewController: UIViewController {
         return nil
     }
     
-    public func like(post: Commentable) {
+    func like(post: Commentable) {
         if !User.currentUserLoggedIn() {
             presentBasicAlertWithTitle("Login first", message: "Select 'Me' tab")
             return
@@ -195,11 +196,11 @@ public class ThreadViewController: UIViewController {
     
     // MARK: - IBAction
     
-    @IBAction public func dismissPressed(sender: AnyObject) {
+    @IBAction func dismissPressed(sender: AnyObject) {
         navigationController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    @IBAction public func replyToThreadPressed(sender: AnyObject) {
+    @IBAction func replyToThreadPressed(sender: AnyObject) {
         
     }
 
@@ -285,11 +286,11 @@ public class ThreadViewController: UIViewController {
 // MARK: - UITableViewDataSource
 extension ThreadViewController: UITableViewDataSource {
     
-    public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return fetchController.dataCount()
     }
     
-    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let post = fetchController.objectInSection(section) as! Commentable
         if post.replies.count > 0 {
             if shouldShowAllRepliesForPost(post) {
@@ -303,7 +304,7 @@ extension ThreadViewController: UITableViewDataSource {
         }
     }
     
-    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let post = fetchController.objectAtIndex(indexPath.section) as! Commentable
         
@@ -322,6 +323,7 @@ extension ThreadViewController: UITableViewDataSource {
             }
             
             let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier) as! PostCell
+            cell.currentIndexPath = indexPath
             cell.delegate = self
             updateCell(cell, withPost: post)
             cell.layoutIfNeeded()
@@ -330,7 +332,7 @@ extension ThreadViewController: UITableViewDataSource {
         } else if shouldShowAllRepliesForPost(post, forIndexPath: indexPath) {
             
             let replyIndex = indexPath.row - 1
-            return reuseCommentCellFor(post, replyIndex: replyIndex)
+            return reuseCommentCellFor(post, replyIndex: replyIndex, indexPath: indexPath)
             
         } else if shouldShowContractedRepliesForPost(post, forIndexPath: indexPath) {
             // Show all
@@ -340,7 +342,7 @@ extension ThreadViewController: UITableViewDataSource {
                 return cell
             } else {
                 let replyIndex = indexForContactedReplyForPost(post, forIndexPath: indexPath)
-                return reuseCommentCellFor(post, replyIndex: replyIndex)
+                return reuseCommentCellFor(post, replyIndex: replyIndex, indexPath: indexPath)
             }
         } else {
             
@@ -351,7 +353,7 @@ extension ThreadViewController: UITableViewDataSource {
         }
     }
     
-    func reuseCommentCellFor(comment: Commentable, replyIndex: Int) -> CommentCell {
+    func reuseCommentCellFor(comment: Commentable, replyIndex: Int, indexPath: NSIndexPath) -> CommentCell {
         let comment = comment.replies[replyIndex] as! Commentable
         
         var reuseIdentifier = ""
@@ -367,10 +369,11 @@ extension ThreadViewController: UITableViewDataSource {
         cell.delegate = self
         updateCell(cell, withPost: comment)
         cell.layoutIfNeeded()
+        cell.currentIndexPath = indexPath
         return cell
     }
     
-    func updateCell(cell: PostCell, withPost post: Commentable) {
+    func updateCell(cell: PostCellProtocol, withPost post: Commentable) {
         // Updates to both styles
         
         // Text content
@@ -396,19 +399,19 @@ extension ThreadViewController: UITableViewDataSource {
         // Poster information
         if let postedBy = post.postedBy {
             if let avatarFile = postedBy.avatarThumb {
-                cell.avatar.setImageWithPFFile(avatarFile)
+                cell.userView?.avatar.setImageWithPFFile(avatarFile)
             } else {
-                cell.avatar.image = UIImage(named: "default-avatar")
+                cell.userView?.avatar.image = UIImage(named: "default-avatar")
             }
-            cell.username?.text = postedBy.aozoraUsername
-            cell.onlineIndicator.hidden = !postedBy.active
+            cell.userView?.username?.text = postedBy.aozoraUsername
+            cell.userView?.onlineIndicator.hidden = !postedBy.active
         }
         
         // Edited date
-        cell.date.text = post.createdDate?.timeAgo()
-        if var postedAgo = cell.date.text where post.edited {
+        cell.userView?.date.text = post.createdDate?.timeAgo()
+        if var postedAgo = cell.userView?.date.text where post.edited {
             postedAgo += " · Edited"
-            cell.date.text = postedAgo
+            cell.userView?.date.text = postedAgo
         }
         
         // Like button
@@ -435,7 +438,7 @@ extension ThreadViewController: UITableViewDataSource {
         }
     }
     
-    func updatePostCell(cell: PostCell, withPost post: Commentable) {
+    func updatePostCell(cell: PostCellProtocol, withPost post: Commentable) {
         
         // Only embed links on post cells for now
         if let linkCell = cell as? UrlCell, let linkData = post.linkData, let linkUrl = linkData.url {
@@ -454,19 +457,16 @@ extension ThreadViewController: UITableViewDataSource {
 
         // From and to information
         if let timelinePostable = post as? TimelinePostable, postedBy = post.postedBy where timelinePostable.userTimeline != postedBy {
-            cell.toUsername?.text = timelinePostable.userTimeline.aozoraUsername
-            cell.toIcon?.text = ""
+            cell.userView?.toUsername?.text = timelinePostable.userTimeline.aozoraUsername
+            cell.userView?.toIcon?.text = ""
         } else {
-            cell.toUsername?.text = ""
-            cell.toIcon?.text = ""
+            cell.userView?.toUsername?.text = ""
+            cell.userView?.toIcon?.text = ""
         }
-        
-        // Reply button
-        let repliesTitle = repliesButtonTitle(post.replies.count)
-        cell.replyButton.setTitle(repliesTitle, forState: .Normal)
+
     }
     
-    public func setImages(images: [ImageData]?, imageView: UIImageView?, imageHeightConstraint: NSLayoutConstraint?, baseWidth: CGFloat) {
+    func setImages(images: [ImageData]?, imageView: UIImageView?, imageHeightConstraint: NSLayoutConstraint?, baseWidth: CGFloat) {
         if let image = images?.first {
             imageHeightConstraint?.constant = baseWidth * CGFloat(image.height)/CGFloat(image.width)
             imageView?.setImageFrom(urlString: image.url, animated: false)
@@ -474,16 +474,8 @@ extension ThreadViewController: UITableViewDataSource {
             imageHeightConstraint?.constant = 0
         }
     }
-    
-    public func repliesButtonTitle(repliesCount: Int) -> String {
-        if repliesCount > 0 {
-            return " \(repliesCount)"
-        } else {
-            return " "
-        }
-    }
-    
-    public func prepareForVideo(playButton: UIButton?, imageView: UIImageView?, imageHeightConstraint: NSLayoutConstraint?, youtubeID: String?) {
+
+    func prepareForVideo(playButton: UIButton?, imageView: UIImageView?, imageHeightConstraint: NSLayoutConstraint?, youtubeID: String?) {
         if let playButton = playButton {
             if let youtubeID = youtubeID {
                 let urlString = "https://i.ytimg.com/vi/\(youtubeID)/maxresdefault.jpg"
@@ -505,32 +497,27 @@ extension ThreadViewController: UITableViewDataSource {
         textContent.delegate = self;
     }
     
-    func updateLikeButton(cell: PostCell, post: Commentable) {
-        if let likedBy = post.likedBy where likedBy.count > 0 {
-            cell.likeButton.setTitle(" \(likedBy.count)", forState: .Normal)
+    func updateLikeButton(cell: PostCellProtocol, post: Commentable) {
+        if let likedBy = post.likedBy,
+            let currentUser = User.currentUser() where likedBy.contains(currentUser) {
+            cell.actionsView?.showLikeAsLiked()
         } else {
-            cell.likeButton.setTitle(" ", forState: .Normal)
-        }
-        
-        if let likedBy = post.likedBy, let currentUser = User.currentUser() where likedBy.contains(currentUser) {
-            cell.likeButton.setImage(UIImage(named: "icon-like-red"), forState: .Normal)
-        } else {
-            cell.likeButton.setImage(UIImage(named: "icon-like-gray"), forState: .Normal)
+            cell.actionsView?.showLikeAsNotLiked()
         }
     }
 }
 
 // MARK: - UITableViewDelegate
 extension ThreadViewController: UITableViewDelegate {
-    public func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.1
     }
     
-    public func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return UIDevice.isPad() ? 6.0 : 4.0
     }
     
-    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         let post = fetchController.objectAtIndex(indexPath.section) as! Commentable
         
@@ -624,7 +611,7 @@ extension ThreadViewController: UITableViewDelegate {
 
 // MARK: - FetchControllerDelegate
 extension ThreadViewController: FetchControllerDelegate {
-    public func didFetchFor(skip skip: Int) {
+    func didFetchFor(skip skip: Int) {
         refreshControl.endRefreshing()
     }
 }
@@ -632,7 +619,7 @@ extension ThreadViewController: FetchControllerDelegate {
 // MARK: - TTTAttributedLabelDelegate
 extension ThreadViewController: TTTAttributedLabelDelegate {
     
-    public func attributedLabel(label: TTTAttributedLabel!, didSelectLinkWithURL url: NSURL!) {
+    func attributedLabel(label: TTTAttributedLabel!, didSelectLinkWithURL url: NSURL!) {
         
         if let host = url.host where host == "profile",
             let username = url.pathComponents?[1] {
@@ -658,7 +645,7 @@ extension ThreadViewController: TTTAttributedLabelDelegate {
 
 // MARK: - CommentViewControllerDelegate
 extension ThreadViewController: CommentViewControllerDelegate {
-    public func commentViewControllerDidFinishedPosting(newPost: PFObject, parentPost: PFObject?, edited: Bool) {
+    func commentViewControllerDidFinishedPosting(newPost: PFObject, parentPost: PFObject?, edited: Bool) {
         if let thread = newPost as? Thread {
             self.thread = thread
         }
@@ -667,7 +654,7 @@ extension ThreadViewController: CommentViewControllerDelegate {
 
 // MARK: - PostCellDelegate
 extension ThreadViewController: PostCellDelegate {
-    public func postCellSelectedImage(postCell: PostCell) {
+    func postCellSelectedImage(postCell: PostCellProtocol) {
         if let post = postForCell(postCell), let imageView = postCell.imageContent {
             print(post)
             if let imageData = post.imagesData?.first {
@@ -678,25 +665,25 @@ extension ThreadViewController: PostCellDelegate {
         }
     }
     
-    public func postCellSelectedUserProfile(postCell: PostCell) {
+    func postCellSelectedUserProfile(postCell: PostCellProtocol) {
         if let post = postForCell(postCell), let postedByUser = post.postedBy {
             openProfile(postedByUser)
         }
     }
     
-    public func postCellSelectedComment(postCell: PostCell) {
+    func postCellSelectedComment(postCell: PostCellProtocol) {
         if let post = postForCell(postCell) {
             replyTo(post)
         }
     }
     
-    public func postCellSelectedToUserProfile(postCell: PostCell) {
+    func postCellSelectedToUserProfile(postCell: PostCellProtocol) {
         if let post = postForCell(postCell) as? TimelinePostable {
             openProfile(post.userTimeline)
         }
     }
     
-    public func postCellSelectedLike(postCell: PostCell) {
+    func postCellSelectedLike(postCell: PostCellProtocol) {
         if let post = postForCell(postCell) {
             like(post)
             updateLikeButton(postCell, post: post)
@@ -706,7 +693,7 @@ extension ThreadViewController: PostCellDelegate {
 
 // MARK: - LinkCellDelegate
 extension ThreadViewController: LinkCellDelegate {
-    public func postCellSelectedLink(linkCell: UrlCell) {
+    func postCellSelectedLink(linkCell: UrlCell) {
         guard let indexPath = tableView.indexPathForCell(linkCell),
             let postable = fetchController.objectAtIndex(indexPath.section) as? Commentable,
             let linkData = postable.linkData,
@@ -726,11 +713,11 @@ extension ThreadViewController: LinkCellDelegate {
 // MARK: - FetchControllerQueryDelegate
 extension ThreadViewController: FetchControllerQueryDelegate {
     
-    public func resultsForSkip(skip skip: Int) -> BFTask? {
+    func resultsForSkip(skip skip: Int) -> BFTask? {
         return nil
     }
     
-    public func processResult(result result: [PFObject], dataSource: [PFObject]) -> [PFObject] {
+    func processResult(result result: [PFObject], dataSource: [PFObject]) -> [PFObject] {
         
         let posts = result.filter({ $0["replyLevel"] as? Int == 0 })
         let replies = result.filter({ $0["replyLevel"] as? Int == 1 })
@@ -765,7 +752,7 @@ extension ThreadViewController: FetchControllerQueryDelegate {
 
 // MARK: - ModalTransitionScrollable
 extension ThreadViewController: ModalTransitionScrollable {
-    public var transitionScrollView: UIScrollView? {
+    var transitionScrollView: UIScrollView? {
         return tableView
     }
 }

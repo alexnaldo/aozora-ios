@@ -10,7 +10,7 @@ import Foundation
 import TTTAttributedLabel
 import ANCommonKit
 
-public class CustomThreadViewController: ThreadViewController {
+class CustomThreadViewController: ThreadViewController {
     
     @IBOutlet weak var imageContent: UIImageView!
     @IBOutlet weak var threadTitle: UILabel!
@@ -29,29 +29,29 @@ public class CustomThreadViewController: ThreadViewController {
     var episode: Episode?
     var anime: Anime?
     
-    public override func initWithThread(thread: Thread) {
+    override func initWithThread(thread: Thread) {
         self.thread = thread
         self.threadType = .Custom
     }
     
-    public func initWithEpisode(episode: Episode, anime: Anime) {
+    func initWithEpisode(episode: Episode, anime: Anime) {
         self.episode = episode
         self.anime = anime
         self.threadType = .Episode
     }
     
-    override public func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
 
-    override public func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         canDisplayBannerAds = InAppController.canDisplayAds()
     }
 
-    override public func updateUIWithThread(thread: Thread) {
+    override func updateUIWithThread(thread: Thread) {
         super.updateUIWithThread(thread)
         
         title = "Loading..."
@@ -68,9 +68,6 @@ public class CustomThreadViewController: ThreadViewController {
         
         if thread.locked {
             commentsButton.setTitle("Locked", forState: .Normal)
-        } else {
-            let repliesTitle = repliesButtonTitle(thread.replyCount)
-            commentsButton.setTitle(repliesTitle, forState: .Normal)
         }
         
         tagsLabel.updateTags(thread.tags, delegate: self)
@@ -78,7 +75,7 @@ public class CustomThreadViewController: ThreadViewController {
     }
     
     var resizedTableHeader = false
-    public override func viewDidLayoutSubviews() {
+    override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         if !resizedTableHeader && title != nil {
@@ -185,7 +182,7 @@ public class CustomThreadViewController: ThreadViewController {
         tableView.tableHeaderView = header
     }
     
-    override public func fetchThread() {
+    override func fetchThread() {
         super.fetchThread()
 
         let query = Thread.query()!
@@ -232,14 +229,14 @@ public class CustomThreadViewController: ThreadViewController {
         
     }
     
-    override public func fetchPosts() {
+    override func fetchPosts() {
         super.fetchPosts()
         fetchController.configureWith(self, queryDelegate: self, tableView: tableView, limit: FetchLimit, datasourceUsesSections: true)
     }
     
     // MARK: - FetchControllerQueryDelegate
     
-    public override func resultsForSkip(skip skip: Int) -> BFTask? {
+    override func resultsForSkip(skip skip: Int) -> BFTask? {
 
         let queryBatch = QueryBatch()
 
@@ -264,7 +261,7 @@ public class CustomThreadViewController: ThreadViewController {
     
     // MARK: - TTTAttributedLabelDelegate
     
-    public override func attributedLabel(label: TTTAttributedLabel!, didSelectLinkWithURL url: NSURL!) {
+    override func attributedLabel(label: TTTAttributedLabel!, didSelectLinkWithURL url: NSURL!) {
         super.attributedLabel(label, didSelectLinkWithURL: url)
         
         if let host = url.host where host == "tag",
@@ -278,7 +275,7 @@ public class CustomThreadViewController: ThreadViewController {
     
     // MARK: - CommentViewControllerDelegate
 
-    public override func commentViewControllerDidFinishedPosting(post: PFObject, parentPost: PFObject?, edited: Bool) {
+    override func commentViewControllerDidFinishedPosting(post: PFObject, parentPost: PFObject?, edited: Bool) {
         super.commentViewControllerDidFinishedPosting(post, parentPost: parentPost, edited: edited)
         
         if let _ = post as? Postable {
@@ -308,7 +305,7 @@ public class CustomThreadViewController: ThreadViewController {
 
     // MARK: - IBAction
     
-    public override func replyToThreadPressed(sender: AnyObject) {
+    override func replyToThreadPressed(sender: AnyObject) {
         super.replyToThreadPressed(sender)
         
         if let thread = thread where User.currentUserLoggedIn() && !thread.locked {

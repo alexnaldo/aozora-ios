@@ -10,116 +10,91 @@ import Foundation
 import TTTAttributedLabel
 import FLAnimatedImage
 
-public protocol PostCellDelegate: class {
-    func postCellSelectedImage(postCell: PostCell)
-    func postCellSelectedUserProfile(postCell: PostCell)
-    func postCellSelectedToUserProfile(postCell: PostCell)
-    func postCellSelectedComment(postCell: PostCell)
-    func postCellSelectedLike(postCell: PostCell)
+protocol PostCellDelegate: class {
+    func postCellSelectedImage(postCell: PostCellProtocol)
+    func postCellSelectedUserProfile(postCell: PostCellProtocol)
+    func postCellSelectedToUserProfile(postCell: PostCellProtocol)
+    func postCellSelectedComment(postCell: PostCellProtocol)
+    func postCellSelectedLike(postCell: PostCellProtocol)
 }
 
-public class PostCell: UITableViewCell {
+protocol PostCellProtocol: class {
+    weak var imageContent: FLAnimatedImageView? { get }
+    var currentIndexPath: NSIndexPath! { get set }
+    weak var userView: PostUserView? { get }
+    weak var imageHeightConstraint: NSLayoutConstraint? { get }
+    weak var textContent: TTTAttributedLabel! { get }
+    weak var playButton: UIButton? { get }
+    weak var actionsView: PostActionsView? { get }
+}
+
+class PostCell: UITableViewCell, PostCellProtocol {
     
-    @IBOutlet weak public var avatar: UIImageView!
-    @IBOutlet weak public var username: UILabel?
-    @IBOutlet weak public var date: UILabel!
+    @IBOutlet weak var userView: PostUserView?
+    @IBOutlet weak var actionsView: PostActionsView?
+
+    @IBOutlet weak var imageContent: FLAnimatedImageView?
+    @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint?
+    @IBOutlet weak var textContent: TTTAttributedLabel!
+
+    @IBOutlet weak var playButton: UIButton?
     
-    @IBOutlet weak public var toIcon: UILabel?
-    @IBOutlet weak public var toUsername: UILabel?
+    weak var delegate: PostCellDelegate?
+    var currentIndexPath: NSIndexPath!
     
-    @IBOutlet weak public var imageContent: FLAnimatedImageView?
-    @IBOutlet weak public var imageHeightConstraint: NSLayoutConstraint?
-    @IBOutlet weak public var textContent: TTTAttributedLabel!
-    @IBOutlet weak public var onlineIndicator: UIImageView!
-    
-    @IBOutlet weak public var replyButton: UIButton!
-    @IBOutlet weak public var likeButton: UIButton!
-    @IBOutlet weak public var playButton: UIButton?
-    
-    public weak var delegate: PostCellDelegate?
-    
-    public enum PostType {
+    enum PostType {
         case Text
         case Image
-        case Image2
-        case Image3
-        case Image4
-        case Image5
         case Video
     }
     
-    public class func registerNibFor(tableView tableView: UITableView) {
+    class func registerNibFor(tableView tableView: UITableView) {
 
         let listNib = UINib(nibName: "PostTextCell", bundle: nil)
         tableView.registerNib(listNib, forCellReuseIdentifier: "PostTextCell")
         let listNib2 = UINib(nibName: "PostImageCell", bundle: nil)
         tableView.registerNib(listNib2, forCellReuseIdentifier: "PostImageCell")
-        
     }
     
-    public override func awakeFromNib() {
+    override func awakeFromNib() {
         super.awakeFromNib()
         
-        do {
-            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PostCell.pressedUserProfile(_:)))
-            gestureRecognizer.numberOfTouchesRequired = 1
-            gestureRecognizer.numberOfTapsRequired = 1
-            avatar.addGestureRecognizer(gestureRecognizer)
-        }
-        
         if let imageContent = imageContent {
-            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PostCell.pressedOnImage(_:)))
+            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(pressedOnImage(_:)))
             gestureRecognizer.numberOfTouchesRequired = 1
             gestureRecognizer.numberOfTapsRequired = 1
             imageContent.addGestureRecognizer(gestureRecognizer)
         }
-        
-        if let username = username {
-            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PostCell.pressedUserProfile(_:)))
-            gestureRecognizer.numberOfTouchesRequired = 1
-            gestureRecognizer.numberOfTapsRequired = 1
-            username.addGestureRecognizer(gestureRecognizer)
+
+        actionsView?.likeCallback = {
+            self.delegate?.postCellSelectedLike(self)
         }
-        
-        if let toUsername = toUsername {
-            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PostCell.pressedToUserProfile(_:)))
-            gestureRecognizer.numberOfTouchesRequired = 1
-            gestureRecognizer.numberOfTapsRequired = 1
-            toUsername.addGestureRecognizer(gestureRecognizer)
+
+        actionsView?.replyCallback = {
+            self.delegate?.postCellSelectedComment(self)
         }
-        
+
+        userView?.pressedUserProfile = {
+            self.delegate?.postCellSelectedUserProfile(self)
+        }
+
+        userView?.pressedToUserProfile = {
+            self.delegate?.postCellSelectedToUserProfile(self)
+        }
     }
     
     // MARK: - IBActions
-    
-    func pressedUserProfile(sender: AnyObject) {
-        delegate?.postCellSelectedUserProfile(self)
-    }
-    
-    func pressedToUserProfile(sender: AnyObject) {
-        delegate?.postCellSelectedToUserProfile(self)
-    }
     
     func pressedOnImage(sender: AnyObject) {
         delegate?.postCellSelectedImage(self)
     }
     
-    @IBAction func replyPressed(sender: AnyObject) {
-        delegate?.postCellSelectedComment(self)
-        replyButton.animateBounce()
-    }
-    
-    @IBAction func likePressed(sender: AnyObject) {
-        delegate?.postCellSelectedLike(self)
-        likeButton.animateBounce()
-    }
-    
-    public override func layoutSubviews() {
+    override func layoutSubviews() {
         super.layoutSubviews()
         textContent.preferredMaxLayoutWidth = textContent.frame.size.width
     }
     
-    public override func prepareForReuse() {
+    override func prepareForReuse() {
         super.prepareForReuse()
         textContent.preferredMaxLayoutWidth = textContent.frame.size.width
     }
