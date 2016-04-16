@@ -19,6 +19,7 @@ final class PostActionsView: UIView {
     @IBOutlet weak var likeCountLabel: UIButton?
     @IBOutlet weak var commentCountLabel: UIButton?
 
+    @IBOutlet weak var separatorTopView: UIView!
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -32,9 +33,9 @@ final class PostActionsView: UIView {
     var showDetails: Bool = false {
         didSet {
             if showDetails {
-                showLikesConstraint?.constant = 34
+                showLikesConstraint?.constant = 36
             } else {
-                showLikesConstraint?.constant = 0
+                showLikesConstraint?.constant = 6
             }
         }
     }
@@ -70,6 +71,7 @@ final class PostActionsView: UIView {
         commentCountLabel?.setTitle("\(commentCount) \(commentString)", forState: .Normal)
 
         showDetails = likeCount > 0
+        separatorTopView.hidden = commentCount == 0
     }
 
     var replyCallback: ActionCallback!

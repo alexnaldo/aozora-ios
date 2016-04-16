@@ -16,7 +16,18 @@ class ThreadViewController: UIViewController {
    
     let FetchLimit = 12
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            tableView.alpha = 0.0
+            tableView.estimatedRowHeight = 112.0
+            tableView.rowHeight = UITableViewAutomaticDimension
+
+            CommentCell.registerNibFor(tableView: tableView)
+            UrlCell.registerNibFor(tableView: tableView)
+            WriteACommentCell.registerNibFor(tableView: tableView)
+            ShowMoreCell.registerNibFor(tableView: tableView)
+        }
+    }
     
     var thread: Thread?
     var threadType: ThreadType!
@@ -47,16 +58,7 @@ class ThreadViewController: UIViewController {
         super.viewDidLoad()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ThreadViewController.moviePlayerPlaybackDidFinish(_:)), name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
-        
-        tableView.alpha = 0.0
-        tableView.estimatedRowHeight = 112.0
-        tableView.rowHeight = UITableViewAutomaticDimension
-        
-        CommentCell.registerNibFor(tableView: tableView)
-        UrlCell.registerNibFor(tableView: tableView)
-        WriteACommentCell.registerNibFor(tableView: tableView)
-        ShowMoreCell.registerNibFor(tableView: tableView)
-        
+
         loadingView = LoaderView(parentView: view)
         addRefreshControl(refreshControl, action:#selector(ThreadViewController.fetchPosts), forTableView: tableView)
         
@@ -65,7 +67,6 @@ class ThreadViewController: UIViewController {
         } else {
             fetchThread()
         }
-        
     }
     
     deinit {
@@ -517,7 +518,7 @@ extension ThreadViewController: UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return UIDevice.isPad() ? 6.0 : 4.0
+        return UIDevice.isPad() ? 8.0 : 6.0
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

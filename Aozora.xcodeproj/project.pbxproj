@@ -1375,16 +1375,16 @@
 				DA5A3E5D1CC1A45300A76621 /* PostActionsView.swift */,
 				DAC0779D1B688DFD0067DA90 /* PostTextCell.xib */,
 				DAD3909D1B6C2F35000A84DE /* PostImageCell.xib */,
+				DAC077BB1B6894670067DA90 /* PostCell.swift */,
 				DAD390A11B6C303D000A84DE /* CommentTextCell.xib */,
 				DA897F8A1B6D203D00A9510C /* CommentImageCell.xib */,
-				DA897F881B6D1FCC00A9510C /* WriteACommentCell.xib */,
-				DA472DFA1BD409EF00E09AB0 /* ShowMoreCell.xib */,
-				DAC077BB1B6894670067DA90 /* PostCell.swift */,
 				DAC077A61B6890830067DA90 /* CommentCell.swift */,
-				DAD390A51B6C322A000A84DE /* WriteACommentCell.swift */,
-				DA472DF91BD409EF00E09AB0 /* ShowMoreCell.swift */,
 				DA6F15F11C20129F00EE4C4B /* UrlCell.xib */,
 				DA6F15F31C20131700EE4C4B /* UrlCell.swift */,
+				DA897F881B6D1FCC00A9510C /* WriteACommentCell.xib */,
+				DA472DFA1BD409EF00E09AB0 /* ShowMoreCell.xib */,
+				DAD390A51B6C322A000A84DE /* WriteACommentCell.swift */,
+				DA472DF91BD409EF00E09AB0 /* ShowMoreCell.swift */,
 			);
 			name = Posts;
 			path = ../ANCommonKit;
