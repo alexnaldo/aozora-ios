@@ -51,49 +51,67 @@ class QueryBatch {
     }
 
     // The idea is that this function executes the queries asynchronously and returns a BFTask of all the results, it also should handle the case that one query depends on other and execute it only once
+
+    var task: BFTask!
+    var result: [PFQuery: [PFObject]] = [:]
+    private var leftQueries: [QueryBuilder] = []
+
     func executeQueries(queries: [PFQuery]) -> BFTask {
 
         for query in queries {
             addQuery(query)
         }
 
-        var result: [PFQuery: [PFObject]] = [:]
-        var leftQueries = queryBuilds
-        var task = BFTask(result: nil)
+        task = BFTask(result: nil)
+        result = [:]
+        leftQueries = queryBuilds
 
-        while leftQueries.count != 0 {
-            for (idx, builder) in leftQueries.enumerate() {
-                var allQueriesExecuted = true
-
-                for (query, key) in builder.dependencies {
-                    if let result = result[query] {
-                        builder.query.whereKey(key, containedIn: result)
-                    } else {
-                        allQueriesExecuted = false
-                        continue
-                    }
-                }
-
-                // All queries executed, perform this query
-                if allQueriesExecuted {
-                    task = task.continueWithSuccessBlock({ result -> AnyObject? in
-                        return builder.query.findObjectsInBackground()
-                    }).continueWithSuccessBlock({ objects -> AnyObject? in
-                        result[builder.query] = (objects.result as! [PFObject])
-                        return nil
-                    })
-
-                    leftQueries.removeAtIndex(idx)
-                    break
-                }
-            }
-        }
-
-        return task.continueWithSuccessBlock({ task -> AnyObject? in
+        return enqueueQueries().continueWithSuccessBlock({ task -> AnyObject? in
             let result = queries.flatMap{ query -> [PFObject] in
-                return result[query] ?? []
+                return self.result[query] ?? []
             }
             return BFTask(result: result)
         })
+    }
+
+    private func enqueueQueries() -> BFTask! {
+
+        guard let builder = findBuilderWithNoDependencies() else {
+            return BFTask(result: nil)
+        }
+
+        return task.continueWithSuccessBlock({ result -> AnyObject? in
+            return builder.query.findObjectsInBackground()
+        }).continueWithSuccessBlock({ objects -> AnyObject? in
+            let result = objects.result as! [PFObject]
+            self.result[builder.query] = result
+            if !self.leftQueries.isEmpty {
+                return self.enqueueQueries()
+            } else {
+                return BFTask(result: nil)
+            }
+        })
+    }
+
+    private func findBuilderWithNoDependencies() -> QueryBuilder? {
+        for (idx, builder) in leftQueries.enumerate() {
+            var allQueriesExecuted = true
+
+            for (query, key) in builder.dependencies {
+                if let result = result[query] {
+                    builder.query.whereKey(key, containedIn: result)
+                } else {
+                    allQueriesExecuted = false
+                    continue
+                }
+            }
+
+            // All dependencies executed, perform this query
+            if allQueriesExecuted {
+                leftQueries.removeAtIndex(idx)
+                return builder
+            }
+        }
+        return nil
     }
 }

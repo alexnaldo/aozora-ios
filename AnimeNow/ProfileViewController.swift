@@ -396,7 +396,7 @@ class ProfileViewController: ThreadViewController {
         repliesQuery.includeKey("userTimeline")
         queryBatch.whereQuery(repliesQuery, matchesKey: "parentPost", onQuery: query)
         repliesQuery.limit = 2000
-
+        startDate = NSDate()
         return queryBatch.executeQueries([query, repliesQuery])
     }
     
@@ -426,9 +426,15 @@ class ProfileViewController: ThreadViewController {
     
     
     // MARK: - FetchControllerDelegate
-    
+    var startDate: NSDate?
     override func didFetchFor(skip skip: Int) {
         super.didFetchFor(skip: skip)
+
+        if let startDate = startDate {
+            print("Load profile = \(NSDate().timeIntervalSinceDate(startDate))s")
+            self.startDate = nil
+        }
+
         if let userProfile = userProfile where userProfile.isTheCurrentUser() && segmentedControlView.hidden {
             segmentedControlView.hidden = false
             scrollViewDidScroll(tableView)

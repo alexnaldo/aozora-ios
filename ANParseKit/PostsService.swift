@@ -12,19 +12,24 @@ class PostsService {
     static func addLikeAndCommentCounters(date: NSDate = NSDate()) {
         print("Fetching earlier than: \(date)")
 
-        let query = TimelinePost.query()!
+        let query = Post.query()!
         query.orderByDescending("createdAt")
         query.selectKeys(["likeCount", "replyCount", "likedBy"])
-        //query.includeKey("likedBy")
+        query.whereKeyExists("likedBy")
         query.whereKey("createdAt", lessThan: date)
         query.findAllObjectsInBackground().continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task) -> AnyObject? in
 
-            guard let result = task.result as? [TimelinePost] else {
+            guard let result = task.result as? [Post] else {
                 return nil
             }
 
             for post in result {
-                processPost(post)
+                let likes = post.likedBy?.count ?? 0
+                if likes != 0 {
+                    post.likeCount = likes
+                    post.saveInBackground()
+                    NSThread.sleepForTimeInterval(0.06)
+                }
             }
 
             if result.count == 11000 {
@@ -37,18 +42,6 @@ class PostsService {
             print(task.exception)
             return nil
         }
-    }
-
-
-    static func processPost(post: TimelinePost) {
-        let likes = post.likedBy?.count ?? 0
-        if likes != 0 {
-            print("Saving likes \(likes)")
-            post.likeCount = likes
-            post.saveInBackground()
-            NSThread.sleepForTimeInterval(0.1)
-        }
-
     }
 
 }
