@@ -1,21 +1,10 @@
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 
-plugin 'cocoapods-keys', {
-    :project => 'Aozora',
-    :keys => [
-    'ParseApplicationId',
-    'TrakrV1ApiKey',
-    'TrakrV2ClientId',
-    'TraktV2ClientSecret',
-    'AnilistClientID',
-    'AnilistClientSecret',
-    'ParseServerURL'
-    ]
-}
-
 inhibit_all_warnings!
 use_frameworks!
+
+
 
 def common_pods
     pod 'Alamofire', '~> 2.0'
@@ -26,7 +15,24 @@ def common_pods
     pod 'PINRemoteImage', '~> 2.0'
 end
 
-target 'Aozora' do
+target 'ANCommonKit' do
+    common_pods
+end
+
+def app_pods
+    plugin 'cocoapods-keys', {
+        :keys => [
+        'ParseApplicationId',
+        'ParseClientKey',
+        'TrakrV1ApiKey',
+        'TrakrV2ClientId',
+        'TraktV2ClientSecret',
+        'AnilistClientID',
+        'AnilistClientSecret',
+        'ParseServerURL'
+        ]
+    }
+
     common_pods
     pod 'JTSImageViewController', '~> 1.3'
     pod 'FontAwesome+iOS'
@@ -43,6 +49,11 @@ target 'Aozora' do
 end
 
 
-target 'ANCommonKit' do
-    common_pods
+target 'Aozora' do
+    app_pods
 end
+
+target 'AnimeTrakr' do
+    app_pods
+end
+

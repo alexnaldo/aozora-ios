@@ -1,9 +1,9 @@
 PODS:
   - Alamofire (2.0.2)
   - CRToast (0.0.9)
-  - FLAnimatedImage (1.0.10)
+  - FLAnimatedImage (1.0.12)
   - FontAwesome+iOS (0.1.4)
-  - HCSStarRatingView (1.4.3)
+  - HCSStarRatingView (1.4.4)
   - iRate (1.11.4)
   - JTSImageViewController (1.5.1)
   - Keys (1.0.0)
@@ -58,9 +58,9 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Alamofire: 8edbab00802a752bb5240cc2abe70e7e881488ad
   CRToast: 5a78c22b921c5ed3487488af605bc403a9c92fed
-  FLAnimatedImage: e16a1e1cef08e4c509b47e4acbe3923f65c16135
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   FontAwesome+iOS: 9070b682a9255ca0fdc34bcfb129ad0ba2b73b87
-  HCSStarRatingView: bada6ae98258c3019531e0218030e2d5ad10765a
+  HCSStarRatingView: 25f2497549b80f71fd1b0a2ed3631e5ccaa73362
   iRate: 599ed07c854e0695f3c605d1b2a64c67d912acb7
   JTSImageViewController: 1f8ce1cc93dab0d0af8e53badeea7528560cfec9
   Keys: 7d2ff6ff42f6903358267ce56e9392f83c31acfe
