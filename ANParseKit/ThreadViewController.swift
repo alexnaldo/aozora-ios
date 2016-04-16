@@ -161,7 +161,7 @@ class ThreadViewController: UIViewController {
     
     func postForCell(cell: PostCellProtocol) -> Commentable? {
         let indexPath = cell.currentIndexPath
-        if let post = fetchController.objectAtIndex(indexPath.row) as? Commentable {
+        if let post = fetchController.objectAtIndex(indexPath.section) as? Commentable {
             if cell.currentIndexPath.row == 0 {
                 return post
             // TODO organize this code better it has dup lines everywhere D:
@@ -499,11 +499,8 @@ extension ThreadViewController: UITableViewDataSource {
     
     func updateActionsView(cell: PostCellProtocol, post: Commentable) {
 
-        guard let likedBy = post.likedBy,
-            let currentUser = User.currentUser() else {
-                return
-        }
-
+        guard let currentUser = User.currentUser() else { return }
+        let likedBy = post.likedBy ?? []
         let liked = likedBy.contains(currentUser)
         cell.actionsView?.setupWithLikeStatus(liked, likeCount: likedBy.count, commentCount: post.replies.count)
     }
@@ -689,6 +686,13 @@ extension ThreadViewController: PostCellDelegate {
         if let post = postForCell(postCell) {
             like(post)
             updateActionsView(postCell, post: post)
+
+            // Resizes the cell without updating the tableView, sweet!
+            UIView.animateWithDuration(0.3, animations: {
+                self.tableView.layoutIfNeeded()
+            })
+            tableView.beginUpdates()
+            tableView.endUpdates()
         }
     }
 

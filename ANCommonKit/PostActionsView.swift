@@ -32,7 +32,7 @@ final class PostActionsView: UIView {
     var showDetails: Bool = false {
         didSet {
             if showDetails {
-                showLikesConstraint.constant = 30
+                showLikesConstraint.constant = 34
             } else {
                 showLikesConstraint.constant = 0
             }
@@ -51,6 +51,8 @@ final class PostActionsView: UIView {
 
         let commentString = commentCount == 1 ? "comment" : "comments"
         commentCountLabel.setTitle("\(commentCount) \(commentString)", forState: .Normal)
+
+        showDetails = likeCount > 0
     }
 
     var replyCallback: ActionCallback!
