@@ -306,7 +306,13 @@ class ProfileViewController: ThreadViewController {
     }
     
     // MARK: - IBAction
+    var lastSelectedIndex = 0
     @IBAction func segmentedControlValueChanged(sender: AnyObject) {
+        if segmentedControl.selectedIndex == lastSelectedIndex {
+            return
+        }
+
+        lastSelectedIndex = segmentedControl.selectedIndex
         configureFetchController()
     }
     

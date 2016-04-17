@@ -93,7 +93,7 @@ extension RootTabBar: UITabBarControllerDelegate {
                 NSUserDefaults.standardUserDefaults().setBool(true, forKey: RootTabBar.ShowedMyAnimeListLoginDefault)
                 NSUserDefaults.standardUserDefaults().synchronize()
 
-                let loginController = Storyboard.loginViewController()
+                let loginController = Storyboard.malLoginViewController()
                 loginController.delegate = self
                 presentViewController(loginController, animated: true, completion: nil)
                 return false
@@ -111,7 +111,7 @@ extension RootTabBar: UITabBarControllerDelegate {
     }
 }
 
-extension RootTabBar: LoginViewControllerDelegate {
+extension RootTabBar: MALLoginViewControllerDelegate {
     public func loginViewControllerPressedDoesntHaveAnAccount() {
         selectedIndex = 1
     }

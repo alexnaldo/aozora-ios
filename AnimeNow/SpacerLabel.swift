@@ -21,3 +21,17 @@ class SpacerLabel: UILabel {
     }
 
 }
+
+class SpacerButton: UIButton {
+
+    override func intrinsicContentSize() -> CGSize {
+
+        let intrinsicContentSize = super.intrinsicContentSize()
+
+        let adjustedWidth = intrinsicContentSize.width + 16
+        let adjustedHeight = intrinsicContentSize.height
+
+        return CGSize(width: adjustedWidth, height: adjustedHeight)
+    }
+    
+}

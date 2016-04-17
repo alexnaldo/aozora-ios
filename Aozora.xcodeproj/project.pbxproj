@@ -48,6 +48,8 @@
 		DA354B5A1C5DF58F008C729F /* TodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA354B591C5DF58F008C729F /* TodayCell.swift */; };
 		DA354B611C5EC890008C729F /* AnimeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA354B601C5EC890008C729F /* AnimeData.swift */; };
 		DA35B9951B7402F000C0AAC7 /* UISearchBar+Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA35B9941B7402F000C0AAC7 /* UISearchBar+Appearance.swift */; };
+		DA421E271CC3795500732C14 /* NSMutableAttributedStringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA421E261CC3795500732C14 /* NSMutableAttributedStringExtensions.swift */; };
+		DA421E281CC3795500732C14 /* NSMutableAttributedStringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA421E261CC3795500732C14 /* NSMutableAttributedStringExtensions.swift */; };
 		DA4AF8BA1B276E060020252E /* ANCommonKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DA4AF8B91B276E060020252E /* ANCommonKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DA4AF8C01B276E060020252E /* ANCommonKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4AF8B51B276E060020252E /* ANCommonKit.framework */; };
 		DA4AF8C91B276E060020252E /* ANCommonKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4AF8C81B276E060020252E /* ANCommonKitTests.swift */; };
@@ -84,7 +86,7 @@
 		DA6B546C1CC2DFBD00EB6FC0 /* UIView+Reuse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4F159E1C6EBCF600C71227 /* UIView+Reuse.swift */; };
 		DA6B546D1CC2DFBD00EB6FC0 /* AnimeLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF618751B377CA700286517 /* AnimeLibraryViewController.swift */; };
 		DA6B546E1CC2DFBD00EB6FC0 /* UIViewController+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7C84C81B4379AA0036D119 /* UIViewController+Navigation.swift */; };
-		DA6B546F1CC2DFBD00EB6FC0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A3BF51B35EB5F00C07D71 /* LoginViewController.swift */; };
+		DA6B546F1CC2DFBD00EB6FC0 /* MALLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A3BF51B35EB5F00C07D71 /* MALLoginViewController.swift */; };
 		DA6B54701CC2DFBD00EB6FC0 /* CharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFE19AB1B29E17F002F3A76 /* CharacterCell.swift */; };
 		DA6B54711CC2DFBD00EB6FC0 /* InformationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4167DE1B275CCC00847F56 /* InformationCell.swift */; };
 		DA6B54721CC2DFBD00EB6FC0 /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58C2DA1B386BC80082B626 /* UserListViewController.swift */; };
@@ -115,7 +117,7 @@
 		DA6B548B1CC2DFBD00EB6FC0 /* TitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4167E61B275D3800847F56 /* TitleCell.swift */; };
 		DA6B548C1CC2DFBD00EB6FC0 /* ThreadTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA03F1591B8B47FA00402AC4 /* ThreadTag.swift */; };
 		DA6B548D1CC2DFBD00EB6FC0 /* PublicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA26C8D1BCC92B1001CF62D /* PublicListViewController.swift */; };
-		DA6B548E1CC2DFBD00EB6FC0 /* AnimeInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4167D11B273B7100847F56 /* AnimeInformationViewController.swift */; };
+		DA6B548E1CC2DFBD00EB6FC0 /* AnimeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4167D11B273B7100847F56 /* AnimeDetailsViewController.swift */; };
 		DA6B548F1CC2DFBD00EB6FC0 /* AnimeBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA32EBE61C6AB6D70090CD51 /* AnimeBrowserViewController.swift */; };
 		DA6B54901CC2DFBD00EB6FC0 /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7EDDC81C1FED4E0097D818 /* String+Utils.swift */; };
 		DA6B54911CC2DFBD00EB6FC0 /* String+Validations.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0B26071B75109000A770AE /* String+Validations.swift */; };
@@ -252,7 +254,7 @@
 		DA6B55161CC2DFBD00EB6FC0 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DA41679A1B25F76F00847F56 /* FontAwesome.ttf */; };
 		DA6B55171CC2DFBD00EB6FC0 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAC13C071B41DF0E0013D479 /* Onboarding.storyboard */; };
 		DA6B55181CC2DFBD00EB6FC0 /* Library.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAF618791B37825700286517 /* Library.storyboard */; };
-		DA6B55191CC2DFBD00EB6FC0 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA5A3BF31B35EB4F00C07D71 /* Login.storyboard */; };
+		DA6B55191CC2DFBD00EB6FC0 /* MALLogin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA5A3BF31B35EB4F00C07D71 /* MALLogin.storyboard */; };
 		DA6B551A1CC2DFBD00EB6FC0 /* UrlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA6F15F11C20129F00EE4C4B /* UrlCell.xib */; };
 		DA6B551B1CC2DFBD00EB6FC0 /* Aller_Rg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DAC13C141B4223450013D479 /* Aller_Rg.ttf */; };
 		DA6B551C1CC2DFBD00EB6FC0 /* Aller_LtIt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DAC13C131B4223450013D479 /* Aller_LtIt.ttf */; };
@@ -294,8 +296,8 @@
 		DA8D70F81C6DD0EA0016A332 /* ImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6755E11B729C2100D6EA32 /* ImagesViewController.swift */; };
 		DA8D70F91C6DD0EA0016A332 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE64EEB1B73CCE4005A984A /* ImageViewController.swift */; };
 		DA8D70FA1C6DD0EA0016A332 /* WebBrowserSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA35B9981B74145D00C0AAC7 /* WebBrowserSelectorViewController.swift */; };
-		DA8D71041C6DD0EE0016A332 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA5A3BF31B35EB4F00C07D71 /* Login.storyboard */; };
-		DA8D71051C6DD0EE0016A332 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A3BF51B35EB5F00C07D71 /* LoginViewController.swift */; };
+		DA8D71041C6DD0EE0016A332 /* MALLogin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA5A3BF31B35EB4F00C07D71 /* MALLogin.storyboard */; };
+		DA8D71051C6DD0EE0016A332 /* MALLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A3BF51B35EB5F00C07D71 /* MALLoginViewController.swift */; };
 		DA8D71081C6DD0F10016A332 /* ImageScrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6E13101B10F2E500B278B0 /* ImageScrapper.swift */; };
 		DA8D71091C6DD0F10016A332 /* LinkScrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7EDDCA1C1FEDCA0097D818 /* LinkScrapper.swift */; };
 		DA8D710C1C6DD0F50016A332 /* LibraryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFCF8F51C14DD9000591C28 /* LibraryController.swift */; };
@@ -319,7 +321,7 @@
 		DAA576C71C66EC2D007E81E6 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA2C5571B66919300152FF9 /* SignInViewController.swift */; };
 		DAA576C81C66EC2D007E81E6 /* TitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4167E61B275D3800847F56 /* TitleCell.swift */; };
 		DAA576C91C66EC2D007E81E6 /* PublicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA26C8D1BCC92B1001CF62D /* PublicListViewController.swift */; };
-		DAA576CA1C66EC2D007E81E6 /* AnimeInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4167D11B273B7100847F56 /* AnimeInformationViewController.swift */; };
+		DAA576CA1C66EC2D007E81E6 /* AnimeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4167D11B273B7100847F56 /* AnimeDetailsViewController.swift */; };
 		DAA576CD1C66EC2D007E81E6 /* UserProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0B260B1B75192400A770AE /* UserProfileManager.swift */; };
 		DAA576CE1C66EC2D007E81E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27D1961AF1BA9D00CC854E /* AppDelegate.swift */; };
 		DAA576CF1C66EC2D007E81E6 /* RateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACD6AAB1B62E54F00DDA55C /* RateViewController.swift */; };
@@ -623,16 +625,17 @@
 		DA4167991B25F1BF00847F56 /* AnimeNow-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AnimeNow-Bridging-Header.h"; sourceTree = "<group>"; };
 		DA41679A1B25F76F00847F56 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
 		DA4167A41B2646F900847F56 /* BasicCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCollectionCell.swift; sourceTree = "<group>"; };
-		DA4167D11B273B7100847F56 /* AnimeInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnimeInformationViewController.swift; path = ../ANAnimeKit/AnimeInformationViewController.swift; sourceTree = "<group>"; };
+		DA4167D11B273B7100847F56 /* AnimeDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnimeDetailsViewController.swift; path = ../ANAnimeKit/AnimeDetailsViewController.swift; sourceTree = "<group>"; };
 		DA4167D31B273B9400847F56 /* Anime.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Anime.storyboard; path = ../ANAnimeKit/Anime.storyboard; sourceTree = "<group>"; };
 		DA4167D51B273FA300847F56 /* CustomTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomTabBar.swift; path = ../ANAnimeKit/CustomTabBar.swift; sourceTree = "<group>"; };
 		DA4167D71B274D3B00847F56 /* CustomLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
-		DA4167DE1B275CCC00847F56 /* InformationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationCell.swift; sourceTree = "<group>"; };
-		DA4167E01B275CDE00847F56 /* SynopsisCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynopsisCell.swift; sourceTree = "<group>"; };
-		DA4167E21B275CEB00847F56 /* ReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
-		DA4167E41B275CF500847F56 /* LinkCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkCell.swift; sourceTree = "<group>"; };
-		DA4167E61B275D3800847F56 /* TitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleCell.swift; sourceTree = "<group>"; };
+		DA4167DE1B275CCC00847F56 /* InformationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InformationCell.swift; path = ../ANAnimeKit/InformationCell.swift; sourceTree = "<group>"; };
+		DA4167E01B275CDE00847F56 /* SynopsisCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SynopsisCell.swift; path = ../ANAnimeKit/SynopsisCell.swift; sourceTree = "<group>"; };
+		DA4167E21B275CEB00847F56 /* ReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReviewCell.swift; path = ../ANAnimeKit/ReviewCell.swift; sourceTree = "<group>"; };
+		DA4167E41B275CF500847F56 /* LinkCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LinkCell.swift; path = ../ANAnimeKit/LinkCell.swift; sourceTree = "<group>"; };
+		DA4167E61B275D3800847F56 /* TitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TitleCell.swift; path = ../ANAnimeKit/TitleCell.swift; sourceTree = "<group>"; };
 		DA4167E81B275F9400847F56 /* ANAnimeKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ANAnimeKit.swift; path = ../ANAnimeKit/ANAnimeKit.swift; sourceTree = "<group>"; };
+		DA421E261CC3795500732C14 /* NSMutableAttributedStringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSMutableAttributedStringExtensions.swift; sourceTree = "<group>"; };
 		DA472DF91BD409EF00E09AB0 /* ShowMoreCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShowMoreCell.swift; path = ../AnimeNow/ShowMoreCell.swift; sourceTree = "<group>"; };
 		DA472DFA1BD409EF00E09AB0 /* ShowMoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShowMoreCell.xib; path = ../AnimeNow/ShowMoreCell.xib; sourceTree = "<group>"; };
 		DA4AF8B51B276E060020252E /* ANCommonKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ANCommonKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -656,11 +659,11 @@
 		DA58C2E11B38A7760082B626 /* String+NSDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+NSDate.swift"; path = "../AnimeNow/String+NSDate.swift"; sourceTree = "<group>"; };
 		DA58C2E41B39C0080082B626 /* Browse.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Browse.storyboard; sourceTree = "<group>"; };
 		DA58C2E61B39C01B0082B626 /* BrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseViewController.swift; sourceTree = "<group>"; };
-		DA58C2E81B3B0B680082B626 /* EpisodeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpisodeCell.swift; sourceTree = "<group>"; };
+		DA58C2E81B3B0B680082B626 /* EpisodeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EpisodeCell.swift; path = ../ANAnimeKit/EpisodeCell.swift; sourceTree = "<group>"; };
 		DA58C2EA1B3B109D0082B626 /* EpisodesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EpisodesViewController.swift; path = ../ANAnimeKit/EpisodesViewController.swift; sourceTree = "<group>"; };
 		DA58C2EC1B3B111A0082B626 /* Episode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Episode.swift; sourceTree = "<group>"; };
-		DA5A3BF31B35EB4F00C07D71 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
-		DA5A3BF51B35EB5F00C07D71 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		DA5A3BF31B35EB4F00C07D71 /* MALLogin.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MALLogin.storyboard; sourceTree = "<group>"; };
+		DA5A3BF51B35EB5F00C07D71 /* MALLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MALLoginViewController.swift; sourceTree = "<group>"; };
 		DA5A3BF71B35EE2200C07D71 /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		DA5A3E561CC1A10A00A76621 /* CHANGELOG.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = CHANGELOG.yml; sourceTree = SOURCE_ROOT; };
 		DA5A3E571CC1A41A00A76621 /* PostActionsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostActionsView.xib; sourceTree = "<group>"; };
@@ -722,6 +725,7 @@
 		DA8B6E061B6C4DBF00D240FC /* UIImageView+PFFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImageView+PFFile.swift"; path = "../ANParseKit/UIImageView+PFFile.swift"; sourceTree = "<group>"; };
 		DA8DD6401B3C95F300B05FBF /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		DA8DD6421B3CAEC500B05FBF /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		DA90DD931CC381D3000CE9B9 /* TTTAttributedLabel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTTAttributedLabel.framework; path = "../../../Library/Developer/Xcode/DerivedData/Aozora-adnebwoyjewdsdeqpjynyylaouno/Build/Products/Debug-iphoneos/TTTAttributedLabel.framework"; sourceTree = "<group>"; };
 		DA9AE39A1B6930F60053C2EA /* TimelinePost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelinePost.swift; sourceTree = "<group>"; };
 		DA9EB9301B2BA580001ECFA7 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		DA9F731A1B2930F200C2652C /* UIImageView+SDWebImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImageView+SDWebImage.swift"; path = "../AnimeNow/UIImageView+SDWebImage.swift"; sourceTree = "<group>"; };
@@ -750,7 +754,7 @@
 		DAA5774C1C66F17D007E81E6 /* AppEnvironment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppEnvironment.swift; path = ../AnimeNow/AppEnvironment.swift; sourceTree = "<group>"; };
 		DAA577501C66F4C0007E81E6 /* Aozora.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Aozora.entitlements; sourceTree = SOURCE_ROOT; };
 		DAAD79921B30D087009D70ED /* ForumViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ForumViewController.swift; path = ../ANAnimeKit/ForumViewController.swift; sourceTree = "<group>"; };
-		DAAD79941B30D918009D70ED /* TopicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicCell.swift; sourceTree = "<group>"; };
+		DAAD79941B30D918009D70ED /* TopicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopicCell.swift; path = ../ANAnimeKit/TopicCell.swift; sourceTree = "<group>"; };
 		DAB4DCA81C5CB79600924819 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		DAB4DCAA1C5CB7A100924819 /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		DAB4DCAC1C5CBE1F00924819 /* TableCellWithCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableCellWithCollection.swift; sourceTree = "<group>"; };
@@ -821,7 +825,7 @@
 		DAFD60B21B277B8D007275C1 /* ZFModalTransitionAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZFModalTransitionAnimator.h; path = ../AnimeNow/ZFModalTransitionAnimator.h; sourceTree = "<group>"; };
 		DAFD60B31B277B8D007275C1 /* ZFModalTransitionAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZFModalTransitionAnimator.m; path = ../AnimeNow/ZFModalTransitionAnimator.m; sourceTree = "<group>"; };
 		DAFD60C01B27847E007275C1 /* ANCommonKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ANCommonKit.swift; sourceTree = "<group>"; };
-		DAFE19AB1B29E17F002F3A76 /* CharacterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterCell.swift; sourceTree = "<group>"; };
+		DAFE19AB1B29E17F002F3A76 /* CharacterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharacterCell.swift; path = ../ANAnimeKit/CharacterCell.swift; sourceTree = "<group>"; };
 		DAFE19AD1B29E4CD002F3A76 /* AnimeCharacter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeCharacter.swift; sourceTree = "<group>"; };
 		DAFE19AF1B29F264002F3A76 /* AnimeCast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeCast.swift; sourceTree = "<group>"; };
 		DAFE19B11B29F4EC002F3A76 /* Anime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Anime.swift; sourceTree = "<group>"; };
@@ -1137,22 +1141,6 @@
 			path = ../AnimeNow;
 			sourceTree = "<group>";
 		};
-		DA4167DD1B275CA700847F56 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				DA58C2E81B3B0B680082B626 /* EpisodeCell.swift */,
-				DA4167DE1B275CCC00847F56 /* InformationCell.swift */,
-				DA4167E01B275CDE00847F56 /* SynopsisCell.swift */,
-				DA4167E21B275CEB00847F56 /* ReviewCell.swift */,
-				DA4167E41B275CF500847F56 /* LinkCell.swift */,
-				DA4167E61B275D3800847F56 /* TitleCell.swift */,
-				DAFE19AB1B29E17F002F3A76 /* CharacterCell.swift */,
-				DAAD79941B30D918009D70ED /* TopicCell.swift */,
-			);
-			name = Cells;
-			path = ../ANAnimeKit;
-			sourceTree = "<group>";
-		};
 		DA4AF8B61B276E060020252E /* ANCommonKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -1226,8 +1214,8 @@
 		DA5A3BF21B35EB4000C07D71 /* MyAnimeListSync */ = {
 			isa = PBXGroup;
 			children = (
-				DA5A3BF31B35EB4F00C07D71 /* Login.storyboard */,
-				DA5A3BF51B35EB5F00C07D71 /* LoginViewController.swift */,
+				DA5A3BF31B35EB4F00C07D71 /* MALLogin.storyboard */,
+				DA5A3BF51B35EB5F00C07D71 /* MALLoginViewController.swift */,
 			);
 			name = MyAnimeListSync;
 			path = ../ANAnimeKit;
@@ -1318,8 +1306,15 @@
 				DA4167D51B273FA300847F56 /* CustomTabBar.swift */,
 				DAA253B71B2B8AF50092EB0B /* AnimeBaseViewController.swift */,
 				DA4167D31B273B9400847F56 /* Anime.storyboard */,
-				DA4167D11B273B7100847F56 /* AnimeInformationViewController.swift */,
-				DA4167DD1B275CA700847F56 /* Cells */,
+				DA4167D11B273B7100847F56 /* AnimeDetailsViewController.swift */,
+				DA58C2E81B3B0B680082B626 /* EpisodeCell.swift */,
+				DA4167DE1B275CCC00847F56 /* InformationCell.swift */,
+				DA4167E01B275CDE00847F56 /* SynopsisCell.swift */,
+				DA4167E21B275CEB00847F56 /* ReviewCell.swift */,
+				DA4167E41B275CF500847F56 /* LinkCell.swift */,
+				DA4167E61B275D3800847F56 /* TitleCell.swift */,
+				DAFE19AB1B29E17F002F3A76 /* CharacterCell.swift */,
+				DAAD79941B30D918009D70ED /* TopicCell.swift */,
 				DAA253B51B2B877C0092EB0B /* CharactersViewController.swift */,
 				DA58C2EA1B3B109D0082B626 /* EpisodesViewController.swift */,
 				DACD6AAD1B62F4C700DDA55C /* Rate.storyboard */,
@@ -1396,6 +1391,7 @@
 		DAC13BFC1B3F368D0013D479 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				DA421E261CC3795500732C14 /* NSMutableAttributedStringExtensions.swift */,
 				DA7C84C81B4379AA0036D119 /* UIViewController+Navigation.swift */,
 				DAC13BFD1B3F36AB0013D479 /* UIViewController+Image.swift */,
 				DA4F15A41C6EBD7400C71227 /* UICollectionView+Cells.swift */,
@@ -1601,6 +1597,7 @@
 		F4F69FB5D8335951A772F9AC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DA90DD931CC381D3000CE9B9 /* TTTAttributedLabel.framework */,
 				DACE085D1C6DD3DA00470B9F /* libxml2.tbd */,
 				DAFB071D1C14FFFE00F7F745 /* libz.tbd */,
 				DAFB071B1C14FFC300F7F745 /* libsqlite3.tbd */,
@@ -1948,7 +1945,7 @@
 				DA6B55161CC2DFBD00EB6FC0 /* FontAwesome.ttf in Resources */,
 				DA6B55171CC2DFBD00EB6FC0 /* Onboarding.storyboard in Resources */,
 				DA6B55181CC2DFBD00EB6FC0 /* Library.storyboard in Resources */,
-				DA6B55191CC2DFBD00EB6FC0 /* Login.storyboard in Resources */,
+				DA6B55191CC2DFBD00EB6FC0 /* MALLogin.storyboard in Resources */,
 				DA6B551A1CC2DFBD00EB6FC0 /* UrlCell.xib in Resources */,
 				DA6B551B1CC2DFBD00EB6FC0 /* Aller_Rg.ttf in Resources */,
 				DA6B551C1CC2DFBD00EB6FC0 /* Aller_LtIt.ttf in Resources */,
@@ -2000,7 +1997,7 @@
 				DAA577161C66EC2D007E81E6 /* FontAwesome.ttf in Resources */,
 				DAA577171C66EC2D007E81E6 /* Onboarding.storyboard in Resources */,
 				DAA577181C66EC2D007E81E6 /* Library.storyboard in Resources */,
-				DA8D71041C6DD0EE0016A332 /* Login.storyboard in Resources */,
+				DA8D71041C6DD0EE0016A332 /* MALLogin.storyboard in Resources */,
 				DACE088E1C6DD8BC00470B9F /* UrlCell.xib in Resources */,
 				DAA577191C66EC2D007E81E6 /* Aller_Rg.ttf in Resources */,
 				DAA5771A1C66EC2D007E81E6 /* Aller_LtIt.ttf in Resources */,
@@ -2315,7 +2312,7 @@
 				DA6B546C1CC2DFBD00EB6FC0 /* UIView+Reuse.swift in Sources */,
 				DA6B546D1CC2DFBD00EB6FC0 /* AnimeLibraryViewController.swift in Sources */,
 				DA6B546E1CC2DFBD00EB6FC0 /* UIViewController+Navigation.swift in Sources */,
-				DA6B546F1CC2DFBD00EB6FC0 /* LoginViewController.swift in Sources */,
+				DA6B546F1CC2DFBD00EB6FC0 /* MALLoginViewController.swift in Sources */,
 				DA6B54701CC2DFBD00EB6FC0 /* CharacterCell.swift in Sources */,
 				DA6B54711CC2DFBD00EB6FC0 /* InformationCell.swift in Sources */,
 				DA6B54721CC2DFBD00EB6FC0 /* UserListViewController.swift in Sources */,
@@ -2346,7 +2343,7 @@
 				DA6B548B1CC2DFBD00EB6FC0 /* TitleCell.swift in Sources */,
 				DA6B548C1CC2DFBD00EB6FC0 /* ThreadTag.swift in Sources */,
 				DA6B548D1CC2DFBD00EB6FC0 /* PublicListViewController.swift in Sources */,
-				DA6B548E1CC2DFBD00EB6FC0 /* AnimeInformationViewController.swift in Sources */,
+				DA6B548E1CC2DFBD00EB6FC0 /* AnimeDetailsViewController.swift in Sources */,
 				DA6B548F1CC2DFBD00EB6FC0 /* AnimeBrowserViewController.swift in Sources */,
 				DA6B54901CC2DFBD00EB6FC0 /* String+Utils.swift in Sources */,
 				DA6B54911CC2DFBD00EB6FC0 /* String+Validations.swift in Sources */,
@@ -2377,6 +2374,7 @@
 				DA6B54AA1CC2DFBD00EB6FC0 /* Post.swift in Sources */,
 				DA6B54AB1CC2DFBD00EB6FC0 /* TTTAttributedLabel+Tags.swift in Sources */,
 				DA6B54AC1CC2DFBD00EB6FC0 /* ZFModalTransitionAnimator.m in Sources */,
+				DA421E271CC3795500732C14 /* NSMutableAttributedStringExtensions.swift in Sources */,
 				DA6B54AD1CC2DFBD00EB6FC0 /* XPathQuery.m in Sources */,
 				DA6B54AE1CC2DFBD00EB6FC0 /* DialogController.swift in Sources */,
 				DA6B54AF1CC2DFBD00EB6FC0 /* AnimeListViewController.swift in Sources */,
@@ -2440,7 +2438,7 @@
 				DA4F15A01C6EBCF600C71227 /* UIView+Reuse.swift in Sources */,
 				DAA576BB1C66EC2D007E81E6 /* AnimeLibraryViewController.swift in Sources */,
 				DA4F15A91C6EFDF400C71227 /* UIViewController+Navigation.swift in Sources */,
-				DA8D71051C6DD0EE0016A332 /* LoginViewController.swift in Sources */,
+				DA8D71051C6DD0EE0016A332 /* MALLoginViewController.swift in Sources */,
 				DAA576BC1C66EC2D007E81E6 /* CharacterCell.swift in Sources */,
 				DAA576BD1C66EC2D007E81E6 /* InformationCell.swift in Sources */,
 				DAA576BE1C66EC2D007E81E6 /* UserListViewController.swift in Sources */,
@@ -2471,7 +2469,7 @@
 				DAA576C81C66EC2D007E81E6 /* TitleCell.swift in Sources */,
 				DA2991E11C6DD10500CCB04D /* ThreadTag.swift in Sources */,
 				DAA576C91C66EC2D007E81E6 /* PublicListViewController.swift in Sources */,
-				DAA576CA1C66EC2D007E81E6 /* AnimeInformationViewController.swift in Sources */,
+				DAA576CA1C66EC2D007E81E6 /* AnimeDetailsViewController.swift in Sources */,
 				DA32EBE81C6AB6D70090CD51 /* AnimeBrowserViewController.swift in Sources */,
 				DA2991F81C6DD10900CCB04D /* String+Utils.swift in Sources */,
 				DA2991F31C6DD10900CCB04D /* String+Validations.swift in Sources */,
@@ -2502,6 +2500,7 @@
 				DA2991DF1C6DD10500CCB04D /* Post.swift in Sources */,
 				DA2991F61C6DD10900CCB04D /* TTTAttributedLabel+Tags.swift in Sources */,
 				DAA011C21C6EFE4700F2070E /* ZFModalTransitionAnimator.m in Sources */,
+				DA421E281CC3795500732C14 /* NSMutableAttributedStringExtensions.swift in Sources */,
 				DA7A169B1C6DD0C100AA2882 /* XPathQuery.m in Sources */,
 				DAA576D71C66EC2D007E81E6 /* DialogController.swift in Sources */,
 				DAA576D81C66EC2D007E81E6 /* AnimeListViewController.swift in Sources */,

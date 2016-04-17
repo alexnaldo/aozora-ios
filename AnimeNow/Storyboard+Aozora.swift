@@ -22,7 +22,7 @@ enum Storyboard: String {
     case Comment
     case Search
     case WebBrowser
-    case Login
+    case MALLogin
     case Anime
     case Rate
     case Forum
@@ -73,8 +73,8 @@ enum Storyboard: String {
         return Storyboard.Thread.viewControllerWithClass(CustomThreadViewController)
     }
 
-    static func loginViewController() -> LoginViewController {
-        return Storyboard.Login.viewControllerWithClass(LoginViewController)
+    static func malLoginViewController() -> MALLoginViewController {
+        return Storyboard.MALLogin.viewControllerWithClass(MALLoginViewController)
     }
 
     static func webBrowserViewControllerNav() -> UINavigationController {

@@ -89,7 +89,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         makeUpdateChanges()
         
-        NSUserDefaults.standardUserDefaults().setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
+        //NSUserDefaults.standardUserDefaults().setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
 
         return true
     }

@@ -132,7 +132,7 @@ class SettingsViewController: UITableViewController {
                 self.presentViewController(alert, animated: true, completion: nil)
             } else {
                 
-                let loginController = Storyboard.loginViewController()
+                let loginController = Storyboard.malLoginViewController()
                 presentViewController(loginController, animated: true, completion: nil)
                 
                 NSUserDefaults.standardUserDefaults().setBool(true, forKey: RootTabBar.ShowedMyAnimeListLoginDefault)

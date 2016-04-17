@@ -8,7 +8,7 @@
         <!--Login View Controller-->
         <scene sceneID="4XR-dc-vci">
             <objects>
-                <viewController storyboardIdentifier="LoginViewController" id="U7M-zI-QJf" customClass="LoginViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MALLoginViewController" id="U7M-zI-QJf" customClass="MALLoginViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pM7-Sh-Xf0"/>
                         <viewControllerLayoutGuide type="bottom" id="qNN-Uk-Ral"/>

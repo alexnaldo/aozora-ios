@@ -10,16 +10,16 @@ import UIKit
 import ANCommonKit
 import Alamofire
 
-public protocol LoginViewControllerDelegate: class {
+public protocol MALLoginViewControllerDelegate: class {
     func loginViewControllerPressedDoesntHaveAnAccount()
 }
 
-public class LoginViewController: UIViewController {
+public class MALLoginViewController: UIViewController {
     
     @IBOutlet weak var usernameTextField: CustomTextField!
     @IBOutlet weak var passwordTextField: CustomTextField!
     
-    public weak var delegate: LoginViewControllerDelegate?
+    public weak var delegate: MALLoginViewControllerDelegate?
     var loadingView: LoaderView!
     
     override public func viewDidLoad() {
@@ -69,7 +69,7 @@ public class LoginViewController: UIViewController {
             if let error = task.error {
                 print(error)
                 if let result = self.passwordTextField.text?.containsString(":") where result == true {
-                    UIAlertView(title: "Unsupported password", message: "Your password contains a ':' which is not supported currently, sorry, please change it at myanimelist.net", delegate: nil, cancelButtonTitle: "Ok").show()
+                    UIAlertView(title: "Unsupported password", message: "Your password contains a ':' which is not supported currently, sorry, please change it in myanimelist.net", delegate: nil, cancelButtonTitle: "Ok").show()
                 } else {
                     UIAlertView(title: "Wrong credentials", message: "Try again", delegate: nil, cancelButtonTitle: "Ok").show()
                 }

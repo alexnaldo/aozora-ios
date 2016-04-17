@@ -1,5 +1,5 @@
 //
-//  AnimeInformationViewController.swift
+//  AnimeDetailsViewController.swift
 //  AnimeNow
 //
 //  Created by Paul Chavarria Podoliako on 6/9/15.
@@ -11,17 +11,20 @@ import Shimmer
 import ANCommonKit
 import XCDYouTubeKit
 import FBSDKShareKit
+import TTTAttributedLabel
 
 enum AnimeSection: Int {
-    case Synopsis = 0
-    case Relations
-    case Information
+    case Information = 0
     case ExternalLinks
+    case Relations
+    case Synopsis
+    case Character
+    case Cast
     
-    static var allSections: [AnimeSection] = [.Synopsis,.Relations,.Information,.ExternalLinks]
+    static var allSections: [AnimeSection] = [.Synopsis,.Relations,.Information,.ExternalLinks, .Character, .Cast]
 }
 
-extension AnimeInformationViewController: StatusBarVisibilityProtocol {
+extension AnimeDetailsViewController: StatusBarVisibilityProtocol {
     func shouldHideStatusBar() -> Bool {
         return hideStatusBar()
     }
@@ -30,13 +33,13 @@ extension AnimeInformationViewController: StatusBarVisibilityProtocol {
     }
 }
 
-extension AnimeInformationViewController: CustomAnimatorProtocol {
+extension AnimeDetailsViewController: CustomAnimatorProtocol {
     func scrollView() -> UIScrollView? {
-        return tableView ?? nil
+        return tableView
     }
 }
 
-public class AnimeInformationViewController: AnimeBaseViewController {
+public class AnimeDetailsViewController: AnimeBaseViewController {
     
     let HeaderCellHeight: CGFloat = 39
     var HeaderViewHeight: CGFloat = 0
@@ -48,7 +51,9 @@ public class AnimeInformationViewController: AnimeBaseViewController {
     var playerController: XCDYouTubeVideoPlayerViewController?
 
     @IBOutlet weak var listButton: UIButton!
-    
+    @IBOutlet weak var rateButton: SpacerButton!
+    @IBOutlet weak var reminderButton: SpacerButton!
+
     var loadingView: LoaderView!
     
     @IBOutlet weak var trailerButton: UIButton!
@@ -69,7 +74,19 @@ public class AnimeInformationViewController: AnimeBaseViewController {
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var fanartImageView: UIImageView!
 
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            tableView.estimatedRowHeight = 44.0
+            tableView.rowHeight = UITableViewAutomaticDimension
+            if UIDevice.isPad() {
+                let header = tableView.tableHeaderView!
+                var frame = header.frame
+                frame.size.height = 500 - 44 - 30
+                tableView.tableHeaderView?.frame = frame
+                view.insertSubview(tableView, belowSubview: fanartImageView)
+            }
+        }
+    }
     
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -78,26 +95,16 @@ public class AnimeInformationViewController: AnimeBaseViewController {
         
         shimeringView.contentView = animeTitle
         shimeringView.shimmering = true
-        
-        tableView.estimatedRowHeight = 44.0
-        tableView.rowHeight = UITableViewAutomaticDimension
-        if UIDevice.isPad() {
-            let header = tableView.tableHeaderView!
-            var frame = header.frame
-            frame.size.height = 500 - 44 - 30
-            tableView.tableHeaderView?.frame = frame
-            view.insertSubview(tableView, belowSubview: fanartImageView)
-        }
-        
+
         loadingView = LoaderView(parentView: view)
         
         ranksView.hidden = true
         fetchCurrentAnime()
-        
-        // Video notifications
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AnimeInformationViewController.moviePlayerPlaybackDidFinish(_:)), name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
-
         updateInformationWithAnime()
+
+        // Video notifications
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AnimeDetailsViewController.moviePlayerPlaybackDidFinish(_:)), name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
+
     }
     
     public override func viewWillAppear(animated: Bool) {
@@ -117,69 +124,99 @@ public class AnimeInformationViewController: AnimeBaseViewController {
         let query = Anime.queryWith(objectID: anime.objectId!)
         query.includeKey("details")
         query.includeKey("relations")
+        query.includeKey("characters")
+        query.includeKey("cast")
         query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
-            
-            if let _ = error {
-                
-            } else {
-                if let anime = objects?.first as? Anime {
-                    anime.progress = self.anime.progress
-                    self.customTabBar.anime = anime
-                    self.updateInformationWithAnime()
-                }
+
+            if let anime = objects?.first as? Anime {
+                anime.progress = self.anime.progress
+                self.customTabBar.anime = anime
+                self.updateInformationWithAnime()
             }
         }
     }
     
     func updateInformationWithAnime() {
-        if anime.details.dataAvailable && isViewLoaded() {
-            
-            self.ranksView.hidden = false
-            
-            if let progress = anime.progress {
-                updateListButtonTitle(progress.list)
-            } else {
-                updateListButtonTitle("Add to list ")
-            }
-            
-            animeTitle.text = anime.title
-            tagsLabel.text = anime.informationString()
-            
-            if let status = AnimeStatus(rawValue: anime.status) {
-                switch status {
-                case .CurrentlyAiring:
-                    etaLabel.text = "Airing    "
-                    etaLabel.backgroundColor = UIColor.watching()
-                case .FinishedAiring:
-                    etaLabel.text = "Aired    "
-                    etaLabel.backgroundColor = UIColor.completed()
-                case .NotYetAired:
-                    etaLabel.text = "Not Aired    "
-                    etaLabel.backgroundColor = UIColor.planning()
-                }
-            }
-            
-            ratingLabel.text = String(format:"%.2f / %d", anime.membersScore, anime.progress?.score ?? 0)
-            membersCountLabel.text = String(anime.membersCount)
-            scoreRankLabel.text = "#\(anime.rank)"
-            popularityRankLabel.text = "#\(anime.popularityRank)"
-            
-            posterImageView.setImageFrom(urlString: anime.imageUrl)
-            fanartImageView.setImageFrom(urlString: anime.fanartURLString())
-            
-            if let youtubeID = anime.details.youtubeID where youtubeID.characters.count > 0 {
-                trailerButton.hidden = false
-                trailerButton.layer.borderWidth = 1.0;
-                trailerButton.layer.borderColor = UIColor(white: 1.0, alpha: 0.5).CGColor;
-            } else {
-                trailerButton.hidden = true
-            }
-            
-            loadingView.stopAnimating()
-            tableView.dataSource = self
-            tableView.delegate = self
-            tableView.reloadData()
+        if !anime.details.dataAvailable || !isViewLoaded() {
+            return
         }
+
+        self.ranksView.hidden = false
+        
+        if let progress = anime.progress {
+            updateListButtonTitle(progress.list)
+            updateRateButtonWithScore(progress.score)
+        } else {
+            updateListButtonTitle("Add to list ")
+            updateRateButtonWithScore(0)
+        }
+
+        let reminderIsScheduled = ReminderController.scheduledReminderFor(anime) != nil
+        updateReminderButtonEnabled(reminderIsScheduled)
+        
+        animeTitle.text = anime.title
+        tagsLabel.text = anime.informationString()
+        
+        if let status = AnimeStatus(rawValue: anime.status) {
+            switch status {
+            case .CurrentlyAiring:
+                etaLabel.text = "Airing    "
+                etaLabel.backgroundColor = UIColor.watching()
+            case .FinishedAiring:
+                etaLabel.text = "Aired    "
+                etaLabel.backgroundColor = UIColor.completed()
+            case .NotYetAired:
+                etaLabel.text = "Not Aired    "
+                etaLabel.backgroundColor = UIColor.planning()
+            }
+        }
+        
+        ratingLabel.text = String(format:"%.2f", anime.membersScore)
+        membersCountLabel.text = "\(anime.membersCount)\nusers"
+        scoreRankLabel.text = "#\(anime.rank)"
+        popularityRankLabel.text = "#\(anime.popularityRank)"
+        
+        posterImageView.setImageFrom(urlString: anime.imageUrl)
+        fanartImageView.setImageFrom(urlString: anime.fanartURLString())
+        
+        if let youtubeID = anime.details.youtubeID where youtubeID.characters.count > 0 {
+            trailerButton.hidden = false
+            trailerButton.layer.borderWidth = 1.0;
+            trailerButton.layer.borderColor = UIColor(white: 1.0, alpha: 0.5).CGColor;
+        } else {
+            trailerButton.hidden = true
+        }
+        
+        loadingView.stopAnimating()
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.reloadData()
+    }
+
+    func updateRateButtonWithScore(score: Int) {
+        var title = ""
+        switch score {
+            case 0: title = " RATE"
+            case 1: title = ""
+            case 2: title = ""
+            case 3: title = ""
+            case 4: title = ""
+            case 5: title = ""
+            case 6: title = ""
+            case 7: title = ""
+            case 8: title = ""
+            case 9: title = ""
+            case 10: title = ""
+        default:
+            break
+        }
+
+        rateButton.setTitle(title, forState: .Normal)
+    }
+
+    func updateReminderButtonEnabled(enabled: Bool) {
+        let buttonTitle = enabled ? " ON" : " OFF"
+        reminderButton.setTitle(buttonTitle, forState: .Normal)
     }
     
     // MARK: - IBActions
@@ -329,43 +366,46 @@ public class AnimeInformationViewController: AnimeBaseViewController {
     func updateListButtonTitle(string: String) {
         listButton.setTitle(string + " " + FontAwesome.AngleDown.rawValue, forState: .Normal)
     }
+
+    @IBAction func rateAnimePressed(sender: AnyObject) {
+        if let progress = self.anime.progress, let tabBarController = self.tabBarController, let title = self.anime.title {
+            RateViewController.showRateDialogWith(tabBarController, title: "Rate \(title)", initialRating: Float(progress.score)/2.0, anime: self.anime, delegate: self)
+        } else {
+            let alert = UIAlertController(title: "Not saved", message: "Add the anime to your library first", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler:nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+
+    }
+
+    @IBAction func reminderPressed(sender: AnyObject) {
+        guard let _ = anime.nextEpisode else {
+
+            return
+        }
+
+        let scheduledReminder = ReminderController.scheduledReminderFor(anime)
+
+        if let _ = self.anime.progress, let _ = self.tabBarController, let _ = self.anime.title {
+            if let _ = scheduledReminder {
+                ReminderController.disableReminderForAnime(self.anime)
+                updateReminderButtonEnabled(false)
+            } else {
+                let success = ReminderController.scheduleReminderForAnime(self.anime)
+                updateReminderButtonEnabled(success)
+            }
+        } else {
+            let alert = UIAlertController(title: "Not saved", message: "Add the anime to your library first", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler:nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+    }
     
     @IBAction func moreOptionsPressed(sender: AnyObject) {
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
         alert.popoverPresentationController?.sourceView = sender.superview
         alert.popoverPresentationController?.sourceRect = sender.frame
-        
-        alert.addAction(UIAlertAction(title: "Rate anime", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
-            
-            if let progress = self.anime.progress, let tabBarController = self.tabBarController, let title = self.anime.title {
-                RateViewController.showRateDialogWith(tabBarController, title: "Rate \(title)", initialRating: Float(progress.score)/2.0, anime: self.anime, delegate: self)
-            } else {
-                let alert = UIAlertController(title: "Not saved", message: "Add the anime to your library first", preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler:nil))
-                self.presentViewController(alert, animated: true, completion: nil)
-            }
-            
-        }))
-        
-        if let _ = anime.nextEpisode {
-            let scheduledReminder = ReminderController.scheduledReminderFor(anime)
-            let remindersTitle = scheduledReminder == nil ? "Enable reminders" : "Disable reminders"
-            let actionStyle: UIAlertActionStyle = scheduledReminder == nil ? .Default : .Destructive
-            alert.addAction(UIAlertAction(title: remindersTitle, style: actionStyle, handler: { (alertAction: UIAlertAction!) -> Void in
-                if let _ = self.anime.progress, let _ = self.tabBarController, let _ = self.anime.title {
-                    if let _ = scheduledReminder {
-                        ReminderController.disableReminderForAnime(self.anime)
-                    } else {
-                        _ = ReminderController.scheduleReminderForAnime(self.anime)
-                    }
-                } else {
-                    let alert = UIAlertController(title: "Not saved", message: "Add the anime to your library first", preferredStyle: UIAlertControllerStyle.Alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler:nil))
-                    self.presentViewController(alert, animated: true, completion: nil)
-                }
-            }))
-        }
         
         alert.addAction(UIAlertAction(title: "Refresh Images", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction!) -> Void in
             let params = ["malID": self.anime.myAnimeListID]
@@ -374,7 +414,7 @@ public class AnimeInformationViewController: AnimeBaseViewController {
                 print("Refreshed!!")
             })
         }))
-        
+
         alert.addAction(UIAlertAction(title: "Send on Messenger", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
             
             let photo = FBSDKSharePhoto()
@@ -456,7 +496,7 @@ public class AnimeInformationViewController: AnimeBaseViewController {
 
 }
 
-extension AnimeInformationViewController: UIScrollViewDelegate {
+extension AnimeDetailsViewController: UIScrollViewDelegate {
     public func scrollViewDidScroll(scrollView: UIScrollView) {
         
         let newOffset = HeaderViewHeight-scrollView.contentOffset.y
@@ -491,7 +531,7 @@ extension AnimeInformationViewController: UIScrollViewDelegate {
     }
 }
 
-extension AnimeInformationViewController: UITableViewDataSource {
+extension AnimeDetailsViewController: UITableViewDataSource {
     
     public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return anime.dataAvailable ? AnimeSection.allSections.count : 0
@@ -501,17 +541,36 @@ extension AnimeInformationViewController: UITableViewDataSource {
         
         var numberOfRows = 0
         switch AnimeSection(rawValue: section)! {
-            case .Synopsis: numberOfRows = 1
-            case .Relations: numberOfRows = anime.relations.totalRelations
-            case .Information: numberOfRows = 11
-            case .ExternalLinks: numberOfRows = anime.externalLinks.count
+        case .Synopsis: numberOfRows = 1
+        case .Relations: numberOfRows = anime.relations.totalRelations
+        case .Information: numberOfRows = 11
+        case .ExternalLinks: numberOfRows = anime.externalLinks.count
+        case .Character: numberOfRows = anime.characters.characters.count
+        case .Cast: numberOfRows = anime.cast.cast.count
         }
         
         return numberOfRows
     }
     
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
+
+
+        func formatInformationCellWithLabel(attributedLabel: TTTAttributedLabel, title: String, detail: String) {
+            attributedLabel.setText("\(title) \(detail)", afterInheritingLabelAttributesAndConfiguringWithBlock: { (mutableAttributedString) -> NSMutableAttributedString! in
+
+                let mediumFont = UIFont.systemFontOfSize(13)
+                let mediumFontRef = CTFontCreateWithName(mediumFont.fontName, mediumFont.pointSize, nil)
+                let colorRef = UIColor.textBlue().CGColor
+
+                let textRange = mutableAttributedString.nsRangeOfString(title)
+
+                mutableAttributedString.setFont(mediumFontRef, inRange: textRange)
+                mutableAttributedString.setColor(colorRef, inRange: textRange)
+
+                return mutableAttributedString
+
+            })
+        }
         switch AnimeSection(rawValue: indexPath.section)! {
         case .Synopsis:
             let cell = tableView.dequeueReusableCellWithIdentifier("SynopsisCell") as! SynopsisCell
@@ -521,53 +580,66 @@ extension AnimeInformationViewController: UITableViewDataSource {
         case .Relations:
             let cell = tableView.dequeueReusableCellWithIdentifier("InformationCell") as! InformationCell
             let relation = anime.relations.relationAtIndex(indexPath.row)
-            cell.titleLabel.text = relation.relationType.rawValue
-            cell.detailLabel.text = relation.title
+            formatInformationCellWithLabel(
+                cell.attributedLabel,
+                title: relation.relationType.rawValue,
+                detail: relation.title)
+            cell.accessoryType = .DisclosureIndicator
             cell.layoutIfNeeded()
             return cell
         case .Information:
             let cell = tableView.dequeueReusableCellWithIdentifier("InformationCell") as! InformationCell
-        
+            cell.accessoryType = .None
+
+            var title = ""
+            var detail = ""
             switch indexPath.row {
             case 0:
-                cell.titleLabel.text = "Type"
-                cell.detailLabel.text = anime.type
+                title = "Type:"
+                detail = anime.type
             case 1:
-                cell.titleLabel.text = "Episodes"
-                cell.detailLabel.text = (anime.episodes != 0) ? anime.episodes.description : "?"
+                title = "Episodes:"
+                detail = (anime.episodes != 0) ? anime.episodes.description : "?"
             case 2:
-                cell.titleLabel.text = "Status"
-                cell.detailLabel.text = anime.status.capitalizedString
+                title = "Status"
+                detail = anime.status.capitalizedString
             case 3:
-                cell.titleLabel.text = "Aired"
+                title = "Aired"
                 let startDate = anime.startDate != nil && anime.startDate?.compare(NSDate(timeIntervalSince1970: 0)) != NSComparisonResult.OrderedAscending ? anime.startDate!.mediumDate() : "?"
                 let endDate = anime.endDate != nil && anime.endDate?.compare(NSDate(timeIntervalSince1970: 0)) != NSComparisonResult.OrderedAscending ? anime.endDate!.mediumDate() : "?"
-                cell.detailLabel.text = "\(startDate) - \(endDate)"
+                detail = "\(startDate) - \(endDate)"
             case 4:
-                cell.titleLabel.text = "Producers"
-                cell.detailLabel.text = anime.producers.joinWithSeparator(", ")
+                title = "Producers"
+                detail = anime.producers.joinWithSeparator(", ")
             case 5:
-                cell.titleLabel.text = "Genres"
-                cell.detailLabel.text = anime.genres.joinWithSeparator(", ")
+                title = "Genres"
+                detail = anime.genres.joinWithSeparator(", ")
             case 6:
-                cell.titleLabel.text = "Duration"
+                title = "Duration"
                 let duration = (anime.duration != 0) ? anime.duration.description : "?"
-                cell.detailLabel.text = "\(duration) min"
+                detail = "\(duration) min"
             case 7:
-                cell.titleLabel.text = "Classification"
-                cell.detailLabel.text = anime.details.classification
+                title = "Classification"
+                detail = anime.details.classification
             case 8:
-                cell.titleLabel.text = "English Titles"
-                cell.detailLabel.text = anime.details.englishTitles.count != 0 ? anime.details.englishTitles.joinWithSeparator("\n") : "-"
+                title = "English Titles"
+                detail = anime.details.englishTitles.count != 0 ? anime.details.englishTitles.joinWithSeparator("\n") : "-"
             case 9:
-                cell.titleLabel.text = "Japanese Titles"
-                cell.detailLabel.text = anime.details.japaneseTitles.count != 0 ? anime.details.japaneseTitles.joinWithSeparator("\n") : "-"
+                title = "Japanese Titles"
+                detail = anime.details.japaneseTitles.count != 0 ? anime.details.japaneseTitles.joinWithSeparator("\n") : "-"
             case 10:
-                cell.titleLabel.text = "Synonyms"
-                cell.detailLabel.text = anime.details.synonyms.count != 0 ? anime.details.synonyms.joinWithSeparator("\n") : "-"
+                title = "Synonyms"
+                detail = anime.details.synonyms.count != 0 ? anime.details.synonyms.joinWithSeparator("\n") : "-"
             default:
                 break
             }
+
+            formatInformationCellWithLabel(
+                cell.attributedLabel,
+                title: title,
+                detail: detail)
+
+
             cell.layoutIfNeeded()
             return cell
         
@@ -595,7 +667,36 @@ extension AnimeInformationViewController: UITableViewDataSource {
                 cell.linkLabel.backgroundColor = UIColor.other()
             }
             return cell
+        case .Character:
+            let cell = tableView.dequeueReusableCellWithIdentifier("CharacterCell") as! CharacterCell
 
+            let character = anime.characters.characterAtIndex(indexPath.row)
+
+            cell.characterImageView.setImageFrom(urlString: character.image, animated:true)
+            cell.characterName.text = character.name
+            cell.characterRole.text = character.role
+            if let japaneseVoiceActor = character.japaneseActor {
+                cell.personImageView.setImageFrom(urlString: japaneseVoiceActor.image, animated:true)
+                cell.personName.text = japaneseVoiceActor.name
+                cell.personJob.text = japaneseVoiceActor.job
+            } else {
+                cell.personImageView.image = nil
+                cell.personName.text = ""
+                cell.personJob.text = ""
+            }
+
+            cell.layoutIfNeeded()
+            return cell
+        case .Cast:
+            let cell = tableView.dequeueReusableCellWithIdentifier("CastCell") as! CharacterCell
+
+            let cast = anime.cast.castAtIndex(indexPath.row)
+
+            cell.personImageView.setImageFrom(urlString: cast.image)
+            cell.personName.text = cast.name
+            cell.personJob.text = cast.job
+            cell.layoutIfNeeded()
+            return cell
         }
     }
     
@@ -612,6 +713,10 @@ extension AnimeInformationViewController: UITableViewDataSource {
             title = "Information"
         case .ExternalLinks:
             title = "External Links"
+        case .Character:
+            title = "Characters"
+        case .Cast:
+            title = "Cast"
         }
         
         cell.titleLabel.text = title
@@ -624,7 +729,7 @@ extension AnimeInformationViewController: UITableViewDataSource {
 
 }
 
-extension AnimeInformationViewController: UITableViewDelegate {
+extension AnimeDetailsViewController: UITableViewDelegate {
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let section = AnimeSection(rawValue: indexPath.section)!
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
@@ -632,14 +737,7 @@ extension AnimeInformationViewController: UITableViewDelegate {
         switch section {
             
         case .Synopsis:
-            let synopsisCell = tableView.cellForRowAtIndexPath(indexPath) as! SynopsisCell
-            synopsisCell.synopsisLabel.numberOfLines = (synopsisCell.synopsisLabel.numberOfLines == 8) ? 0 : 8
-            
-            UIView.animateWithDuration(0.25, animations: { () -> Void in
-                tableView.beginUpdates()
-                tableView.endUpdates()
-            })
-            
+                break
         case .Relations:
             
             let relation = anime.relations.relationAtIndex(indexPath.row)
@@ -651,7 +749,8 @@ extension AnimeInformationViewController: UITableViewDelegate {
                 }
             }
 
-        case .Information:break
+        case .Information:
+            break
         case .ExternalLinks:
             let link = anime.linkAtIndex(indexPath.row)
             
@@ -660,12 +759,17 @@ extension AnimeInformationViewController: UITableViewDelegate {
             let initialUrl = NSURL(string: link.url)
             webController.initWithInitialUrl(initialUrl)
             presentViewController(navController, animated: true, completion: nil)
+
+        case .Character:
+            break
+        case .Cast:
+            break
         }
 
     }
 }
 
-extension AnimeInformationViewController: RateViewControllerProtocol {
+extension AnimeDetailsViewController: RateViewControllerProtocol {
     
     public func rateControllerDidFinishedWith(anime anime: Anime, rating: Float) {
         
