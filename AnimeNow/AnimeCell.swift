@@ -179,7 +179,7 @@ class AnimeCell: UICollectionViewCell {
 
 // MARK: - Layout
 extension AnimeCell {
-    class func updateLayoutItemSizeWithLayout(layout: UICollectionViewFlowLayout, viewSize: CGSize) {
+    class func updateLayoutItemSizeWithLayout(layout: UICollectionViewFlowLayout, viewSize: CGSize) -> CGSize {
         let margin: CGFloat = 4
         let columns: CGFloat = UIDevice.isLandscape() ? 3 : 2
         let cellHeight: CGFloat = 132
@@ -199,7 +199,9 @@ extension AnimeCell {
             layout.minimumInteritemSpacing = 1
             layout.minimumLineSpacing = 1
         }
-        
-        layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
+
+        let size = CGSize(width: cellWidth, height: cellHeight)
+        layout.itemSize = size
+        return size
     }
 }

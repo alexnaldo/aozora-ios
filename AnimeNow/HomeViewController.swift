@@ -458,6 +458,8 @@ private extension HomeViewController {
         navigationController?.pushViewController(browserViewController, animated: true)
     }
 }
+
+// MARK: - TableViewDataSource, Delegate
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {

@@ -544,7 +544,8 @@ class ProfileViewController: ThreadViewController {
                 let navVC = UIStoryboard(name: "Library", bundle: nil).instantiateViewControllerWithIdentifier("PublicListViewControllerNav") as! UINavigationController
                 let publicList = navVC.viewControllers.first as! PublicListViewController
                 publicList.initWithUser(userProfile)
-                self.animator = self.presentViewControllerModal(navVC)
+
+                self.presentViewController(navVC, animated: true, completion: nil)
             }
         }))
         

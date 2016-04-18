@@ -436,61 +436,132 @@
                                 <color key="backgroundColor" white="0.94916466489999995" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="44" maxX="0.0" maxY="0.0"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="0.0" id="5dl-dy-CVc">
-                                    <size key="itemSize" width="340" height="132"/>
-                                    <size key="headerReferenceSize" width="50" height="115"/>
+                                    <size key="itemSize" width="600" height="132"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
-                                <cells/>
-                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HeaderView" id="1zv-hg-WGS" customClass="BasicCollectionReusableView" customModule="ANCommonKit">
-                                    <rect key="frame" x="0.0" y="64" width="600" height="115"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Watching" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SDH-aH-06m">
-                                            <rect key="frame" x="8" y="61" width="584" height="36"/>
-                                            <color key="backgroundColor" red="0.89411764709999997" green="0.89411764709999997" blue="0.89411764709999997" alpha="0.0" colorSpace="calibratedRGB"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="36" id="QiE-DI-9y0"/>
-                                                <constraint firstAttribute="height" constant="21" id="xXR-B4-3aB"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                            <variation key="default">
-                                                <mask key="constraints">
-                                                    <exclude reference="xXR-B4-3aB"/>
-                                                </mask>
-                                            </variation>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16 TV · 1 Movie · 1 OVA/ONA/Specials" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="k2K-6w-yZt">
-                                            <rect key="frame" x="8" y="90" width="584" height="17"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.94916466489999995" alpha="1" colorSpace="calibratedWhite"/>
-                                    <constraints>
-                                        <constraint firstAttribute="trailingMargin" secondItem="k2K-6w-yZt" secondAttribute="trailing" id="1Pc-GD-BNH"/>
-                                        <constraint firstAttribute="leadingMargin" secondItem="k2K-6w-yZt" secondAttribute="leading" id="1d8-7b-DzU"/>
-                                        <constraint firstItem="SDH-aH-06m" firstAttribute="bottom" secondItem="1zv-hg-WGS" secondAttribute="bottomMargin" constant="-10" id="50G-f7-CMj"/>
-                                        <constraint firstItem="k2K-6w-yZt" firstAttribute="leading" secondItem="1zv-hg-WGS" secondAttribute="leading" constant="8" id="Dxi-0Q-1op"/>
-                                        <constraint firstItem="SDH-aH-06m" firstAttribute="leading" secondItem="1zv-hg-WGS" secondAttribute="leading" constant="8" id="nLE-NM-MVZ"/>
-                                        <constraint firstItem="SDH-aH-06m" firstAttribute="leading" secondItem="1zv-hg-WGS" secondAttribute="leadingMargin" id="oo0-ng-eC6"/>
-                                        <constraint firstItem="SDH-aH-06m" firstAttribute="trailing" secondItem="1zv-hg-WGS" secondAttribute="trailingMargin" id="uWL-d8-rqI"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="k2K-6w-yZt" secondAttribute="bottom" id="v8P-f0-BRd"/>
-                                    </constraints>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="oo0-ng-eC6"/>
-                                            <exclude reference="1d8-7b-DzU"/>
-                                        </mask>
-                                    </variation>
-                                    <connections>
-                                        <outlet property="subtitleLabel" destination="k2K-6w-yZt" id="3uJ-Kd-E1D"/>
-                                        <outlet property="titleLabel" destination="SDH-aH-06m" id="PDf-s3-LVd"/>
-                                    </connections>
-                                </collectionReusableView>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LibrarySectionCell" id="k0y-ed-LZL" customClass="LibrarySectionCell" customModule="AnimeTrakr" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="64" width="600" height="68"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="68"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Watching" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NcI-DY-2wJ">
+                                                    <rect key="frame" x="12" y="14" width="580" height="36"/>
+                                                    <color key="backgroundColor" red="0.89411764709999997" green="0.89411764709999997" blue="0.89411764709999997" alpha="0.0" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="36" id="O1M-U0-ARj"/>
+                                                        <constraint firstAttribute="height" constant="21" id="QUM-oG-CjC"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="QUM-oG-CjC"/>
+                                                        </mask>
+                                                    </variation>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16 TV · 1 Movie · 1 OVA/ONA/Specials" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Rh2-gk-AOx">
+                                                    <rect key="frame" x="12" y="43" width="576" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="NcI-DY-2wJ" firstAttribute="leading" secondItem="k0y-ed-LZL" secondAttribute="leading" constant="12" id="HgY-dL-Foj"/>
+                                            <constraint firstAttribute="trailing" secondItem="NcI-DY-2wJ" secondAttribute="trailing" constant="8" id="Mip-of-z7N"/>
+                                            <constraint firstAttribute="trailing" secondItem="Rh2-gk-AOx" secondAttribute="trailing" constant="12" id="XY3-tY-0Kn"/>
+                                            <constraint firstAttribute="bottom" secondItem="Rh2-gk-AOx" secondAttribute="bottom" constant="8" id="Z5G-vP-U7o"/>
+                                            <constraint firstItem="Rh2-gk-AOx" firstAttribute="leading" secondItem="k0y-ed-LZL" secondAttribute="leading" constant="12" id="mnP-LC-wje"/>
+                                            <constraint firstItem="Rh2-gk-AOx" firstAttribute="top" secondItem="NcI-DY-2wJ" secondAttribute="bottom" constant="-7" id="rJU-HT-qfC"/>
+                                        </constraints>
+                                        <size key="customSize" width="600" height="68"/>
+                                        <connections>
+                                            <outlet property="subtitleLabel" destination="Rh2-gk-AOx" id="Omc-pA-Yr2"/>
+                                            <outlet property="titleLabel" destination="NcI-DY-2wJ" id="yyX-4m-joa"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LibraryStatisticsCell" id="fMA-Dw-jny" customClass="LibraryStatisticsCell" customModule="AnimeTrakr" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="133" width="600" height="76"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="76"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I've watched 27 days, 10 hours and 44 minutes of anime." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="NMy-lS-IBA">
+                                                    <rect key="frame" x="35" y="53" width="557" height="15"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.20392157137393951" green="0.59607845544815063" blue="0.85882353782653809" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All Lists" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Za-35-YOL">
+                                                    <rect key="frame" x="12" y="-1" width="580" height="36"/>
+                                                    <color key="backgroundColor" red="0.89411764709999997" green="0.89411764709999997" blue="0.89411764709999997" alpha="0.0" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="36" id="A40-68-xPy"/>
+                                                        <constraint firstAttribute="height" constant="21" id="A5W-5P-Cbl"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="A5W-5P-Cbl"/>
+                                                        </mask>
+                                                    </variation>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16 TV · 1 Movie · 1 OVA/ONA/Specials" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="TqW-7q-3rc">
+                                                    <rect key="frame" x="12" y="28" width="576" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-time" translatesAutoresizingMaskIntoConstraints="NO" id="bWz-XJ-cRL">
+                                                    <rect key="frame" x="12" y="53" width="15" height="15"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="15" id="jJP-T8-wIc"/>
+                                                        <constraint firstAttribute="width" constant="15" id="tWE-tC-dB8"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="4Za-35-YOL" firstAttribute="leading" secondItem="fMA-Dw-jny" secondAttribute="leading" constant="12" id="1FN-8N-zKH"/>
+                                            <constraint firstItem="NMy-lS-IBA" firstAttribute="leading" secondItem="fMA-Dw-jny" secondAttribute="leading" constant="8" id="1h0-b4-ULI"/>
+                                            <constraint firstAttribute="bottom" secondItem="bWz-XJ-cRL" secondAttribute="bottom" constant="8" id="Awo-Jz-PIa"/>
+                                            <constraint firstAttribute="trailing" secondItem="NMy-lS-IBA" secondAttribute="trailing" constant="8" id="JH8-Ur-yXU"/>
+                                            <constraint firstItem="bWz-XJ-cRL" firstAttribute="leading" secondItem="fMA-Dw-jny" secondAttribute="leading" constant="12" id="NcY-Ce-HMs"/>
+                                            <constraint firstItem="NMy-lS-IBA" firstAttribute="leading" secondItem="bWz-XJ-cRL" secondAttribute="trailing" constant="8" id="TRP-99-Dvk"/>
+                                            <constraint firstItem="NMy-lS-IBA" firstAttribute="centerY" secondItem="bWz-XJ-cRL" secondAttribute="centerY" id="YdF-nQ-HnY"/>
+                                            <constraint firstItem="bWz-XJ-cRL" firstAttribute="top" secondItem="TqW-7q-3rc" secondAttribute="bottom" constant="8" id="Yg7-Pg-ZT5"/>
+                                            <constraint firstAttribute="trailing" secondItem="TqW-7q-3rc" secondAttribute="trailing" constant="12" id="hoy-gP-PQj"/>
+                                            <constraint firstItem="TqW-7q-3rc" firstAttribute="leading" secondItem="fMA-Dw-jny" secondAttribute="leading" constant="12" id="jsz-1H-gYA"/>
+                                            <constraint firstAttribute="bottom" secondItem="NMy-lS-IBA" secondAttribute="bottom" constant="8" id="qc4-ta-M8O"/>
+                                            <constraint firstItem="TqW-7q-3rc" firstAttribute="top" secondItem="4Za-35-YOL" secondAttribute="bottom" constant="-7" id="uqW-ba-dkr"/>
+                                            <constraint firstAttribute="trailing" secondItem="4Za-35-YOL" secondAttribute="trailing" constant="8" id="wfn-Z9-uA7"/>
+                                        </constraints>
+                                        <size key="customSize" width="600" height="76"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="1h0-b4-ULI"/>
+                                            </mask>
+                                        </variation>
+                                        <connections>
+                                            <outlet property="subtitleLabel" destination="TqW-7q-3rc" id="eWn-Ly-0SQ"/>
+                                            <outlet property="timeImageView" destination="bWz-XJ-cRL" id="oTJ-uY-Zyi"/>
+                                            <outlet property="titleLabel" destination="4Za-35-YOL" id="988-1B-xvJ"/>
+                                            <outlet property="watchedTimeLabel" destination="NMy-lS-IBA" id="OtH-do-bh6"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
                                 <connections>
                                     <outlet property="dataSource" destination="f7V-8F-nqS" id="Ber-ln-XMf"/>
                                     <outlet property="delegate" destination="f7V-8F-nqS" id="5vD-hu-Upf"/>
@@ -578,5 +649,6 @@
         <image name="icon-library-filled" width="25" height="25"/>
         <image name="icon-search" width="22" height="22"/>
         <image name="icon-sort" width="22" height="22"/>
+        <image name="icon-time" width="25" height="25"/>
     </resources>
 </document>

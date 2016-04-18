@@ -14,15 +14,14 @@ import ANCommonKit
 
 class PublicListViewController: UIViewController {
     
-    let FirstHeaderCellHeight: CGFloat = 108.0
-    let HeaderCellHeight: CGFloat = 64.0
+    let FirstHeaderCellHeight: CGFloat = 64.0
     
     var canFadeImages = true
     var showTableView = true
 
     var animator: ZFModalTransitionAnimator!
     
-    var dataSource: [[Anime]] = [] {
+    var dataSource: [[Anime]] = [[],[],[],[],[]] {
         didSet {
             filteredDataSource = dataSource
         }
@@ -44,7 +43,10 @@ class PublicListViewController: UIViewController {
     
     var loadingView: LoaderView!
     var userProfile: User!
+    var sectionTitles: [String] = ["Watching", "Planning", "Completed", "On-Hold", "Dropped"]
     var sectionSubtitles: [String] = ["","","","","",""]
+    var totalSubtitle: String = ""
+    var totalWatchedMinutes: Int = 0
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -102,8 +104,15 @@ class PublicListViewController: UIViewController {
         query.limit = 2000
         query.findObjectsInBackground()
             .continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task: BFTask!) -> AnyObject! in
-        
-            if var result = task.result as? [AnimeProgress] {
+
+                defer {
+                    self.loadingView.stopAnimating()
+                    self.collectionView.animateFadeIn()
+                }
+
+                guard var result = task.result as? [AnimeProgress] else {
+                    return nil
+                }
 
                 result.sortInPlace({ (progress1: AnimeProgress, progress2: AnimeProgress) -> Bool in
                     if progress1.anime.type == progress2.anime.type {
@@ -113,25 +122,39 @@ class PublicListViewController: UIViewController {
                     }
                 })
                 
-                func assignPublicProgressAndReturnAnime(animeProgress: AnimeProgress) -> Anime {
+
+                self.totalWatchedMinutes = 0
+                for animeProgress in result {
+                    var list = 0
+                    switch animeProgress.list {
+                    case "Watching":
+                        list = 0
+                    case "Planning":
+                        list = 1
+                    case "Completed":
+                        list = 2
+                    case "On-Hold":
+                        list = 3
+                    case "Dropped":
+                        list = 4
+                    default:
+                        break
+                    }
+
                     let anime = animeProgress.anime
                     anime.publicProgress = animeProgress
-                    return anime
+
+                    self.dataSource[list].append(anime)
+
+                    // Calculate watched minutes
+                    self.totalWatchedMinutes += (anime.duration * animeProgress.watchedEpisodes)
                 }
-                
-                let watching = result.filter({$0.list == "Watching"}).map(assignPublicProgressAndReturnAnime)
-                let planning = result.filter({$0.list == "Planning"}).map(assignPublicProgressAndReturnAnime)
-                let onHold = result.filter({$0.list == "On-Hold"}).map(assignPublicProgressAndReturnAnime)
-                let completed = result.filter({$0.list == "Completed"}).map(assignPublicProgressAndReturnAnime)
-                let dropped = result.filter({$0.list == "Dropped"}).map(assignPublicProgressAndReturnAnime)
-                
-                self.dataSource = [[],watching, planning, onHold, completed, dropped]
                 
                 var tvTotalCount = 0
                 var moviesTotalCount = 0
                 var restTotalCount = 0
                 // Set stats
-                for i in 1  ..< self.dataSource.count  {
+                for i in 0 ..< self.dataSource.count-1  {
                     let animeList = self.dataSource[i]
                     var tvCount = 0
                     var moviesCount = 0
@@ -151,14 +174,14 @@ class PublicListViewController: UIViewController {
                     restTotalCount += restCount
                     self.sectionSubtitles[i] = "\(tvCount) TV · \(moviesCount) Movie · \(restCount) OVA/ONA/Specials"
                 }
-                self.sectionSubtitles[0] = "\(tvTotalCount) TV · \(moviesTotalCount) Movie · \(restTotalCount) OVA/ONA/Specials"
-            }
-            
-            self.loadingView.stopAnimating()
-            self.collectionView.animateFadeIn()
-            return nil
+
+                self.totalSubtitle = "\(tvTotalCount) TV · \(moviesTotalCount) Movie · \(restTotalCount) OVA/ONA/Specials"
+
+                return nil
         })
     }
+
+    var animeCellSize: CGSize!
     
     // MARK: - Utility Functions
     func updateLayout(withSize viewSize: CGSize) {
@@ -168,7 +191,7 @@ class PublicListViewController: UIViewController {
                 return
         }
         
-        AnimeCell.updateLayoutItemSizeWithLayout(layout, viewSize: viewSize)
+        animeCellSize = AnimeCell.updateLayoutItemSizeWithLayout(layout, viewSize: viewSize)
         
         canFadeImages = false
         collectionView.collectionViewLayout.invalidateLayout()
@@ -185,69 +208,81 @@ extension PublicListViewController: UICollectionViewDataSource {
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
 
-        return filteredDataSource.count
+        return filteredDataSource.count + 1
     }
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
-        return filteredDataSource[section].count
+        if section == 0 {
+            return 1
+        } else {
+            return filteredDataSource[section-1].count
+        }
+
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 
-        guard let cell = collectionView.dequeueReusableCellWithClass(AnimeCell.self, indexPath: indexPath) else {
-            return UICollectionViewCell()
+        if indexPath.section == 0 {
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("LibraryStatisticsCell", forIndexPath: indexPath) as! LibraryStatisticsCell
+            let days = totalWatchedMinutes / (60*24)
+            let hours = (totalWatchedMinutes - (days*60*24)) / 60
+            let minutes = totalWatchedMinutes - (days*60*24) - (hours*60)
+            cell.watchedTimeLabel.text = "I've watched \(days) days, \(hours) hours and \(minutes) minutes of anime."
+            cell.subtitleLabel.text = totalSubtitle
+            return cell
         }
 
-        let anime = filteredDataSource[indexPath.section][indexPath.row]
-        cell.configureWithAnime(anime, canFadeImages: canFadeImages, showEtaAsAired: false, publicAnime: true)
-        cell.layoutIfNeeded()
-        return cell
-    }
-    
-    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        
-        var reusableView: UICollectionReusableView!
-        
-        if kind == UICollectionElementKindSectionHeader {
-            
-            let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "HeaderView", forIndexPath: indexPath) as! BasicCollectionReusableView
-    
-                var title = ""
-                switch indexPath.section {
-                case 0: title = "All Lists"
-                case 1: title = "Watching"
-                case 2: title = "Planning"
-                case 3: title = "On-Hold"
-                case 4: title = "Completed"
-                case 5: title = "Dropped"
-                default: break
-                }
-                
-                headerView.titleLabel.text = title
-                headerView.subtitleLabel.text = sectionSubtitles[indexPath.section]
-            
-            
-            reusableView = headerView;
+        let section = indexPath.section - 1
+
+        switch (section, indexPath.row) {
+        case (_,0):
+            // Title
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("LibrarySectionCell", forIndexPath: indexPath) as! LibrarySectionCell
+
+            cell.titleLabel.text = sectionTitles[section]
+            cell.subtitleLabel.text = sectionSubtitles[section]
+
+            return cell
+        case (_,_):
+            //
+            let cell = collectionView.dequeueReusableCellWithClass(AnimeCell.self, indexPath: indexPath)
+
+            let anime = filteredDataSource[section][indexPath.row]
+            cell.configureWithAnime(anime, canFadeImages: canFadeImages, showEtaAsAired: false, publicAnime: true)
+            cell.layoutIfNeeded()
+            return cell
         }
-        
-        return reusableView
+
     }
-    
+
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        
-        let height = (section == 0) ? FirstHeaderCellHeight : HeaderCellHeight
+
+        let height = (section == 0) ? FirstHeaderCellHeight : 0
         return CGSize(width: view.bounds.size.width, height: height)
     }
-    
 }
 
-extension PublicListViewController: UICollectionViewDelegate {
+extension PublicListViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
         view.endEditing(true)
         
         let anime = filteredDataSource[indexPath.section][indexPath.row]
         animator = presentAnimeModal(anime)
+    }
+
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        if indexPath.section == 0 {
+            return CGSize(width: view.bounds.width, height: 68)
+        } else {
+            switch (indexPath.section - 1, indexPath.row) {
+            case (_,0):
+                return CGSize(width: view.bounds.width, height: 76)
+            case (_,_):
+                return animeCellSize
+            }
+        }
+
     }
 }
 
