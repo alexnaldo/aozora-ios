@@ -150,7 +150,6 @@
 		DA6B54AD1CC2DFBD00EB6FC0 /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6E12D61B10D96F00B278B0 /* XPathQuery.m */; };
 		DA6B54AE1CC2DFBD00EB6FC0 /* DialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC7D9051B50464B00898FF6 /* DialogController.swift */; };
 		DA6B54AF1CC2DFBD00EB6FC0 /* AnimeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF618771B377D6000286517 /* AnimeListViewController.swift */; };
-		DA6B54B01CC2DFBD00EB6FC0 /* CharactersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA253B51B2B877C0092EB0B /* CharactersViewController.swift */; };
 		DA6B54B11CC2DFBD00EB6FC0 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8DD6421B3CAEC500B05FBF /* FilterViewController.swift */; };
 		DA6B54B21CC2DFBD00EB6FC0 /* CustomThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA03F1491B897E4300402AC4 /* CustomThreadViewController.swift */; };
 		DA6B54B31CC2DFBD00EB6FC0 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58C2E61B39C01B0082B626 /* BrowseViewController.swift */; };
@@ -332,7 +331,6 @@
 		DAA576D61C66EC2D007E81E6 /* AnimePosterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA561ECF1C5D803100C3E493 /* AnimePosterCell.swift */; };
 		DAA576D71C66EC2D007E81E6 /* DialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC7D9051B50464B00898FF6 /* DialogController.swift */; };
 		DAA576D81C66EC2D007E81E6 /* AnimeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF618771B377D6000286517 /* AnimeListViewController.swift */; };
-		DAA576D91C66EC2D007E81E6 /* CharactersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA253B51B2B877C0092EB0B /* CharactersViewController.swift */; };
 		DAA576DA1C66EC2D007E81E6 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8DD6421B3CAEC500B05FBF /* FilterViewController.swift */; };
 		DAA576DB1C66EC2D007E81E6 /* CustomThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA03F1491B897E4300402AC4 /* CustomThreadViewController.swift */; };
 		DAA576DC1C66EC2D007E81E6 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58C2E61B39C01B0082B626 /* BrowseViewController.swift */; };
@@ -445,6 +443,8 @@
 		DAD7AEB51CC4907B00BB2FBD /* LibraryStatisticsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD7AEB31CC4907B00BB2FBD /* LibraryStatisticsCell.swift */; };
 		DAD7AEB71CC4909F00BB2FBD /* LibrarySectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD7AEB61CC4909F00BB2FBD /* LibrarySectionCell.swift */; };
 		DAD7AEB81CC4909F00BB2FBD /* LibrarySectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD7AEB61CC4909F00BB2FBD /* LibrarySectionCell.swift */; };
+		DAD7AEBA1CC4BADA00BB2FBD /* RecommendationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD7AEB91CC4BADA00BB2FBD /* RecommendationsViewController.swift */; };
+		DAD7AEBB1CC4BADA00BB2FBD /* RecommendationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD7AEB91CC4BADA00BB2FBD /* RecommendationsViewController.swift */; };
 		DAE43C3A1B2F971800C3092D /* UIView+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE43C391B2F971800C3092D /* UIView+Animation.swift */; };
 		DAE507321CB76EB8003E216F /* SpacerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE507301CB76D1E003E216F /* SpacerLabel.swift */; };
 		DAF06E4D1CC201C300B0D36C /* PostsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF06E4B1CC201C300B0D36C /* PostsService.swift */; };
@@ -734,7 +734,6 @@
 		DA9AE39A1B6930F60053C2EA /* TimelinePost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelinePost.swift; sourceTree = "<group>"; };
 		DA9EB9301B2BA580001ECFA7 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		DA9F731A1B2930F200C2652C /* UIImageView+SDWebImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImageView+SDWebImage.swift"; path = "../AnimeNow/UIImageView+SDWebImage.swift"; sourceTree = "<group>"; };
-		DAA253B51B2B877C0092EB0B /* CharactersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharactersViewController.swift; path = ../ANAnimeKit/CharactersViewController.swift; sourceTree = "<group>"; };
 		DAA253B71B2B8AF50092EB0B /* AnimeBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnimeBaseViewController.swift; path = ../ANAnimeKit/AnimeBaseViewController.swift; sourceTree = "<group>"; };
 		DAA26C8D1BCC92B1001CF62D /* PublicListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicListViewController.swift; sourceTree = "<group>"; };
 		DAA2C5571B66919300152FF9 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -810,6 +809,7 @@
 		DAD7AEA91CC461EC00BB2FBD /* LinksCollectionTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinksCollectionTableCell.swift; sourceTree = "<group>"; };
 		DAD7AEB31CC4907B00BB2FBD /* LibraryStatisticsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryStatisticsCell.swift; sourceTree = "<group>"; };
 		DAD7AEB61CC4909F00BB2FBD /* LibrarySectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibrarySectionCell.swift; sourceTree = "<group>"; };
+		DAD7AEB91CC4BADA00BB2FBD /* RecommendationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendationsViewController.swift; sourceTree = "<group>"; };
 		DAE43C311B2BC1A900C3092D /* TFHppleElement+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "TFHppleElement+Convenience.swift"; path = "../ANParseKit/TFHppleElement+Convenience.swift"; sourceTree = "<group>"; };
 		DAE43C331B2BC3B700C3092D /* AnimeDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeDetail.swift; sourceTree = "<group>"; };
 		DAE43C371B2D5BC800C3092D /* Atarashii.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Atarashii.swift; sourceTree = "<group>"; };
@@ -1316,7 +1316,7 @@
 				DAA253B71B2B8AF50092EB0B /* AnimeBaseViewController.swift */,
 				DA4167D31B273B9400847F56 /* Anime.storyboard */,
 				DA4167D11B273B7100847F56 /* AnimeDetailsViewController.swift */,
-				DAA253B51B2B877C0092EB0B /* CharactersViewController.swift */,
+				DAD7AEB91CC4BADA00BB2FBD /* RecommendationsViewController.swift */,
 				DA58C2EA1B3B109D0082B626 /* EpisodesViewController.swift */,
 				DACD6AAD1B62F4C700DDA55C /* Rate.storyboard */,
 				DACD6AAB1B62E54F00DDA55C /* RateViewController.swift */,
@@ -2415,7 +2415,6 @@
 				DA6B54AD1CC2DFBD00EB6FC0 /* XPathQuery.m in Sources */,
 				DA6B54AE1CC2DFBD00EB6FC0 /* DialogController.swift in Sources */,
 				DA6B54AF1CC2DFBD00EB6FC0 /* AnimeListViewController.swift in Sources */,
-				DA6B54B01CC2DFBD00EB6FC0 /* CharactersViewController.swift in Sources */,
 				DA6B54B11CC2DFBD00EB6FC0 /* FilterViewController.swift in Sources */,
 				DA6B54B21CC2DFBD00EB6FC0 /* CustomThreadViewController.swift in Sources */,
 				DA6B54B31CC2DFBD00EB6FC0 /* BrowseViewController.swift in Sources */,
@@ -2429,6 +2428,7 @@
 				DA6B54BB1CC2DFBD00EB6FC0 /* AnimeDetail.swift in Sources */,
 				DA6B54BC1CC2DFBD00EB6FC0 /* SeasonalChart.swift in Sources */,
 				DA6B54BD1CC2DFBD00EB6FC0 /* EpisodesViewController.swift in Sources */,
+				DAD7AEBA1CC4BADA00BB2FBD /* RecommendationsViewController.swift in Sources */,
 				DA6B54BE1CC2DFBD00EB6FC0 /* TableCellWithCollection.swift in Sources */,
 				DA6B54BF1CC2DFBD00EB6FC0 /* HomeViewController.swift in Sources */,
 				DAD7AEB71CC4909F00BB2FBD /* LibrarySectionCell.swift in Sources */,
@@ -2544,7 +2544,6 @@
 				DA7A169B1C6DD0C100AA2882 /* XPathQuery.m in Sources */,
 				DAA576D71C66EC2D007E81E6 /* DialogController.swift in Sources */,
 				DAA576D81C66EC2D007E81E6 /* AnimeListViewController.swift in Sources */,
-				DAA576D91C66EC2D007E81E6 /* CharactersViewController.swift in Sources */,
 				DAA576DA1C66EC2D007E81E6 /* FilterViewController.swift in Sources */,
 				DAA576DB1C66EC2D007E81E6 /* CustomThreadViewController.swift in Sources */,
 				DAA576DC1C66EC2D007E81E6 /* BrowseViewController.swift in Sources */,
@@ -2558,6 +2557,7 @@
 				DA2991DA1C6DD10500CCB04D /* AnimeDetail.swift in Sources */,
 				DA2991D31C6DD10500CCB04D /* SeasonalChart.swift in Sources */,
 				DAA576E21C66EC2D007E81E6 /* EpisodesViewController.swift in Sources */,
+				DAD7AEBB1CC4BADA00BB2FBD /* RecommendationsViewController.swift in Sources */,
 				DAA576E41C66EC2D007E81E6 /* TableCellWithCollection.swift in Sources */,
 				DAA576E51C66EC2D007E81E6 /* HomeViewController.swift in Sources */,
 				DAD7AEB81CC4909F00BB2FBD /* LibrarySectionCell.swift in Sources */,

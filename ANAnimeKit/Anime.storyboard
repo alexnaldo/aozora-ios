@@ -1307,7 +1307,8 @@ users</string>
                     </tabBar>
                     <connections>
                         <segue destination="haj-us-SzY" kind="relationship" relationship="viewControllers" id="Aio-am-4Dn"/>
-                        <segue destination="ysS-TF-YDt" kind="relationship" relationship="viewControllers" id="uEG-ex-3Uf"/>
+                        <segue destination="7y0-gQ-9dt" kind="relationship" relationship="viewControllers" id="ZyO-gx-9Yb"/>
+                        <segue destination="ysS-TF-YDt" kind="relationship" relationship="viewControllers" id="qV3-v3-Dsl"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="htd-I6-qvE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1331,6 +1332,44 @@ users</string>
             </objects>
             <point key="canvasLocation" x="545" y="-191"/>
         </scene>
+        <!--Recommendations View Controller-->
+        <scene sceneID="gKe-GB-1de">
+            <objects>
+                <viewController id="ngO-dL-zBC" customClass="RecommendationsViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="SaL-4j-Vbe"/>
+                        <viewControllerLayoutGuide type="bottom" id="zyc-jh-zQm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2E8-Do-oFZ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cRV-9W-zY2">
+                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="ngO-dL-zBC" id="JaU-D0-Xx1"/>
+                                    <outlet property="delegate" destination="ngO-dL-zBC" id="UV9-l6-cH0"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="cRV-9W-zY2" firstAttribute="top" secondItem="2E8-Do-oFZ" secondAttribute="topMargin" constant="64" id="A2L-DU-JJH"/>
+                            <constraint firstItem="cRV-9W-zY2" firstAttribute="leading" secondItem="2E8-Do-oFZ" secondAttribute="leading" id="GXR-xF-c58"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="cRV-9W-zY2" secondAttribute="bottom" constant="49" id="RHZ-Nm-7bS"/>
+                            <constraint firstAttribute="trailing" secondItem="cRV-9W-zY2" secondAttribute="trailing" id="f8F-c6-MfG"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="nsO-jc-2tu"/>
+                    <connections>
+                        <outlet property="tableView" destination="cRV-9W-zY2" id="281-w4-0yi"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2NO-IU-8C2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1220" y="500"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="R8Y-Es-szT">
             <objects>
@@ -1351,6 +1390,23 @@ users</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QGb-sY-7rB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="545" y="1184"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="P5l-KB-Vg4">
+            <objects>
+                <navigationController id="7y0-gQ-9dt" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="icon-reviews" id="WTe-h6-yVA"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SJH-nT-BYP">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="ngO-dL-zBC" kind="relationship" relationship="rootViewController" id="pvm-n8-Les"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lF3-or-cgF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="545" y="500"/>
         </scene>
         <!--Episodes-->
         <scene sceneID="LZl-Pa-Rob">
@@ -1619,6 +1675,7 @@ users</string>
         <image name="icon-messenger" width="22" height="22"/>
         <image name="icon-more-darker" width="25" height="25"/>
         <image name="icon-play" width="50" height="50"/>
+        <image name="icon-reviews" width="25" height="25"/>
         <image name="text-shadow" width="10" height="45"/>
     </resources>
 </document>
