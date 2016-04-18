@@ -225,6 +225,11 @@ class ThreadViewController: UIViewController {
     }
 
     func showEditPostActionSheet(administrating: Bool, canEdit: Bool, canDelete: Bool, cell: UITableViewCell, postedBy: User, currentUser: User, post: Commentable, parentPost: Commentable?) {
+
+        if !canEdit && !canDelete {
+            return
+        }
+
         let alert: UIAlertController!
 
         if administrating {
