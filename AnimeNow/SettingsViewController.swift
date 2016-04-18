@@ -44,7 +44,7 @@ class SettingsViewController: UITableViewController {
             UVStyleSheet.instance().navigationBarTextColor = .blackColor()
             UVStyleSheet.instance().navigationBarTintColor = .blackColor()
         }
-        
+
         UserVoice.initialize(config)
     }
     

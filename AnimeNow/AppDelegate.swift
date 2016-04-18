@@ -91,6 +91,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //NSUserDefaults.standardUserDefaults().setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
 
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+        } catch {
+
+        }
+
         return true
     }
     

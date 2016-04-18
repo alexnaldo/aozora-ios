@@ -245,7 +245,7 @@ extension AnimeListViewController: UICollectionViewDelegate {
         let anime = animeList[indexPath.row]
         self.animator = presentAnimeModal(anime, callback: { tabBarController in
             // Show episodes view controller when calling from here
-            tabBarController.selectedIndex = 2
+            tabBarController.selectedIndex = 1
         })
     }
 }

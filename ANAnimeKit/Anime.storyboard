@@ -1464,7 +1464,7 @@ users</string>
                                                                 <constraint firstAttribute="height" constant="44" id="AEc-As-jhN"/>
                                                             </constraints>
                                                             <inset key="contentEdgeInsets" minX="12" minY="10" maxX="12" maxY="14"/>
-                                                            <state key="normal" image="icon-share">
+                                                            <state key="normal" image="icon-forward">
                                                                 <color key="titleColor" red="0.47843137250000001" green="0.16862745100000001" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
@@ -1975,12 +1975,12 @@ users</string>
         <image name="icon-close-blue" width="23" height="23"/>
         <image name="icon-details2-filled" width="25" height="25"/>
         <image name="icon-episode-filled" width="25" height="25"/>
+        <image name="icon-forward" width="28" height="28"/>
         <image name="icon-go-to" width="22" height="22"/>
         <image name="icon-information" width="25" height="25"/>
         <image name="icon-messenger" width="22" height="22"/>
         <image name="icon-more-darker" width="25" height="25"/>
         <image name="icon-play" width="50" height="50"/>
-        <image name="icon-share" width="30" height="30"/>
         <image name="text-shadow" width="10" height="45"/>
     </resources>
 </document>
