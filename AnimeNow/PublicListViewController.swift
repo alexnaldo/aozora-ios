@@ -65,6 +65,7 @@ class PublicListViewController: UIViewController {
         collectionView.alpha = 0.0
         
         loadingView = LoaderView(parentView: view)
+        loadingView.startAnimating()
         
         title = "\(userProfile.aozoraUsername) Library"
         
@@ -198,6 +199,8 @@ class PublicListViewController: UIViewController {
         collectionView.reloadData()
         canFadeImages = true
     }
+
+    // MARK: - IBActions
     
     @IBAction func dismissViewControllerPressed(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -295,16 +298,17 @@ extension PublicListViewController: UISearchBarDelegate {
             filteredDataSource = dataSource
             return
         }
-        
+
+        updateFilteredDataSource()
+    }
+
+    func updateFilteredDataSource() {
         filteredDataSource = dataSource.map { ( animeTypeArray) -> [Anime] in
-            func filterText(anime: Anime) -> Bool {
-                return (anime.title!.rangeOfString(searchBar.text!) != nil) ||
-                    (anime.genres.joinWithSeparator(" ").rangeOfString(searchBar.text!) != nil)
-                
+            return animeTypeArray.filter{
+                ($0.title!.rangeOfString(searchBar.text!) != nil) ||
+                ($0.genres.joinWithSeparator(" ").rangeOfString(searchBar.text!) != nil)
             }
-            return animeTypeArray.filter(filterText)
         }
-        
     }
 }
 

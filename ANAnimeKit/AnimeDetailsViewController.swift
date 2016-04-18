@@ -53,6 +53,7 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
     @IBOutlet weak var listButton: UIButton!
     @IBOutlet weak var rateButton: SpacerButton!
     @IBOutlet weak var reminderButton: SpacerButton!
+    @IBOutlet weak var favoriteButton: SpacerButton!
 
     var loadingView: LoaderView!
     
@@ -73,6 +74,7 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
     @IBOutlet weak var popularityRankLabel: UILabel!
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var fanartImageView: UIImageView!
+
 
     @IBOutlet weak var tableView: UITableView! {
         didSet {
@@ -145,6 +147,7 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
         if let progress = anime.progress {
             updateListButtonTitle(progress.list)
             updateRateButtonWithScore(progress.score)
+            updateFavoriteButton(progress.isFavorite)
         } else {
             updateListButtonTitle("ADD TO LIST ")
             updateRateButtonWithScore(0)
@@ -216,6 +219,15 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
     func updateReminderButtonEnabled(enabled: Bool) {
         let buttonTitle = enabled ? " ON" : " OFF"
         reminderButton.setTitle(buttonTitle, forState: .Normal)
+    }
+
+    func updateFavoriteButton(favorited: Bool) {
+        if favorited {
+            favoriteButton.setImage(UIImage(named: "icon-like-filled-small"), forState: .Normal)
+        } else {
+            favoriteButton.setImage(UIImage(named: "icon-like-empty-small"), forState: .Normal)
+        }
+
     }
     
     // MARK: - IBActions
@@ -400,6 +412,17 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
         }
     }
     
+    @IBAction func favoritePressed(sender: AnyObject) {
+        guard let progress = self.anime.progress else {
+            return
+        }
+
+        favoriteButton.animateBounce()
+        progress.isFavorite = !progress.isFavorite
+        progress.saveInBackground()
+        updateFavoriteButton(progress.isFavorite)
+    }
+
     @IBAction func moreOptionsPressed(sender: AnyObject) {
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
