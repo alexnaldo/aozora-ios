@@ -31,6 +31,10 @@ class SettingsViewController: UITableViewController {
         facebookLikeButton.objectID = "https://www.facebook.com/AozoraApp"
 
         let config = UVConfig(site: "aozora.uservoice.com")
+        let email = User.currentUser()?.email ?? "unknown"
+        let username = User.currentUser()?.aozoraUsername ?? "unknown"
+        let id = User.currentUser()?.objectId ?? "unknown"
+        config.identifyUserWithEmail(email, name: username, guid: id)
 
         if let infoDictionary = NSBundle.mainBundle().infoDictionary,
             let marketingVersion = infoDictionary["CFBundleShortVersionString"],
@@ -40,6 +44,7 @@ class SettingsViewController: UITableViewController {
             UVStyleSheet.instance().navigationBarTextColor = .blackColor()
             UVStyleSheet.instance().navigationBarTintColor = .blackColor()
         }
+        
         UserVoice.initialize(config)
     }
     

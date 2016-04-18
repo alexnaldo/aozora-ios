@@ -258,8 +258,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UITabBar.appearance().tintColor = UIColor.peterRiver()
         UITabBar.appearance().translucent = false
-        
-        UITextField.appearance().textColor = UIColor.whiteColor()
     }
     
     func makeUpdateChanges() {
