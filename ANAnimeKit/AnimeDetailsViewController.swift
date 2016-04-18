@@ -81,9 +81,8 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
             if UIDevice.isPad() {
                 let header = tableView.tableHeaderView!
                 var frame = header.frame
-                frame.size.height = 500 - 44 - 30
+                frame.size.height = 580 - 44 - 30
                 tableView.tableHeaderView?.frame = frame
-                view.insertSubview(tableView, belowSubview: fanartImageView)
             }
         }
     }
@@ -544,7 +543,7 @@ extension AnimeDetailsViewController: UITableViewDataSource {
         case .Synopsis: numberOfRows = 1
         case .Relations: numberOfRows = anime.relations.totalRelations
         case .Information: numberOfRows = 11
-        case .ExternalLinks: numberOfRows = 1
+        case .ExternalLinks: numberOfRows = anime.externalLinks.isEmpty ? 0 : 1
         case .Character: numberOfRows = anime.characters.characters.count
         case .Cast: numberOfRows = anime.cast.cast.count
         }
@@ -716,7 +715,7 @@ extension AnimeDetailsViewController: UITableViewDataSource {
     }
     
     public func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return self.tableView(tableView, numberOfRowsInSection: section) > 0 ? HeaderCellHeight : 1
+        return self.tableView(tableView, numberOfRowsInSection: section) > 0 ? HeaderCellHeight : CGFloat.min
     }
 
 }

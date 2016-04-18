@@ -76,7 +76,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="83" id="LFL-DZ-NEb"/>
                                                         <constraint firstAttribute="height" constant="116" id="bMl-h6-ZeL">
-                                                            <variation key="heightClass=regular-widthClass=regular" constant="83"/>
+                                                            <variation key="heightClass=regular-widthClass=regular" constant="116"/>
                                                         </constraint>
                                                         <constraint firstAttribute="width" secondItem="QBr-YS-xBj" secondAttribute="height" multiplier="83:116" id="ob9-4y-gPW"/>
                                                     </constraints>
@@ -304,12 +304,6 @@ users</string>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RANKED" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RSi-6D-3fm" userLabel="Score Rank title">
-                                                    <rect key="frame" x="107" y="131" width="45" height="13"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
-                                                    <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#300" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G4p-21-iYS" userLabel="Popularity rank">
                                                     <rect key="frame" x="182" y="148" width="36" height="19"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
@@ -438,6 +432,12 @@ users</string>
                                                         <action selector="moreOptionsPressed:" destination="Gi4-Gc-NLH" eventType="touchUpInside" id="tNO-OQ-0lx"/>
                                                     </connections>
                                                 </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RANKED" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RSi-6D-3fm" userLabel="Score Rank title">
+                                                    <rect key="frame" x="107" y="131" width="45" height="13"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
+                                                    <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.97999999999999998" alpha="1" colorSpace="calibratedWhite"/>
                                             <gestureRecognizers/>
@@ -496,6 +496,8 @@ users</string>
                                                 <constraint firstItem="pl0-Vb-hVP" firstAttribute="top" secondItem="RSi-6D-3fm" secondAttribute="bottom" constant="2" id="ep0-Eo-F4m"/>
                                                 <constraint firstItem="G4p-21-iYS" firstAttribute="centerY" secondItem="JEb-f5-o0Z" secondAttribute="centerY" id="fYh-Xy-H5t"/>
                                                 <constraint firstItem="rVX-G1-T9W" firstAttribute="leading" secondItem="QhX-BC-LME" secondAttribute="trailing" constant="8" id="fbX-gM-VhE"/>
+                                                <constraint firstItem="pl0-Vb-hVP" firstAttribute="leading" secondItem="RSi-6D-3fm" secondAttribute="trailing" constant="-18" id="fvI-ub-y4w"/>
+                                                <constraint firstItem="G4p-21-iYS" firstAttribute="leading" secondItem="JEb-f5-o0Z" secondAttribute="trailing" constant="7" id="g5B-J6-Zeb"/>
                                                 <constraint firstItem="0Yn-Jg-VaX" firstAttribute="top" secondItem="QBr-YS-xBj" secondAttribute="top" id="ih3-K4-FME"/>
                                                 <constraint firstItem="G4p-21-iYS" firstAttribute="leading" secondItem="JEb-f5-o0Z" secondAttribute="trailing" constant="6" id="ikg-Ng-fPf"/>
                                                 <constraint firstItem="pxz-of-h2y" firstAttribute="centerY" secondItem="syb-1F-cBb" secondAttribute="centerY" id="kAp-Ti-D9y"/>
@@ -555,7 +557,6 @@ users</string>
                                                     <exclude reference="zqM-tY-Ur3"/>
                                                     <exclude reference="RFP-PQ-fdZ"/>
                                                     <exclude reference="wgV-dj-mGU"/>
-                                                    <exclude reference="AfN-a7-Q19"/>
                                                     <exclude reference="AXU-kx-wGf"/>
                                                     <exclude reference="nne-Zo-yvY"/>
                                                     <exclude reference="o6S-2P-rox"/>
@@ -575,6 +576,7 @@ users</string>
                                                     <exclude reference="MsT-vA-dhE"/>
                                                     <exclude reference="QNj-Y6-rj7"/>
                                                     <exclude reference="ep0-Eo-F4m"/>
+                                                    <exclude reference="fvI-ub-y4w"/>
                                                     <exclude reference="kFW-Wb-PYf"/>
                                                     <exclude reference="n5Q-On-EBd"/>
                                                     <exclude reference="xNQ-dO-6Wd"/>
@@ -582,9 +584,11 @@ users</string>
                                                     <exclude reference="KzF-No-pES"/>
                                                     <exclude reference="TDh-0f-ztk"/>
                                                     <exclude reference="fYh-Xy-H5t"/>
+                                                    <exclude reference="g5B-J6-Zeb"/>
                                                     <exclude reference="ikg-Ng-fPf"/>
                                                     <exclude reference="mNZ-DJ-tPK"/>
                                                     <exclude reference="sCp-9M-1op"/>
+                                                    <exclude reference="AfN-a7-Q19"/>
                                                     <exclude reference="6cE-eM-pdK"/>
                                                     <exclude reference="9Nm-70-4Eq"/>
                                                     <exclude reference="DbK-OG-qQe"/>
@@ -596,13 +600,17 @@ users</string>
                                                 <mask key="constraints">
                                                     <exclude reference="2zn-9C-439"/>
                                                     <exclude reference="PV1-t6-srw"/>
-                                                    <include reference="nlz-13-vTd"/>
+                                                    <exclude reference="nlz-13-vTd"/>
                                                     <include reference="rfS-hJ-VtB"/>
-                                                    <include reference="sri-H7-yix"/>
+                                                    <exclude reference="sri-H7-yix"/>
                                                     <exclude reference="uNk-Na-U2a"/>
+                                                    <exclude reference="VT1-6g-9TN"/>
+                                                    <include reference="fvI-ub-y4w"/>
                                                     <exclude reference="n5Q-On-EBd"/>
                                                     <exclude reference="3Vh-c7-nEC"/>
-                                                    <include reference="KzF-No-pES"/>
+                                                    <exclude reference="KzF-No-pES"/>
+                                                    <exclude reference="Pvk-ja-lpK"/>
+                                                    <include reference="g5B-J6-Zeb"/>
                                                 </mask>
                                             </variation>
                                         </view>
