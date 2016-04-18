@@ -1262,10 +1262,10 @@ users</string>
             </objects>
             <point key="canvasLocation" x="1220" y="-191"/>
         </scene>
-        <!--Custom Tab Bar Controller-->
+        <!--Anime Details Tab Bar Controller-->
         <scene sceneID="ZKe-xO-O30">
             <objects>
-                <tabBarController storyboardIdentifier="CustomTabBarController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="iRm-TJ-Bqw" customClass="CustomTabBarController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="AnimeDetailsTabBarController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="iRm-TJ-Bqw" customClass="AnimeDetailsTabBarController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="jeF-sx-E6Q" customClass="CustomTabBar" customModule="AnimeTrakr" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>

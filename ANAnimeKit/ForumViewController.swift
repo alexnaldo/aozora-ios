@@ -120,7 +120,7 @@ extension ForumViewController: UITableViewDelegate {
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        if let tabBar = tabBarController as? CustomTabBarController {
+        if let tabBar = tabBarController as? AnimeDetailsTabBarController {
             tabBar.disableDragDismiss()
         }
         

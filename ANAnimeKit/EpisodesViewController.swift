@@ -170,7 +170,7 @@ extension EpisodesViewController: UICollectionViewDelegate {
         let threadController = Storyboard.customThreadViewController()
         threadController.initWithEpisode(episode, anime: anime)
         
-        if let tabBar = tabBarController as? CustomTabBarController {
+        if let tabBar = tabBarController as? AnimeDetailsTabBarController {
             tabBar.disableDragDismiss()
         }
         

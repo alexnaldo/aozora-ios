@@ -19,7 +19,7 @@ protocol StatusBarVisibilityProtocol {
     func updateCanHideStatusBar(canHide: Bool)
 }
 
-public class CustomTabBarController: UITabBarController {
+public class AnimeDetailsTabBarController: UITabBarController {
     
     var anime: Anime!
     public var animator: ZFModalTransitionAnimator!
@@ -86,7 +86,7 @@ class CustomTabBar: UITabBar {
     }
 }
 
-extension CustomTabBarController: UITabBarControllerDelegate {
+extension AnimeDetailsTabBarController: UITabBarControllerDelegate {
     public func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
         
         selectedViewControllerCantHideStatusBar()

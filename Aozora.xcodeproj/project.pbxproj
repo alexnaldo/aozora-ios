@@ -174,7 +174,7 @@
 		DA6B54C51CC2DFBD00EB6FC0 /* TFHppleElement+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE43C311B2BC1A900C3092D /* TFHppleElement+Convenience.swift */; };
 		DA6B54C61CC2DFBD00EB6FC0 /* LibraryAnimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF357051B4593E200629A3D /* LibraryAnimeCell.swift */; };
 		DA6B54C71CC2DFBD00EB6FC0 /* NewThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA03F1551B8B188F00402AC4 /* NewThreadViewController.swift */; };
-		DA6B54C81CC2DFBD00EB6FC0 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4167D51B273FA300847F56 /* CustomTabBar.swift */; };
+		DA6B54C81CC2DFBD00EB6FC0 /* AnimeDetailsTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4167D51B273FA300847F56 /* AnimeDetailsTabBar.swift */; };
 		DA6B54C91CC2DFBD00EB6FC0 /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA03F1531B8B188000402AC4 /* NewPostViewController.swift */; };
 		DA6B54CA1CC2DFBD00EB6FC0 /* UIImageView+PFFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8B6E061B6C4DBF00D240FC /* UIImageView+PFFile.swift */; };
 		DA6B54CB1CC2DFBD00EB6FC0 /* WebBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA823D8B1B326940005C7AFD /* WebBrowserViewController.swift */; };
@@ -347,7 +347,7 @@
 		DAA576E81C66EC2D007E81E6 /* NotificationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA546D31BA0902E003989DE /* NotificationsController.swift */; };
 		DAA576E91C66EC2D007E81E6 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC13C161B4226E20013D479 /* OnboardingViewController.swift */; };
 		DAA576EA1C66EC2D007E81E6 /* LibraryAnimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF357051B4593E200629A3D /* LibraryAnimeCell.swift */; };
-		DAA576EC1C66EC2D007E81E6 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4167D51B273FA300847F56 /* CustomTabBar.swift */; };
+		DAA576EC1C66EC2D007E81E6 /* AnimeDetailsTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4167D51B273FA300847F56 /* AnimeDetailsTabBar.swift */; };
 		DAA576ED1C66EC2D007E81E6 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0B26051B75066B00A770AE /* EditProfileViewController.swift */; };
 		DAA576EE1C66EC2D007E81E6 /* NotificationThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA546D11B9EF26E003989DE /* NotificationThreadViewController.swift */; };
 		DAA576EF1C66EC2D007E81E6 /* RootTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA393281B42F21900A8D5D5 /* RootTabBar.swift */; };
@@ -629,7 +629,7 @@
 		DA4167A41B2646F900847F56 /* BasicCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCollectionCell.swift; sourceTree = "<group>"; };
 		DA4167D11B273B7100847F56 /* AnimeDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnimeDetailsViewController.swift; path = ../ANAnimeKit/AnimeDetailsViewController.swift; sourceTree = "<group>"; };
 		DA4167D31B273B9400847F56 /* Anime.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Anime.storyboard; path = ../ANAnimeKit/Anime.storyboard; sourceTree = "<group>"; };
-		DA4167D51B273FA300847F56 /* CustomTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomTabBar.swift; path = ../ANAnimeKit/CustomTabBar.swift; sourceTree = "<group>"; };
+		DA4167D51B273FA300847F56 /* AnimeDetailsTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnimeDetailsTabBar.swift; path = ../ANAnimeKit/AnimeDetailsTabBar.swift; sourceTree = "<group>"; };
 		DA4167D71B274D3B00847F56 /* CustomLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		DA4167DE1B275CCC00847F56 /* InformationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InformationCell.swift; path = ../ANAnimeKit/InformationCell.swift; sourceTree = "<group>"; };
 		DA4167E01B275CDE00847F56 /* SynopsisCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SynopsisCell.swift; path = ../ANAnimeKit/SynopsisCell.swift; sourceTree = "<group>"; };
@@ -1306,7 +1306,7 @@
 		DAA546DC1BA1A07D003989DE /* Anime */ = {
 			isa = PBXGroup;
 			children = (
-				DA4167D51B273FA300847F56 /* CustomTabBar.swift */,
+				DA4167D51B273FA300847F56 /* AnimeDetailsTabBar.swift */,
 				DAA253B71B2B8AF50092EB0B /* AnimeBaseViewController.swift */,
 				DA4167D31B273B9400847F56 /* Anime.storyboard */,
 				DA4167D11B273B7100847F56 /* AnimeDetailsViewController.swift */,
@@ -2423,7 +2423,7 @@
 				DA6B54C51CC2DFBD00EB6FC0 /* TFHppleElement+Convenience.swift in Sources */,
 				DA6B54C61CC2DFBD00EB6FC0 /* LibraryAnimeCell.swift in Sources */,
 				DA6B54C71CC2DFBD00EB6FC0 /* NewThreadViewController.swift in Sources */,
-				DA6B54C81CC2DFBD00EB6FC0 /* CustomTabBar.swift in Sources */,
+				DA6B54C81CC2DFBD00EB6FC0 /* AnimeDetailsTabBar.swift in Sources */,
 				DA6B54C91CC2DFBD00EB6FC0 /* NewPostViewController.swift in Sources */,
 				DA6B54CA1CC2DFBD00EB6FC0 /* UIImageView+PFFile.swift in Sources */,
 				DA6B54CB1CC2DFBD00EB6FC0 /* WebBrowserViewController.swift in Sources */,
@@ -2550,7 +2550,7 @@
 				DA2991F41C6DD10900CCB04D /* TFHppleElement+Convenience.swift in Sources */,
 				DAA576EA1C66EC2D007E81E6 /* LibraryAnimeCell.swift in Sources */,
 				DA8D70F61C6DD0EA0016A332 /* NewThreadViewController.swift in Sources */,
-				DAA576EC1C66EC2D007E81E6 /* CustomTabBar.swift in Sources */,
+				DAA576EC1C66EC2D007E81E6 /* AnimeDetailsTabBar.swift in Sources */,
 				DA8D70F51C6DD0EA0016A332 /* NewPostViewController.swift in Sources */,
 				DA2991F51C6DD10900CCB04D /* UIImageView+PFFile.swift in Sources */,
 				DA7A16A41C6DD0CC00AA2882 /* WebBrowserViewController.swift in Sources */,
