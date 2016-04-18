@@ -147,7 +147,7 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
             updateListButtonTitle(progress.list)
             updateRateButtonWithScore(progress.score)
         } else {
-            updateListButtonTitle("Add to list ")
+            updateListButtonTitle("ADD TO LIST ")
             updateRateButtonWithScore(0)
         }
 
@@ -172,7 +172,7 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
         }
         
         ratingLabel.text = String(format:"%.2f", anime.membersScore)
-        membersCountLabel.text = "\(anime.membersCount)\nusers"
+        membersCountLabel.text = "\(NumberFormatter.number(anime.membersCount))\nusers"
         scoreRankLabel.text = "#\(anime.rank)"
         popularityRankLabel.text = "#\(anime.popularityRank)"
         
@@ -265,9 +265,9 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
         
         var title: String = ""
         if progress == nil {
-            title = "Add to list"
+            title = "ADD TO LIST"
         } else {
-            title = "Move to list"
+            title = "MOVE TO LIST"
         }
         
         let alert = UIAlertController(title: title, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
@@ -364,7 +364,7 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
     }
     
     func updateListButtonTitle(string: String) {
-        listButton.setTitle(string + " " + FontAwesome.AngleDown.rawValue, forState: .Normal)
+        listButton.setTitle(string.uppercaseString + " " + FontAwesome.AngleDown.rawValue, forState: .Normal)
     }
 
     @IBAction func rateAnimePressed(sender: AnyObject) {
@@ -406,14 +406,6 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
         alert.popoverPresentationController?.sourceView = sender.superview
         alert.popoverPresentationController?.sourceRect = sender.frame
-        
-        alert.addAction(UIAlertAction(title: "Refresh Images", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction!) -> Void in
-            let params = ["malID": self.anime.myAnimeListID]
-            PFCloud.callFunctionInBackground("updateAnimeInformation", withParameters: params, block: { (result, error) -> Void in
-                self.presentBasicAlertWithTitle("Refreshing..", message: "Data will be refreshed soon")
-                print("Refreshed!!")
-            })
-        }))
 
         alert.addAction(UIAlertAction(title: "Send on Messenger", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
             
@@ -470,6 +462,14 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
             activityVC.excludedActivityTypes = [UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard, UIActivityTypeAddToReadingList,UIActivityTypePrint];
             self.presentViewController(activityVC, animated: true, completion: nil)
             
+        }))
+
+        alert.addAction(UIAlertAction(title: "Refresh Images", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction!) -> Void in
+            let params = ["malID": self.anime.myAnimeListID]
+            PFCloud.callFunctionInBackground("updateAnimeInformation", withParameters: params, block: { (result, error) -> Void in
+                self.presentBasicAlertWithTitle("Refreshing..", message: "Data will be refreshed soon")
+                print("Refreshed!!")
+            })
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler:nil))
@@ -544,7 +544,7 @@ extension AnimeDetailsViewController: UITableViewDataSource {
         case .Synopsis: numberOfRows = 1
         case .Relations: numberOfRows = anime.relations.totalRelations
         case .Information: numberOfRows = 11
-        case .ExternalLinks: numberOfRows = anime.externalLinks.count
+        case .ExternalLinks: numberOfRows = 1
         case .Character: numberOfRows = anime.characters.characters.count
         case .Cast: numberOfRows = anime.cast.cast.count
         }
@@ -578,11 +578,11 @@ extension AnimeDetailsViewController: UITableViewDataSource {
             cell.layoutIfNeeded()
             return cell
         case .Relations:
-            let cell = tableView.dequeueReusableCellWithIdentifier("InformationCell") as! InformationCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("InformationCell2") as! InformationCell
             let relation = anime.relations.relationAtIndex(indexPath.row)
             formatInformationCellWithLabel(
                 cell.attributedLabel,
-                title: relation.relationType.rawValue,
+                title: relation.relationType.rawValue+":",
                 detail: relation.title)
             cell.accessoryType = .DisclosureIndicator
             cell.layoutIfNeeded()
@@ -595,10 +595,10 @@ extension AnimeDetailsViewController: UITableViewDataSource {
             var detail = ""
             switch indexPath.row {
             case 0:
-                title = "Type:"
+                title = "Type"
                 detail = anime.type
             case 1:
-                title = "Episodes:"
+                title = "Episodes"
                 detail = (anime.episodes != 0) ? anime.episodes.description : "?"
             case 2:
                 title = "Status"
@@ -636,7 +636,7 @@ extension AnimeDetailsViewController: UITableViewDataSource {
 
             formatInformationCellWithLabel(
                 cell.attributedLabel,
-                title: title,
+                title: title+":",
                 detail: detail)
 
 
@@ -644,28 +644,20 @@ extension AnimeDetailsViewController: UITableViewDataSource {
             return cell
         
         case .ExternalLinks:
-            let cell = tableView.dequeueReusableCellWithIdentifier("SimpleLinkCell") as! SimpleLinkCell
+
+            let cell = tableView.dequeueReusableCellWithIdentifier("LinksCollectionTableCell") as! LinksCollectionTableCell
             
-            let link = anime.linkAtIndex(indexPath.row)
-            cell.linkLabel.text = link.site.rawValue
-            switch link.site {
-            case .Crunchyroll:
-                cell.linkLabel.backgroundColor = UIColor.crunchyroll()
-            case .OfficialSite:
-                cell.linkLabel.backgroundColor = UIColor.officialSite()
-            case .Daisuki:
-                cell.linkLabel.backgroundColor = UIColor.daisuki()
-            case .Funimation:
-                cell.linkLabel.backgroundColor = UIColor.funimation()
-            case .MyAnimeList:
-                cell.linkLabel.backgroundColor = UIColor.myAnimeList()
-            case .Hummingbird:
-                cell.linkLabel.backgroundColor = UIColor.hummingbird()
-            case .Anilist:
-                cell.linkLabel.backgroundColor = UIColor.anilist()
-            case .Other:
-                cell.linkLabel.backgroundColor = UIColor.other()
+            cell.dataSource = anime.links()
+            cell.selectedLinkCallBack = { [weak self] link in
+
+                let navController = Storyboard.webBrowserViewControllerNav()
+                let webController = navController.viewControllers.first as! WebBrowserViewController
+                let initialUrl = NSURL(string: link.url)
+                webController.initWithInitialUrl(initialUrl)
+                self?.presentViewController(navController, animated: true, completion: nil)
             }
+
+            cell.collectionView.reloadData()
             return cell
         case .Character:
             let cell = tableView.dequeueReusableCellWithIdentifier("CharacterCell") as! CharacterCell
@@ -752,14 +744,7 @@ extension AnimeDetailsViewController: UITableViewDelegate {
         case .Information:
             break
         case .ExternalLinks:
-            let link = anime.linkAtIndex(indexPath.row)
-            
-            let navController = Storyboard.webBrowserViewControllerNav()
-            let webController = navController.viewControllers.first as! WebBrowserViewController
-            let initialUrl = NSURL(string: link.url)
-            webController.initWithInitialUrl(initialUrl)
-            presentViewController(navController, animated: true, completion: nil)
-
+            break
         case .Character:
             break
         case .Cast:

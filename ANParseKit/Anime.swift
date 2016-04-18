@@ -9,6 +9,24 @@
 import Foundation
 import ANCommonKit
 
+// External Links
+
+public enum ExternalLink: String {
+    case Crunchyroll = "Crunchyroll"
+    case OfficialSite = "Official Site"
+    case Daisuki = "Daisuki"
+    case Funimation = "Funimation"
+    case MyAnimeList = "MyAnimeList"
+    case Hummingbird = "Hummingbird"
+    case Anilist = "Anilist"
+    case Other = "Other"
+}
+
+public struct AnimeLink {
+    public var site: ExternalLink
+    public var url: String
+}
+
 public class Anime: PFObject, PFSubclassing {
     
     override public class func initialize() {
@@ -160,30 +178,18 @@ public class Anime: PFObject, PFSubclassing {
         }
     }
     
-    // External Links
-    
-    public enum ExternalLink: String {
-        case Crunchyroll = "Crunchyroll"
-        case OfficialSite = "Official Site"
-        case Daisuki = "Daisuki"
-        case Funimation = "Funimation"
-        case MyAnimeList = "MyAnimeList"
-        case Hummingbird = "Hummingbird"
-        case Anilist = "Anilist"
-        case Other = "Other"
-    }
-    
-    public struct Link {
-        public var site: ExternalLink
-        public var url: String
-    }
-    
-    public func linkAtIndex(index: Int) -> Link {
-        
-        let linkData = externalLinks[index] as! [String: AnyObject]
-        let externalLink = ExternalLink(rawValue: linkData["site"] as! String) ?? .Other
 
-        return Link(site: externalLink, url: (linkData["url"] as! String))
+
+    public func links() -> [AnimeLink] {
+
+        var links: [AnimeLink] = []
+
+        for linkData in (externalLinks as! [[String: AnyObject]]) {
+            let externalLink = ExternalLink(rawValue: linkData["site"] as! String) ?? .Other
+            links.append( AnimeLink(site: externalLink, url: (linkData["url"] as! String)) )
+        }
+
+        return links
     }
     
     // Fetching

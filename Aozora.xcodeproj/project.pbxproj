@@ -109,7 +109,6 @@
 		DA6B54831CC2DFBD00EB6FC0 /* QueryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7996C01CB9BA9000AD7EAD /* QueryBuilder.swift */; };
 		DA6B54841CC2DFBD00EB6FC0 /* InAppPurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA07A3491B4C2B860028B81B /* InAppPurchaseViewController.swift */; };
 		DA6B54851CC2DFBD00EB6FC0 /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6E12D41B10D96F00B278B0 /* TFHppleElement.m */; };
-		DA6B54861CC2DFBD00EB6FC0 /* LinkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4167E41B275CF500847F56 /* LinkCell.swift */; };
 		DA6B54871CC2DFBD00EB6FC0 /* TagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA03F1571B8B435400402AC4 /* TagsViewController.swift */; };
 		DA6B54881CC2DFBD00EB6FC0 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA2C5571B66919300152FF9 /* SignInViewController.swift */; };
 		DA6B54891CC2DFBD00EB6FC0 /* SpacerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE507301CB76D1E003E216F /* SpacerLabel.swift */; };
@@ -317,7 +316,6 @@
 		DAA576C31C66EC2D007E81E6 /* InAppPurchaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3B61D81B4F59E700A3F7BA /* InAppPurchaseController.swift */; };
 		DAA576C41C66EC2D007E81E6 /* ForumsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6187B1B3784E300286517 /* ForumsViewController.swift */; };
 		DAA576C51C66EC2D007E81E6 /* InAppPurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA07A3491B4C2B860028B81B /* InAppPurchaseViewController.swift */; };
-		DAA576C61C66EC2D007E81E6 /* LinkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4167E41B275CF500847F56 /* LinkCell.swift */; };
 		DAA576C71C66EC2D007E81E6 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA2C5571B66919300152FF9 /* SignInViewController.swift */; };
 		DAA576C81C66EC2D007E81E6 /* TitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4167E61B275D3800847F56 /* TitleCell.swift */; };
 		DAA576C91C66EC2D007E81E6 /* PublicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA26C8D1BCC92B1001CF62D /* PublicListViewController.swift */; };
@@ -439,6 +437,10 @@
 		DACE088F1C6DD8BC00470B9F /* UrlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6F15F31C20131700EE4C4B /* UrlCell.swift */; };
 		DACE77C21B294D7B00037486 /* NSDate+AniNow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACE77C11B294D7B00037486 /* NSDate+AniNow.swift */; };
 		DAD486B01C6EA3ED0045B769 /* Notifications.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAD486AE1C6EA3ED0045B769 /* Notifications.storyboard */; };
+		DAD7AEA61CC45A7900BB2FBD /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD7AEA51CC45A7900BB2FBD /* NumberFormatter.swift */; };
+		DAD7AEA71CC45A7900BB2FBD /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD7AEA51CC45A7900BB2FBD /* NumberFormatter.swift */; };
+		DAD7AEAA1CC461EC00BB2FBD /* LinksCollectionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD7AEA91CC461EC00BB2FBD /* LinksCollectionTableCell.swift */; };
+		DAD7AEAB1CC461EC00BB2FBD /* LinksCollectionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD7AEA91CC461EC00BB2FBD /* LinksCollectionTableCell.swift */; };
 		DAE43C3A1B2F971800C3092D /* UIView+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE43C391B2F971800C3092D /* UIView+Animation.swift */; };
 		DAE507321CB76EB8003E216F /* SpacerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE507301CB76D1E003E216F /* SpacerLabel.swift */; };
 		DAF06E4D1CC201C300B0D36C /* PostsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF06E4B1CC201C300B0D36C /* PostsService.swift */; };
@@ -632,7 +634,6 @@
 		DA4167DE1B275CCC00847F56 /* InformationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InformationCell.swift; path = ../ANAnimeKit/InformationCell.swift; sourceTree = "<group>"; };
 		DA4167E01B275CDE00847F56 /* SynopsisCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SynopsisCell.swift; path = ../ANAnimeKit/SynopsisCell.swift; sourceTree = "<group>"; };
 		DA4167E21B275CEB00847F56 /* ReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReviewCell.swift; path = ../ANAnimeKit/ReviewCell.swift; sourceTree = "<group>"; };
-		DA4167E41B275CF500847F56 /* LinkCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LinkCell.swift; path = ../ANAnimeKit/LinkCell.swift; sourceTree = "<group>"; };
 		DA4167E61B275D3800847F56 /* TitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TitleCell.swift; path = ../ANAnimeKit/TitleCell.swift; sourceTree = "<group>"; };
 		DA4167E81B275F9400847F56 /* ANAnimeKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ANAnimeKit.swift; path = ../ANAnimeKit/ANAnimeKit.swift; sourceTree = "<group>"; };
 		DA421E261CC3795500732C14 /* NSMutableAttributedStringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSMutableAttributedStringExtensions.swift; sourceTree = "<group>"; };
@@ -801,6 +802,8 @@
 		DAD67DFC1B726724000BB325 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		DAD67DFF1B7275F0000BB325 /* Comment.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Comment.storyboard; sourceTree = "<group>"; };
 		DAD67E011B72760B000BB325 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
+		DAD7AEA51CC45A7900BB2FBD /* NumberFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberFormatter.swift; sourceTree = "<group>"; };
+		DAD7AEA91CC461EC00BB2FBD /* LinksCollectionTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinksCollectionTableCell.swift; sourceTree = "<group>"; };
 		DAE43C311B2BC1A900C3092D /* TFHppleElement+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "TFHppleElement+Convenience.swift"; path = "../ANParseKit/TFHppleElement+Convenience.swift"; sourceTree = "<group>"; };
 		DAE43C331B2BC3B700C3092D /* AnimeDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeDetail.swift; sourceTree = "<group>"; };
 		DAE43C371B2D5BC800C3092D /* Atarashii.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Atarashii.swift; sourceTree = "<group>"; };
@@ -1307,20 +1310,13 @@
 				DAA253B71B2B8AF50092EB0B /* AnimeBaseViewController.swift */,
 				DA4167D31B273B9400847F56 /* Anime.storyboard */,
 				DA4167D11B273B7100847F56 /* AnimeDetailsViewController.swift */,
-				DA58C2E81B3B0B680082B626 /* EpisodeCell.swift */,
-				DA4167DE1B275CCC00847F56 /* InformationCell.swift */,
-				DA4167E01B275CDE00847F56 /* SynopsisCell.swift */,
-				DA4167E21B275CEB00847F56 /* ReviewCell.swift */,
-				DA4167E41B275CF500847F56 /* LinkCell.swift */,
-				DA4167E61B275D3800847F56 /* TitleCell.swift */,
-				DAFE19AB1B29E17F002F3A76 /* CharacterCell.swift */,
-				DAAD79941B30D918009D70ED /* TopicCell.swift */,
 				DAA253B51B2B877C0092EB0B /* CharactersViewController.swift */,
 				DA58C2EA1B3B109D0082B626 /* EpisodesViewController.swift */,
 				DACD6AAD1B62F4C700DDA55C /* Rate.storyboard */,
 				DACD6AAB1B62E54F00DDA55C /* RateViewController.swift */,
 				DAF6187F1B37861000286517 /* Forum.storyboard */,
 				DAAD79921B30D087009D70ED /* ForumViewController.swift */,
+				DAD7AEA81CC461CF00BB2FBD /* Cells */,
 			);
 			name = Anime;
 			sourceTree = "<group>";
@@ -1328,6 +1324,7 @@
 		DAA5774B1C66F161007E81E6 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				DAD7AEA41CC45A6800BB2FBD /* Helpers */,
 				DAE7A7151B2105D000788614 /* Views */,
 				DACE77C51B29518300037486 /* Models */,
 				DAC13BFC1B3F368D0013D479 /* Extensions */,
@@ -1501,6 +1498,29 @@
 				DAE64EEB1B73CCE4005A984A /* ImageViewController.swift */,
 			);
 			name = Posting;
+			sourceTree = "<group>";
+		};
+		DAD7AEA41CC45A6800BB2FBD /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				DAD7AEA51CC45A7900BB2FBD /* NumberFormatter.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		DAD7AEA81CC461CF00BB2FBD /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				DA58C2E81B3B0B680082B626 /* EpisodeCell.swift */,
+				DA4167DE1B275CCC00847F56 /* InformationCell.swift */,
+				DA4167E01B275CDE00847F56 /* SynopsisCell.swift */,
+				DA4167E21B275CEB00847F56 /* ReviewCell.swift */,
+				DA4167E61B275D3800847F56 /* TitleCell.swift */,
+				DAFE19AB1B29E17F002F3A76 /* CharacterCell.swift */,
+				DAAD79941B30D918009D70ED /* TopicCell.swift */,
+				DAD7AEA91CC461EC00BB2FBD /* LinksCollectionTableCell.swift */,
+			);
+			name = Cells;
 			sourceTree = "<group>";
 		};
 		DAE7A7141B2105C400788614 /* Profile */ = {
@@ -2309,6 +2329,7 @@
 				DA6B54691CC2DFBD00EB6FC0 /* ReviewCell.swift in Sources */,
 				DA6B546A1CC2DFBD00EB6FC0 /* PFQuery+Query.swift in Sources */,
 				DA6B546B1CC2DFBD00EB6FC0 /* LibraryController.swift in Sources */,
+				DAD7AEAA1CC461EC00BB2FBD /* LinksCollectionTableCell.swift in Sources */,
 				DA6B546C1CC2DFBD00EB6FC0 /* UIView+Reuse.swift in Sources */,
 				DA6B546D1CC2DFBD00EB6FC0 /* AnimeLibraryViewController.swift in Sources */,
 				DA6B546E1CC2DFBD00EB6FC0 /* UIViewController+Navigation.swift in Sources */,
@@ -2335,7 +2356,6 @@
 				DA6B54831CC2DFBD00EB6FC0 /* QueryBuilder.swift in Sources */,
 				DA6B54841CC2DFBD00EB6FC0 /* InAppPurchaseViewController.swift in Sources */,
 				DA6B54851CC2DFBD00EB6FC0 /* TFHppleElement.m in Sources */,
-				DA6B54861CC2DFBD00EB6FC0 /* LinkCell.swift in Sources */,
 				DA6B54871CC2DFBD00EB6FC0 /* TagsViewController.swift in Sources */,
 				DA6B54881CC2DFBD00EB6FC0 /* SignInViewController.swift in Sources */,
 				DA6B54891CC2DFBD00EB6FC0 /* SpacerLabel.swift in Sources */,
@@ -2361,6 +2381,7 @@
 				DA6B549D1CC2DFBD00EB6FC0 /* EpisodeCell.swift in Sources */,
 				DA6B549E1CC2DFBD00EB6FC0 /* PostableProtocol.swift in Sources */,
 				DA6B549F1CC2DFBD00EB6FC0 /* Episode.swift in Sources */,
+				DAD7AEA61CC45A7900BB2FBD /* NumberFormatter.swift in Sources */,
 				DA6B54A01CC2DFBD00EB6FC0 /* SynopsisCell.swift in Sources */,
 				DA6B54A11CC2DFBD00EB6FC0 /* TitleHeaderView.swift in Sources */,
 				DA6B54A21CC2DFBD00EB6FC0 /* WorkflowController.swift in Sources */,
@@ -2435,6 +2456,7 @@
 				DAA576BA1C66EC2D007E81E6 /* ReviewCell.swift in Sources */,
 				DA7996E11CBE0AC800AD7EAD /* PFQuery+Query.swift in Sources */,
 				DA8D710C1C6DD0F50016A332 /* LibraryController.swift in Sources */,
+				DAD7AEAB1CC461EC00BB2FBD /* LinksCollectionTableCell.swift in Sources */,
 				DA4F15A01C6EBCF600C71227 /* UIView+Reuse.swift in Sources */,
 				DAA576BB1C66EC2D007E81E6 /* AnimeLibraryViewController.swift in Sources */,
 				DA4F15A91C6EFDF400C71227 /* UIViewController+Navigation.swift in Sources */,
@@ -2461,7 +2483,6 @@
 				DA7996C21CB9BA9000AD7EAD /* QueryBuilder.swift in Sources */,
 				DAA576C51C66EC2D007E81E6 /* InAppPurchaseViewController.swift in Sources */,
 				DA7A169A1C6DD0C100AA2882 /* TFHppleElement.m in Sources */,
-				DAA576C61C66EC2D007E81E6 /* LinkCell.swift in Sources */,
 				DA8D70F71C6DD0EA0016A332 /* TagsViewController.swift in Sources */,
 				DAA576C71C66EC2D007E81E6 /* SignInViewController.swift in Sources */,
 				DAE507321CB76EB8003E216F /* SpacerLabel.swift in Sources */,
@@ -2487,6 +2508,7 @@
 				DAA576D01C66EC2D007E81E6 /* EpisodeCell.swift in Sources */,
 				DA8D70F21C6DD0EA0016A332 /* PostableProtocol.swift in Sources */,
 				DA2991DB1C6DD10500CCB04D /* Episode.swift in Sources */,
+				DAD7AEA71CC45A7900BB2FBD /* NumberFormatter.swift in Sources */,
 				DAA576D11C66EC2D007E81E6 /* SynopsisCell.swift in Sources */,
 				DAA576D21C66EC2D007E81E6 /* TitleHeaderView.swift in Sources */,
 				DAA576D31C66EC2D007E81E6 /* WorkflowController.swift in Sources */,
