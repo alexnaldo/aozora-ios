@@ -66,7 +66,7 @@ extension UIViewController {
 
     public func presentAnimeModal(anime: Anime, callback: ((AnimeDetailsTabBarController) -> Void)? = nil) -> ZFModalTransitionAnimator {
 
-        let tabBarController = Storyboard.AnimeDetailsTabBarController()
+        let tabBarController = Storyboard.animeDetailsTabBarController()
         tabBarController.initWithAnime(anime)
         callback?(tabBarController)
 

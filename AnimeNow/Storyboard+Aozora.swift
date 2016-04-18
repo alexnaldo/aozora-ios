@@ -53,7 +53,7 @@ enum Storyboard: String {
         return Storyboard.Comment.viewControllerWithClass(NewPostViewController)
     }
 
-    static func AnimeDetailsTabBarController() -> AnimeDetailsTabBarController {
+    static func animeDetailsTabBarController() -> AnimeDetailsTabBarController {
         return Storyboard.Anime.viewControllerWithClass(AnimeDetailsTabBarController)
     }
 
