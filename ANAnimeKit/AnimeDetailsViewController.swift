@@ -768,9 +768,13 @@ extension AnimeDetailsViewController: UITableViewDelegate {
         case .ExternalLinks:
             break
         case .Character:
-            break
+            let cell = tableView.dequeueReusableCellWithIdentifier("CharacterCell", forIndexPath: indexPath) as! CharacterCell
+            let character = anime.characters.characterAtIndex(indexPath.row)
+            presentImageViewController(cell.personImageView, imageUrl: NSURL(string: character.image)! )
         case .Cast:
-            break
+            let cell = tableView.dequeueReusableCellWithIdentifier("CastCell", forIndexPath: indexPath) as! CharacterCell
+            let cast = anime.cast.castAtIndex(indexPath.row)
+            presentImageViewController(cell.personImageView, imageUrl: NSURL(string: cast.image)! )
         }
 
     }
