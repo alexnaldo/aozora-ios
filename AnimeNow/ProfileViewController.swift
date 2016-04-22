@@ -301,7 +301,7 @@ class ProfileViewController: ThreadViewController {
         if offset.y > yOffset {
            offset.y = yOffset
         }
-        fetchController.configureWith(self, queryDelegate: self, tableView: self.tableView, limit: self.FetchLimit, datasourceUsesSections: true)
+        fetchController.configureWith(self, queryDelegate: self, tableView: tableView, limit: FetchLimit, datasourceUsesSections: true)
         tableView.setContentOffset(offset, animated: false)
     }
     
