@@ -38,6 +38,13 @@ class CommentCell: UITableViewCell, PostCellProtocol {
     override func awakeFromNib() {
         super.awakeFromNib()
 
+        if let imageContent = imageContent {
+            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(pressedOnImage(_:)))
+            gestureRecognizer.numberOfTouchesRequired = 1
+            gestureRecognizer.numberOfTapsRequired = 1
+            imageContent.addGestureRecognizer(gestureRecognizer)
+        }
+
         userView = PostUserView()
         userView?.onlineIndicator = onlineIndicator
         userView?.avatar = avatar
@@ -65,6 +72,13 @@ class CommentCell: UITableViewCell, PostCellProtocol {
             let listNib = UINib(nibName: "CommentImageCell", bundle: nil)
             tableView.registerNib(listNib, forCellReuseIdentifier: "CommentImageCell")
         }
+    }
+
+
+    // MARK: - IBActions
+    
+    func pressedOnImage(sender: AnyObject) {
+        delegate?.postCellSelectedImage(self)
     }
 
     @IBAction func showLikesPressed(sender: AnyObject) {

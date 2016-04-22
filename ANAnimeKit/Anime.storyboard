@@ -584,9 +584,6 @@ users</string>
                                                     <exclude reference="pnu-zU-8p1"/>
                                                     <exclude reference="2Bg-6h-e8d"/>
                                                     <exclude reference="fbX-gM-VhE"/>
-                                                    <exclude reference="1HI-Gq-vLh"/>
-                                                    <exclude reference="cE4-n2-hR0"/>
-                                                    <exclude reference="zqM-tY-Ur3"/>
                                                     <exclude reference="RFP-PQ-fdZ"/>
                                                     <exclude reference="wgV-dj-mGU"/>
                                                     <exclude reference="AXU-kx-wGf"/>
@@ -626,11 +623,13 @@ users</string>
                                                     <exclude reference="DbK-OG-qQe"/>
                                                     <exclude reference="uIx-3a-3oC"/>
                                                     <exclude reference="vJq-yJ-EmN"/>
+                                                    <exclude reference="1HI-Gq-vLh"/>
+                                                    <exclude reference="cE4-n2-hR0"/>
+                                                    <exclude reference="zqM-tY-Ur3"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=regular">
                                                 <mask key="constraints">
-                                                    <exclude reference="2zn-9C-439"/>
                                                     <exclude reference="PV1-t6-srw"/>
                                                     <exclude reference="nlz-13-vTd"/>
                                                     <include reference="rfS-hJ-VtB"/>
@@ -643,6 +642,7 @@ users</string>
                                                     <exclude reference="KzF-No-pES"/>
                                                     <exclude reference="Pvk-ja-lpK"/>
                                                     <include reference="g5B-J6-Zeb"/>
+                                                    <exclude reference="2zn-9C-439"/>
                                                 </mask>
                                             </variation>
                                         </view>
@@ -1307,7 +1307,6 @@ users</string>
                     </tabBar>
                     <connections>
                         <segue destination="haj-us-SzY" kind="relationship" relationship="viewControllers" id="Aio-am-4Dn"/>
-                        <segue destination="7y0-gQ-9dt" kind="relationship" relationship="viewControllers" id="ZyO-gx-9Yb"/>
                         <segue destination="ysS-TF-YDt" kind="relationship" relationship="viewControllers" id="qV3-v3-Dsl"/>
                     </connections>
                 </tabBarController>
