@@ -14,14 +14,20 @@ import TTTAttributedLabel
 class ForumsViewController: UIViewController {
     
     enum SelectedList: Int {
-        case Recent = 0
-        case New
-        case Tag
+        case All = 0
         case Anime
+        case Episode
+        case Videos
+        case FanClub
+        case Tag
     }
-    
-    let recentActivityString = "Recent Activity"
-    let newThreadsString = "New Threads"
+
+    enum SelectedSorting: String {
+        case Recent
+        case New
+    }
+
+    let titles = ["All Activity", "Anime Threads", "Episode Threads", "Videos", "Fan Clubs"]
     
     var loadingView: LoaderView!
     var tagsDataSource: [ThreadTag] = []
@@ -35,10 +41,13 @@ class ForumsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var navigationBarTitle: UILabel!
     @IBOutlet weak var createThreadButton: UIButton!
+    @IBOutlet weak var sortingButton: UIButton!
+
     
     var fetchController = FetchController()
     var refreshControl = UIRefreshControl()
-    var selectedList: SelectedList = .Recent
+    var selectedList: SelectedList = .All
+    var selectedSort: SelectedSorting = .Recent
     var selectedThreadTag: ThreadTag?
     var selectedAnime: Anime?
     var animator: ZFModalTransitionAnimator!
@@ -56,7 +65,6 @@ class ForumsViewController: UIViewController {
         navigationBarTitle.addGestureRecognizer(tapGestureRecognizer)
         
         fetchThreadTags()
-        fetchAnimeTags()
         prepareForList(selectedList)
 
         addRefreshControl(refreshControl, action: #selector(ForumsViewController.refetchThreads), forTableView: tableView)
@@ -79,21 +87,13 @@ class ForumsViewController: UIViewController {
         self.selectedList = selectedList
         
         switch selectedList {
-        case .Recent:
-            navigationBarTitle.text = recentActivityString
-            fetchThreads()
-        case .New:
-            navigationBarTitle.text = newThreadsString
+        case .All, .Anime, .Episode, .FanClub, .Videos:
+            navigationBarTitle.text = titles[selectedList.rawValue]
             fetchThreads()
         case .Tag:
             if let selectedThreadTag = selectedThreadTag {
                 navigationBarTitle.text = selectedThreadTag.name
                 fetchTagThreads(selectedThreadTag)
-            }
-        case .Anime:
-            if let anime = selectedAnime {
-                navigationBarTitle.text = anime.title!
-                fetchTagThreads(anime)
             }
         }
         navigationBarTitle.text! += " " + FontAwesome.AngleDown.rawValue
@@ -103,10 +103,8 @@ class ForumsViewController: UIViewController {
         if let sender = navigationController?.navigationBar,
         let viewController = tabBarController where view.window != nil {
             let tagsTitles = tagsDataSource.map({ " #"+$0.name })
-            let animeTitles = animeDataSource.map({ " #"+($0.title ?? "") })
-
             
-            let dataSource = [[recentActivityString, newThreadsString], tagsTitles, animeTitles]
+            let dataSource = [titles, tagsTitles]
             DropDownListViewController.showDropDownListWith(
                 sender: sender,
                 viewController: viewController,
@@ -122,47 +120,86 @@ class ForumsViewController: UIViewController {
     }
     
     var startDate: NSDate?
+    var cachedGlobalThreads: [Thread] = []
     
     func fetchThreads() {
         
         startDate = NSDate()
-        
-        let pinnedQuery = Thread.query()!
-        pinnedQuery.whereKey("pinType", equalTo: "global")
-        pinnedQuery.includeKey("tags")
-        pinnedQuery.includeKey("lastPostedBy")
-        pinnedQuery.includeKey("startedBy")
-        pinnedQuery.findObjectsInBackgroundWithBlock { (result, error) -> Void in
-            if let pinnedData = result as? [Thread] {
-                let query = Thread.query()!
-                query.whereKey("replies", greaterThan: 0)
-                query.whereKeyExists("episode")
-                
-                let query2 = Thread.query()!
-                query2.whereKeyDoesNotExist("episode")
-                
-                let orQuery = PFQuery.orQueryWithSubqueries([query, query2])
-                orQuery.whereKeyDoesNotExist("pinType")
-                orQuery.includeKey("tags")
-                orQuery.includeKey("startedBy")
-                orQuery.includeKey("lastPostedBy")
 
-                switch self.selectedList {
-                case .Recent:
-                    orQuery.orderByDescending("updatedAt")
-                case .New:
-                    orQuery.orderByDescending("createdAt")
-                default:
-                    break
+        sortingButton.hidden = false
+
+        if cachedGlobalThreads.isEmpty {
+            let pinnedQuery = Thread.query()!
+            pinnedQuery.whereKey("pinType", equalTo: "global")
+            pinnedQuery.includeKey("tags")
+            pinnedQuery.includeKey("lastPostedBy")
+            pinnedQuery.includeKey("startedBy")
+            pinnedQuery.findObjectsInBackgroundWithBlock { (result, error) -> Void in
+                if let pinnedData = result as? [Thread] {
+                    self.cachedGlobalThreads = pinnedData
+                    self.fetchThreadDetails(pinnedData)
                 }
-                
-                self.fetchController.configureWith(self, query: orQuery, tableView: self.tableView, limit: 50, pinnedData: pinnedData)
             }
+        } else {
+            self.fetchThreadDetails(cachedGlobalThreads)
         }
     }
-    
+
+    func fetchThreadDetails(pinnedThreads: [Thread]) {
+        var finalQuery: PFQuery!
+
+        switch selectedList {
+        case .All:
+            let query = Thread.query()!
+            query.whereKey("replies", greaterThan: 0)
+            query.whereKeyExists("episode")
+
+            let query2 = Thread.query()!
+            query2.whereKeyDoesNotExist("episode")
+
+            finalQuery = PFQuery.orQueryWithSubqueries([query, query2])
+        case .Anime:
+            let anime = LibraryController.sharedInstance.library ?? []
+            finalQuery = Thread.query()!
+            finalQuery.whereKeyDoesNotExist("episode")
+            finalQuery.whereKey("tags", containedIn: anime)
+        case .Episode:
+            let anime = LibraryController.sharedInstance.library ?? []
+            finalQuery = Thread.query()!
+            finalQuery.whereKeyExists("episode")
+            finalQuery.whereKey("replies", greaterThan: 0)
+            finalQuery.whereKey("tags", containedIn: anime)
+        case .Videos:
+            finalQuery = Thread.query()!
+            finalQuery.whereKeyExists("youtubeID")
+            finalQuery.whereKey("youtubeID", notEqualTo: NSNull())
+        case .FanClub:
+            finalQuery = Thread.query()!
+            let fanClub = ThreadTag(outDataWithObjectId: "8Vm8UTKGqY")
+            finalQuery.whereKey("tags", containedIn: [fanClub])
+        default:
+            break
+        }
+
+        finalQuery.whereKeyDoesNotExist("pinType")
+        finalQuery.includeKey("tags")
+        finalQuery.includeKey("startedBy")
+        finalQuery.includeKey("lastPostedBy")
+
+        switch selectedSort {
+        case .Recent:
+            finalQuery.orderByDescending("updatedAt")
+        case .New:
+            finalQuery.orderByDescending("createdAt")
+        }
+
+        fetchController.configureWith(self, query: finalQuery, tableView: self.tableView, limit: 50, pinnedData: pinnedThreads)
+    }
+
     func fetchTagThreads(tag: PFObject) {
-        
+
+        sortingButton.hidden = true
+
         let query = Thread.query()!
         query.whereKey("pinType", equalTo: "tag")
         query.whereKey("tags", containedIn: [tag])
@@ -193,18 +230,6 @@ class ForumsViewController: UIViewController {
             return nil
         }
     }
-
-    func fetchAnimeTags() {
-        let query = Anime.query()!
-        query.whereKey("startDate", greaterThanOrEqualTo: NSDate().dateByAddingTimeInterval(-3*30*24*60*60))
-        query.whereKey("status", equalTo: "currently airing")
-        query.orderByAscending("rank")
-        query.limit = 100
-        query.findObjectsInBackground().continueWithSuccessBlock { (task: BFTask!) -> AnyObject! in
-            self.animeDataSource = task.result as! [Anime]
-            return nil
-        }
-    }
     
     // MARK: - IBActions
     
@@ -231,6 +256,16 @@ class ForumsViewController: UIViewController {
         }
     }
     
+    @IBAction func updateSorting(sender: AnyObject) {
+        if selectedSort == .Recent {
+            selectedSort = .New
+            sortingButton.setTitle(" New", forState: .Normal)
+        } else {
+            selectedSort = .Recent
+            sortingButton.setTitle(" Recent", forState: .Normal)
+        }
+        fetchThreads()
+    }
 }
 
 extension ForumsViewController: UITableViewDataSource {
@@ -318,16 +353,11 @@ extension ForumsViewController: DropDownListDelegate {
         
         if trigger.isEqual(navigationController?.navigationBar) {
             switch (indexPath.row, indexPath.section) {
-            case (0, 0):
-                prepareForList(.Recent)
-            case (1, 0):
-                prepareForList(.New)
+            case (_, 0):
+                prepareForList(SelectedList(rawValue: indexPath.row)!)
             case (_, 1):
                 selectedThreadTag = tagsDataSource[indexPath.row]
                 prepareForList(.Tag)
-            case (_, 2):
-                selectedAnime = animeDataSource[indexPath.row]
-                prepareForList(.Anime)
             default: break
             }
         }
