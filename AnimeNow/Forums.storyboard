@@ -51,7 +51,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="78" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="iTn-Ub-0hQ">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="605"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
                                 <color key="backgroundColor" white="0.97999999999999998" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="700" id="ScH-aE-5IW">
@@ -271,7 +271,7 @@
                             <constraint firstItem="iTn-Ub-0hQ" firstAttribute="top" secondItem="hzq-WK-h4l" secondAttribute="bottom" constant="-64" id="bG2-l2-ScF">
                                 <variation key="heightClass=regular-widthClass=regular" constant="-64"/>
                             </constraint>
-                            <constraint firstItem="mki-z3-DzD" firstAttribute="top" secondItem="iTn-Ub-0hQ" secondAttribute="bottom" constant="-49" id="vqs-ho-LRs"/>
+                            <constraint firstItem="mki-z3-DzD" firstAttribute="top" secondItem="iTn-Ub-0hQ" secondAttribute="bottom" id="vqs-ho-LRs"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
