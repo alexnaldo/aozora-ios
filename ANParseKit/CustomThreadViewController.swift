@@ -70,7 +70,7 @@ class CustomThreadViewController: ThreadViewController {
             commentsButton.setTitle("Locked", forState: .Normal)
         }
         
-        tagsLabel.updateTags(thread.tags, delegate: self)
+        tagsLabel.updateTag(thread.tags.last!, delegate: self)
         prepareForVideo(playButton, imageView: imageContent, imageHeightConstraint: imageHeightConstraint, youtubeID: thread.youtubeID)
     }
     

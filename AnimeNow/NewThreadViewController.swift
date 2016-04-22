@@ -18,17 +18,19 @@ public class NewThreadViewController: CommentViewController {
     @IBOutlet weak var threadTitle: UITextField!
     @IBOutlet weak var tagLabel: TTTAttributedLabel!
 
-    var tags: [PFObject] = [] {
+    var tag: PFObject? {
         didSet {
-            tagLabel.updateTags(tags, delegate: self)
+            if let tag = tag {
+                tagLabel.updateTag(tag, delegate: self)
+            }
         }
     }
 
-    var tagsToSet: [PFObject] = []
+    var tagToSet: PFObject?
 
-    public func initCustomThreadWithDelegate(delegate: CommentViewControllerDelegate?, tags: [PFObject] = []) {
+    public func initCustomThreadWithDelegate(delegate: CommentViewControllerDelegate?, tag: PFObject?) {
         super.initWith(threadType: ThreadType.Custom, delegate: delegate)
-        tagsToSet = tags
+        tagToSet = tag
     }
     
     public override func viewDidLoad() {
@@ -50,7 +52,7 @@ public class NewThreadViewController: CommentViewController {
         threadTitle.textColor = UIColor.blackColor()
         tagLabel.attributedText = nil
 
-        tags = tagsToSet
+        tag = tagToSet
         
         if let anime = anime, let animeTitle = anime.title {
             threadTitle.placeholder = "Enter a thread title for \(animeTitle)"
@@ -59,13 +61,13 @@ public class NewThreadViewController: CommentViewController {
         }
         
         if let anime = anime {
-            tags = [anime]
+            tag = anime
         }
         
         if let thread = editingPost as? Thread {
             textView.text = thread.content
             threadTitle.text = thread.title
-            tags = thread.tags
+            tag = thread.tags.last
             
             if let youtubeID = thread.youtubeID {
                 selectedVideoID = youtubeID
@@ -105,7 +107,7 @@ public class NewThreadViewController: CommentViewController {
         thread.content = textView.text
         let postable = thread as Postable
         postable.replyCount = 0
-        thread.tags = tags
+        thread.tags = [tag!]
         thread.subscribers = [postedBy!]
         thread.lastPostedBy = postedBy
         
@@ -140,7 +142,7 @@ public class NewThreadViewController: CommentViewController {
             thread.edited = true
             thread.title = threadTitle.text!
             thread.content = textView.text
-            thread.tags = tags
+            thread.tags = [tag!]
             
             if let selectedImageData = selectedImageData {
                 thread.imagesData = [selectedImageData]
@@ -185,8 +187,8 @@ public class NewThreadViewController: CommentViewController {
             return false
         }
         
-        if tags.count == 0 {
-            presentBasicAlertWithTitle("Add a tag", message: "You need to add at least one tag")
+        if tag == nil {
+            presentBasicAlertWithTitle("Add a tag", message: "You need to add a tag for this thread")
             return false
         }
         
@@ -197,24 +199,22 @@ public class NewThreadViewController: CommentViewController {
     
     @IBAction func addTags(sender: AnyObject) {
         let tagsController = Storyboard.tagsViewController()
-        tagsController.selectedDataSource = tags
+        tagsController.selectedTag = tag
         tagsController.delegate = self
         animator = presentViewControllerModal(tagsController)
     }
 }
 
 extension NewThreadViewController: TagsViewControllerDelegate {
-    func tagsViewControllerSelected(tags tags: [PFObject]) {
-        self.tags = tags
+    func tagsViewControllerSelected(tag tag: PFObject?) {
+        self.tag = tag
     }
 }
 
 extension NewThreadViewController: TTTAttributedLabelDelegate {
     
     public func attributedLabel(label: TTTAttributedLabel!, didSelectLinkWithURL url: NSURL!) {
-        if let host = url.host where host == "tag", let index = url.pathComponents?[1], let idx = Int(index) {
-            tags.removeAtIndex(idx)
-        }
+        tag = nil
     }
 }
 

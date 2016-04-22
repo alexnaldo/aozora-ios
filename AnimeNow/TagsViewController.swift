@@ -11,7 +11,7 @@ import ANCommonKit
 import SDWebImage
 
 protocol TagsViewControllerDelegate: class {
-    func tagsViewControllerSelected(tags tags: [PFObject])
+    func tagsViewControllerSelected(tag tag: PFObject?)
 }
 
 public let AllThreadTagsPin = "Pin.ThreadTag"
@@ -25,7 +25,7 @@ public class TagsViewController: UIViewController {
     
     weak var delegate: TagsViewControllerDelegate?
     var dataSource: [PFObject] = []
-    var selectedDataSource: [PFObject] = []
+    var selectedTag: PFObject?
     
     var cachedGeneralTags: [ThreadTag] = []
 
@@ -51,7 +51,7 @@ public class TagsViewController: UIViewController {
     
     public override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        delegate?.tagsViewControllerSelected(tags: selectedDataSource)
+        delegate?.tagsViewControllerSelected(tag: selectedTag)
         view.endEditing(true)
     }
     
@@ -138,7 +138,7 @@ extension TagsViewController: UICollectionViewDataSource {
             cell.subtitleLabel.text = anime.informationString()
         }
         
-        if selectedDataSource.contains(tag) {
+        if selectedTag == tag {
             cell.backgroundColor = UIColor.backgroundDarker()
         } else {
             cell.backgroundColor = UIColor.backgroundWhite()
@@ -153,13 +153,7 @@ extension TagsViewController: UICollectionViewDataSource {
 extension TagsViewController: UICollectionViewDelegate {
     
     public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let tag = dataSource[indexPath.row]
-        
-        if let index = selectedDataSource.indexOf(tag) {
-            selectedDataSource.removeAtIndex(index)
-        } else {
-            selectedDataSource.append(tag)
-        }
+        selectedTag = dataSource[indexPath.row]
         collectionView.reloadData()
     }
 }

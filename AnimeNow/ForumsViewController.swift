@@ -238,9 +238,9 @@ class ForumsViewController: UIViewController {
         if User.currentUserLoggedIn() {
             let comment = Storyboard.newThreadViewController()
             if let selectedAnime = selectedAnime where selectedList == .Anime {
-                comment.initCustomThreadWithDelegate(self, tags: [selectedAnime])
+                comment.initCustomThreadWithDelegate(self, tag: selectedAnime)
             } else {
-                comment.initCustomThreadWithDelegate(self)
+                comment.initCustomThreadWithDelegate(self, tag: nil)
             }
 
             animator = presentViewControllerModal(comment)
@@ -313,7 +313,7 @@ extension ForumsViewController: UITableViewDataSource {
         cell.title.text = thread.title
         let lastPostedByUsername = thread.lastPostedBy?.aozoraUsername ?? ""
         cell.information.text = "\(thread.replyCount) comments · \(thread.updatedAt!.timeAgo()) · \(lastPostedByUsername)"
-        cell.tagsLabel.updateTags(thread.tags, delegate: self, addLinks: false)
+        cell.tagsLabel.updateTag(thread.tags.last!, delegate: self, addLinks: false)
         cell.layoutIfNeeded()
         return cell
     }
