@@ -350,7 +350,7 @@ users</string>
                                                         <action selector="rateAnimePressed:" destination="Gi4-Gc-NLH" eventType="touchUpInside" id="IGr-yL-XMB"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J6K-vj-3lI" customClass="SpacerButton" customModule="AnimeTrakr" customModuleProvider="target">
+                                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J6K-vj-3lI" customClass="SpacerButton" customModule="AnimeTrakr" customModuleProvider="target">
                                                     <rect key="frame" x="371.5" y="48" width="167.5" height="30"/>
                                                     <color key="backgroundColor" white="0.94916466489999995" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -362,6 +362,9 @@ users</string>
                                                     <state key="normal" title=" OFF">
                                                         <color key="titleColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="disabled">
+                                                        <color key="titleColor" white="0.84590742677824271" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">

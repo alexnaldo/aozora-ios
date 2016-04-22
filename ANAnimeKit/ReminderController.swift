@@ -10,6 +10,11 @@ import Foundation
 import ANCommonKit
 
 public class ReminderController {
+
+    public class func canScheduleReminderForAnime(anime: Anime) -> Bool {
+        return anime.nextEpisode != nil ? true : false
+    }
+
     public class func scheduleReminderForAnime(anime: Anime) -> Bool {
         
         guard let nextEpisode = anime.nextEpisode else {

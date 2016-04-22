@@ -28,7 +28,12 @@ public class ForumViewController: AnimeBaseViewController {
 
     @IBOutlet weak var newThreadButton: UIButton!
     @IBOutlet weak public var navigationBar: UINavigationItem!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            tableView.estimatedRowHeight = 150.0
+            tableView.rowHeight = UITableViewAutomaticDimension
+        }
+    }
 
     var dataSource: [Thread] = [] {
         didSet {
@@ -43,15 +48,8 @@ public class ForumViewController: AnimeBaseViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let title = anime.title {
-            let formattedTitle = StringFormatter.shortenAnimeTitleIfNeeded(title)
-
-            navigationBar.title = "\(formattedTitle) Discussion"
-            newThreadButton.setTitle("New \(formattedTitle)... Thread", forState: .Normal)
-        }
-        
-        tableView.estimatedRowHeight = 150.0
-        tableView.rowHeight = UITableViewAutomaticDimension
+        navigationBar.title = "Discussion"
+        newThreadButton.setTitle("New anime thread", forState: .Normal)
         
         loadingView = LoaderView(parentView: view)
         loadingView.startAnimating()
