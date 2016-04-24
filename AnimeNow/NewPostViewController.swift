@@ -112,7 +112,7 @@ public class NewPostViewController: CommentViewController {
         }
         
         if fetchingData {
-            presentBasicAlertWithTitle("Fetching link data...", message: nil)
+            presentAlertWithTitle("Fetching link data...", message: nil)
             return
         }
         
@@ -305,7 +305,7 @@ public class NewPostViewController: CommentViewController {
         let content = max(textView.text.characters.count, spoilerTextView.text.characters.count)
         // Validate post
         if content < 1 && selectedImageData == nil && selectedVideoID == nil && selectedLinkData == nil {
-            presentBasicAlertWithTitle("Too Short", message: "Message/spoiler should be 1 character or longer")
+            presentAlertWithTitle("Too Short", message: "Message/spoiler should be 1 character or longer")
             return false
         }
         if User.muted(self) {

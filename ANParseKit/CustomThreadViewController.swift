@@ -313,9 +313,9 @@ class CustomThreadViewController: ThreadViewController {
             newPostViewController.initWith(thread, threadType: threadType, delegate: self)
             animator = presentViewControllerModal(newPostViewController)
         } else if let thread = thread where thread.locked {
-            presentBasicAlertWithTitle("Thread is locked", message: nil)
+            presentAlertWithTitle("Thread is locked", message: nil)
         } else {
-            presentBasicAlertWithTitle("Login first", message: "Select 'Me' tab")
+            presentAlertWithTitle("Login first", message: "Select 'Me' tab")
         }
     }
     
@@ -361,9 +361,9 @@ class CustomThreadViewController: ThreadViewController {
                     thread.locked = !locked
                     thread.saveInBackgroundWithBlock({ (success, error) -> Void in
                         if success {
-                            self.presentBasicAlertWithTitle(thread.locked ? "Locked!" : "Unlocked!")
+                            self.presentAlertWithTitle(thread.locked ? "Locked!" : "Unlocked!")
                         } else {
-                            self.presentBasicAlertWithTitle("Failed saving")
+                            self.presentAlertWithTitle("Failed saving")
                         }
                     })
                 }))
@@ -381,7 +381,7 @@ class CustomThreadViewController: ThreadViewController {
                             } else {
                                 alertTitle = "Failed unpinning"
                             }
-                            self.presentBasicAlertWithTitle(alertTitle)
+                            self.presentAlertWithTitle(alertTitle)
                         })
                     }))
                 } else {
@@ -395,7 +395,7 @@ class CustomThreadViewController: ThreadViewController {
                                 alertTitle = "Failed pinning"
                             }
                             
-                            self.presentBasicAlertWithTitle(alertTitle)
+                            self.presentAlertWithTitle(alertTitle)
                         })
                     }))
                     alert.addAction(UIAlertAction(title: "Pin Tag", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction!) -> Void in
@@ -408,7 +408,7 @@ class CustomThreadViewController: ThreadViewController {
                                 alertTitle = "Failed pinning"
                             }
                             
-                            self.presentBasicAlertWithTitle(alertTitle)
+                            self.presentAlertWithTitle(alertTitle)
                         })
                     }))
                 }

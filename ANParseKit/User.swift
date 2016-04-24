@@ -153,7 +153,7 @@ public class User: PFUser {
             return false
         }
         
-        viewController.presentBasicAlertWithTitle("Account muted", message: "Until \(muteDate.mediumDateTime()).\nContact admins for more information.")
+        viewController.presentAlertWithTitle("Account muted", message: "Until \(muteDate.mediumDateTime()).\nContact admins for more information.")
         return true
     }
 }

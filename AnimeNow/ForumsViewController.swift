@@ -245,7 +245,7 @@ class ForumsViewController: UIViewController {
 
             animator = presentViewControllerModal(comment)
         } else {
-            presentBasicAlertWithTitle("Login first", message: "Select 'Me' tab to login", style: .Alert)
+            presentAlertWithTitle("Login first", message: "Select 'Me' tab to login", style: .Alert)
         }
     }
     

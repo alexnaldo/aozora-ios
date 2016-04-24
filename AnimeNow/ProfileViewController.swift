@@ -359,7 +359,7 @@ class ProfileViewController: ThreadViewController {
             comment.initWithTimelinePost(self, postedIn: profile)
             animator = presentViewControllerModal(comment)
         } else {
-            presentBasicAlertWithTitle("Login first", message: "Select 'Me' tab")
+            presentAlertWithTitle("Login first", message: "Select 'Me' tab")
         }
     }
     
@@ -472,7 +472,7 @@ class ProfileViewController: ThreadViewController {
                             let userProfile = self?.userProfile,
                             let durationText = durationTextField[0].text,
                             let duration = Double(durationText) else {
-                            self?.presentBasicAlertWithTitle("Woops", message: "Your mute duration is too long or you have entered characters.")
+                            self?.presentAlertWithTitle("Woops", message: "Your mute duration is too long or you have entered characters.")
                             return
                         }
                         
@@ -480,7 +480,7 @@ class ProfileViewController: ThreadViewController {
                         userProfile.details.mutedUntil = date
                         userProfile.saveInBackground()
                         
-                        controller.presentBasicAlertWithTitle("Muted user", message: "You have muted " + userProfile.aozoraUsername)
+                        controller.presentAlertWithTitle("Muted user", message: "You have muted " + userProfile.aozoraUsername)
 
                     }
                 })
@@ -508,7 +508,7 @@ class ProfileViewController: ThreadViewController {
             userProfile.details.mutedUntil = nil
             userProfile.saveInBackground()
             
-            self.presentBasicAlertWithTitle("Unmuted user", message: "You have unmuted " + username)
+            self.presentAlertWithTitle("Unmuted user", message: "You have unmuted " + username)
         }))
     }
     

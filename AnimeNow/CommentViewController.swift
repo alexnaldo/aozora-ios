@@ -224,7 +224,7 @@ public class CommentViewController: UIViewController {
         if let _ = selectedLinkUrl {
             selectedLinkUrl = nil
         } else {
-            presentBasicAlertWithTitle("Paste any link in text area", message: nil)
+            presentAlertWithTitle("Paste any link in text area", message: nil)
         }
     }
     

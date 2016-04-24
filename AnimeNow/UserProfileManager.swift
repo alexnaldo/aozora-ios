@@ -146,7 +146,7 @@ public class UserProfileManager: NSObject {
                 
                 if let error = task.error {
                     let errorMessage = error.userInfo["error"] as! String
-                    viewController.presentBasicAlertWithTitle("Error", message: errorMessage)
+                    viewController.presentAlertWithTitle("Error", message: errorMessage)
                     return BFTask(error: NSError(domain: "", code: 0, userInfo: nil))
                 } else {
                     return nil
@@ -190,7 +190,7 @@ public class UserProfileManager: NSObject {
             
             if let error = task.error {
                 let errorMessage = error.userInfo["error"] as! String
-                viewController.presentBasicAlertWithTitle("Error", message: errorMessage)
+                viewController.presentAlertWithTitle("Error", message: errorMessage)
                 return BFTask(error: error)
             } else {
                 return nil
@@ -220,7 +220,7 @@ extension UserProfileManager: UIImagePickerControllerDelegate, UINavigationContr
         viewController.dismissViewControllerAnimated(true, completion: { () -> Void in
             
             if image.size.width < UserProfileManager.ImageMinimumSideSize || image.size.height < UserProfileManager.ImageMinimumSideSize {
-                self.viewController.presentBasicAlertWithTitle("Pick a larger image", message: "Select an image with at least 120x120px")
+                self.viewController.presentAlertWithTitle("Pick a larger image", message: "Select an image with at least 120x120px")
             } else {
                 let imageCropVC: RSKImageCropViewController!
                 

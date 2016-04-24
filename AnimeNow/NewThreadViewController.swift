@@ -177,18 +177,18 @@ public class NewThreadViewController: CommentViewController {
         }
     
         if content.characters.count < 1 {
-            presentBasicAlertWithTitle("Content too short", message: "Content should be a 1 character or longer, now \(content.characters.count)")
+            presentAlertWithTitle("Content too short", message: "Content should be a 1 character or longer, now \(content.characters.count)")
             return false
         }
         
         let title = threadTitle.text
         if title!.characters.count < 3 {
-            presentBasicAlertWithTitle("Title too short", message: "Thread title should be 3 characters or longer, now \(content.characters.count)")
+            presentAlertWithTitle("Title too short", message: "Thread title should be 3 characters or longer, now \(content.characters.count)")
             return false
         }
         
         if tag == nil {
-            presentBasicAlertWithTitle("Add a tag", message: "You need to add a tag for this thread")
+            presentAlertWithTitle("Add a tag", message: "You need to add a tag for this thread")
             return false
         }
         

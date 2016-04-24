@@ -138,9 +138,9 @@ class NotificationThreadViewController: ThreadViewController {
             comment.initWith(thread, threadType: threadType, delegate: self)
             presentViewController(comment, animated: true, completion: nil)
         } else if let thread = thread where thread.locked {
-            presentBasicAlertWithTitle("Thread is locked", message: nil)
+            presentAlertWithTitle("Thread is locked", message: nil)
         } else {
-            presentBasicAlertWithTitle("Login first", message: "Select 'Me' tab")
+            presentAlertWithTitle("Login first", message: "Select 'Me' tab")
         }
     }
 

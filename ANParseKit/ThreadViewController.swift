@@ -124,7 +124,7 @@ class ThreadViewController: UIViewController {
     
     func replyTo(post: Commentable) {
         guard User.currentUserLoggedIn() else {
-            presentBasicAlertWithTitle("Login first", message: "Select 'Me' tab")
+            presentAlertWithTitle("Login first", message: "Select 'Me' tab")
             return
         }
         
@@ -132,7 +132,7 @@ class ThreadViewController: UIViewController {
 
         if let post = post as? ThreadPostable, let thread = thread {
             if thread.locked {
-                presentBasicAlertWithTitle("Thread is locked")
+                presentAlertWithTitle("Thread is locked")
             } else {
                 newPostViewController.initWith(thread, threadType: threadType, delegate: self, parentPost: post)
                 animator = presentViewControllerModal(newPostViewController)
@@ -179,7 +179,7 @@ class ThreadViewController: UIViewController {
     
     func like(post: Commentable) {
         if !User.currentUserLoggedIn() {
-            presentBasicAlertWithTitle("Login first", message: "Select 'Me' tab")
+            presentAlertWithTitle("Login first", message: "Select 'Me' tab")
             return
         }
         

@@ -149,7 +149,7 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
             return
         }
 
-        self.ranksView.hidden = false
+        ranksView.hidden = false
         
         if let progress = anime.progress {
             updateListButtonTitle(progress.list)
@@ -335,7 +335,7 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
         
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler:nil))
         
-        self.presentViewController(alert, animated: true, completion: nil)
+        presentViewController(alert, animated: true, completion: nil)
     }
     
     func updateProgressWithList(list: MALList) {
@@ -378,7 +378,7 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
                     })
                     self.updateListButtonTitle(progress.list)
                 } else {
-                    self.presentBasicAlertWithTitle("Anime already in Library", message: "You might need to sync your library first, select 'Library' tab")
+                    self.presentAlertWithTitle("Anime already in Library", message: "You might need to sync your library first, select 'Library' tab")
                 }
             })
             Analytics.tappedAnimeDetailChangeList(list.rawValue, saved: true)
@@ -390,12 +390,10 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
     }
 
     @IBAction func rateAnimePressed(sender: AnyObject) {
-        if let progress = self.anime.progress, let tabBarController = self.tabBarController, let title = self.anime.title {
-            RateViewController.showRateDialogWith(tabBarController, title: "Rate \(title)", initialRating: Float(progress.score)/2.0, anime: self.anime, delegate: self)
+        if let progress = anime.progress, let tabBarController = tabBarController, let title = anime.title {
+            RateViewController.showRateDialogWith(tabBarController, title: "Rate \(title)", initialRating: Float(progress.score)/2.0, anime: anime, delegate: self)
         } else {
-            let alert = UIAlertController(title: "Not saved", message: "Add the anime to your library first", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler:nil))
-            self.presentViewController(alert, animated: true, completion: nil)
+            presentAlertWithTitle("Not saved", message: "Add the anime to your library first")
         }
 
     }
@@ -408,24 +406,27 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
 
         let scheduledReminder = ReminderController.scheduledReminderFor(anime)
 
-        if let _ = self.anime.progress, let _ = self.tabBarController, let _ = self.anime.title {
+        if let _ = anime.progress, let _ = tabBarController, let _ = anime.title {
             if let _ = scheduledReminder {
-                ReminderController.disableReminderForAnime(self.anime)
+                ReminderController.disableReminderForAnime(anime)
                 updateReminderButtonEnabled(false)
             } else {
-                let success = ReminderController.scheduleReminderForAnime(self.anime)
+                let success = ReminderController.scheduleReminderForAnime(anime)
                 updateReminderButtonEnabled(success)
             }
         } else {
-            let alert = UIAlertController(title: "Not saved", message: "Add the anime to your library first", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler:nil))
-            self.presentViewController(alert, animated: true, completion: nil)
+            presentAlertWithTitle("Not saved", message: "Add the anime to your library first")
         }
     }
     
     @IBAction func favoritePressed(sender: AnyObject) {
-        guard let progress = self.anime.progress else {
+
+        guard let progress = anime.progress else {
             return
+        }
+
+        if !didOnce("AnimeDetails.ExplainFavoriteButton") {
+            presentAlertWithTitle("Favorite Anime", message: "Add or remove anime from your public favorite anime list, see the list in profile.")
         }
 
         favoriteButton.animateBounce()
@@ -500,7 +501,7 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
         alert.addAction(UIAlertAction(title: "Refresh Images", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction!) -> Void in
             let params = ["malID": self.anime.myAnimeListID]
             PFCloud.callFunctionInBackground("updateAnimeInformation", withParameters: params, block: { (result, error) -> Void in
-                self.presentBasicAlertWithTitle("Refreshing..", message: "Data will be refreshed soon")
+                self.presentAlertWithTitle("Refreshing..", message: "Data will be refreshed soon")
                 print("Refreshed!!")
             })
         }))
