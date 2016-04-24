@@ -269,8 +269,8 @@ extension PublicListViewController: UICollectionViewDelegate, UICollectionViewDe
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
         view.endEditing(true)
-        
-        let anime = filteredDataSource[indexPath.section][indexPath.row]
+        let section = indexPath.section - 1
+        let anime = filteredDataSource[section][indexPath.row]
         animator = presentAnimeModal(anime)
     }
 
