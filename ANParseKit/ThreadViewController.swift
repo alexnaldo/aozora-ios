@@ -719,7 +719,10 @@ extension ThreadViewController: PostCellDelegate {
         query.limit = 1000
         userListController.initWithQuery(query, title: "Liked by", user: User.currentUser())
         userListController.hidesBottomBarWhenPushed = true
-        self.presentSmallViewController(userListController, sender: view)
+
+        // TODO: Use a modal instead..
+        let cell = postCell.actionsView?.superview != nil ? postCell.actionsView! : tableView.cellForRowAtIndexPath(postCell.currentIndexPath)!
+        presentSmallViewController(userListController, sender: cell)
     }
 }
 
