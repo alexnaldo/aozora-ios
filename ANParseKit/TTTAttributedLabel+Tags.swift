@@ -9,10 +9,15 @@
 import TTTAttributedLabel
 
 extension TTTAttributedLabel {
-    public func updateTag(tag: PFObject, delegate: TTTAttributedLabelDelegate, addLinks: Bool = true) {
+    public func updateTag(tag: PFObject?, delegate: TTTAttributedLabelDelegate, addLinks: Bool = true) {
         linkAttributes = [kCTForegroundColorAttributeName: UIColor.peterRiver()]
         textColor = UIColor.peterRiver()
         self.delegate = delegate
+
+        if tag == nil {
+            text = ""
+            return
+        }
         
         var tagsString = ""
         if let tag = tag as? ThreadTag {

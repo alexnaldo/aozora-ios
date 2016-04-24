@@ -20,9 +20,7 @@ public class NewThreadViewController: CommentViewController {
 
     var tag: PFObject? {
         didSet {
-            if let tag = tag {
-                tagLabel.updateTag(tag, delegate: self)
-            }
+            tagLabel.updateTag(tag, delegate: self)
         }
     }
 
