@@ -73,7 +73,6 @@ class ProfileViewController: ThreadViewController {
         
         if userProfile == nil && username == nil {
             userProfile = User.currentUser()!
-            logUser()
             segmentedControl.selectedIndex = SelectedFeed.Feed.rawValue
         } else {
             segmentedControl.selectedIndex = SelectedFeed.Me.rawValue
@@ -89,13 +88,6 @@ class ProfileViewController: ThreadViewController {
         aboutLabel.delegate = self;
         
         fetchPosts()
-    }
-
-    func logUser() {
-        // You can call any combination of these three methods
-        Crashlytics.sharedInstance().setUserEmail(userProfile?.email)
-        Crashlytics.sharedInstance().setUserIdentifier(userProfile?.objectId)
-        Crashlytics.sharedInstance().setUserName(userProfile?.aozoraUsername)
     }
 
     override func viewWillAppear(animated: Bool) {

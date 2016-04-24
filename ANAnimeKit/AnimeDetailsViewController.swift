@@ -130,6 +130,13 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
         query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
 
             if let anime = objects?.first as? Anime {
+
+                Analytics.viewedAnimeDetail(
+                    title: anime.title ?? "Unknown",
+                    id: anime.objectId!,
+                    list: self.anime.progress!.list
+                )
+
                 anime.progress = self.anime.progress
                 self.customTabBar.anime = anime
                 self.updateInformationWithAnime()

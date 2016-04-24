@@ -7,7 +7,6 @@
 //
 
 import UIKit
-
 import ANCommonKit
 
 public class RootTabBar: UITabBarController {
@@ -31,6 +30,8 @@ public class RootTabBar: UITabBarController {
             selectedDefaultTabOnce = true
             if let value = NSUserDefaults.standardUserDefaults().valueForKey(RootTabBar.LastOpenTab) as? Int {
                 selectedIndex = value
+
+                Analytics.viewedRootTabTab(number: value)
             }
         }
     }
@@ -106,6 +107,7 @@ extension RootTabBar: UITabBarControllerDelegate {
 
     public func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
         // Update the selected index
+        Analytics.viewedRootTabTab(number: selectedIndex)
         NSUserDefaults.standardUserDefaults().setObject(selectedIndex, forKey: RootTabBar.LastOpenTab)
         NSUserDefaults.standardUserDefaults().synchronize()
     }

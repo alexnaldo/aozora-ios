@@ -68,6 +68,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         //PostsService.addLikeAndCommentToPostsCounters()
         //PostsService.addLikeAndCommentToTimelinePostsCounters()
+
+        if let currentUser = User.currentUser() {
+            Flurry.setUserID(currentUser.objectId!)
+            let usingMAL = currentUser.myAnimeListUsername != nil
+            let trialExpired = NSDate().compare(currentUser.trialExpiration ?? NSDate()) == NSComparisonResult.OrderedDescending
+
+            Flurry.sessionProperties([
+                "joined": currentUser.joinDate,
+                "usingMAL": usingMAL,
+                "trialExpired": trialExpired,
+            ])
+
+            Crashlytics.sharedInstance().setUserEmail(currentUser.email)
+            Crashlytics.sharedInstance().setUserIdentifier(currentUser.objectId)
+            Crashlytics.sharedInstance().setUserName(currentUser.aozoraUsername)
+        }
     }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -75,6 +91,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.with([Crashlytics()])
 
         Flurry.startSession(AozoraKeys().flurryAPIKey())
+        Flurry.addSessionOrigin("App.Initialized.HomeIconPress")
 
         initializeParse()
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
@@ -118,14 +135,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let objectClass = userInfo["targetClass"] as? String,
             let objectId = userInfo["targetID"] as? String,
             let notificationId = userInfo["notificationID"] as? String,
-        let aps = userInfo["aps"] as? [String: AnyObject], let alert =  aps["alert"] as? String {
+            let aps = userInfo["aps"] as? [String: AnyObject],
+            let alert = aps["alert"] as? String {
                 
                 let state = UIApplication.sharedApplication().applicationState;
                 if state == UIApplicationState.Background || state == UIApplicationState.Inactive
                 {
+                    Flurry.addSessionOrigin("App.FromBackground.Notification")
                     NotificationsController.handleNotification(notificationId, objectClass: objectClass, objectId: objectId)
                 } else {
                     // Not from background
+                    Flurry.addSessionOrigin("App.Initialized.Notification")
                     NotificationsController.showToast(notificationId, objectClass: objectClass, objectId: objectId, message: alert)
                 }
                 

@@ -678,7 +678,7 @@
 		DA5A3E631CC1C0CC00A76621 /* ADVSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADVSegmentedControl.swift; sourceTree = "<group>"; };
 		DA5B28671C5EE3F500EACCE3 /* WormholeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WormholeExtensions.swift; sourceTree = "<group>"; };
 		DA5B28691C5F18D100EACCE3 /* AiringController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AiringController.swift; sourceTree = "<group>"; };
-		DA64D9F41CCAD9EF005D493F /* Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
+		DA64D9F41CCAD9EF005D493F /* Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Analytics.swift; path = AnimeNow/Analytics.swift; sourceTree = SOURCE_ROOT; };
 		DA6755E11B729C2100D6EA32 /* ImagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagesViewController.swift; sourceTree = "<group>"; };
 		DA6B55331CC2DFBD00EB6FC0 /* Aozora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aozora.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA6E12D11B10D96F00B278B0 /* TFHpple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHpple.h; sourceTree = "<group>"; };
@@ -1229,6 +1229,14 @@
 			path = ../ANAnimeKit;
 			sourceTree = "<group>";
 		};
+		DA64C59D1CCD680B001A6AFE /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				DA64D9F41CCAD9EF005D493F /* Analytics.swift */,
+			);
+			path = Analytics;
+			sourceTree = "<group>";
+		};
 		DA6E12CE1B10D96F00B278B0 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
@@ -1304,7 +1312,6 @@
 				DAC7D9051B50464B00898FF6 /* DialogController.swift */,
 				DA32EBE01C6A87720090CD51 /* StringFormatter.swift */,
 				DA7996C01CB9BA9000AD7EAD /* QueryBuilder.swift */,
-				DA64D9F41CCAD9EF005D493F /* Analytics.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1330,6 +1337,7 @@
 		DAA5774B1C66F161007E81E6 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				DA64C59D1CCD680B001A6AFE /* Analytics */,
 				DAD7AEA41CC45A6800BB2FBD /* Helpers */,
 				DAE7A7151B2105D000788614 /* Views */,
 				DACE77C51B29518300037486 /* Models */,
