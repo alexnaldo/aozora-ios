@@ -70,16 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //PostsService.addLikeAndCommentToTimelinePostsCounters()
 
         if let currentUser = User.currentUser() {
-            Flurry.setUserID(currentUser.objectId!)
-            let usingMAL = currentUser.myAnimeListUsername != nil
-            let trialExpired = NSDate().compare(currentUser.trialExpiration ?? NSDate()) == NSComparisonResult.OrderedDescending
-
-            Flurry.sessionProperties([
-                "joined": currentUser.joinDate,
-                "usingMAL": usingMAL,
-                "trialExpired": trialExpired,
-            ])
-
+            Analytics.setSessionDataforUser(currentUser)
             Crashlytics.sharedInstance().setUserEmail(currentUser.email)
             Crashlytics.sharedInstance().setUserIdentifier(currentUser.objectId)
             Crashlytics.sharedInstance().setUserName(currentUser.aozoraUsername)

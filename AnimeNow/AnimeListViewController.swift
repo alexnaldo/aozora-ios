@@ -79,6 +79,8 @@ class AnimeListViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         refreshControl.endRefreshing()
+
+        Analytics.viewedLibrary(animeListType.rawValue, layout: currentLayout.rawValue, sort: currentSortType.rawValue)
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -255,8 +257,10 @@ extension AnimeListViewController: AnimeLibraryCellDelegate {
     func cellPressedWatched(cell: AnimeLibraryCell, anime: Anime) {
         if let progress = anime.progress {
 
+            Analytics.tappedLibraryAnimeEpisodeWatched(anime.objectId!, list: progress.myAnimeListList().rawValue, row: collectionView.indexPathForCell(cell)!.row)
+
             if progress.myAnimeListList() == .Completed {
-                RateViewController.showRateDialogWith(self.tabBarController!, title: "You've finished\n\(anime.title!)!\ngive it a rating", initialRating: Float(progress.score)/2.0, anime: anime, delegate: self)
+                RateViewController.showRateDialogWith(tabBarController!, title: "You've finished\n\(anime.title!)!\ngive it a rating", initialRating: Float(progress.score)/2.0, anime: anime, delegate: self)
             }
 
             cell.configureWithAnime(anime, showLibraryEta: true)
@@ -269,6 +273,8 @@ extension AnimeListViewController: AnimeLibraryCellDelegate {
         threadController.initWithEpisode(episode, anime: anime)
         
         navigationController?.pushViewController(threadController, animated: true)
+
+        Analytics.tappedLibraryAnimeEpisodeComment(anime.objectId!, list: anime.progress!.myAnimeListList().rawValue, row: collectionView.indexPathForCell(cell)!.row)
     }
 }
 

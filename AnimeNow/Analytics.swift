@@ -11,6 +11,23 @@ import Flurry_iOS_SDK
 
 class Analytics {
 
+    // MARK: - Session
+
+    class func setSessionDataforUser(currentUser: User) {
+        Flurry.setUserID(currentUser.objectId!)
+        let days = NSCalendar.currentCalendar().components([.Day], fromDate: currentUser.joinDate, toDate: NSDate(), options: []).day
+        let months = NSCalendar.currentCalendar().components([.Month], fromDate: currentUser.joinDate, toDate: NSDate(), options: []).month
+        let usingMAL = currentUser.myAnimeListUsername != nil ? "Yes" : "No"
+        let trialExpired = NSDate().compare(currentUser.trialExpiration ?? NSDate()) == NSComparisonResult.OrderedAscending ? "No" : "Yes"
+
+        Flurry.sessionProperties([
+            "usingDays": String(days),
+            "usingMonths": String(months),
+            "usingMAL": usingMAL,
+            "trialExpired": trialExpired,
+        ])
+    }
+
     // MARK: - RootTab
 
     class func viewedRootTabTab(number number: Int) {
@@ -90,7 +107,7 @@ class Analytics {
         Flurry.logEvent(eventID, withParameters: parameters)
     }
 
-    class func tappedLibraryFilter(list: String) {
+    class func tappedLibraryFilter() {
         let eventID = "Tap.Library.Filter"
         Flurry.logEvent(eventID, withParameters: nil)
     }
@@ -133,10 +150,11 @@ class Analytics {
         Flurry.logEvent(eventID, withParameters: parameters)
     }
 
-    class func tappedAnimeDetailChangeList(list: String) {
+    class func tappedAnimeDetailChangeList(list: String, saved: Bool) {
         let eventID = "Tap.AnimeDetail.ChangeList"
         let parameters: [NSObject: AnyObject] = [
-            "list": list
+            "list": list,
+            "saved": saved ? "Yes" : "No"
         ]
         Flurry.logEvent(eventID, withParameters: parameters)
     }

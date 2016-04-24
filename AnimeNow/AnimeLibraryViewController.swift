@@ -88,8 +88,8 @@ class AnimeLibraryViewController: XLButtonBarPagerTabStripViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.isProgressiveIndicator = true
-        self.buttonBarView.selectedBar.backgroundColor = UIColor.watching()
+        isProgressiveIndicator = true
+        buttonBarView.selectedBar.backgroundColor = UIColor.watching()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AnimeLibraryViewController.updateLibrary), name: LibraryUpdatedNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AnimeLibraryViewController.controllerRequestRefresh), name: LibraryCreatedNotification, object: nil)
@@ -242,6 +242,7 @@ class AnimeLibraryViewController: XLButtonBarPagerTabStripViewController {
         
         if let tabBar = tabBarController {
             tabBar.presentSearchViewController(.MyLibrary)
+            Analytics.tappedLibrarySearch()
         }
     }
     
@@ -253,6 +254,7 @@ class AnimeLibraryViewController: XLButtonBarPagerTabStripViewController {
             controller.delegate = self
             controller.initWith(configuration: currentConfiguration)
             animator = tabBar.presentViewControllerModal(controller)
+            Analytics.tappedLibraryFilter()
         }
     }
 }
@@ -274,7 +276,6 @@ extension AnimeLibraryViewController: FilterViewControllerDelegate {
             let sortType = SortType(rawValue: value) {
                 setSortTypeForList(sortType, list: allAnimeLists[currentListIndex])
         }
-        
     }
 }
 

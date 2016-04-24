@@ -89,6 +89,8 @@ class HomeViewController: UIViewController {
         canDisplayBannerAds = InAppController.canDisplayAds()
         
         headerTimer = NSTimer.scheduledTimerWithTimeInterval(10.0, target: self, selector: #selector(HomeViewController.moveHeaderView(_:)), userInfo: nil, repeats: true)
+
+        Analytics.viewedHome()
     }
 
     override func viewWillDisappear(animated: Bool) {
@@ -316,6 +318,8 @@ private extension HomeViewController {
         browserViewController.initWithBrowseData(dataSource, controllerTitle: "Calendar", headerHeight: .Regular)
 
         navigationController?.pushViewController(browserViewController, animated: true)
+
+        Analytics.viewedHomeCalendar()
     }
 
     func showSeasonalCharts() {
@@ -340,6 +344,8 @@ private extension HomeViewController {
         browserViewController.initWithBrowseData(dataSource, controllerTitle: "Seasonal Charts", headerHeight: .Regular)
 
         navigationController?.pushViewController(browserViewController, animated: true)
+
+        Analytics.viewedHomeSeasons()
     }
 
     func showBrowse() {
@@ -364,6 +370,8 @@ private extension HomeViewController {
         browserViewController.initWithBrowseData(dataSource, controllerTitle: "Discover", headerHeight: .Short)
 
         navigationController?.pushViewController(browserViewController, animated: true)
+
+        Analytics.viewedHomeTopLists()
     }
 
     func showGenres() {
@@ -386,6 +394,8 @@ private extension HomeViewController {
         browserViewController.initWithBrowseData(dataSource, controllerTitle: "Explore by Genres", headerHeight: .Short)
 
         navigationController?.pushViewController(browserViewController, animated: true)
+
+        Analytics.viewedHomeGenres()
     }
 
     func showYears() {
@@ -409,6 +419,7 @@ private extension HomeViewController {
 
         navigationController?.pushViewController(browserViewController, animated: true)
 
+        Analytics.viewedHomeYears()
     }
 
     func showStudios() {
@@ -431,6 +442,7 @@ private extension HomeViewController {
 
         navigationController?.pushViewController(browserViewController, animated: true)
 
+        Analytics.viewedHomeStudios()
     }
 
     func showClassifications() {
@@ -456,6 +468,8 @@ private extension HomeViewController {
         browserViewController.initWithBrowseData(dataSource, controllerTitle: "Explore by Classification", headerHeight: .Short)
 
         navigationController?.pushViewController(browserViewController, animated: true)
+
+        Analytics.viewedHomeClassifications()
     }
 }
 

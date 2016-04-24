@@ -339,7 +339,7 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
     }
     
     func updateProgressWithList(list: MALList) {
-        
+
         if let progress = anime.progress {
             progress.updateList(list)
             LibrarySyncController.updateAnime(progress)
@@ -347,7 +347,7 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
                 NSNotificationCenter.defaultCenter().postNotificationName(LibraryUpdatedNotification, object: nil)
             })
             updateListButtonTitle(progress.list)
-            
+            Analytics.tappedAnimeDetailChangeList(list.rawValue, saved: false)
         } else {
             
             // Create!
@@ -381,6 +381,7 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
                     self.presentBasicAlertWithTitle("Anime already in Library", message: "You might need to sync your library first, select 'Library' tab")
                 }
             })
+            Analytics.tappedAnimeDetailChangeList(list.rawValue, saved: true)
         }
     }
     
