@@ -4,6 +4,13 @@ upcoming:
 - See who liked your posts.
 - Improved profile layout.
 - Popular section is now working.
+- Improved anime details layout.
+- Favorite anime.
+- See watched time total in library.
+- Forums now have an anime, episode, videos and fan club sections.
+- Sort threads by recent(recently posted) or new.
+- [Note] Comment counts and like counts might not be accurate, this will be accurate when all users update
+- [Note] Favouriting an anime on beta will not be saved on Appstore version.
 
 releases:
 - version: 5.7.5

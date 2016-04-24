@@ -27,7 +27,8 @@ def app_pods
         'TraktV2ClientSecret',
         'AnilistClientID',
         'AnilistClientSecret',
-        'ParseServerURL'
+        'ParseServerURL',
+        'FlurryAPIKey'
         ]
     }
 
@@ -44,6 +45,7 @@ def app_pods
     pod 'FLAnimatedImage', '~> 1.0'
     pod 'CRToast', '~> 0.0.7'
     pod 'uservoice-iphone-sdk', '~> 3.2'
+    pod 'Flurry-iOS-SDK', '~> 7.6'
 end
 
 

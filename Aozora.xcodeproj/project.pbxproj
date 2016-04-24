@@ -74,6 +74,8 @@
 		DA5A3E651CC1C0CC00A76621 /* ADVSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A3E631CC1C0CC00A76621 /* ADVSegmentedControl.swift */; };
 		DA5B28681C5EE3F500EACCE3 /* WormholeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B28671C5EE3F500EACCE3 /* WormholeExtensions.swift */; };
 		DA5B286A1C5F18D100EACCE3 /* AiringController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B28691C5F18D100EACCE3 /* AiringController.swift */; };
+		DA64D9F51CCAD9EF005D493F /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA64D9F41CCAD9EF005D493F /* Analytics.swift */; };
+		DA64D9F61CCAD9EF005D493F /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA64D9F41CCAD9EF005D493F /* Analytics.swift */; };
 		DA6B54631CC2DFBD00EB6FC0 /* ImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6755E11B729C2100D6EA32 /* ImagesViewController.swift */; };
 		DA6B54641CC2DFBD00EB6FC0 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1340AA1B9E11A10073C6EF /* Notification.swift */; };
 		DA6B54651CC2DFBD00EB6FC0 /* Thread.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1380691B6DBB4100C53560 /* Thread.swift */; };
@@ -206,7 +208,6 @@
 		DA6B54E71CC2DFBD00EB6FC0 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6E12FD1B10DCDF00B278B0 /* StoreKit.framework */; };
 		DA6B54E81CC2DFBD00EB6FC0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6E12FF1B10DCE400B278B0 /* SystemConfiguration.framework */; };
 		DA6B54E91CC2DFBD00EB6FC0 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D27C7A8ED4F7C96DF08F5850 /* Pods.framework */; };
-		DA6B54EA1CC2DFBD00EB6FC0 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAA5768E1C669905007E81E6 /* FBAudienceNetwork.framework */; };
 		DA6B54EB1CC2DFBD00EB6FC0 /* ParseFacebookUtilsV4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA7996B91CB8D8BE00AD7EAD /* ParseFacebookUtilsV4.framework */; };
 		DA6B54EC1CC2DFBD00EB6FC0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6E12F91B10DCD400B278B0 /* QuartzCore.framework */; };
 		DA6B54ED1CC2DFBD00EB6FC0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6E12FB1B10DCD800B278B0 /* Security.framework */; };
@@ -360,7 +361,6 @@
 		DAA576FA1C66EC2D007E81E6 /* FBSDKMessengerShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAA576911C669905007E81E6 /* FBSDKMessengerShareKit.framework */; };
 		DAA576FC1C66EC2D007E81E6 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAA5768F1C669905007E81E6 /* FBSDKCoreKit.framework */; };
 		DAA576FD1C66EC2D007E81E6 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D27C7A8ED4F7C96DF08F5850 /* Pods.framework */; };
-		DAA576FE1C66EC2D007E81E6 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAA5768E1C669905007E81E6 /* FBAudienceNetwork.framework */; };
 		DAA577001C66EC2D007E81E6 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAA576901C669905007E81E6 /* FBSDKLoginKit.framework */; };
 		DAA577011C66EC2D007E81E6 /* Pods_Aozora.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 528B953CE63CDC314439930C /* Pods_Aozora.framework */; };
 		DAA577021C66EC2D007E81E6 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAA5768B1C669904007E81E6 /* Crashlytics.framework */; };
@@ -678,6 +678,7 @@
 		DA5A3E631CC1C0CC00A76621 /* ADVSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADVSegmentedControl.swift; sourceTree = "<group>"; };
 		DA5B28671C5EE3F500EACCE3 /* WormholeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WormholeExtensions.swift; sourceTree = "<group>"; };
 		DA5B28691C5F18D100EACCE3 /* AiringController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AiringController.swift; sourceTree = "<group>"; };
+		DA64D9F41CCAD9EF005D493F /* Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
 		DA6755E11B729C2100D6EA32 /* ImagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagesViewController.swift; sourceTree = "<group>"; };
 		DA6B55331CC2DFBD00EB6FC0 /* Aozora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aozora.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA6E12D11B10D96F00B278B0 /* TFHpple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHpple.h; sourceTree = "<group>"; };
@@ -892,7 +893,6 @@
 				DA6B54E71CC2DFBD00EB6FC0 /* StoreKit.framework in Frameworks */,
 				DA6B54E81CC2DFBD00EB6FC0 /* SystemConfiguration.framework in Frameworks */,
 				DA6B54E91CC2DFBD00EB6FC0 /* Pods.framework in Frameworks */,
-				DA6B54EA1CC2DFBD00EB6FC0 /* FBAudienceNetwork.framework in Frameworks */,
 				DA6B54EB1CC2DFBD00EB6FC0 /* ParseFacebookUtilsV4.framework in Frameworks */,
 				DA6B54EC1CC2DFBD00EB6FC0 /* QuartzCore.framework in Frameworks */,
 				DA6B54ED1CC2DFBD00EB6FC0 /* Security.framework in Frameworks */,
@@ -931,7 +931,6 @@
 				DACE08751C6DD40F00470B9F /* StoreKit.framework in Frameworks */,
 				DACE08741C6DD40F00470B9F /* SystemConfiguration.framework in Frameworks */,
 				DAA576FD1C66EC2D007E81E6 /* Pods.framework in Frameworks */,
-				DAA576FE1C66EC2D007E81E6 /* FBAudienceNetwork.framework in Frameworks */,
 				DA7996BF1CB8D8BF00AD7EAD /* ParseFacebookUtilsV4.framework in Frameworks */,
 				DACE08771C6DD41600470B9F /* QuartzCore.framework in Frameworks */,
 				DACE08761C6DD41600470B9F /* Security.framework in Frameworks */,
@@ -1305,6 +1304,7 @@
 				DAC7D9051B50464B00898FF6 /* DialogController.swift */,
 				DA32EBE01C6A87720090CD51 /* StringFormatter.swift */,
 				DA7996C01CB9BA9000AD7EAD /* QueryBuilder.swift */,
+				DA64D9F41CCAD9EF005D493F /* Analytics.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -2419,6 +2419,7 @@
 				DA6B54B21CC2DFBD00EB6FC0 /* CustomThreadViewController.swift in Sources */,
 				DA6B54B31CC2DFBD00EB6FC0 /* BrowseViewController.swift in Sources */,
 				DA6B54B41CC2DFBD00EB6FC0 /* ProfileViewController.swift in Sources */,
+				DA64D9F51CCAD9EF005D493F /* Analytics.swift in Sources */,
 				DA6B54B51CC2DFBD00EB6FC0 /* UIApplication+Navigation.swift in Sources */,
 				DA6B54B61CC2DFBD00EB6FC0 /* ResetPasswordViewController.swift in Sources */,
 				DA6B54B71CC2DFBD00EB6FC0 /* AnimeBaseViewController.swift in Sources */,
@@ -2548,6 +2549,7 @@
 				DAA576DB1C66EC2D007E81E6 /* CustomThreadViewController.swift in Sources */,
 				DAA576DC1C66EC2D007E81E6 /* BrowseViewController.swift in Sources */,
 				DAA576DE1C66EC2D007E81E6 /* ProfileViewController.swift in Sources */,
+				DA64D9F61CCAD9EF005D493F /* Analytics.swift in Sources */,
 				DAA576DF1C66EC2D007E81E6 /* UIApplication+Navigation.swift in Sources */,
 				DAA576E01C66EC2D007E81E6 /* ResetPasswordViewController.swift in Sources */,
 				DAA576E11C66EC2D007E81E6 /* AnimeBaseViewController.swift in Sources */,

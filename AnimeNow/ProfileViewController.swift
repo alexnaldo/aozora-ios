@@ -10,6 +10,7 @@ import UIKit
 import ANCommonKit
 import TTTAttributedLabel
 import XCDYouTubeKit
+import Crashlytics
 
 class ProfileViewController: ThreadViewController {
     
@@ -72,6 +73,7 @@ class ProfileViewController: ThreadViewController {
         
         if userProfile == nil && username == nil {
             userProfile = User.currentUser()!
+            logUser()
             segmentedControl.selectedIndex = SelectedFeed.Feed.rawValue
         } else {
             segmentedControl.selectedIndex = SelectedFeed.Me.rawValue
@@ -88,7 +90,14 @@ class ProfileViewController: ThreadViewController {
         
         fetchPosts()
     }
-    
+
+    func logUser() {
+        // You can call any combination of these three methods
+        Crashlytics.sharedInstance().setUserEmail(userProfile?.email)
+        Crashlytics.sharedInstance().setUserIdentifier(userProfile?.objectId)
+        Crashlytics.sharedInstance().setUserName(userProfile?.aozoraUsername)
+    }
+
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -256,7 +265,6 @@ class ProfileViewController: ThreadViewController {
                 proBadge.text = proString
             }
         }
-        
         
         if user.isAdmin() {
             tagBadge.backgroundColor = UIColor.aozoraPurple()

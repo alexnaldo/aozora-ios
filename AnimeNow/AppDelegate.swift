@@ -19,6 +19,7 @@ import ParseFacebookUtilsV4
 import SDWebImage
 import MMWormhole
 import Keys
+import Flurry_iOS_SDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -64,11 +65,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Parse.setApplicationId(AozoraKeys().parseApplicationId(),
                                clientKey: AozoraKeys().parseClientKey())
         PFUser.enableRevocableSessionInBackground()
+
+        //PostsService.addLikeAndCommentToPostsCounters()
+        //PostsService.addLikeAndCommentToTimelinePostsCounters()
     }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
+
         Fabric.with([Crashlytics()])
+
+        Flurry.startSession(AozoraKeys().flurryAPIKey())
+
         initializeParse()
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
         PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
