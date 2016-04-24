@@ -245,9 +245,11 @@ extension AnimeListViewController: UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
         let anime = animeList[indexPath.row]
-        self.animator = presentAnimeModal(anime, callback: { tabBarController in
+        self.animator = presentAnimeModal(anime, callback: { [weak self] tabBarController in
             // Show episodes view controller when calling from here
-            tabBarController.selectedIndex = 1
+            if self?.animeListType == .Watching {
+                tabBarController.selectedIndex = 1
+            }
         })
     }
 }

@@ -43,7 +43,7 @@ public class AnimeDetailsTabBarController: UITabBarController {
         // Forum view controller
         let forumNavController = Storyboard.animeForumViewController()
 
-        self.viewControllers?.append(forumNavController)
+        viewControllers?.append(forumNavController)
         
         // Update icons frame
         for controller in viewControllers! {
