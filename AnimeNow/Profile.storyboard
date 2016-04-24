@@ -236,7 +236,7 @@
                                                 <action selector="followOrUnfollow:" destination="M5q-uq-HPK" eventType="touchUpInside" id="Nub-eh-V9d"/>
                                             </connections>
                                         </button>
-                                        <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chief Robot" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MUA-4J-1Hx" customClass="SpacerLabel" customModule="AnimeTrakr" customModuleProvider="target">
+                                        <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chief Robot" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="MUA-4J-1Hx" customClass="SpacerLabel" customModule="AnimeTrakr" customModuleProvider="target">
                                             <rect key="frame" x="80" y="135" width="77" height="21"/>
                                             <color key="backgroundColor" red="0.20392157137393951" green="0.59607845544815063" blue="0.85882353782653809" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
@@ -257,7 +257,7 @@
                                                 </mask>
                                             </variation>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i6N-oU-yq0" customClass="SpacerLabel" customModule="AnimeTrakr" customModuleProvider="target">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="i6N-oU-yq0" customClass="SpacerLabel" customModule="AnimeTrakr" customModuleProvider="target">
                                             <rect key="frame" x="80" y="109" width="4" height="21"/>
                                             <color key="backgroundColor" red="0.0078431377187371254" green="0.43921568989753723" blue="0.73333334922790527" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
@@ -384,6 +384,7 @@
                                         <constraint firstItem="nhK-C7-8dB" firstAttribute="leading" secondItem="DZj-27-6Eb" secondAttribute="trailing" constant="8" id="HIR-ZY-5d9"/>
                                         <constraint firstItem="FUt-Aj-Vp8" firstAttribute="leading" secondItem="i6N-oU-yq0" secondAttribute="trailing" constant="5" id="IK6-P7-Zbb"/>
                                         <constraint firstItem="5yX-hf-St0" firstAttribute="centerY" secondItem="eBe-M2-du6" secondAttribute="centerY" id="KSg-9b-atT"/>
+                                        <constraint firstItem="qK8-bI-U4V" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="MUA-4J-1Hx" secondAttribute="trailing" id="Kw8-Jg-eIa"/>
                                         <constraint firstAttribute="trailing" secondItem="TgH-QU-GT1" secondAttribute="trailing" constant="8" id="Ppi-A8-7Mh"/>
                                         <constraint firstAttribute="trailing" secondItem="asH-I6-fJz" secondAttribute="trailing" id="Qgg-do-Yog">
                                             <variation key="heightClass=regular-widthClass=regular" constant="-10"/>
