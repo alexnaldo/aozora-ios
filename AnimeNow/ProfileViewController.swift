@@ -517,6 +517,12 @@ class ProfileViewController: ThreadViewController {
 
     
     @IBAction func showFollowingUsers(sender: AnyObject) {
+
+        if User.currentUser() == nil {
+            presentAlertWithTitle("Login first", message: "Select 'Me' tab")
+            return
+        }
+
         let userListController = Storyboard.userListViewController()
         let query = userProfile!.following().query()
         query.orderByAscending("aozoraUsername")
@@ -525,6 +531,12 @@ class ProfileViewController: ThreadViewController {
     }
     
     @IBAction func showFollowers(sender: AnyObject) {
+
+        if User.currentUser() == nil {
+            presentAlertWithTitle("Login first", message: "Select 'Me' tab")
+            return
+        }
+
         let userListController = Storyboard.userListViewController()
         let query = User.query()!
         query.whereKey("following", equalTo: userProfile!)
