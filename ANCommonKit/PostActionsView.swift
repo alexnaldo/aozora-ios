@@ -71,7 +71,6 @@ final class PostActionsView: UIView {
         commentCountLabel?.setTitle("\(commentCount) \(commentString)", forState: .Normal)
 
         showDetails = likeCount > 0
-        separatorTopView.hidden = commentCount == 0
     }
 
     var replyCallback: ActionCallback!

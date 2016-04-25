@@ -535,7 +535,8 @@ extension ThreadViewController: UITableViewDelegate {
         if indexPath.row == 0 {
             if post.hasSpoilers && post.isSpoilerHidden == true {
                 post.isSpoilerHidden = false
-                tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+                tableView.layoutIfNeeded()
+                tableView.reloadData()
             } else {
                 showSheetFor(post: post, indexPath: indexPath)
             }
@@ -563,7 +564,8 @@ extension ThreadViewController: UITableViewDelegate {
     func pressedOnAComment(post: Commentable, comment: Commentable, indexPath: NSIndexPath) {
         if comment.hasSpoilers && comment.isSpoilerHidden == true {
             comment.isSpoilerHidden = false
-            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+            tableView.layoutIfNeeded()
+            tableView.reloadData()
         } else {
             showSheetFor(post: comment, parentPost: post, indexPath: indexPath)
         }
@@ -690,14 +692,22 @@ extension ThreadViewController: PostCellDelegate {
     }
     
     func postCellSelectedLike(postCell: PostCellProtocol) {
-        if let post = postForCell(postCell) {
-            like(post)
-            updateActionsView(postCell, post: post)
+        guard let post = postForCell(postCell) else {
+            return
+        }
 
-            // Resizes the cell without updating the tableView, sweet!
-            UIView.animateWithDuration(0.3, animations: {
-                self.tableView.layoutIfNeeded()
-            })
+        like(post)
+        updateActionsView(postCell, post: post)
+
+
+        // Resizes the cell without updating the tableView, sweet!
+
+        UIView.animateWithDuration(0.3, animations: {
+            self.tableView.layoutIfNeeded()
+        })
+
+        // TODO: Temporal fix, only resize cell height if it's a PostCell
+        if let _ = postCell as? PostCell {
             tableView.beginUpdates()
             tableView.endUpdates()
         }

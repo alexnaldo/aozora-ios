@@ -17,7 +17,6 @@
                 <outlet property="likeButton" destination="BKI-UF-48X" id="EX8-Xf-lEX"/>
                 <outlet property="likeCountLabel" destination="W6o-4a-OfW" id="VDM-IF-WxH"/>
                 <outlet property="replyButton" destination="Y56-cI-35D" id="ZYK-bQ-lTb"/>
-                <outlet property="separatorTopView" destination="IN2-1G-Ei7" id="P0w-ND-Mxs"/>
                 <outlet property="showLikesConstraint" destination="Mcg-ml-XuO" id="OzM-oZ-fTZ"/>
             </connections>
         </placeholder>
@@ -66,21 +65,9 @@
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I1C-wl-w7R">
                     <rect key="frame" x="0.0" y="50" width="600" height="30"/>
-                    <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IN2-1G-Ei7" userLabel="Separator Top">
-                            <rect key="frame" x="8" y="29" width="584" height="1"/>
-                            <color key="backgroundColor" red="0.89411765340000005" green="0.89411765340000005" blue="0.89411765340000005" alpha="1" colorSpace="calibratedRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="1" id="SDw-GG-cHP"/>
-                            </constraints>
-                        </view>
-                    </subviews>
                     <color key="backgroundColor" white="0.98999999999999999" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="09D-64-qLd"/>
-                        <constraint firstAttribute="bottom" secondItem="IN2-1G-Ei7" secondAttribute="bottom" id="0Ds-Kh-s5R"/>
-                        <constraint firstAttribute="trailing" secondItem="IN2-1G-Ei7" secondAttribute="trailing" constant="8" id="Ugz-t7-uI8"/>
-                        <constraint firstItem="IN2-1G-Ei7" firstAttribute="leading" secondItem="I1C-wl-w7R" secondAttribute="leading" constant="8" id="rhn-GN-Jou"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W6o-4a-OfW">

@@ -183,6 +183,7 @@ public class FetchController {
             } else if let tableView = self.tableView {
                 if skip == 0 {
                     tableView.reloadData()
+                    tableView.updateTableViewCellsHeight()
                     if self.isFirstFetch {
                         self.isFirstFetch = false
                         tableView.animateFadeIn()
