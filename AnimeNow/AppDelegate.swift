@@ -52,18 +52,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ThreadTag.registerSubclass()
         Notification.registerSubclass()
 
-//        let configuration = ParseClientConfiguration {
-//            $0.applicationId = AozoraKeys().parseApplicationId()
-//            $0.clientKey = " "
-//            //$0.server = "http://8f12bab1.ngrok.io/parse"
-//            $0.server = AozoraKeys().parseServerURL()
-//            $0.localDatastoreEnabled = true
-//        }
-//        Parse.initializeWithConfiguration(configuration)
+        let configuration = ParseClientConfiguration {
+            $0.applicationId = AozoraKeys().parseApplicationId()
+            $0.clientKey = " "
+            //$0.server = "http://8f12bab1.ngrok.io/parse"
+            $0.server = AozoraKeys().parseServerURL()
+            $0.localDatastoreEnabled = true
+        }
+        Parse.initializeWithConfiguration(configuration)
 
-        Parse.enableLocalDatastore()
-        Parse.setApplicationId(AozoraKeys().parseApplicationId(),
-                               clientKey: AozoraKeys().parseClientKey())
+//        Parse.enableLocalDatastore()
+//        Parse.setApplicationId(AozoraKeys().parseApplicationId(),
+//                               clientKey: AozoraKeys().parseClientKey())
         PFUser.enableRevocableSessionInBackground()
 
         //PostsService.addLikeAndCommentToPostsCounters()
