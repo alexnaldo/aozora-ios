@@ -20,6 +20,12 @@ public class RootTabBar: UITabBarController {
         super.viewDidLoad()
         // Load library
         LibraryController.sharedInstance.fetchAnimeList(false)
+            .continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { task -> AnyObject? in
+                FriendsController.sharedInstance.fetchFollowers()
+                FriendsController.sharedInstance.fetchFollowing()
+                return nil
+            })
+        
         delegate = self
     }
 

@@ -289,30 +289,30 @@ class ProfileViewController: ThreadViewController {
     }
     
     func updateFollowingButtons() {
-        if let profile = userProfile {
-            let followingTitle = NSMutableAttributedString()
-                .add("\(profile.details.followingCount)", setter: {
-                    $0.color = UIColor.darkGrayColor()
-                    $0.font = UIFont.boldSystemFontOfSize(13)
-                })
-                .add(" FOLLOWING", setter: {
-                    $0.color = UIColor.lightGrayColor()
-                    $0.font = UIFont.systemFontOfSize(13)
-                })
-
-            let followersTitle = NSMutableAttributedString()
-                .add("\(profile.details.followersCount)", setter: {
-                    $0.color = UIColor.darkGrayColor()
-                    $0.font = UIFont.boldSystemFontOfSize(13)
-                })
-                .add(" FOLLOWERS", setter: {
-                    $0.color = UIColor.lightGrayColor()
-                    $0.font = UIFont.systemFontOfSize(13)
-                })
-
-            followingButton.setAttributedTitle(followingTitle, forState: .Normal)
-            followersButton.setAttributedTitle(followersTitle, forState: .Normal)
+        guard let profile = userProfile else {
+            return
         }
+
+        let numberAttributes = { (inout attr: Attributes) in
+            attr.color = UIColor.darkGrayColor()
+            attr.font = UIFont.boldSystemFontOfSize(13)
+        }
+
+        let textAttributes = { (inout attr: Attributes) in
+            attr.color = UIColor.lightGrayColor()
+            attr.font = UIFont.systemFontOfSize(13)
+        }
+
+        let followingTitle = NSMutableAttributedString()
+            .add("\(profile.details.followingCount)", setter: numberAttributes)
+            .add(" FOLLOWING", setter: textAttributes)
+
+        let followersTitle = NSMutableAttributedString()
+            .add("\(profile.details.followersCount)", setter: numberAttributes)
+            .add(" FOLLOWERS", setter: textAttributes)
+
+        followingButton.setAttributedTitle(followingTitle, forState: .Normal)
+        followersButton.setAttributedTitle(followersTitle, forState: .Normal)
     }
     
     func configureFetchController() {
@@ -400,10 +400,15 @@ class ProfileViewController: ThreadViewController {
         let selectedFeed = SelectedFeed(rawValue: segmentedControl.selectedIndex)!
         switch selectedFeed {
         case .Feed:
-            let followingQuery = userProfile!.following().query()
-            followingQuery.orderByDescending("activeStart")
-            followingQuery.limit = 1000
-            queryBatch.whereQuery(query, matchesKey: "postedBy", onQuery: followingQuery)
+            if let allUsers = FriendsController.sharedInstance.following {
+                query.whereKey("postedBy", containedIn: allUsers)
+            } else {
+                let followingQuery = userProfile!.following().query()
+                followingQuery.orderByDescending("activeStart")
+                followingQuery.limit = 1000
+                queryBatch.whereQuery(query, matchesKey: "postedBy", onQuery: followingQuery)
+            }
+
         case .Popular:
             query.whereKey("likeCount", greaterThan: 4)
         case .Me:
@@ -415,16 +420,10 @@ class ProfileViewController: ThreadViewController {
         query.includeKey("postedBy")
         query.includeKey("userTimeline")
         query.limit = FetchLimit
-        
-        let repliesQuery = TimelinePost.query()!
-        repliesQuery.orderByAscending("createdAt")
-        repliesQuery.includeKey("episode")
-        repliesQuery.includeKey("postedBy")
-        repliesQuery.includeKey("userTimeline")
-        queryBatch.whereQuery(repliesQuery, matchesKey: "parentPost", onQuery: query)
-        repliesQuery.limit = 2000
+
         startDate = NSDate()
-        return queryBatch.executeQueries([query, repliesQuery])
+
+        return queryBatch.executeQueries([query])
     }
     
     

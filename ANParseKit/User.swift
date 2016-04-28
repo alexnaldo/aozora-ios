@@ -94,7 +94,8 @@ public class User: PFUser {
     
     // Don't ever name the function isCurrentUser it will conflict with Parse framework
     public func isTheCurrentUser() -> Bool {
-        guard let id1 = self.objectId, let currentUser = User.currentUser(), let id2 = currentUser.objectId else {
+        guard let id1 = objectId,
+            let id2 = User.currentUser()?.objectId else {
             return false
         }
         return id1 == id2

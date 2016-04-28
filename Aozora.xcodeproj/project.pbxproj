@@ -451,6 +451,8 @@
 		DAE507321CB76EB8003E216F /* SpacerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE507301CB76D1E003E216F /* SpacerLabel.swift */; };
 		DAF001401CD2C6AB00452DBA /* Tribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF0013F1CD2C6AB00452DBA /* Tribute.swift */; };
 		DAF001411CD2C6AB00452DBA /* Tribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF0013F1CD2C6AB00452DBA /* Tribute.swift */; };
+		DAF001431CD2D29000452DBA /* FriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF001421CD2D29000452DBA /* FriendsController.swift */; };
+		DAF001441CD2D29000452DBA /* FriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF001421CD2D29000452DBA /* FriendsController.swift */; };
 		DAF06E4D1CC201C300B0D36C /* PostsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF06E4B1CC201C300B0D36C /* PostsService.swift */; };
 		DAFD60B51B278452007275C1 /* ActionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA38A9881B223AF1002FCBB4 /* ActionListViewController.swift */; };
 		DAFD60B61B278452007275C1 /* DropDownListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA76A1961B235BF4006CB489 /* DropDownListViewController.swift */; };
@@ -824,6 +826,7 @@
 		DAE64EEB1B73CCE4005A984A /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		DAE7A7181B2105FD00788614 /* AnimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeCell.swift; sourceTree = "<group>"; };
 		DAF0013F1CD2C6AB00452DBA /* Tribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tribute.swift; sourceTree = "<group>"; };
+		DAF001421CD2D29000452DBA /* FriendsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsController.swift; sourceTree = "<group>"; };
 		DAF06E4B1CC201C300B0D36C /* PostsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostsService.swift; sourceTree = "<group>"; };
 		DAF357051B4593E200629A3D /* LibraryAnimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryAnimeCell.swift; sourceTree = "<group>"; };
 		DAF467161B76655700095820 /* PostableProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostableProtocol.swift; path = ../ANParseKit/PostableProtocol.swift; sourceTree = "<group>"; };
@@ -1564,6 +1567,7 @@
 				DA58C2DA1B386BC80082B626 /* UserListViewController.swift */,
 				DA0B26051B75066B00A770AE /* EditProfileViewController.swift */,
 				DA0B260B1B75192400A770AE /* UserProfileManager.swift */,
+				DAF001421CD2D29000452DBA /* FriendsController.swift */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -2421,6 +2425,7 @@
 				DA6B549B1CC2DFBD00EB6FC0 /* WebBrowserSelectorViewController.swift in Sources */,
 				DA6B549C1CC2DFBD00EB6FC0 /* RateViewController.swift in Sources */,
 				DA6B549D1CC2DFBD00EB6FC0 /* EpisodeCell.swift in Sources */,
+				DAF001431CD2D29000452DBA /* FriendsController.swift in Sources */,
 				DA6B549E1CC2DFBD00EB6FC0 /* PostableProtocol.swift in Sources */,
 				DA6B549F1CC2DFBD00EB6FC0 /* Episode.swift in Sources */,
 				DAD7AEA61CC45A7900BB2FBD /* NumberFormatter.swift in Sources */,
@@ -2553,6 +2558,7 @@
 				DA8D70FA1C6DD0EA0016A332 /* WebBrowserSelectorViewController.swift in Sources */,
 				DAA576CF1C66EC2D007E81E6 /* RateViewController.swift in Sources */,
 				DAA576D01C66EC2D007E81E6 /* EpisodeCell.swift in Sources */,
+				DAF001441CD2D29000452DBA /* FriendsController.swift in Sources */,
 				DA8D70F21C6DD0EA0016A332 /* PostableProtocol.swift in Sources */,
 				DA2991DB1C6DD10500CCB04D /* Episode.swift in Sources */,
 				DAD7AEA71CC45A7900BB2FBD /* NumberFormatter.swift in Sources */,
