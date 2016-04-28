@@ -181,9 +181,10 @@ class ProfileViewController: ThreadViewController {
                 return attributedString
             })
 
-            let activeEndString = user.activeEnd.timeAgo()            
-            let activeEndStringFormatted = activeEndString == "Just now" ? "active now" : "\(activeEndString)" != "" ? "\(activeEndString) ago" : ""
-            self.activeAgo.text = user.active ? "active now" : activeEndStringFormatted
+            let activeEndString = user.activeEnd.timeAgo().uppercaseString
+            let activeEndStringFormatted = activeEndString == "JUST NOW" ? "ACTIVE NOW" : "\(activeEndString)" != "" ? "\(activeEndString) AGO" : ""
+            self.activeAgo.font = UIFont.systemFontOfSize(11, weight: UIFontWeightMedium)
+            self.activeAgo.text = user.active ? "ACTIVE NOW" : activeEndStringFormatted
 
             if user.details.posts >= 1000 {
                 self.postsBadge.text = String(format: "%.1fk", Float(user.details.posts-49)/1000.0 )
@@ -289,8 +290,28 @@ class ProfileViewController: ThreadViewController {
     
     func updateFollowingButtons() {
         if let profile = userProfile {
-            followingButton.setTitle("\(profile.details.followingCount) FOLLOWING", forState: .Normal)
-            followersButton.setTitle("\(profile.details.followersCount) FOLLOWERS", forState: .Normal)
+            let followingTitle = NSMutableAttributedString()
+                .add("\(profile.details.followingCount)", setter: {
+                    $0.color = UIColor.darkGrayColor()
+                    $0.font = UIFont.boldSystemFontOfSize(13)
+                })
+                .add(" FOLLOWING", setter: {
+                    $0.color = UIColor.lightGrayColor()
+                    $0.font = UIFont.systemFontOfSize(13)
+                })
+
+            let followersTitle = NSMutableAttributedString()
+                .add("\(profile.details.followersCount)", setter: {
+                    $0.color = UIColor.darkGrayColor()
+                    $0.font = UIFont.boldSystemFontOfSize(13)
+                })
+                .add(" FOLLOWERS", setter: {
+                    $0.color = UIColor.lightGrayColor()
+                    $0.font = UIFont.systemFontOfSize(13)
+                })
+
+            followingButton.setAttributedTitle(followingTitle, forState: .Normal)
+            followersButton.setAttributedTitle(followersTitle, forState: .Normal)
         }
     }
     

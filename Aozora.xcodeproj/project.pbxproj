@@ -449,6 +449,8 @@
 		DAD7AEBB1CC4BADA00BB2FBD /* RecommendationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD7AEB91CC4BADA00BB2FBD /* RecommendationsViewController.swift */; };
 		DAE43C3A1B2F971800C3092D /* UIView+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE43C391B2F971800C3092D /* UIView+Animation.swift */; };
 		DAE507321CB76EB8003E216F /* SpacerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE507301CB76D1E003E216F /* SpacerLabel.swift */; };
+		DAF001401CD2C6AB00452DBA /* Tribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF0013F1CD2C6AB00452DBA /* Tribute.swift */; };
+		DAF001411CD2C6AB00452DBA /* Tribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF0013F1CD2C6AB00452DBA /* Tribute.swift */; };
 		DAF06E4D1CC201C300B0D36C /* PostsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF06E4B1CC201C300B0D36C /* PostsService.swift */; };
 		DAFD60B51B278452007275C1 /* ActionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA38A9881B223AF1002FCBB4 /* ActionListViewController.swift */; };
 		DAFD60B61B278452007275C1 /* DropDownListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA76A1961B235BF4006CB489 /* DropDownListViewController.swift */; };
@@ -821,6 +823,7 @@
 		DAE507301CB76D1E003E216F /* SpacerLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpacerLabel.swift; sourceTree = "<group>"; };
 		DAE64EEB1B73CCE4005A984A /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		DAE7A7181B2105FD00788614 /* AnimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeCell.swift; sourceTree = "<group>"; };
+		DAF0013F1CD2C6AB00452DBA /* Tribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tribute.swift; sourceTree = "<group>"; };
 		DAF06E4B1CC201C300B0D36C /* PostsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostsService.swift; sourceTree = "<group>"; };
 		DAF357051B4593E200629A3D /* LibraryAnimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryAnimeCell.swift; sourceTree = "<group>"; };
 		DAF467161B76655700095820 /* PostableProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostableProtocol.swift; path = ../ANParseKit/PostableProtocol.swift; sourceTree = "<group>"; };
@@ -1243,6 +1246,7 @@
 		DA6E12CE1B10D96F00B278B0 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				DAF0013E1CD2C6A200452DBA /* Tribute */,
 				DAC027CE1B2A1C1D0085C91A /* ZFModalTransitionAnimator */,
 				DA6E12CF1B10D96F00B278B0 /* hpple */,
 				DA6E12D71B10D96F00B278B0 /* SWWebScrapper */,
@@ -1573,6 +1577,14 @@
 				DAE507301CB76D1E003E216F /* SpacerLabel.swift */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		DAF0013E1CD2C6A200452DBA /* Tribute */ = {
+			isa = PBXGroup;
+			children = (
+				DAF0013F1CD2C6AB00452DBA /* Tribute.swift */,
+			);
+			path = Tribute;
 			sourceTree = "<group>";
 		};
 		DAF6186E1B377BBF00286517 /* DBServices */ = {
@@ -2373,6 +2385,7 @@
 				DA6B54781CC2DFBD00EB6FC0 /* PostUserView.swift in Sources */,
 				DA6B54791CC2DFBD00EB6FC0 /* ThreadViewController.swift in Sources */,
 				DA6B547A1CC2DFBD00EB6FC0 /* AnimeCell.swift in Sources */,
+				DAF001401CD2C6AB00452DBA /* Tribute.swift in Sources */,
 				DA6B547B1CC2DFBD00EB6FC0 /* InAppPurchaseController.swift in Sources */,
 				DA6B547C1CC2DFBD00EB6FC0 /* CommentCell.swift in Sources */,
 				DA6B547D1CC2DFBD00EB6FC0 /* User.swift in Sources */,
@@ -2504,6 +2517,7 @@
 				DA5A3E601CC1ADDC00A76621 /* PostUserView.swift in Sources */,
 				DAA576C11C66EC2D007E81E6 /* ThreadViewController.swift in Sources */,
 				DAA576C21C66EC2D007E81E6 /* AnimeCell.swift in Sources */,
+				DAF001411CD2C6AB00452DBA /* Tribute.swift in Sources */,
 				DAA576C31C66EC2D007E81E6 /* InAppPurchaseController.swift in Sources */,
 				DACE088B1C6DD8BC00470B9F /* CommentCell.swift in Sources */,
 				DA2991E01C6DD10500CCB04D /* User.swift in Sources */,
@@ -2824,7 +2838,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				INFOPLIST_FILE = AozoraWatching/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.anytap.Aozora.AozoraWatching;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2844,7 +2858,7 @@
 				CURRENT_PROJECT_VERSION = 141;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				INFOPLIST_FILE = AozoraWatching/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.anytap.Aozora.AozoraWatching;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2875,7 +2889,7 @@
 				);
 				INFOPLIST_FILE = ANCommonKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-Wl,-U,_JSContextGetGlobalObject",
@@ -2923,7 +2937,7 @@
 				);
 				INFOPLIST_FILE = ANCommonKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-Wl,-U,_JSContextGetGlobalObject",
@@ -3009,7 +3023,7 @@
 				);
 				HEADER_SEARCH_PATHS = $SDKROOT/usr/include/libxml2;
 				INFOPLIST_FILE = AnimeNow/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3087,7 +3101,7 @@
 				);
 				HEADER_SEARCH_PATHS = $SDKROOT/usr/include/libxml2;
 				INFOPLIST_FILE = AnimeNow/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3165,7 +3179,7 @@
 				);
 				HEADER_SEARCH_PATHS = $SDKROOT/usr/include/libxml2;
 				INFOPLIST_FILE = "AnimeTrakr-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3243,7 +3257,7 @@
 				);
 				HEADER_SEARCH_PATHS = $SDKROOT/usr/include/libxml2;
 				INFOPLIST_FILE = "AnimeTrakr-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3312,7 +3326,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				INFOPLIST_FILE = "AnimeTrakrWatching-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.EverFox.AnimeTrakr.AnimeTrakrWatching;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3332,7 +3346,7 @@
 				CURRENT_PROJECT_VERSION = 141;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				INFOPLIST_FILE = "AnimeTrakrWatching-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.EverFox.AnimeTrakr.AnimeTrakrWatching;
 				PRODUCT_NAME = "$(TARGET_NAME)";
