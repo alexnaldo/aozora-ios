@@ -131,13 +131,13 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
 
             if let anime = objects?.first as? Anime {
 
+                anime.progress = self.anime.progress
+
                 Analytics.viewedAnimeDetail(
                     title: anime.title ?? "Unknown",
                     id: anime.objectId!,
-                    list: self.anime.progress!.list
+                    list: self.anime.progress?.list ?? "Non-saved"
                 )
-
-                anime.progress = self.anime.progress
                 self.customTabBar.anime = anime
                 self.updateInformationWithAnime()
             }
