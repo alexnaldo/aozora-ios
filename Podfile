@@ -46,6 +46,7 @@ def app_pods
     pod 'CRToast', '~> 0.0.7'
     pod 'uservoice-iphone-sdk', '~> 3.2'
     pod 'Flurry-iOS-SDK', '~> 7.6'
+    #pod 'Toucan'
 end
 
 

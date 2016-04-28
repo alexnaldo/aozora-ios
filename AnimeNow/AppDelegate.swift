@@ -221,6 +221,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 // Checking for invalid sessions
                 if error.code == 209 || error.code == 206 {
+                    WorkflowController.logoutUser()
                     WorkflowController.presentOnboardingController(true)
                 }
             })

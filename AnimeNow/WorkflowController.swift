@@ -97,10 +97,10 @@ class WorkflowController {
         // Logout MAL
         User.logoutMyAnimeList()
         
-        // Remove defaults
-        NSUserDefaults.standardUserDefaults().removeObjectForKey(LibraryController.LastSyncDateDefaultsKey)
-        NSUserDefaults.standardUserDefaults().removeObjectForKey(RootTabBar.ShowedMyAnimeListLoginDefault)
-        NSUserDefaults.standardUserDefaults().synchronize()
+        // Remove all defaults
+        if let appDomain = NSBundle.mainBundle().bundleIdentifier {
+            NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain)
+        }
         
         // Logout user
         return User.logOutInBackground()
