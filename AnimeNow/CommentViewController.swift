@@ -283,7 +283,7 @@ extension CommentViewController: UITextViewDelegate {
                             let videoID = url.pathComponents![1]
                             WebBrowserSelectorViewControllerSelectedSite("http://www.youtube.com/watch?v=\(videoID)")
                         }
-                        return false
+                        return true
                     }
                     
                     // Append image if it's an image
@@ -293,14 +293,14 @@ extension CommentViewController: UITextViewDelegate {
                         lastPathComponent.endsWithInsensitiveCase(".gif") ||
                         lastPathComponent.endsWithInsensitiveCase(".jpg") {
                             scrapeImageWithURL(url)
-                            return false
+                            return true
                     }
                     
                     selectedLinkUrl = url
                     scrapeLinkWithURL(url)
                     // If only added 1 link and it's the same as the added text, don't add it
                     if matches.count == 1 && match.range.length == text.characters.count {
-                        return false
+                        return true
                     }
                 }
                 break
