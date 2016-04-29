@@ -33,15 +33,13 @@ PODS:
     - RMStore/Core (= 0.7.1)
   - RMStore/Core (0.7.1)
   - RSKImageCropper (1.5.1)
-  - SDWebImage (3.7.5):
-    - SDWebImage/Core (= 3.7.5)
-  - SDWebImage/Core (3.7.5)
   - Shimmer (1.0.2)
   - Toucan (0.5.0)
   - TTTAttributedLabel (1.13.4)
   - uservoice-iphone-sdk (3.2.7)
   - XCDYouTubeKit (2.4.3)
   - XLPagerTabStrip (1.1.1)
+  - YoutubeSourceParserKit (0.2.4)
 
 DEPENDENCIES:
   - Alamofire (~> 2.0)
@@ -59,13 +57,13 @@ DEPENDENCIES:
   - PINRemoteImage (~> 2.0)
   - RMStore (~> 0.7)
   - RSKImageCropper
-  - SDWebImage (~> 3.7.2)
   - Shimmer
   - Toucan
   - TTTAttributedLabel (~> 1.13.4)
   - uservoice-iphone-sdk (~> 3.2)
   - XCDYouTubeKit (~> 2.4.1)
   - XLPagerTabStrip (~> 1.1.1)
+  - YoutubeSourceParserKit
 
 EXTERNAL SOURCES:
   Keys:
@@ -88,14 +86,14 @@ SPEC CHECKSUMS:
   PINRemoteImage: 4ac4011c5caefd6befd99758e09becede05d3226
   RMStore: 64ba13a9c040e3b7572765d169f77175cd3243e5
   RSKImageCropper: edd65fedb3734332818deb139906d6b7f54b8a44
-  SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
   Shimmer: c5374be1c2b0c9e292fb05b339a513cf291cac86
   Toucan: 0519c341148252ae114c5a657d2a85bb9ada9e40
   TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f
   uservoice-iphone-sdk: 9abf27254c8488d7b72d70fb9b621132d6beebd4
   XCDYouTubeKit: a4a1a60faa7bc97744a1184501e82ef10ca15897
   XLPagerTabStrip: 222995115ef0d3a7134073b02d38023592835c17
+  YoutubeSourceParserKit: d1506222a62718ed41f18ab52ebbc1b1d9ecabcc
 
-PODFILE CHECKSUM: 84a2d20a2330571c39b0bd91368c9c62e0be2588
+PODFILE CHECKSUM: cc6fd3b7114dd4b8620eb5febca0a594e34f7e89
 
 COCOAPODS: 1.0.0.beta.8

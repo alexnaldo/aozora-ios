@@ -672,7 +672,7 @@ extension ThreadViewController: CommentViewControllerDelegate {
 extension ThreadViewController: PostCellDelegate {
     func postCellSelectedImage(postCell: PostCellProtocol) {
         if let post = postForCell(postCell) {
-            if let imagesData = post.imagesData {
+            if let imagesData = post.imagesData where !imagesData.isEmpty {
                 let photosViewController = PhotosViewController(allPhotos: imagesData)
                 presentViewController(photosViewController, animated: true, completion: nil)
             } else if let videoID = post.youtubeID {

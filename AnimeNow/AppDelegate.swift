@@ -16,7 +16,6 @@ import FBSDKShareKit
 import Fabric
 import Crashlytics
 import ParseFacebookUtilsV4
-import SDWebImage
 import MMWormhole
 import Keys
 import Flurry_iOS_SDK
@@ -100,8 +99,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             WorkflowController.presentOnboardingController(true)
         }
-        
-        SDImageCache.sharedImageCache().maxCacheSize = 1024 * 1024 * 250
         
         makeUpdateChanges()
         

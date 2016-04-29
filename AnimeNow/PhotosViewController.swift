@@ -65,7 +65,9 @@ extension PhotosViewController: NYTPhotosViewControllerDelegate {
                 if let image = result.animatedImage {
                     imageItem.imageData = image.data
                 }
-                photosViewController.updateImageForPhoto(photo)
+                NSOperationQueue.mainQueue().addOperationWithBlock({
+                    photosViewController.updateImageForPhoto(photo)
+                })
             })
         }
     }

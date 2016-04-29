@@ -7,8 +7,6 @@
 //
 
 import UIKit
-
-import SDWebImage
 import Alamofire
 import ANCommonKit
 

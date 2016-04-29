@@ -8,7 +8,6 @@
 
 import Foundation
 import ANCommonKit
-import SDWebImage
 
 protocol TagsViewControllerDelegate: class {
     func tagsViewControllerSelected(tag tag: PFObject?)

@@ -8,7 +8,7 @@
 
 import Foundation
 import ANCommonKit
-import SDWebImage
+import PINRemoteImage
 
 public protocol CommentViewControllerDelegate: class {
     func commentViewControllerDidFinishedPosting(newPost: PFObject, parentPost: PFObject?, edited: Bool)
@@ -331,20 +331,21 @@ extension CommentViewController: UITextViewDelegate {
     func scrapeImageWithURL(url: NSURL) {
         photoCountLabel.text = ""
         fetchingData = true
-        
-        let manager = SDWebImageManager.sharedManager()
-        manager.downloadImageWithURL(url, options: [], progress: nil) { (image, error, cacheType, finished, imageUrl) -> Void in
-            
-            self.fetchingData = false
-            
-            if let error = error {
-                print(error)
-                self.photoCountLabel?.text = nil
-            } else {
-                self.photoCountLabel?.text = "1"
-                let imageData = ImageData(url: url.absoluteString, width: Int(image.size.width), height: Int(image.size.height))
-                self.imagesViewControllerSelected(imageData: imageData)
-            }
-        }
+
+        PINRemoteImageManager.sharedImageManager().downloadImageWithURL(url, completion: { result in
+
+            NSOperationQueue.mainQueue().addOperationWithBlock({ 
+                self.fetchingData = false
+
+                if let error = result.error {
+                    print(error)
+                    self.photoCountLabel?.text = nil
+                } else if let image = result.image ?? result.animatedImage?.posterImage {
+                    self.photoCountLabel?.text = "1"
+                    let imageData = ImageData(url: url.absoluteString, width: Int(image.size.width), height: Int(image.size.height))
+                    self.imagesViewControllerSelected(imageData: imageData)
+                }
+            })
+        })
     }
 }
