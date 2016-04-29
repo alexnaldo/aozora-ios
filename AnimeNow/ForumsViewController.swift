@@ -262,7 +262,7 @@ class ForumsViewController: UIViewController {
             sortingButton.setTitle(" New", forState: .Normal)
         } else {
             selectedSort = .Recent
-            sortingButton.setTitle(" Recent", forState: .Normal)
+            sortingButton.setTitle(" Popular", forState: .Normal)
         }
         fetchThreads()
     }
