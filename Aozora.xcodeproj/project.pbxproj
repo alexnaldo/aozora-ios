@@ -7,9 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		95AE32D77504ADE81EEF2B3F /* Pods_AozoraWatching.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C81E12E57DA29EC33C95A2DC /* Pods_AozoraWatching.framework */; };
+		3148E80D242C8769D4464FFB /* Pods_AozoraProject_Aozora.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D699BF5F59710160C37E5135 /* Pods_AozoraProject_Aozora.framework */; };
+		34A4AEC1BCF98047FF2F140A /* Pods_AozoraProject_AppPods_AnimeTrakr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8ECB01545912F696222BE59 /* Pods_AozoraProject_AppPods_AnimeTrakr.framework */; };
+		3EC6AEFF6960114A93557A0B /* Pods_AozoraWatching.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C81E12E57DA29EC33C95A2DC /* Pods_AozoraWatching.framework */; };
+		4F0791EB4B00E22971667751 /* Pods_AozoraProject_AnimeTrakr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92D02D3288C7FEED7C102DF4 /* Pods_AozoraProject_AnimeTrakr.framework */; };
+		9C30DF9369E7DF3E8BD2ABE5 /* Pods_AozoraProject_AppPods_Aozora.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02F317D5AD9092712CF97656 /* Pods_AozoraProject_AppPods_Aozora.framework */; };
 		A5DA5BBA9AF24934F1872C6B /* Pods_Aozora.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 621095FA74939A32BE08A534 /* Pods_Aozora.framework */; };
-		AEB4669EE1A2D01367E19BD1 /* Pods_AnimeTrakrWatching.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B61C4C32689D309FEAD93A8A /* Pods_AnimeTrakrWatching.framework */; };
+		C95FD52214C71903EF457966 /* Pods_AnimeTrakrWatching.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B61C4C32689D309FEAD93A8A /* Pods_AnimeTrakrWatching.framework */; };
 		D3D386EC758F531315CB2FD6 /* Pods_AnimeTrakr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 196425229B3C900163987D78 /* Pods_AnimeTrakr.framework */; };
 		DA0B261A1B758C1D00A770AE /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0B26091B7514A400A770AE /* UIViewController+Alert.swift */; };
 		DA0B261C1B758CED00A770AE /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC077961B68670C0067DA90 /* UIImage+Resize.swift */; };
@@ -74,7 +78,6 @@
 		DA5A3E611CC1ADDC00A76621 /* PostActionsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA5A3E571CC1A41A00A76621 /* PostActionsView.xib */; };
 		DA5A3E621CC1ADDC00A76621 /* PostActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A3E5D1CC1A45300A76621 /* PostActionsView.swift */; };
 		DA5A3E651CC1C0CC00A76621 /* ADVSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A3E631CC1C0CC00A76621 /* ADVSegmentedControl.swift */; };
-		DA5AB9481CD33BF300551BFC /* MMWormhole.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5AB9471CD33BF300551BFC /* MMWormhole.framework */; };
 		DA5AB9491CD33BFE00551BFC /* ANCommonKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4AF8B51B276E060020252E /* ANCommonKit.framework */; };
 		DA5AB94A1CD33C0900551BFC /* ANCommonKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4AF8B51B276E060020252E /* ANCommonKit.framework */; };
 		DA5B28681C5EE3F500EACCE3 /* WormholeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B28671C5EE3F500EACCE3 /* WormholeExtensions.swift */; };
@@ -467,6 +470,7 @@
 		DAFD60BD1B27845F007275C1 /* BasicCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA76A19C1B23AADF006CB489 /* BasicCollectionReusableView.swift */; };
 		DAFD60BF1B278463007275C1 /* UIColor+AniNow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2853C11B22C5D30070B675 /* UIColor+AniNow.swift */; };
 		DAFD60C11B27847E007275C1 /* ANCommonKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFD60C01B27847E007275C1 /* ANCommonKit.swift */; };
+		FEF919283710201032651EF8 /* Pods_AozoraProject_ANCommonKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B23EA781BD0A076D4736EEAE /* Pods_AozoraProject_ANCommonKit.framework */; };
 		FFA1CBB32081C6209501F9E2 /* Pods_ANCommonKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C8E1816883DA42FD9138B2 /* Pods_ANCommonKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -570,19 +574,37 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		02F317D5AD9092712CF97656 /* Pods_AozoraProject_AppPods_Aozora.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AozoraProject_AppPods_Aozora.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0384F53425417EE0E853D611 /* Pods-AozoraWatching.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AozoraWatching.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AozoraWatching/Pods-AozoraWatching.debug.xcconfig"; sourceTree = "<group>"; };
+		0913971259521EE3AA177E34 /* Pods-AozoraProject-AppPods-Aozora.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AozoraProject-AppPods-Aozora.release.xcconfig"; path = "Pods/Target Support Files/Pods-AozoraProject-AppPods-Aozora/Pods-AozoraProject-AppPods-Aozora.release.xcconfig"; sourceTree = "<group>"; };
 		15C8E1816883DA42FD9138B2 /* Pods_ANCommonKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ANCommonKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		168EB15AC1FE5C01B5D0A162 /* Pods-AozoraProject-Aozora.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AozoraProject-Aozora.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AozoraProject-Aozora/Pods-AozoraProject-Aozora.debug.xcconfig"; sourceTree = "<group>"; };
 		196425229B3C900163987D78 /* Pods_AnimeTrakr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AnimeTrakr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D486C06F6FE888DD6EB06FC /* Pods-AozoraProject-ANCommonKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AozoraProject-ANCommonKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AozoraProject-ANCommonKit/Pods-AozoraProject-ANCommonKit.debug.xcconfig"; sourceTree = "<group>"; };
+		23F31E8C5F78AEA9A1189FB4 /* Pods-AozoraProject-AnimeTrakr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AozoraProject-AnimeTrakr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AozoraProject-AnimeTrakr/Pods-AozoraProject-AnimeTrakr.debug.xcconfig"; sourceTree = "<group>"; };
+		27F9F148B584D01F4F06E0B6 /* Pods-AozoraProject-AppPods-Aozora.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AozoraProject-AppPods-Aozora.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AozoraProject-AppPods-Aozora/Pods-AozoraProject-AppPods-Aozora.debug.xcconfig"; sourceTree = "<group>"; };
 		35CE12FA3E8C862E7F906B22 /* Pods-AnimeTrakrWatching.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnimeTrakrWatching.release.xcconfig"; path = "Pods/Target Support Files/Pods-AnimeTrakrWatching/Pods-AnimeTrakrWatching.release.xcconfig"; sourceTree = "<group>"; };
 		36AF3843C053404581017211 /* Pods-AozoraWatching.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AozoraWatching.release.xcconfig"; path = "Pods/Target Support Files/Pods-AozoraWatching/Pods-AozoraWatching.release.xcconfig"; sourceTree = "<group>"; };
+		48CFB5FBC466D2163E5D34BD /* Pods-AozoraProject-AnimeTrakrWatching.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AozoraProject-AnimeTrakrWatching.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AozoraProject-AnimeTrakrWatching/Pods-AozoraProject-AnimeTrakrWatching.debug.xcconfig"; sourceTree = "<group>"; };
 		621095FA74939A32BE08A534 /* Pods_Aozora.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aozora.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		646E6D676F901920678801E7 /* Pods-AozoraProject-AppPods-AnimeTrakr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AozoraProject-AppPods-AnimeTrakr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AozoraProject-AppPods-AnimeTrakr/Pods-AozoraProject-AppPods-AnimeTrakr.debug.xcconfig"; sourceTree = "<group>"; };
+		64729C7821A8BCC7D8A3F48F /* Pods-AozoraProject-AnimeTrakrWatching.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AozoraProject-AnimeTrakrWatching.release.xcconfig"; path = "Pods/Target Support Files/Pods-AozoraProject-AnimeTrakrWatching/Pods-AozoraProject-AnimeTrakrWatching.release.xcconfig"; sourceTree = "<group>"; };
+		6D1096B38EFA2379FA9DBF83 /* Pods-AozoraProject-AozoraWatching.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AozoraProject-AozoraWatching.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AozoraProject-AozoraWatching/Pods-AozoraProject-AozoraWatching.debug.xcconfig"; sourceTree = "<group>"; };
+		8785292D5038514481F58F71 /* Pods-AozoraProject-AnimeTrakr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AozoraProject-AnimeTrakr.release.xcconfig"; path = "Pods/Target Support Files/Pods-AozoraProject-AnimeTrakr/Pods-AozoraProject-AnimeTrakr.release.xcconfig"; sourceTree = "<group>"; };
 		8935D6130EE323E5E0C387C7 /* Pods-Aozora.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aozora.release.xcconfig"; path = "Pods/Target Support Files/Pods-Aozora/Pods-Aozora.release.xcconfig"; sourceTree = "<group>"; };
+		92D02D3288C7FEED7C102DF4 /* Pods_AozoraProject_AnimeTrakr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AozoraProject_AnimeTrakr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		93E0C0E47E2DF74385512FCE /* Pods-AozoraProject-ANCommonKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AozoraProject-ANCommonKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-AozoraProject-ANCommonKit/Pods-AozoraProject-ANCommonKit.release.xcconfig"; sourceTree = "<group>"; };
 		9E54D100D6BDB7DFC39A48D0 /* Pods-Aozora.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aozora.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Aozora/Pods-Aozora.debug.xcconfig"; sourceTree = "<group>"; };
+		B23EA781BD0A076D4736EEAE /* Pods_AozoraProject_ANCommonKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AozoraProject_ANCommonKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B54134421583DBFAAFF105E1 /* Pods-AozoraProject-AppPods-AnimeTrakr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AozoraProject-AppPods-AnimeTrakr.release.xcconfig"; path = "Pods/Target Support Files/Pods-AozoraProject-AppPods-AnimeTrakr/Pods-AozoraProject-AppPods-AnimeTrakr.release.xcconfig"; sourceTree = "<group>"; };
 		B61C4C32689D309FEAD93A8A /* Pods_AnimeTrakrWatching.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AnimeTrakrWatching.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B696F41D92DC9C19479C0DC6 /* Pods-AnimeTrakrWatching.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnimeTrakrWatching.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AnimeTrakrWatching/Pods-AnimeTrakrWatching.debug.xcconfig"; sourceTree = "<group>"; };
+		BF286B08F11D98C5044F0F3C /* Pods-AozoraProject-Aozora.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AozoraProject-Aozora.release.xcconfig"; path = "Pods/Target Support Files/Pods-AozoraProject-Aozora/Pods-AozoraProject-Aozora.release.xcconfig"; sourceTree = "<group>"; };
 		C7550AFCABA0C7BADCC1F956 /* Pods-AnimeTrakr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnimeTrakr.release.xcconfig"; path = "Pods/Target Support Files/Pods-AnimeTrakr/Pods-AnimeTrakr.release.xcconfig"; sourceTree = "<group>"; };
 		C81E12E57DA29EC33C95A2DC /* Pods_AozoraWatching.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AozoraWatching.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D27C7A8ED4F7C96DF08F5850 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D699BF5F59710160C37E5135 /* Pods_AozoraProject_Aozora.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AozoraProject_Aozora.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7B4F4FCCEC452109C91DFAB /* Pods-AozoraProject-AozoraWatching.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AozoraProject-AozoraWatching.release.xcconfig"; path = "Pods/Target Support Files/Pods-AozoraProject-AozoraWatching/Pods-AozoraProject-AozoraWatching.release.xcconfig"; sourceTree = "<group>"; };
 		DA03F1491B897E4300402AC4 /* CustomThreadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomThreadViewController.swift; sourceTree = "<group>"; };
 		DA03F1531B8B188000402AC4 /* NewPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPostViewController.swift; sourceTree = "<group>"; };
 		DA03F1551B8B188F00402AC4 /* NewThreadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewThreadViewController.swift; sourceTree = "<group>"; };
@@ -855,6 +877,9 @@
 		E8549CB2C444F5094091FE33 /* Pods-ANCommonKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ANCommonKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-ANCommonKit/Pods-ANCommonKit.release.xcconfig"; sourceTree = "<group>"; };
 		F29F83DACB313E162BCB3846 /* Pods-ANCommonKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ANCommonKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ANCommonKit/Pods-ANCommonKit.debug.xcconfig"; sourceTree = "<group>"; };
 		F324B7E950E50FF59DA5F68B /* Pods-AnimeTrakr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnimeTrakr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AnimeTrakr/Pods-AnimeTrakr.debug.xcconfig"; sourceTree = "<group>"; };
+		F89B5434AB9E0CC09B7840F7 /* Pods_AozoraProject_AozoraWatching.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AozoraProject_AozoraWatching.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8ECB01545912F696222BE59 /* Pods_AozoraProject_AppPods_AnimeTrakr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AozoraProject_AppPods_AnimeTrakr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAA55917322B1918901E93CB /* Pods_AozoraProject_AnimeTrakrWatching.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AozoraProject_AnimeTrakrWatching.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -870,9 +895,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA5AB94A1CD33C0900551BFC /* ANCommonKit.framework in Frameworks */,
-				DA5AB9481CD33BF300551BFC /* MMWormhole.framework in Frameworks */,
 				DA354B431C5DF3C2008C729F /* NotificationCenter.framework in Frameworks */,
-				95AE32D77504ADE81EEF2B3F /* Pods_AozoraWatching.framework in Frameworks */,
+				3EC6AEFF6960114A93557A0B /* Pods_AozoraWatching.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -881,6 +905,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FFA1CBB32081C6209501F9E2 /* Pods_ANCommonKit.framework in Frameworks */,
+				FEF919283710201032651EF8 /* Pods_AozoraProject_ANCommonKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -925,6 +950,8 @@
 				DA6B54F71CC2DFBD00EB6FC0 /* Crashlytics.framework in Frameworks */,
 				DA6B54F81CC2DFBD00EB6FC0 /* Social.framework in Frameworks */,
 				A5DA5BBA9AF24934F1872C6B /* Pods_Aozora.framework in Frameworks */,
+				3148E80D242C8769D4464FFB /* Pods_AozoraProject_Aozora.framework in Frameworks */,
+				9C30DF9369E7DF3E8BD2ABE5 /* Pods_AozoraProject_AppPods_Aozora.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -961,6 +988,8 @@
 				DAA577021C66EC2D007E81E6 /* Crashlytics.framework in Frameworks */,
 				DACE086E1C6DD40900470B9F /* Social.framework in Frameworks */,
 				D3D386EC758F531315CB2FD6 /* Pods_AnimeTrakr.framework in Frameworks */,
+				4F0791EB4B00E22971667751 /* Pods_AozoraProject_AnimeTrakr.framework in Frameworks */,
+				34A4AEC1BCF98047FF2F140A /* Pods_AozoraProject_AppPods_AnimeTrakr.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -970,7 +999,7 @@
 			files = (
 				DA5AB9491CD33BFE00551BFC /* ANCommonKit.framework in Frameworks */,
 				DAA577391C66EFCA007E81E6 /* NotificationCenter.framework in Frameworks */,
-				AEB4669EE1A2D01367E19BD1 /* Pods_AnimeTrakrWatching.framework in Frameworks */,
+				C95FD52214C71903EF457966 /* Pods_AnimeTrakrWatching.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -990,6 +1019,20 @@
 				35CE12FA3E8C862E7F906B22 /* Pods-AnimeTrakrWatching.release.xcconfig */,
 				0384F53425417EE0E853D611 /* Pods-AozoraWatching.debug.xcconfig */,
 				36AF3843C053404581017211 /* Pods-AozoraWatching.release.xcconfig */,
+				1D486C06F6FE888DD6EB06FC /* Pods-AozoraProject-ANCommonKit.debug.xcconfig */,
+				93E0C0E47E2DF74385512FCE /* Pods-AozoraProject-ANCommonKit.release.xcconfig */,
+				23F31E8C5F78AEA9A1189FB4 /* Pods-AozoraProject-AnimeTrakr.debug.xcconfig */,
+				8785292D5038514481F58F71 /* Pods-AozoraProject-AnimeTrakr.release.xcconfig */,
+				48CFB5FBC466D2163E5D34BD /* Pods-AozoraProject-AnimeTrakrWatching.debug.xcconfig */,
+				64729C7821A8BCC7D8A3F48F /* Pods-AozoraProject-AnimeTrakrWatching.release.xcconfig */,
+				168EB15AC1FE5C01B5D0A162 /* Pods-AozoraProject-Aozora.debug.xcconfig */,
+				BF286B08F11D98C5044F0F3C /* Pods-AozoraProject-Aozora.release.xcconfig */,
+				6D1096B38EFA2379FA9DBF83 /* Pods-AozoraProject-AozoraWatching.debug.xcconfig */,
+				D7B4F4FCCEC452109C91DFAB /* Pods-AozoraProject-AozoraWatching.release.xcconfig */,
+				646E6D676F901920678801E7 /* Pods-AozoraProject-AppPods-AnimeTrakr.debug.xcconfig */,
+				B54134421583DBFAAFF105E1 /* Pods-AozoraProject-AppPods-AnimeTrakr.release.xcconfig */,
+				27F9F148B584D01F4F06E0B6 /* Pods-AozoraProject-AppPods-Aozora.debug.xcconfig */,
+				0913971259521EE3AA177E34 /* Pods-AozoraProject-AppPods-Aozora.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1710,6 +1753,13 @@
 				621095FA74939A32BE08A534 /* Pods_Aozora.framework */,
 				B61C4C32689D309FEAD93A8A /* Pods_AnimeTrakrWatching.framework */,
 				C81E12E57DA29EC33C95A2DC /* Pods_AozoraWatching.framework */,
+				B23EA781BD0A076D4736EEAE /* Pods_AozoraProject_ANCommonKit.framework */,
+				92D02D3288C7FEED7C102DF4 /* Pods_AozoraProject_AnimeTrakr.framework */,
+				FAA55917322B1918901E93CB /* Pods_AozoraProject_AnimeTrakrWatching.framework */,
+				D699BF5F59710160C37E5135 /* Pods_AozoraProject_Aozora.framework */,
+				F89B5434AB9E0CC09B7840F7 /* Pods_AozoraProject_AozoraWatching.framework */,
+				F8ECB01545912F696222BE59 /* Pods_AozoraProject_AppPods_AnimeTrakr.framework */,
+				02F317D5AD9092712CF97656 /* Pods_AozoraProject_AppPods_Aozora.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1749,13 +1799,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DA354B501C5DF3C2008C729F /* Build configuration list for PBXNativeTarget "AozoraWatching" */;
 			buildPhases = (
-				801D7FFFBB5DBE470D3BFDC6 /* 📦 Check Pods Manifest.lock */,
+				A822AFD6802E85BDB764B406 /* 📦 Check Pods Manifest.lock */,
 				DA354B3D1C5DF3C2008C729F /* Sources */,
 				DA354B3E1C5DF3C2008C729F /* Frameworks */,
 				DA354B3F1C5DF3C2008C729F /* Resources */,
 				DAA576AF1C66DD76007E81E6 /* ShellScript */,
-				88243A2D6A801980BE134B91 /* 📦 Embed Pods Frameworks */,
-				AA277DF5F50820D607FD8F35 /* 📦 Copy Pods Resources */,
+				FD1F5ED59DEAC3B23B5851F9 /* 📦 Embed Pods Frameworks */,
+				24CD7D7B9E17E78B60D74616 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1861,13 +1911,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DAA5773F1C66EFCA007E81E6 /* Build configuration list for PBXNativeTarget "AnimeTrakrWatching" */;
 			buildPhases = (
-				41AA0DE2E71100391E0716E1 /* 📦 Check Pods Manifest.lock */,
+				128CC24BCFCA05FBC3116AE2 /* 📦 Check Pods Manifest.lock */,
 				DAA577351C66EFCA007E81E6 /* Sources */,
 				DAA577381C66EFCA007E81E6 /* Frameworks */,
 				DAA5773A1C66EFCA007E81E6 /* Resources */,
 				DAA5773E1C66EFCA007E81E6 /* ShellScript */,
-				7914D891B2330B15CADC932F /* 📦 Embed Pods Frameworks */,
-				8668670789E292402E2965A3 /* 📦 Copy Pods Resources */,
+				A7EF8003D11451E96BA4ED5F /* 📦 Embed Pods Frameworks */,
+				3406741112349F8C7609423D /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2110,6 +2160,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		128CC24BCFCA05FBC3116AE2 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		24CD7D7B9E17E78B60D74616 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AozoraWatching/Pods-AozoraWatching-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		295CF3CEC6177BE1DD2D2B40 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2140,19 +2220,19 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		41AA0DE2E71100391E0716E1 /* 📦 Check Pods Manifest.lock */ = {
+		3406741112349F8C7609423D /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AnimeTrakrWatching/Pods-AnimeTrakrWatching-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		577872715204544EBBDEE773 /* 📦 Embed Pods Frameworks */ = {
@@ -2167,7 +2247,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Aozora/Pods-Aozora-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AozoraProject-AppPods-Aozora/Pods-AozoraProject-AppPods-Aozora-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		647E0B5651C4A6FE05459218 /* 📦 Check Pods Manifest.lock */ = {
@@ -2197,10 +2277,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AnimeTrakr/Pods-AnimeTrakr-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AozoraProject-AppPods-AnimeTrakr/Pods-AozoraProject-AppPods-AnimeTrakr-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7914D891B2330B15CADC932F /* 📦 Embed Pods Frameworks */ = {
+		A7EF8003D11451E96BA4ED5F /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2215,7 +2295,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AnimeTrakrWatching/Pods-AnimeTrakrWatching-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		801D7FFFBB5DBE470D3BFDC6 /* 📦 Check Pods Manifest.lock */ = {
+		A822AFD6802E85BDB764B406 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2230,51 +2310,6 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		8668670789E292402E2965A3 /* 📦 Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "📦 Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AnimeTrakrWatching/Pods-AnimeTrakrWatching-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		88243A2D6A801980BE134B91 /* 📦 Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "📦 Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AozoraWatching/Pods-AozoraWatching-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AA277DF5F50820D607FD8F35 /* 📦 Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "📦 Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AozoraWatching/Pods-AozoraWatching-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		B7759DB1CCEA124EB639705F /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2287,7 +2322,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AnimeTrakr/Pods-AnimeTrakr-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AozoraProject-AppPods-AnimeTrakr/Pods-AozoraProject-AppPods-AnimeTrakr-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C4BC1D5CED252275F7ED6DC6 /* 📦 Copy Pods Resources */ = {
@@ -2302,7 +2337,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Aozora/Pods-Aozora-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AozoraProject-AppPods-Aozora/Pods-AozoraProject-AppPods-Aozora-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DA6B552C1CC2DFBD00EB6FC0 /* ShellScript */ = {
@@ -2399,7 +2434,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ANCommonKit/Pods-ANCommonKit-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AozoraProject-ANCommonKit/Pods-AozoraProject-ANCommonKit-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FD1F5ED59DEAC3B23B5851F9 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AozoraWatching/Pods-AozoraWatching-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2986,7 +3036,7 @@
 		};
 		DA4AF8CE1B276E060020252E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F29F83DACB313E162BCB3846 /* Pods-ANCommonKit.debug.xcconfig */;
+			baseConfigurationReference = 1D486C06F6FE888DD6EB06FC /* Pods-AozoraProject-ANCommonKit.debug.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CURRENT_PROJECT_VERSION = 141;
@@ -3038,7 +3088,7 @@
 		};
 		DA4AF8CF1B276E060020252E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E8549CB2C444F5094091FE33 /* Pods-ANCommonKit.release.xcconfig */;
+			baseConfigurationReference = 93E0C0E47E2DF74385512FCE /* Pods-AozoraProject-ANCommonKit.release.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CURRENT_PROJECT_VERSION = 141;
@@ -3121,7 +3171,7 @@
 		};
 		DA6B55311CC2DFBD00EB6FC0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9E54D100D6BDB7DFC39A48D0 /* Pods-Aozora.debug.xcconfig */;
+			baseConfigurationReference = 27F9F148B584D01F4F06E0B6 /* Pods-AozoraProject-AppPods-Aozora.debug.xcconfig */;
 			buildSettings = {
 				APP_NAME = Aozora;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -3197,7 +3247,7 @@
 		};
 		DA6B55321CC2DFBD00EB6FC0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8935D6130EE323E5E0C387C7 /* Pods-Aozora.release.xcconfig */;
+			baseConfigurationReference = 0913971259521EE3AA177E34 /* Pods-AozoraProject-AppPods-Aozora.release.xcconfig */;
 			buildSettings = {
 				APP_NAME = Aozora;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -3273,7 +3323,7 @@
 		};
 		DAA5772E1C66EC2D007E81E6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F324B7E950E50FF59DA5F68B /* Pods-AnimeTrakr.debug.xcconfig */;
+			baseConfigurationReference = 646E6D676F901920678801E7 /* Pods-AozoraProject-AppPods-AnimeTrakr.debug.xcconfig */;
 			buildSettings = {
 				APP_NAME = AnimeTrakr;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-AnimeTrakr";
@@ -3349,7 +3399,7 @@
 		};
 		DAA5772F1C66EC2D007E81E6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C7550AFCABA0C7BADCC1F956 /* Pods-AnimeTrakr.release.xcconfig */;
+			baseConfigurationReference = B54134421583DBFAAFF105E1 /* Pods-AozoraProject-AppPods-AnimeTrakr.release.xcconfig */;
 			buildSettings = {
 				APP_NAME = AnimeTrakr;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-AnimeTrakr";
