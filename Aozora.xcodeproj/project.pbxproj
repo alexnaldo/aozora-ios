@@ -7,14 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3148E80D242C8769D4464FFB /* Pods_AozoraProject_Aozora.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D699BF5F59710160C37E5135 /* Pods_AozoraProject_Aozora.framework */; };
 		34A4AEC1BCF98047FF2F140A /* Pods_AozoraProject_AppPods_AnimeTrakr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8ECB01545912F696222BE59 /* Pods_AozoraProject_AppPods_AnimeTrakr.framework */; };
 		3EC6AEFF6960114A93557A0B /* Pods_AozoraWatching.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C81E12E57DA29EC33C95A2DC /* Pods_AozoraWatching.framework */; };
-		4F0791EB4B00E22971667751 /* Pods_AozoraProject_AnimeTrakr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92D02D3288C7FEED7C102DF4 /* Pods_AozoraProject_AnimeTrakr.framework */; };
 		9C30DF9369E7DF3E8BD2ABE5 /* Pods_AozoraProject_AppPods_Aozora.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02F317D5AD9092712CF97656 /* Pods_AozoraProject_AppPods_Aozora.framework */; };
-		A5DA5BBA9AF24934F1872C6B /* Pods_Aozora.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 621095FA74939A32BE08A534 /* Pods_Aozora.framework */; };
 		C95FD52214C71903EF457966 /* Pods_AnimeTrakrWatching.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B61C4C32689D309FEAD93A8A /* Pods_AnimeTrakrWatching.framework */; };
-		D3D386EC758F531315CB2FD6 /* Pods_AnimeTrakr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 196425229B3C900163987D78 /* Pods_AnimeTrakr.framework */; };
 		DA0B261A1B758C1D00A770AE /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0B26091B7514A400A770AE /* UIViewController+Alert.swift */; };
 		DA0B261C1B758CED00A770AE /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC077961B68670C0067DA90 /* UIImage+Resize.swift */; };
 		DA10E9111C60774F0023F41F /* badge-green@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA10E90F1C60774F0023F41F /* badge-green@2x.png */; };
@@ -471,7 +467,6 @@
 		DAFD60BF1B278463007275C1 /* UIColor+AniNow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2853C11B22C5D30070B675 /* UIColor+AniNow.swift */; };
 		DAFD60C11B27847E007275C1 /* ANCommonKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFD60C01B27847E007275C1 /* ANCommonKit.swift */; };
 		FEF919283710201032651EF8 /* Pods_AozoraProject_ANCommonKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B23EA781BD0A076D4736EEAE /* Pods_AozoraProject_ANCommonKit.framework */; };
-		FFA1CBB32081C6209501F9E2 /* Pods_ANCommonKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C8E1816883DA42FD9138B2 /* Pods_ANCommonKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -904,7 +899,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FFA1CBB32081C6209501F9E2 /* Pods_ANCommonKit.framework in Frameworks */,
 				FEF919283710201032651EF8 /* Pods_AozoraProject_ANCommonKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -949,8 +943,6 @@
 				DA6B54F61CC2DFBD00EB6FC0 /* libsqlite3.tbd in Frameworks */,
 				DA6B54F71CC2DFBD00EB6FC0 /* Crashlytics.framework in Frameworks */,
 				DA6B54F81CC2DFBD00EB6FC0 /* Social.framework in Frameworks */,
-				A5DA5BBA9AF24934F1872C6B /* Pods_Aozora.framework in Frameworks */,
-				3148E80D242C8769D4464FFB /* Pods_AozoraProject_Aozora.framework in Frameworks */,
 				9C30DF9369E7DF3E8BD2ABE5 /* Pods_AozoraProject_AppPods_Aozora.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -987,8 +979,6 @@
 				DACE08631C6DD3EF00470B9F /* libsqlite3.tbd in Frameworks */,
 				DAA577021C66EC2D007E81E6 /* Crashlytics.framework in Frameworks */,
 				DACE086E1C6DD40900470B9F /* Social.framework in Frameworks */,
-				D3D386EC758F531315CB2FD6 /* Pods_AnimeTrakr.framework in Frameworks */,
-				4F0791EB4B00E22971667751 /* Pods_AozoraProject_AnimeTrakr.framework in Frameworks */,
 				34A4AEC1BCF98047FF2F140A /* Pods_AozoraProject_AppPods_AnimeTrakr.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
