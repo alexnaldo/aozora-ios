@@ -56,6 +56,7 @@ def app_pods
     pod 'Toucan'
     pod 'DZNEmptyDataSet'
     pod 'NYTPhotoViewer', '~> 1.1.0'
+    pod 'YoutubeSourceParserKit'
 end
 
 
