@@ -1794,7 +1794,6 @@
 				DA354B3E1C5DF3C2008C729F /* Frameworks */,
 				DA354B3F1C5DF3C2008C729F /* Resources */,
 				DAA576AF1C66DD76007E81E6 /* ShellScript */,
-				FD1F5ED59DEAC3B23B5851F9 /* 📦 Embed Pods Frameworks */,
 				24CD7D7B9E17E78B60D74616 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
@@ -1906,7 +1905,6 @@
 				DAA577381C66EFCA007E81E6 /* Frameworks */,
 				DAA5773A1C66EFCA007E81E6 /* Resources */,
 				DAA5773E1C66EFCA007E81E6 /* ShellScript */,
-				A7EF8003D11451E96BA4ED5F /* 📦 Embed Pods Frameworks */,
 				3406741112349F8C7609423D /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
@@ -2270,21 +2268,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AozoraProject-AppPods-AnimeTrakr/Pods-AozoraProject-AppPods-AnimeTrakr-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A7EF8003D11451E96BA4ED5F /* 📦 Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "📦 Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AnimeTrakrWatching/Pods-AnimeTrakrWatching-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		A822AFD6802E85BDB764B406 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2425,21 +2408,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AozoraProject-ANCommonKit/Pods-AozoraProject-ANCommonKit-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FD1F5ED59DEAC3B23B5851F9 /* 📦 Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "📦 Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AozoraWatching/Pods-AozoraWatching-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
