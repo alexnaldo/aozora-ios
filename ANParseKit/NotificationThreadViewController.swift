@@ -10,7 +10,7 @@ import Foundation
 import TTTAttributedLabel
 import ANCommonKit
 
-class NotificationThreadViewController: ThreadViewController {
+class NotificationThreadViewController: BaseThreadViewController {
     
     @IBOutlet weak var viewMoreButton: UIButton!
     var timelinePost: TimelinePostable?

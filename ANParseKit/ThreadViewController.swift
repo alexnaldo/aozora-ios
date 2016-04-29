@@ -1,5 +1,5 @@
 //
-//  ThreadViewController.swift
+//  BaseThreadViewController.swift
 //  Aozora
 //
 //  Created by Paul Chavarria Podoliako on 8/7/15.
@@ -17,7 +17,7 @@ enum ReplyConfiguration {
 }
 
 // Class intended to be subclassed
-class ThreadViewController: UIViewController {
+class BaseThreadViewController: UIViewController {
    
     let FetchLimit = 12
     
@@ -64,10 +64,10 @@ class ThreadViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ThreadViewController.moviePlayerPlaybackDidFinish(_:)), name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BaseThreadViewController.moviePlayerPlaybackDidFinish(_:)), name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
 
         loadingView = LoaderView(parentView: view)
-        addRefreshControl(refreshControl, action:#selector(ThreadViewController.fetchPosts), forTableView: tableView)
+        addRefreshControl(refreshControl, action:#selector(BaseThreadViewController.fetchPosts), forTableView: tableView)
         
         if let thread = thread {
             updateUIWithThread(thread)
@@ -300,7 +300,7 @@ class ThreadViewController: UIViewController {
 }
 
 // MARK: - UITableViewDataSource
-extension ThreadViewController: UITableViewDataSource {
+extension BaseThreadViewController: UITableViewDataSource {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return fetchController.dataCount()
@@ -527,7 +527,7 @@ extension ThreadViewController: UITableViewDataSource {
 }
 
 // MARK: - UITableViewDelegate
-extension ThreadViewController: UITableViewDelegate {
+extension BaseThreadViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.1
     }
@@ -626,14 +626,14 @@ extension ThreadViewController: UITableViewDelegate {
 }
 
 // MARK: - FetchControllerDelegate
-extension ThreadViewController: FetchControllerDelegate {
+extension BaseThreadViewController: FetchControllerDelegate {
     func didFetchFor(skip skip: Int) {
         refreshControl.endRefreshing()
     }
 }
 
 // MARK: - TTTAttributedLabelDelegate
-extension ThreadViewController: TTTAttributedLabelDelegate {
+extension BaseThreadViewController: TTTAttributedLabelDelegate {
     
     func attributedLabel(label: TTTAttributedLabel!, didSelectLinkWithURL url: NSURL!) {
         
@@ -660,7 +660,7 @@ extension ThreadViewController: TTTAttributedLabelDelegate {
 }
 
 // MARK: - CommentViewControllerDelegate
-extension ThreadViewController: CommentViewControllerDelegate {
+extension BaseThreadViewController: CommentViewControllerDelegate {
     func commentViewControllerDidFinishedPosting(newPost: PFObject, parentPost: PFObject?, edited: Bool) {
         if let thread = newPost as? Thread {
             self.thread = thread
@@ -669,7 +669,7 @@ extension ThreadViewController: CommentViewControllerDelegate {
 }
 
 // MARK: - PostCellDelegate
-extension ThreadViewController: PostCellDelegate {
+extension BaseThreadViewController: PostCellDelegate {
     func postCellSelectedImage(postCell: PostCellProtocol) {
         if let post = postForCell(postCell) {
             if let imagesData = post.imagesData where !imagesData.isEmpty {
@@ -745,7 +745,7 @@ extension ThreadViewController: PostCellDelegate {
 }
 
 // MARK: - LinkCellDelegate
-extension ThreadViewController: LinkCellDelegate {
+extension BaseThreadViewController: LinkCellDelegate {
     func postCellSelectedLink(linkCell: UrlCell) {
         guard let indexPath = tableView.indexPathForCell(linkCell),
             let postable = fetchController.objectAtIndex(indexPath.section) as? Commentable,
@@ -764,7 +764,7 @@ extension ThreadViewController: LinkCellDelegate {
 }
 
 // MARK: - FetchControllerQueryDelegate
-extension ThreadViewController: FetchControllerQueryDelegate {
+extension BaseThreadViewController: FetchControllerQueryDelegate {
     
     func resultsForSkip(skip skip: Int) -> BFTask? {
         return nil
@@ -804,7 +804,7 @@ extension ThreadViewController: FetchControllerQueryDelegate {
 }
 
 // MARK: - ModalTransitionScrollable
-extension ThreadViewController: ModalTransitionScrollable {
+extension BaseThreadViewController: ModalTransitionScrollable {
     var transitionScrollView: UIScrollView? {
         return tableView
     }

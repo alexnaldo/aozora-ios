@@ -12,7 +12,7 @@ import TTTAttributedLabel
 import XCDYouTubeKit
 import Crashlytics
 
-class ProfileViewController: ThreadViewController {
+class ProfileViewController: BaseThreadViewController {
     
     enum SelectedFeed: Int {
         case Feed = 0

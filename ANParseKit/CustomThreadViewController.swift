@@ -10,7 +10,7 @@ import Foundation
 import TTTAttributedLabel
 import ANCommonKit
 
-class CustomThreadViewController: ThreadViewController {
+class CustomThreadViewController: BaseThreadViewController {
     
     @IBOutlet weak var imageContent: UIImageView!
     @IBOutlet weak var threadTitle: UILabel!
