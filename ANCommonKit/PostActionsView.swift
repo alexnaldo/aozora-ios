@@ -70,7 +70,7 @@ final class PostActionsView: UIView {
         let commentString = commentCount == 1 ? "comment" : "comments"
         commentCountLabel?.setTitle("\(commentCount) \(commentString)", forState: .Normal)
 
-        showDetails = likeCount > 0
+        showDetails = likeCount > 0 || commentCount > 0
     }
 
     var replyCallback: ActionCallback!
