@@ -303,6 +303,8 @@
 		DA8D710C1C6DD0F50016A332 /* LibraryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFCF8F51C14DD9000591C28 /* LibraryController.swift */; };
 		DA8D710D1C6DD0F50016A332 /* LibrarySyncController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C8991BB1A76F00C27A68 /* LibrarySyncController.swift */; };
 		DA8D710E1C6DD0F50016A332 /* FetchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC13BFF1B3F4A7A0013D479 /* FetchController.swift */; };
+		DA9F717D1CD3225900D634D3 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9F717C1CD3225900D634D3 /* PhotosViewController.swift */; };
+		DA9F717E1CD3225900D634D3 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9F717C1CD3225900D634D3 /* PhotosViewController.swift */; };
 		DA9F731D1B2931FF00C2652C /* UIImageView+SDWebImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9F731A1B2930F200C2652C /* UIImageView+SDWebImage.swift */; };
 		DAA011C21C6EFE4700F2070E /* ZFModalTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFD60B31B277B8D007275C1 /* ZFModalTransitionAnimator.m */; };
 		DAA576B91C66EC2D007E81E6 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8DD6401B3C95F300B05FBF /* SearchViewController.swift */; };
@@ -738,6 +740,7 @@
 		DA90DD931CC381D3000CE9B9 /* TTTAttributedLabel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTTAttributedLabel.framework; path = "../../../Library/Developer/Xcode/DerivedData/Aozora-adnebwoyjewdsdeqpjynyylaouno/Build/Products/Debug-iphoneos/TTTAttributedLabel.framework"; sourceTree = "<group>"; };
 		DA9AE39A1B6930F60053C2EA /* TimelinePost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelinePost.swift; sourceTree = "<group>"; };
 		DA9EB9301B2BA580001ECFA7 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		DA9F717C1CD3225900D634D3 /* PhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		DA9F731A1B2930F200C2652C /* UIImageView+SDWebImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImageView+SDWebImage.swift"; path = "../AnimeNow/UIImageView+SDWebImage.swift"; sourceTree = "<group>"; };
 		DAA253B71B2B8AF50092EB0B /* AnimeBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnimeBaseViewController.swift; path = ../ANAnimeKit/AnimeBaseViewController.swift; sourceTree = "<group>"; };
 		DAA26C8D1BCC92B1001CF62D /* PublicListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicListViewController.swift; sourceTree = "<group>"; };
@@ -1322,6 +1325,7 @@
 				DAC7D9051B50464B00898FF6 /* DialogController.swift */,
 				DA32EBE01C6A87720090CD51 /* StringFormatter.swift */,
 				DA7996C01CB9BA9000AD7EAD /* QueryBuilder.swift */,
+				DA9F717C1CD3225900D634D3 /* PhotosViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -2461,6 +2465,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA6B54631CC2DFBD00EB6FC0 /* ImagesViewController.swift in Sources */,
+				DA9F717D1CD3225900D634D3 /* PhotosViewController.swift in Sources */,
 				DA6B54641CC2DFBD00EB6FC0 /* Notification.swift in Sources */,
 				DA6B54651CC2DFBD00EB6FC0 /* Thread.swift in Sources */,
 				DA6B54661CC2DFBD00EB6FC0 /* SearchViewController.swift in Sources */,
@@ -2594,6 +2599,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA8D70F81C6DD0EA0016A332 /* ImagesViewController.swift in Sources */,
+				DA9F717E1CD3225900D634D3 /* PhotosViewController.swift in Sources */,
 				DA2991E21C6DD10500CCB04D /* Notification.swift in Sources */,
 				DA2991DE1C6DD10500CCB04D /* Thread.swift in Sources */,
 				DAA576B91C66EC2D007E81E6 /* SearchViewController.swift in Sources */,

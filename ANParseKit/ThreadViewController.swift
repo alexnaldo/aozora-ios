@@ -117,13 +117,7 @@ class ThreadViewController: UIViewController {
 
         navigationController?.pushViewController(profileController, animated: true)
     }
-    
-    func showImage(imageURLString: String, imageView: UIImageView) {
-        if let imageURL = NSURL(string: imageURLString) {
-            presentImageViewController(imageView, imageUrl: imageURL)
-        }
-    }
-    
+
     func playTrailer(videoID: String) {
         playerController = XCDYouTubeVideoPlayerViewController(videoIdentifier: videoID)
         presentMoviePlayerViewControllerAnimated(playerController)
@@ -677,10 +671,10 @@ extension ThreadViewController: CommentViewControllerDelegate {
 // MARK: - PostCellDelegate
 extension ThreadViewController: PostCellDelegate {
     func postCellSelectedImage(postCell: PostCellProtocol) {
-        if let post = postForCell(postCell), let imageView = postCell.imageContent {
-            print(post)
-            if let imageData = post.imagesData?.first {
-                showImage(imageData.url, imageView: imageView)
+        if let post = postForCell(postCell) {
+            if let imagesData = post.imagesData {
+                let photosViewController = PhotosViewController(allPhotos: imagesData)
+                presentViewController(photosViewController, animated: true, completion: nil)
             } else if let videoID = post.youtubeID {
                 playTrailer(videoID)
             }
@@ -815,3 +809,4 @@ extension ThreadViewController: ModalTransitionScrollable {
         return tableView
     }
 }
+

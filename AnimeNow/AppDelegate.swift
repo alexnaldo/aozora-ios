@@ -20,6 +20,7 @@ import SDWebImage
 import MMWormhole
 import Keys
 import Flurry_iOS_SDK
+import NYTPhotoViewer
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -315,7 +316,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let topViewController = UIApplication.topViewController()
         
-        if let controller = topViewController as? JTSImageViewController where !controller.isBeingDismissed() {
+        if let controller = topViewController as? NYTPhotosViewController where !controller.isBeingDismissed() {
             return UIInterfaceOrientationMask.All
         } else if let controller = topViewController as? XCDYouTubeVideoPlayerViewController where !controller.isBeingDismissed() {
             return UIInterfaceOrientationMask.All

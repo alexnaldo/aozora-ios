@@ -6,7 +6,6 @@ use_frameworks!
 
 def common_pods
     pod 'Alamofire', '~> 2.0'
-    pod 'SDWebImage', '~> 3.7.2'
     pod 'TTTAttributedLabel', '~> 1.13.4'
     pod 'MMWormhole', '~> 2.0.0'
     pod 'FLAnimatedImage', '~> 1.0'
@@ -56,6 +55,7 @@ def app_pods
     pod 'Flurry-iOS-SDK', '~> 7.6'
     pod 'Toucan'
     pod 'DZNEmptyDataSet'
+    pod 'NYTPhotoViewer', '~> 1.1.0'
 end
 
 
