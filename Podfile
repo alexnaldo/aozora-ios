@@ -17,6 +17,14 @@ target 'ANCommonKit' do
     common_pods
 end
 
+target 'AozoraWatching' do
+    common_pods
+end
+
+target 'AnimeTrakrWatching' do
+    common_pods
+end
+
 def app_pods
     plugin 'cocoapods-keys', {
         :keys => [
@@ -46,7 +54,8 @@ def app_pods
     pod 'CRToast', '~> 0.0.7'
     pod 'uservoice-iphone-sdk', '~> 3.2'
     pod 'Flurry-iOS-SDK', '~> 7.6'
-    #pod 'Toucan'
+    pod 'Toucan'
+    pod 'DZNEmptyDataSet'
 end
 
 

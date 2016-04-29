@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (2.0.2)
   - CRToast (0.0.9)
+  - DZNEmptyDataSet (1.8)
   - FLAnimatedImage (1.0.12)
   - Flurry-iOS-SDK (7.6.0):
     - Flurry-iOS-SDK/FlurrySDK (= 7.6.0)
@@ -29,6 +30,7 @@ PODS:
     - SDWebImage/Core (= 3.7.5)
   - SDWebImage/Core (3.7.5)
   - Shimmer (1.0.2)
+  - Toucan (0.5.0)
   - TTTAttributedLabel (1.13.4)
   - uservoice-iphone-sdk (3.2.7)
   - XCDYouTubeKit (2.4.3)
@@ -37,6 +39,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 2.0)
   - CRToast (~> 0.0.7)
+  - DZNEmptyDataSet
   - FLAnimatedImage (~> 1.0)
   - Flurry-iOS-SDK (~> 7.6)
   - FontAwesome+iOS
@@ -50,6 +53,7 @@ DEPENDENCIES:
   - RSKImageCropper
   - SDWebImage (~> 3.7.2)
   - Shimmer
+  - Toucan
   - TTTAttributedLabel (~> 1.13.4)
   - uservoice-iphone-sdk (~> 3.2)
   - XCDYouTubeKit (~> 2.4.1)
@@ -62,13 +66,14 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Alamofire: 8edbab00802a752bb5240cc2abe70e7e881488ad
   CRToast: 5a78c22b921c5ed3487488af605bc403a9c92fed
+  DZNEmptyDataSet: d2351b2e8daefa40433ef292e246e21f6be31a7b
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   Flurry-iOS-SDK: 9822fe709195f0e3ae3e52c785eee9ff651ff648
   FontAwesome+iOS: 9070b682a9255ca0fdc34bcfb129ad0ba2b73b87
   HCSStarRatingView: bff3f89314d3b5013ce826ea11897d3129ff6b8c
   iRate: 599ed07c854e0695f3c605d1b2a64c67d912acb7
   JTSImageViewController: 1f8ce1cc93dab0d0af8e53badeea7528560cfec9
-  Keys: 7d2ff6ff42f6903358267ce56e9392f83c31acfe
+  Keys: 9c35bf00f612ee1d48556f4a4b9b4551e224e90f
   MMWormhole: 0cd3fd35a9118b2e2d762b499f54eeaace0be791
   PINCache: 078426d356ab95ef875e9e62e5c35a2ea3333c28
   PINRemoteImage: 4ac4011c5caefd6befd99758e09becede05d3226
@@ -76,9 +81,12 @@ SPEC CHECKSUMS:
   RSKImageCropper: edd65fedb3734332818deb139906d6b7f54b8a44
   SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
   Shimmer: c5374be1c2b0c9e292fb05b339a513cf291cac86
+  Toucan: 0519c341148252ae114c5a657d2a85bb9ada9e40
   TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f
   uservoice-iphone-sdk: 9abf27254c8488d7b72d70fb9b621132d6beebd4
   XCDYouTubeKit: a4a1a60faa7bc97744a1184501e82ef10ca15897
   XLPagerTabStrip: 222995115ef0d3a7134073b02d38023592835c17
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 056807db3131fdfa5a75cd80dddf269c175e03c6
+
+COCOAPODS: 1.0.0.beta.8

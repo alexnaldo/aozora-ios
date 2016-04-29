@@ -402,11 +402,13 @@ class ProfileViewController: ThreadViewController {
         case .Feed:
             if let allUsers = FriendsController.sharedInstance.following {
                 query.whereKey("postedBy", containedIn: allUsers)
+                query.whereKey("userTimeline", containedIn: allUsers)
             } else {
                 let followingQuery = userProfile!.following().query()
                 followingQuery.orderByDescending("activeStart")
                 followingQuery.limit = 1000
                 queryBatch.whereQuery(query, matchesKey: "postedBy", onQuery: followingQuery)
+                queryBatch.whereQuery(query, matchesKey: "userTimeline", onQuery: followingQuery)
             }
 
         case .Popular:
