@@ -72,6 +72,16 @@ class CommentCell: UITableViewCell, PostCellProtocol {
             let listNib = UINib(nibName: "CommentImageCell", bundle: nil)
             tableView.registerNib(listNib, forCellReuseIdentifier: "CommentImageCell")
         }
+
+        do {
+            let listNib = UINib(nibName: "CommentReplyImageCell", bundle: nil)
+            tableView.registerNib(listNib, forCellReuseIdentifier: "CommentReplyImageCell")
+        }
+
+        do {
+            let listNib = UINib(nibName: "CommentReplyTextCell", bundle: nil)
+            tableView.registerNib(listNib, forCellReuseIdentifier: "CommentReplyTextCell")
+        }
     }
 
 
