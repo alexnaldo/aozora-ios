@@ -11,6 +11,11 @@ import ANCommonKit
 import TTTAttributedLabel
 import XCDYouTubeKit
 
+enum ReplyConfiguration {
+    case ShowCreateReply
+    case ShowThreadDetail
+}
+
 // Class intended to be subclassed
 class ThreadViewController: UIViewController {
    
@@ -31,6 +36,7 @@ class ThreadViewController: UIViewController {
     
     var thread: Thread?
     var threadType: ThreadType!
+    var replyConfiguration: ReplyConfiguration = .ShowThreadDetail
     
     var fetchController = FetchController()
     var refreshControl = UIRefreshControl()
@@ -49,9 +55,10 @@ class ThreadViewController: UIViewController {
         }
     }
     
-    func initWithThread(thread: Thread) {
+    func initWithThread(thread: Thread, replyConfiguration: ReplyConfiguration) {
         self.thread = thread
         self.threadType = .Custom
+        self.replyConfiguration = replyConfiguration
     }
     
     override func viewDidLoad() {
@@ -122,25 +129,32 @@ class ThreadViewController: UIViewController {
         presentMoviePlayerViewControllerAnimated(playerController)
     }
     
-    func replyTo(post: Commentable) {
+    func replyToPost(post: Commentable) {
         guard User.currentUserLoggedIn() else {
             presentAlertWithTitle("Login first", message: "Select 'Me' tab")
             return
         }
-        
-        let newPostViewController = Storyboard.newPostViewController()
 
-        if let post = post as? ThreadPostable, let thread = thread {
-            if thread.locked {
-                presentAlertWithTitle("Thread is locked")
-            } else {
-                newPostViewController.initWith(thread, threadType: threadType, delegate: self, parentPost: post)
+        switch replyConfiguration {
+        case .ShowCreateReply:
+            let newPostViewController = Storyboard.newPostViewController()
+
+            if let post = post as? ThreadPostable, let thread = thread {
+                if thread.locked {
+                    presentAlertWithTitle("Thread is locked")
+                } else {
+                    newPostViewController.initWith(thread, threadType: threadType, delegate: self, parentPost: post)
+                    animator = presentViewControllerModal(newPostViewController)
+                }
+
+            } else if let post = post as? TimelinePostable {
+                newPostViewController.initWithTimelinePost(self, postedIn:post.userTimeline, parentPost: post)
                 animator = presentViewControllerModal(newPostViewController)
             }
-            
-        } else if let post = post as? TimelinePostable {
-            newPostViewController.initWithTimelinePost(self, postedIn:post.userTimeline, parentPost: post)
-            animator = presentViewControllerModal(newPostViewController)
+        case .ShowThreadDetail:
+            let notificationThread = Storyboard.notificationThreadViewController()
+            notificationThread.initWithPost(post)
+            navigationController?.pushViewController(notificationThread, animated: true)
         }
     }
     
@@ -300,7 +314,7 @@ extension ThreadViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let post = fetchController.objectInSection(section) as! Commentable
-        if post.replies.count > 0 {
+        if !post.replies.isEmpty && replyConfiguration == .ShowCreateReply {
             if shouldShowAllRepliesForPost(post) {
                 return 1 + (post.replies.count ?? 0) + 1
             } else {
@@ -558,7 +572,7 @@ extension ThreadViewController: UITableViewDelegate {
             }
         } else {
             // Write a comment cell
-            replyTo(post)
+            replyToPost(post)
         }
     }
     func pressedOnAComment(post: Commentable, comment: Commentable, indexPath: NSIndexPath) {
@@ -681,7 +695,7 @@ extension ThreadViewController: PostCellDelegate {
     
     func postCellSelectedComment(postCell: PostCellProtocol) {
         if let post = postForCell(postCell) {
-            replyTo(post)
+            replyToPost(post)
         }
     }
     

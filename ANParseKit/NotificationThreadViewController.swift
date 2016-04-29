@@ -24,18 +24,15 @@ class NotificationThreadViewController: ThreadViewController {
             self.thread = threadPost.thread
         }
         self.threadType = .Custom
+        self.replyConfiguration = .ShowCreateReply
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let timelinePost = timelinePost where timelinePost.userTimeline.isTheCurrentUser() {
-            tableView.tableHeaderView?.frame = CGRect.zero
-        }
-        
+
         if let _ = timelinePost {
-            viewMoreButton.setTitle("View Timeline  ", forState: .Normal)
             // Fetch posts, if not a thread
+            tableView.tableHeaderView = nil
             fetchPosts()
         } else if let _ = post {
             // Other class will call fetchPosts...
@@ -84,6 +81,7 @@ class NotificationThreadViewController: ThreadViewController {
         repliesQuery.skip = 0
         repliesQuery.orderByAscending("createdAt")
         repliesQuery.includeKey("postedBy")
+        repliesQuery.limit = 2000
         queryBatch.whereQuery(repliesQuery, matchesKey: "parentPost", onQuery: query)
         
         return queryBatch.executeQueries([query, repliesQuery])
@@ -122,13 +120,17 @@ class NotificationThreadViewController: ThreadViewController {
         super.didFetchFor(skip: skip)
         let post = fetchController.objectInSection(0)
         if let post = post as? TimelinePostable {
-            navigationItem.title = "In " + post.userTimeline.aozoraUsername + " timeline"
+            navigationItem.title = post.userTimeline.aozoraUsername
         } else if let post = post as? ThreadPostable {
             navigationItem.title = "In " + post.thread.title
         }
     }
     
     // MARK: - IBAction
+
+    @IBAction func replyToPostPressed(sender: AnyObject) {
+        super.replyToPost(post ?? timelinePost!)
+    }
     
     override func replyToThreadPressed(sender: AnyObject) {
         super.replyToThreadPressed(sender)
@@ -145,13 +147,12 @@ class NotificationThreadViewController: ThreadViewController {
     }
 
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if let timelinePost = timelinePost where timelinePost.userTimeline.isTheCurrentUser() {
+        if let _ = timelinePost {
             return CGFloat.min
         } else {
             return super.tableView(tableView, heightForHeaderInSection: section)
         }
     }
-
     
     @IBAction func openUserProfile(sender: AnyObject) {
         if let startedBy = thread?.startedBy {
@@ -167,12 +168,12 @@ class NotificationThreadViewController: ThreadViewController {
         if let timelinePost = timelinePost {
             openProfile(timelinePost.userTimeline)
             
-        } else if let _ = post {
+        } else if let _ = post, let thread = thread {
             let threadController = Storyboard.customThreadViewController()
-            if let thread = thread, let episode = thread.episode, let anime = thread.anime {
+            if let episode = thread.episode, let anime = thread.anime {
                 threadController.initWithEpisode(episode, anime: anime)
             } else {
-                threadController.initWithThread(thread!)
+                threadController.initWithThread(thread, replyConfiguration: .ShowCreateReply)
             }
             
             navigationController?.pushViewController(threadController, animated: true)

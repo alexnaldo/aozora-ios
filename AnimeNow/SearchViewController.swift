@@ -242,7 +242,7 @@ extension SearchViewController: UICollectionViewDelegate {
             if let episode = thread.episode, let anime = thread.anime {
                 threadController.initWithEpisode(episode, anime: anime)
             } else {
-                threadController.initWithThread(thread)
+                threadController.initWithThread(thread, replyConfiguration: .ShowCreateReply)
             }
             
             navigationController?.pushViewController(threadController, animated: true)

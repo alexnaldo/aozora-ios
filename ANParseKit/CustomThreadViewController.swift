@@ -29,11 +29,6 @@ class CustomThreadViewController: ThreadViewController {
     var episode: Episode?
     var anime: Anime?
     
-    override func initWithThread(thread: Thread) {
-        self.thread = thread
-        self.threadType = .Custom
-    }
-    
     func initWithEpisode(episode: Episode, anime: Anime) {
         self.episode = episode
         self.anime = anime
