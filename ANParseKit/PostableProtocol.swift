@@ -39,7 +39,7 @@ public protocol Commentable: Postable {
     var spoilerContent: String? { get set }
     var replyLevel: Int { get set }
     var parentPost: PFObject? { get }
-    var lastReply: PFObject? { get }
+    var lastReply: PFObject? { get set }
     
     // Implement on subclasses
     var replies: [PFObject] { get set }

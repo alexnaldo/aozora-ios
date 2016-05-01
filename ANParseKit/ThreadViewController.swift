@@ -86,7 +86,7 @@ class ThreadViewController: BaseThreadViewController {
     func updateUIWithEpisodeThread(thread: Thread) {
     }
     
-    func updateUIWithGeneralThread( thread: Thread) {
+    func updateUIWithGeneralThread(thread: Thread) {
     }
     
     func sizeHeaderToFit() {

@@ -154,14 +154,28 @@ class BaseThreadViewController: UIViewController {
 
     func shouldShowAllRepliesForPost(post: Commentable, forIndexPath indexPath: NSIndexPath? = nil) -> Bool {
         var indexPathIsSafe = true
-        if let indexPath = indexPath {
-            indexPathIsSafe = indexPath.row - 1 < post.replies.count
+
+        switch replyConfiguration {
+        case .ShowCreateReply:
+            if let indexPath = indexPath {
+                indexPathIsSafe = indexPath.row - 1 < post.replies.count
+            }
+            return indexPathIsSafe
+        case .ShowThreadDetail:
+            if let indexPath = indexPath {
+                indexPathIsSafe = (indexPath.row - 1) < 1
+            }
+            return post.replyCount <= 1 && indexPathIsSafe
         }
-        return (post.replies.count <= 1 || replyConfiguration == .ShowCreateReply) && indexPathIsSafe
     }
     
     func shouldShowContractedRepliesForPost(post: Commentable, forIndexPath indexPath: NSIndexPath) -> Bool {
-        return post.replies.count > 1 && indexPath.row < 3
+        switch replyConfiguration {
+        case .ShowCreateReply:
+            return post.replies.count > 1 && indexPath.row < 3
+        case .ShowThreadDetail:
+            return post.replyCount > 1 && indexPath.row < 3
+        }
     }
     
     func indexForContactedReplyForPost(post: Commentable, forIndexPath indexPath: NSIndexPath) -> Int {
@@ -225,9 +239,9 @@ class BaseThreadViewController: UIViewController {
         }
 
         let administrating = currentUser.isAdmin() && !postedBy.isAdmin() || currentUser.isTopAdmin()
-        if let postedBy = post.postedBy where postedBy.isTheCurrentUser() ||
-            // Current user is admin and posted by non-admin user
-            administrating {
+        let isParentPostOrShowingAllComments = replyConfiguration == .ShowCreateReply || parentPost == nil
+        let isCurrentUserOrAdministrating = postedBy.isTheCurrentUser() || administrating
+        if let postedBy = post.postedBy where isParentPostOrShowingAllComments && isCurrentUserOrAdministrating {
             showEditPostActionSheet(administrating, canEdit: true, canDelete: true, cell: cell, postedBy: postedBy, currentUser: currentUser, post: post, parentPost: parentPost)
         }
     }
@@ -308,7 +322,7 @@ extension BaseThreadViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let post = fetchController.objectInSection(section) as! Commentable
-        if let _ = post.lastReply {
+        if post.lastReply != nil || !post.replies.isEmpty {
             switch replyConfiguration {
             case .ShowThreadDetail:
                 if shouldShowAllRepliesForPost(post) {
@@ -646,6 +660,8 @@ extension BaseThreadViewController: UITableViewDelegate {
 
                     // Decrement parentPost reply count
                     parentPost.incrementReplyCount(byAmount: -childPosts.count)
+                    // TODO: This can break really badly
+                    parentPost.lastReply = parentPost.replies.last
                     (parentPost as! PFObject).saveInBackground()
                 }
             }
