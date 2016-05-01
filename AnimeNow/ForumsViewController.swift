@@ -146,6 +146,8 @@ class ForumsViewController: BaseThreadViewController {
     func fetchThreadDetails(pinnedThreads: [Thread]) {
         var finalQuery: PFQuery!
 
+        let fanClub = ThreadTag(outDataWithObjectId: "8Vm8UTKGqY")
+
         switch selectedList {
         case .All:
             let query = Thread.query()!
@@ -156,6 +158,7 @@ class ForumsViewController: BaseThreadViewController {
             query2.whereKeyDoesNotExist("episode")
 
             finalQuery = PFQuery.orQueryWithSubqueries([query, query2])
+            finalQuery.whereKey("tags", notContainedIn: [fanClub])
         case .Anime:
             let anime = LibraryController.sharedInstance.library ?? []
             finalQuery = Thread.query()!
@@ -171,9 +174,9 @@ class ForumsViewController: BaseThreadViewController {
             finalQuery = Thread.query()!
             finalQuery.whereKeyExists("youtubeID")
             finalQuery.whereKey("youtubeID", notEqualTo: NSNull())
+            finalQuery.whereKey("tags", notContainedIn: [fanClub])
         case .FanClub:
             finalQuery = Thread.query()!
-            let fanClub = ThreadTag(outDataWithObjectId: "8Vm8UTKGqY")
             finalQuery.whereKey("tags", containedIn: [fanClub])
         default:
             break
