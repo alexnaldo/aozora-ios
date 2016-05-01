@@ -76,7 +76,7 @@ public class ForumViewController: AnimeBaseViewController {
         
         if User.currentUserLoggedIn() {
             let comment = Storyboard.newThreadViewController()
-            comment.initWith(threadType: .Thread, delegate: self, anime: anime)
+            comment.initWith(threadType: .ThreadPosts, delegate: self, anime: anime)
             animator = presentViewControllerModal(comment)
         } else {
             presentAlertWithTitle("Login first", message: "Select 'Me' tab to login", style: .Alert)

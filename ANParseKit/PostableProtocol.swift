@@ -8,6 +8,13 @@
 
 import Foundation
 
+public enum PostContent {
+    case Text
+    case Image
+    case Video
+    case Link
+}
+
 public protocol Postable: class {
     var createdDate: NSDate? { get }
     var youtubeID: String? { get set }
@@ -32,6 +39,9 @@ public protocol Postable: class {
     var postedBy: User? { get set }
     var subscribers: [User] { get set }
     var likedBy: [User]? { get set }
+    var lastReply: PFObject? { get set }
+
+    var postContent: PostContent { get }
 }
 
 public protocol Commentable: Postable {
@@ -39,8 +49,7 @@ public protocol Commentable: Postable {
     var spoilerContent: String? { get set }
     var replyLevel: Int { get set }
     var parentPost: PFObject? { get }
-    var lastReply: PFObject? { get set }
-    
+
     // Implement on subclasses
     var replies: [PFObject] { get set }
     var isSpoilerHidden: Bool { get set }
@@ -155,7 +164,19 @@ extension Postable where Self: PFObject {
             self["lastReply"] = value
         }
     }
-    
+
+    public var postContent: PostContent {
+        if imagesData?.count != 0 {
+            return .Image
+        } else if youtubeID != nil {
+            return .Video
+        } else if linkData != nil {
+            return .Link
+        } else {
+            return .Text
+        }
+    }
+
     public var hasSpoilers: Bool {
         
         get {

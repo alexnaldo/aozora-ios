@@ -27,7 +27,7 @@ public class NewThreadViewController: CommentViewController {
     var tagToSet: PFObject?
 
     public func initCustomThreadWithDelegate(delegate: CommentViewControllerDelegate?, tag: PFObject?) {
-        super.initWith(threadType: .Thread, delegate: delegate)
+        super.initWith(threadType: .ThreadPosts, delegate: delegate)
         tagToSet = tag
     }
     
@@ -171,11 +171,6 @@ public class NewThreadViewController: CommentViewController {
         let content = textView.text
         
         if User.muted(self) {
-            return false
-        }
-    
-        if content.characters.count < 1 {
-            presentAlertWithTitle("Content too short", message: "Content should be a 1 character or longer, now \(content.characters.count)")
             return false
         }
         

@@ -1,37 +1,15 @@
 //
-//  PostCell.swift
+//  ThreadCell.swift
 //  Aozora
 //
-//  Created by Paul Chavarria Podoliako on 7/28/15.
-//  Copyright (c) 2015 AnyTap. All rights reserved.
+//  Created by Paul Chavarria Podoliako on 4/30/16.
+//  Copyright © 2016 AnyTap. All rights reserved.
 //
 
 import TTTAttributedLabel
 import FLAnimatedImage
 
-protocol PostCellDelegate: class {
-    func postCellSelectedImage(postCell: PostCellProtocol)
-    func postCellSelectedUserProfile(postCell: PostCellProtocol)
-    func postCellSelectedToUserProfile(postCell: PostCellProtocol)
-    func postCellSelectedComment(postCell: PostCellProtocol)
-    func postCellSelectedShowComments(postCell: PostCellProtocol)
-    func postCellSelectedLike(postCell: PostCellProtocol)
-    func postCellSelectedShowLikes(postCell: PostCellProtocol)
-}
-
-protocol PostCellProtocol: class {
-    weak var imageContent: FLAnimatedImageView? { get }
-    var currentIndexPath: NSIndexPath! { get set }
-    weak var userView: PostUserView? { get }
-    weak var imageHeightConstraint: NSLayoutConstraint? { get }
-    weak var textContent: TTTAttributedLabel! { get }
-    weak var playButton: UIButton? { get }
-    weak var actionsView: PostActionsView? { get }
-    var isComment: Bool { get }
-}
-
-class PostCell: UITableViewCell, PostCellProtocol {
-    
+class ThreadCell: UITableViewCell, PostCellProtocol {
     @IBOutlet weak var userView: PostUserView?
     @IBOutlet weak var actionsView: PostActionsView?
 
@@ -40,25 +18,31 @@ class PostCell: UITableViewCell, PostCellProtocol {
     @IBOutlet weak var textContent: TTTAttributedLabel!
 
     @IBOutlet weak var playButton: UIButton?
-    
+
     weak var delegate: PostCellDelegate?
     var currentIndexPath: NSIndexPath!
+
+    enum PostType {
+        case Text
+        case Image
+        case Video
+    }
 
     var isComment: Bool {
         return false
     }
-    
+
     class func registerNibFor(tableView tableView: UITableView) {
 
-        let listNib = UINib(nibName: "PostTextCell", bundle: nil)
-        tableView.registerNib(listNib, forCellReuseIdentifier: "PostTextCell")
-        let listNib2 = UINib(nibName: "PostImageCell", bundle: nil)
-        tableView.registerNib(listNib2, forCellReuseIdentifier: "PostImageCell")
+        let listNib = UINib(nibName: "ThreadTextCell", bundle: nil)
+        tableView.registerNib(listNib, forCellReuseIdentifier: "ThreadTextCell")
+        let listNib2 = UINib(nibName: "ThreadImageCell", bundle: nil)
+        tableView.registerNib(listNib2, forCellReuseIdentifier: "ThreadImageCell")
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         if let imageContent = imageContent {
             let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(pressedOnImage(_:)))
             gestureRecognizer.numberOfTouchesRequired = 1
@@ -90,18 +74,18 @@ class PostCell: UITableViewCell, PostCellProtocol {
             self.delegate?.postCellSelectedToUserProfile(self)
         }
     }
-    
+
     // MARK: - IBActions
-    
+
     func pressedOnImage(sender: AnyObject) {
         delegate?.postCellSelectedImage(self)
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         textContent.preferredMaxLayoutWidth = textContent.frame.size.width
     }
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
         textContent.preferredMaxLayoutWidth = textContent.frame.size.width

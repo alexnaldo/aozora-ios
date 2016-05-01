@@ -80,6 +80,12 @@
 		DA5AB9511CD4122000551BFC /* CommentReplyImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA5AB94E1CD4122000551BFC /* CommentReplyImageCell.xib */; };
 		DA5AB9521CD4122000551BFC /* CommentReplyTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA5AB94F1CD4122000551BFC /* CommentReplyTextCell.xib */; };
 		DA5AB9531CD4122000551BFC /* CommentReplyTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA5AB94F1CD4122000551BFC /* CommentReplyTextCell.xib */; };
+		DA5AB9561CD5C67900551BFC /* ThreadImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA5AB9541CD5C67900551BFC /* ThreadImageCell.xib */; };
+		DA5AB9571CD5C67900551BFC /* ThreadImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA5AB9541CD5C67900551BFC /* ThreadImageCell.xib */; };
+		DA5AB9581CD5C67900551BFC /* ThreadTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA5AB9551CD5C67900551BFC /* ThreadTextCell.xib */; };
+		DA5AB9591CD5C67900551BFC /* ThreadTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA5AB9551CD5C67900551BFC /* ThreadTextCell.xib */; };
+		DA5AB95B1CD5C6A400551BFC /* ThreadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5AB95A1CD5C6A400551BFC /* ThreadCell.swift */; };
+		DA5AB95C1CD5C6A400551BFC /* ThreadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5AB95A1CD5C6A400551BFC /* ThreadCell.swift */; };
 		DA5B28681C5EE3F500EACCE3 /* WormholeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B28671C5EE3F500EACCE3 /* WormholeExtensions.swift */; };
 		DA5B286A1C5F18D100EACCE3 /* AiringController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B28691C5F18D100EACCE3 /* AiringController.swift */; };
 		DA64C59F1CCD987B001A6AFE /* UITableView+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA64C59E1CCD987B001A6AFE /* UITableView+Animation.swift */; };
@@ -706,6 +712,9 @@
 		DA5AB9471CD33BF300551BFC /* MMWormhole.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MMWormhole.framework; path = "../../../Library/Developer/Xcode/DerivedData/Aozora-adnebwoyjewdsdeqpjynyylaouno/Build/Products/Debug-iphoneos/MMWormhole/MMWormhole.framework"; sourceTree = "<group>"; };
 		DA5AB94E1CD4122000551BFC /* CommentReplyImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentReplyImageCell.xib; sourceTree = "<group>"; };
 		DA5AB94F1CD4122000551BFC /* CommentReplyTextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentReplyTextCell.xib; sourceTree = "<group>"; };
+		DA5AB9541CD5C67900551BFC /* ThreadImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThreadImageCell.xib; sourceTree = "<group>"; };
+		DA5AB9551CD5C67900551BFC /* ThreadTextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThreadTextCell.xib; sourceTree = "<group>"; };
+		DA5AB95A1CD5C6A400551BFC /* ThreadCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadCell.swift; sourceTree = "<group>"; };
 		DA5B28671C5EE3F500EACCE3 /* WormholeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WormholeExtensions.swift; sourceTree = "<group>"; };
 		DA5B28691C5F18D100EACCE3 /* AiringController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AiringController.swift; sourceTree = "<group>"; };
 		DA64C59E1CCD987B001A6AFE /* UITableView+Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Animation.swift"; sourceTree = "<group>"; };
@@ -1087,7 +1096,6 @@
 				DAB4DCA71C5CB78700924819 /* Home */,
 				DAF618711B377C6000286517 /* AnimeBrowser */,
 				DAF618731B377C7600286517 /* Library */,
-				DAF618721B377C6D00286517 /* Forums */,
 				DACE08821C6DD60000470B9F /* Search */,
 				DA58C2E31B39BF850082B626 /* Browse */,
 				DAC13C011B40568A0013D479 /* Settings */,
@@ -1096,6 +1104,7 @@
 				DACE08831C6DD69C00470B9F /* Notifications */,
 				DA7F45841B8F05D9006F9321 /* Thread */,
 				DAD67DFE1B72759F000BB325 /* Posting */,
+				DAF618721B377C6D00286517 /* Forums */,
 				DAC077AE1B6890F50067DA90 /* Posts */,
 				DAF6187D1B3785D600286517 /* Browser */,
 				DA5A3BF21B35EB4000C07D71 /* MyAnimeListSync */,
@@ -1453,6 +1462,9 @@
 				DA472DFA1BD409EF00E09AB0 /* ShowMoreCell.xib */,
 				DAD390A51B6C322A000A84DE /* WriteACommentCell.swift */,
 				DA472DF91BD409EF00E09AB0 /* ShowMoreCell.swift */,
+				DA5AB9541CD5C67900551BFC /* ThreadImageCell.xib */,
+				DA5AB9551CD5C67900551BFC /* ThreadTextCell.xib */,
+				DA5AB95A1CD5C6A400551BFC /* ThreadCell.swift */,
 			);
 			name = Posts;
 			path = ../ANCommonKit;
@@ -2050,10 +2062,12 @@
 				DA6B55031CC2DFBD00EB6FC0 /* FacebookSDKStrings.bundle in Resources */,
 				DA6B55041CC2DFBD00EB6FC0 /* Browse.storyboard in Resources */,
 				DA6B55051CC2DFBD00EB6FC0 /* PostUserView.xib in Resources */,
+				DA5AB9581CD5C67900551BFC /* ThreadTextCell.xib in Resources */,
 				DA6B55061CC2DFBD00EB6FC0 /* CommentTextCell.xib in Resources */,
 				DA6B55071CC2DFBD00EB6FC0 /* PostTextCell.xib in Resources */,
 				DA6B55081CC2DFBD00EB6FC0 /* Home.storyboard in Resources */,
 				DA6B55091CC2DFBD00EB6FC0 /* Settings.storyboard in Resources */,
+				DA5AB9561CD5C67900551BFC /* ThreadImageCell.xib in Resources */,
 				DA6B550A1CC2DFBD00EB6FC0 /* Aller_It.ttf in Resources */,
 				DA6B550B1CC2DFBD00EB6FC0 /* Season.storyboard in Resources */,
 				DA6B550C1CC2DFBD00EB6FC0 /* Browser.storyboard in Resources */,
@@ -2104,10 +2118,12 @@
 				DAA5770C1C66EC2D007E81E6 /* FacebookSDKStrings.bundle in Resources */,
 				DAA5770D1C66EC2D007E81E6 /* Browse.storyboard in Resources */,
 				DA5A3E5F1CC1ADDC00A76621 /* PostUserView.xib in Resources */,
+				DA5AB9591CD5C67900551BFC /* ThreadTextCell.xib in Resources */,
 				DACE08861C6DD8BC00470B9F /* CommentTextCell.xib in Resources */,
 				DACE08841C6DD8BC00470B9F /* PostTextCell.xib in Resources */,
 				DAA5770E1C66EC2D007E81E6 /* Home.storyboard in Resources */,
 				DAA5770F1C66EC2D007E81E6 /* Settings.storyboard in Resources */,
+				DA5AB9571CD5C67900551BFC /* ThreadImageCell.xib in Resources */,
 				DAA577101C66EC2D007E81E6 /* Aller_It.ttf in Resources */,
 				DAA577111C66EC2D007E81E6 /* Season.storyboard in Resources */,
 				DA32EBEB1C6AB7050090CD51 /* Browser.storyboard in Resources */,
@@ -2594,6 +2610,7 @@
 				DA6B54C21CC2DFBD00EB6FC0 /* NotificationsViewController.swift in Sources */,
 				DA6B54C31CC2DFBD00EB6FC0 /* NotificationsController.swift in Sources */,
 				DA6B54C41CC2DFBD00EB6FC0 /* OnboardingViewController.swift in Sources */,
+				DA5AB95B1CD5C6A400551BFC /* ThreadCell.swift in Sources */,
 				DA6B54C51CC2DFBD00EB6FC0 /* TFHppleElement+Convenience.swift in Sources */,
 				DA6B54C61CC2DFBD00EB6FC0 /* LibraryAnimeCell.swift in Sources */,
 				DA6B54C71CC2DFBD00EB6FC0 /* NewThreadViewController.swift in Sources */,
@@ -2727,6 +2744,7 @@
 				DAA576E71C66EC2D007E81E6 /* NotificationsViewController.swift in Sources */,
 				DAA576E81C66EC2D007E81E6 /* NotificationsController.swift in Sources */,
 				DAA576E91C66EC2D007E81E6 /* OnboardingViewController.swift in Sources */,
+				DA5AB95C1CD5C6A400551BFC /* ThreadCell.swift in Sources */,
 				DA2991F41C6DD10900CCB04D /* TFHppleElement+Convenience.swift in Sources */,
 				DAA576EA1C66EC2D007E81E6 /* LibraryAnimeCell.swift in Sources */,
 				DA8D70F61C6DD0EA0016A332 /* NewThreadViewController.swift in Sources */,

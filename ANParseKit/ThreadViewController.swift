@@ -192,7 +192,7 @@ class ThreadViewController: BaseThreadViewController {
             repliesQuery.limit = 2000
             queryBatch.whereQuery(repliesQuery, matchesKey: "parentPost", onQuery: query)
 
-        case .Episode, .Thread:
+        case .Episode, .ThreadPosts:
 
             query = Post.query()!
             query.skip = skip
@@ -209,6 +209,9 @@ class ThreadViewController: BaseThreadViewController {
             repliesQuery.limit = 2000
 
             queryBatch.whereQuery(repliesQuery, matchesKey: "parentPost", onQuery: query)
+        default:
+            assertionFailure()
+            break
         }
 
         return queryBatch.executeQueries([query, repliesQuery])
@@ -222,7 +225,7 @@ class ThreadViewController: BaseThreadViewController {
         super.didFetchFor(skip: skip)
 
         switch threadType {
-        case .Episode, .Thread:
+        case .Episode, .ThreadPosts:
             break
         case .Timeline, .Post:
             let post = fetchController.objectInSection(0)
@@ -231,6 +234,9 @@ class ThreadViewController: BaseThreadViewController {
             } else if let post = post as? ThreadPostable {
                 navigationItem.title = "In " + post.thread.title
             }
+        default:
+            assertionFailure()
+            break
         }
 
     }
@@ -271,7 +277,7 @@ class ThreadViewController: BaseThreadViewController {
             } else if parentPost == nil {
 
                 switch threadType {
-                case .Thread:
+                case .ThreadPosts:
                     // Inserting a new post in the bottom, if we're in the bottom of the thread
                     if !fetchController.canFetchMoreData {
                         fetchController.dataSource.append(post)
@@ -282,6 +288,9 @@ class ThreadViewController: BaseThreadViewController {
                     fetchController.dataSource.insert(post, atIndex: 0)
                     tableView.reloadData()
                 case .Timeline, .Post:
+                    break
+                default:
+                    assertionFailure()
                     break
                 }
 

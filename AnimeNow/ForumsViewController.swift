@@ -11,7 +11,7 @@ import ANCommonKit
 
 import TTTAttributedLabel
 
-class ForumsViewController: UIViewController {
+class ForumsViewController: BaseThreadViewController {
     
     enum SelectedList: Int {
         case All = 0
@@ -28,8 +28,7 @@ class ForumsViewController: UIViewController {
     }
 
     let titles = ["All Activity", "Anime Threads", "Episode Threads", "Videos", "Fan Clubs"]
-    
-    var loadingView: LoaderView!
+
     var tagsDataSource: [ThreadTag] = []
     var animeDataSource: [Anime] = []
     var dataSource: [Thread] = [] {
@@ -38,25 +37,24 @@ class ForumsViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet override weak var tableView: UITableView! {
+        didSet {
+            tableView.estimatedRowHeight = 150.0
+            tableView.rowHeight = UITableViewAutomaticDimension
+            ThreadCell.registerNibFor(tableView: tableView)
+        }
+    }
     @IBOutlet weak var navigationBarTitle: UILabel!
     @IBOutlet weak var createThreadButton: UIButton!
     @IBOutlet weak var sortingButton: UIButton!
 
-    
-    var fetchController = FetchController()
-    var refreshControl = UIRefreshControl()
     var selectedList: SelectedList = .All
     var selectedSort: SelectedSorting = .Recent
     var selectedThreadTag: ThreadTag?
     var selectedAnime: Anime?
-    var animator: ZFModalTransitionAnimator!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        tableView.estimatedRowHeight = 150.0
-        tableView.rowHeight = UITableViewAutomaticDimension
 
         loadingView = LoaderView(parentView: view)
         loadingView.startAnimating()
@@ -193,7 +191,7 @@ class ForumsViewController: UIViewController {
             finalQuery.orderByDescending("createdAt")
         }
 
-        fetchController.configureWith(self, query: finalQuery, tableView: self.tableView, limit: 50, pinnedData: pinnedThreads)
+        fetchController.configureWith(self, query: finalQuery, tableView: self.tableView, limit: 50, pinnedData: [])
     }
 
     func fetchTagThreads(tag: PFObject) {
@@ -266,85 +264,22 @@ class ForumsViewController: UIViewController {
         }
         fetchThreads()
     }
-}
 
-extension ForumsViewController: UITableViewDataSource {
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return fetchController.dataCount()
+    // MARK: - Override CommentViewControllerDelegate
+
+    override func commentViewControllerDidFinishedPosting(post: PFObject, parentPost: PFObject?, edited: Bool) {
+        prepareForList(selectedList)
     }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
-        let thread = fetchController.objectAtIndex(indexPath.row) as! Thread
+    // MARK: - Override TTTAttributedLabelDelegate
 
-        if let _ = thread.pinType {
-            let cell = tableView.dequeueReusableCellWithIdentifier("PinnedCell") as! TopicCell
+    override func attributedLabel(label: TTTAttributedLabel!, didSelectLinkWithURL url: NSURL!) {
 
-            cell.typeLabel.text = " "
-            cell.title.text = thread.title
-            cell.typeLabel.textColor = UIColor.darkGrayColor()
-            cell.title.textColor = UIColor.darkGrayColor()
-
-            return cell
+        if let host = url.host where host == "tag",
+            let index = url.pathComponents?[1],
+            let idx = Int(index) {
+            print(idx)
         }
-
-        let cell = tableView.dequeueReusableCellWithIdentifier("TopicCell") as! TopicCell
-
-        if let _ = thread.episode {
-            cell.typeLabel.text = " "
-            cell.typeLabel.textColor = UIColor.aozoraPurple()
-            cell.title.textColor = UIColor.aozoraPurple()
-        } else if thread.locked {
-            cell.typeLabel.text = " "
-            cell.typeLabel.textColor = UIColor.pumpkin()
-            cell.title.textColor = UIColor.belizeHole()
-        } else if let _ = thread.youtubeID {
-            cell.typeLabel.text = " "
-            cell.typeLabel.textColor = UIColor.belizeHole()
-            cell.title.textColor = UIColor.belizeHole()
-        } else {
-            cell.typeLabel.text = ""
-            cell.typeLabel.textColor = UIColor.belizeHole()
-            cell.title.textColor = UIColor.belizeHole()
-        }
-        
-        cell.title.text = thread.title
-        let lastPostedByUsername = thread.lastPostedBy?.aozoraUsername ?? ""
-        cell.information.text = "\(thread.replyCount) comments · \(thread.updatedAt!.timeAgo()) · \(lastPostedByUsername)"
-        cell.tagsLabel.updateTag(thread.tags.last!, delegate: self, addLinks: false)
-        cell.layoutIfNeeded()
-        return cell
-    }
-}
-
-extension ForumsViewController: UITableViewDelegate {
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let thread = fetchController.objectAtIndex(indexPath.row) as! Thread
-        
-        let threadController = Storyboard.threadViewController()
-        
-        if let episode = thread.episode, let anime = thread.anime {
-            threadController.initWithEpisode(episode, anime: anime)
-        } else {
-            threadController.initWithThread(thread, replyConfiguration: .ShowThreadDetail)
-        }
-
-        navigationController?.pushViewController(threadController, animated: true)
-    }
-}
-
-extension ForumsViewController: FetchControllerDelegate {
-    func didFetchFor(skip skip: Int) {
-        
-        if let startDate = startDate {
-            print("Load forums = \(NSDate().timeIntervalSinceDate(startDate))s")
-            self.startDate = nil
-        }
-        
-        refreshControl.endRefreshing()
-        loadingView.stopAnimating()
     }
 }
 
@@ -361,23 +296,5 @@ extension ForumsViewController: DropDownListDelegate {
             default: break
             }
         }
-    }
-}
-
-extension ForumsViewController: TTTAttributedLabelDelegate {
-    
-    func attributedLabel(label: TTTAttributedLabel!, didSelectLinkWithURL url: NSURL!) {
-        
-        if let host = url.host where host == "tag",
-            let index = url.pathComponents?[1],
-            let idx = Int(index) {
-                print(idx)
-        }
-    }
-}
-
-extension ForumsViewController: CommentViewControllerDelegate {
-    func commentViewControllerDidFinishedPosting(post: PFObject, parentPost: PFObject?, edited: Bool) {
-        prepareForList(selectedList)
     }
 }
