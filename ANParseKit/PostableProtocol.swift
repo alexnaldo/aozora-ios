@@ -13,6 +13,7 @@ public enum PostContent {
     case Image
     case Video
     case Link
+    case Episode
 }
 
 public protocol Postable: class {
@@ -166,12 +167,14 @@ extension Postable where Self: PFObject {
     }
 
     public var postContent: PostContent {
-        if imagesData?.count != 0 {
+        if imagesData?.count != 0{
             return .Image
         } else if youtubeID != nil {
             return .Video
         } else if linkData != nil {
             return .Link
+        } else if let thread = self as? Thread where thread.episode != nil {
+            return .Episode
         } else {
             return .Text
         }

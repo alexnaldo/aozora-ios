@@ -170,6 +170,8 @@ class ForumsViewController: BaseThreadViewController {
             finalQuery.whereKeyExists("episode")
             finalQuery.whereKey("replies", greaterThan: 0)
             finalQuery.whereKey("tags", containedIn: anime)
+            finalQuery.includeKey("episode")
+            finalQuery.includeKey("anime")
         case .Videos:
             finalQuery = Thread.query()!
             finalQuery.whereKeyExists("youtubeID")

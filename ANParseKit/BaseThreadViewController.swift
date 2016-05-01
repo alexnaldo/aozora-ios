@@ -360,7 +360,7 @@ extension BaseThreadViewController: UITableViewDataSource {
             if let thread = post as? Thread {
                 var reuseIdentifier = ""
                 switch post.postContent {
-                case .Image, .Video:
+                case .Image, .Video, .Episode:
                     reuseIdentifier = "ThreadImageCell"
                 case .Link:
                     assertionFailure()
@@ -381,7 +381,7 @@ extension BaseThreadViewController: UITableViewDataSource {
             } else if let post = post as? Commentable {
                 var reuseIdentifier = ""
                 switch post.postContent {
-                case .Image, .Video:
+                case .Image, .Video, .Episode:
                     reuseIdentifier = "PostImageCell"
                 case .Link:
                     reuseIdentifier = "UrlCell"
@@ -527,31 +527,63 @@ extension BaseThreadViewController: UITableViewDataSource {
     func updateThreadCell(cell: PostCellProtocol, withThread thread: Thread) {
         // Case of showing threads!
         let calculatedBaseWidth = baseWidth
-        setImages(thread.imagesData, imageView: cell.imageContent, imageHeightConstraint: cell.imageHeightConstraint, baseWidth: calculatedBaseWidth)
-        prepareForVideo(cell.playButton, imageView: cell.imageContent, imageHeightConstraint: cell.imageHeightConstraint, youtubeID: thread.youtubeID)
+
+        // Handle episode thread case
+        if let episode = thread.episode {
+            cell.imageHeightConstraint?.constant = 190
+            cell.imageContent?.setImageFrom(urlString: episode.imageURLString())
+        } else {
+            setImages(thread.imagesData, imageView: cell.imageContent, imageHeightConstraint: cell.imageHeightConstraint, baseWidth: calculatedBaseWidth)
+            prepareForVideo(cell.playButton, imageView: cell.imageContent, imageHeightConstraint: cell.imageHeightConstraint, youtubeID: thread.youtubeID)
+        }
 
         cell.userView?.hidden = true
+
         // Case of threads
-        let titleAttributes = { (inout attr: Attributes) in
-            attr.color = UIColor.blackColor()
-            attr.font = UIFont.boldSystemFontOfSize(17)
-        }
 
-        let contentAttributes = { (inout attr: Attributes) in
-            attr.color = UIColor.blackColor()
-            attr.font = UIFont.systemFontOfSize(15)
-        }
-
-        let usernameAttributes = { (inout attr: Attributes) in
-            attr.color = UIColor.blackColor()
+        let hightlightedAttributes = { (inout attr: Attributes) in
+            attr.color = UIColor.midnightBlue()
             attr.font = UIFont.boldSystemFontOfSize(15)
         }
 
-        let content = (thread.content ?? "").stringByReplacingOccurrencesOfString("\n", withString: " ")
-        let attributedContent = NSMutableAttributedString()
-            .add(thread.title+"\n\n", setter: titleAttributes)
-            .add(content.truncate(110)+"\n\nby ", setter: contentAttributes)
-            .add(thread.postedBy?.aozoraUsername ?? "", setter: usernameAttributes)
+        let attributedContent: NSMutableAttributedString
+
+        let isFanclub = !thread.tags.filter{ $0.objectId == "8Vm8UTKGqY" }.isEmpty
+
+        if let episode = thread.episode, let anime = thread.anime {
+            let subtitleAttributes = { (inout attr: Attributes) in
+                attr.color = UIColor.belizeHole()
+                attr.font = UIFont.boldSystemFontOfSize(13)
+            }
+
+            attributedContent = NSMutableAttributedString()
+                .add("\(anime.title ?? "") - Episode \(episode.number)\n", setter: subtitleAttributes)
+                .add("\(episode.title ?? "")", setter: hightlightedAttributes)
+        } else if isFanclub {
+            let titleAttributes = { (inout attr: Attributes) in
+                attr.color = UIColor.midnightBlue()
+                attr.font = UIFont.boldSystemFontOfSize(17)
+            }
+
+            attributedContent = NSMutableAttributedString()
+                .add(thread.title, setter: titleAttributes)
+        } else {
+            let titleAttributes = { (inout attr: Attributes) in
+                attr.color = UIColor.midnightBlue()
+                attr.font = UIFont.boldSystemFontOfSize(17)
+            }
+
+            let contentAttributes = { (inout attr: Attributes) in
+                attr.color = UIColor.blackColor()
+                attr.font = UIFont.systemFontOfSize(15)
+            }
+
+            let content = (thread.content ?? "").stringByReplacingOccurrencesOfString("\n", withString: " ")
+            attributedContent = NSMutableAttributedString()
+                .add(thread.title+"\n\n", setter: titleAttributes)
+                .add(content.truncate(110)+"\n\nby ", setter: contentAttributes)
+                .add(thread.postedBy?.aozoraUsername ?? "", setter: hightlightedAttributes)
+        }
 
         updateAttributedTextProperties(cell.textContent)
 
