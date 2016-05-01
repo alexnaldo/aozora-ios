@@ -108,7 +108,7 @@
 		DA6B54761CC2DFBD00EB6FC0 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC077BB1B6894670067DA90 /* PostCell.swift */; };
 		DA6B54771CC2DFBD00EB6FC0 /* LibrarySyncController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA75C8991BB1A76F00C27A68 /* LibrarySyncController.swift */; };
 		DA6B54781CC2DFBD00EB6FC0 /* PostUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A3E5B1CC1A44900A76621 /* PostUserView.swift */; };
-		DA6B54791CC2DFBD00EB6FC0 /* ThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0B26121B75671300A770AE /* ThreadViewController.swift */; };
+		DA6B54791CC2DFBD00EB6FC0 /* BaseThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0B26121B75671300A770AE /* BaseThreadViewController.swift */; };
 		DA6B547A1CC2DFBD00EB6FC0 /* AnimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE7A7181B2105FD00788614 /* AnimeCell.swift */; };
 		DA6B547B1CC2DFBD00EB6FC0 /* InAppPurchaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3B61D81B4F59E700A3F7BA /* InAppPurchaseController.swift */; };
 		DA6B547C1CC2DFBD00EB6FC0 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC077A61B6890830067DA90 /* CommentCell.swift */; };
@@ -163,7 +163,7 @@
 		DA6B54AE1CC2DFBD00EB6FC0 /* DialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC7D9051B50464B00898FF6 /* DialogController.swift */; };
 		DA6B54AF1CC2DFBD00EB6FC0 /* AnimeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF618771B377D6000286517 /* AnimeListViewController.swift */; };
 		DA6B54B11CC2DFBD00EB6FC0 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8DD6421B3CAEC500B05FBF /* FilterViewController.swift */; };
-		DA6B54B21CC2DFBD00EB6FC0 /* CustomThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA03F1491B897E4300402AC4 /* CustomThreadViewController.swift */; };
+		DA6B54B21CC2DFBD00EB6FC0 /* ThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA03F1491B897E4300402AC4 /* ThreadViewController.swift */; };
 		DA6B54B31CC2DFBD00EB6FC0 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58C2E61B39C01B0082B626 /* BrowseViewController.swift */; };
 		DA6B54B41CC2DFBD00EB6FC0 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58C2D81B386BB90082B626 /* ProfileViewController.swift */; };
 		DA6B54B51CC2DFBD00EB6FC0 /* UIApplication+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA546D51BA090C0003989DE /* UIApplication+Navigation.swift */; };
@@ -192,7 +192,6 @@
 		DA6B54CC1CC2DFBD00EB6FC0 /* UserDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC0779A1B686A870067DA90 /* UserDetails.swift */; };
 		DA6B54CD1CC2DFBD00EB6FC0 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0B26051B75066B00A770AE /* EditProfileViewController.swift */; };
 		DA6B54CE1CC2DFBD00EB6FC0 /* ShowMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA472DF91BD409EF00E09AB0 /* ShowMoreCell.swift */; };
-		DA6B54CF1CC2DFBD00EB6FC0 /* NotificationThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA546D11B9EF26E003989DE /* NotificationThreadViewController.swift */; };
 		DA6B54D01CC2DFBD00EB6FC0 /* RootTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA393281B42F21900A8D5D5 /* RootTabBar.swift */; };
 		DA6B54D11CC2DFBD00EB6FC0 /* ANAnimeKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4167E81B275F9400847F56 /* ANAnimeKit.swift */; };
 		DA6B54D21CC2DFBD00EB6FC0 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC13C1F1B423ED90013D479 /* SignUpViewController.swift */; };
@@ -320,7 +319,7 @@
 		DAA576BD1C66EC2D007E81E6 /* InformationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4167DE1B275CCC00847F56 /* InformationCell.swift */; };
 		DAA576BE1C66EC2D007E81E6 /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58C2DA1B386BC80082B626 /* UserListViewController.swift */; };
 		DAA576BF1C66EC2D007E81E6 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC13C041B4056AB0013D479 /* SettingsViewController.swift */; };
-		DAA576C11C66EC2D007E81E6 /* ThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0B26121B75671300A770AE /* ThreadViewController.swift */; };
+		DAA576C11C66EC2D007E81E6 /* BaseThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0B26121B75671300A770AE /* BaseThreadViewController.swift */; };
 		DAA576C21C66EC2D007E81E6 /* AnimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE7A7181B2105FD00788614 /* AnimeCell.swift */; };
 		DAA576C31C66EC2D007E81E6 /* InAppPurchaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3B61D81B4F59E700A3F7BA /* InAppPurchaseController.swift */; };
 		DAA576C41C66EC2D007E81E6 /* ForumsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6187B1B3784E300286517 /* ForumsViewController.swift */; };
@@ -342,7 +341,7 @@
 		DAA576D71C66EC2D007E81E6 /* DialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC7D9051B50464B00898FF6 /* DialogController.swift */; };
 		DAA576D81C66EC2D007E81E6 /* AnimeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF618771B377D6000286517 /* AnimeListViewController.swift */; };
 		DAA576DA1C66EC2D007E81E6 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8DD6421B3CAEC500B05FBF /* FilterViewController.swift */; };
-		DAA576DB1C66EC2D007E81E6 /* CustomThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA03F1491B897E4300402AC4 /* CustomThreadViewController.swift */; };
+		DAA576DB1C66EC2D007E81E6 /* ThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA03F1491B897E4300402AC4 /* ThreadViewController.swift */; };
 		DAA576DC1C66EC2D007E81E6 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58C2E61B39C01B0082B626 /* BrowseViewController.swift */; };
 		DAA576DE1C66EC2D007E81E6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58C2D81B386BB90082B626 /* ProfileViewController.swift */; };
 		DAA576DF1C66EC2D007E81E6 /* UIApplication+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA546D51BA090C0003989DE /* UIApplication+Navigation.swift */; };
@@ -357,7 +356,6 @@
 		DAA576EA1C66EC2D007E81E6 /* LibraryAnimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF357051B4593E200629A3D /* LibraryAnimeCell.swift */; };
 		DAA576EC1C66EC2D007E81E6 /* AnimeDetailsTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4167D51B273FA300847F56 /* AnimeDetailsTabBar.swift */; };
 		DAA576ED1C66EC2D007E81E6 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0B26051B75066B00A770AE /* EditProfileViewController.swift */; };
-		DAA576EE1C66EC2D007E81E6 /* NotificationThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA546D11B9EF26E003989DE /* NotificationThreadViewController.swift */; };
 		DAA576EF1C66EC2D007E81E6 /* RootTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA393281B42F21900A8D5D5 /* RootTabBar.swift */; };
 		DAA576F01C66EC2D007E81E6 /* ANAnimeKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4167E81B275F9400847F56 /* ANAnimeKit.swift */; };
 		DAA576F11C66EC2D007E81E6 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC13C1F1B423ED90013D479 /* SignUpViewController.swift */; };
@@ -604,7 +602,7 @@
 		D27C7A8ED4F7C96DF08F5850 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D699BF5F59710160C37E5135 /* Pods_AozoraProject_Aozora.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AozoraProject_Aozora.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7B4F4FCCEC452109C91DFAB /* Pods-AozoraProject-AozoraWatching.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AozoraProject-AozoraWatching.release.xcconfig"; path = "Pods/Target Support Files/Pods-AozoraProject-AozoraWatching/Pods-AozoraProject-AozoraWatching.release.xcconfig"; sourceTree = "<group>"; };
-		DA03F1491B897E4300402AC4 /* CustomThreadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomThreadViewController.swift; sourceTree = "<group>"; };
+		DA03F1491B897E4300402AC4 /* ThreadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadViewController.swift; sourceTree = "<group>"; };
 		DA03F1531B8B188000402AC4 /* NewPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPostViewController.swift; sourceTree = "<group>"; };
 		DA03F1551B8B188F00402AC4 /* NewThreadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewThreadViewController.swift; sourceTree = "<group>"; };
 		DA03F1571B8B435400402AC4 /* TagsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagsViewController.swift; sourceTree = "<group>"; };
@@ -617,7 +615,7 @@
 		DA0B26091B7514A400A770AE /* UIViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+Alert.swift"; path = "../AnimeNow/UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		DA0B260B1B75192400A770AE /* UserProfileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileManager.swift; sourceTree = "<group>"; };
 		DA0B26101B7566CF00A770AE /* Thread.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Thread.storyboard; sourceTree = "<group>"; };
-		DA0B26121B75671300A770AE /* ThreadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadViewController.swift; sourceTree = "<group>"; };
+		DA0B26121B75671300A770AE /* BaseThreadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseThreadViewController.swift; sourceTree = "<group>"; };
 		DA10E90F1C60774F0023F41F /* badge-green@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "badge-green@2x.png"; sourceTree = "<group>"; };
 		DA10E9101C60774F0023F41F /* badge-red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "badge-red@2x.png"; sourceTree = "<group>"; };
 		DA1340AA1B9E11A10073C6EF /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
@@ -1353,8 +1351,8 @@
 			isa = PBXGroup;
 			children = (
 				DA0B26101B7566CF00A770AE /* Thread.storyboard */,
-				DA0B26121B75671300A770AE /* ThreadViewController.swift */,
-				DA03F1491B897E4300402AC4 /* CustomThreadViewController.swift */,
+				DA0B26121B75671300A770AE /* BaseThreadViewController.swift */,
+				DA03F1491B897E4300402AC4 /* ThreadViewController.swift */,
 			);
 			name = Thread;
 			path = ../ANParseKit;
@@ -2516,7 +2514,7 @@
 				DA6B54761CC2DFBD00EB6FC0 /* PostCell.swift in Sources */,
 				DA6B54771CC2DFBD00EB6FC0 /* LibrarySyncController.swift in Sources */,
 				DA6B54781CC2DFBD00EB6FC0 /* PostUserView.swift in Sources */,
-				DA6B54791CC2DFBD00EB6FC0 /* ThreadViewController.swift in Sources */,
+				DA6B54791CC2DFBD00EB6FC0 /* BaseThreadViewController.swift in Sources */,
 				DA6B547A1CC2DFBD00EB6FC0 /* AnimeCell.swift in Sources */,
 				DAF001401CD2C6AB00452DBA /* Tribute.swift in Sources */,
 				DA6B547B1CC2DFBD00EB6FC0 /* InAppPurchaseController.swift in Sources */,
@@ -2576,7 +2574,7 @@
 				DA6B54AE1CC2DFBD00EB6FC0 /* DialogController.swift in Sources */,
 				DA6B54AF1CC2DFBD00EB6FC0 /* AnimeListViewController.swift in Sources */,
 				DA6B54B11CC2DFBD00EB6FC0 /* FilterViewController.swift in Sources */,
-				DA6B54B21CC2DFBD00EB6FC0 /* CustomThreadViewController.swift in Sources */,
+				DA6B54B21CC2DFBD00EB6FC0 /* ThreadViewController.swift in Sources */,
 				DA6B54B31CC2DFBD00EB6FC0 /* BrowseViewController.swift in Sources */,
 				DA6B54B41CC2DFBD00EB6FC0 /* ProfileViewController.swift in Sources */,
 				DA64D9F51CCAD9EF005D493F /* Analytics.swift in Sources */,
@@ -2608,7 +2606,6 @@
 				DA6B54CC1CC2DFBD00EB6FC0 /* UserDetails.swift in Sources */,
 				DA6B54CD1CC2DFBD00EB6FC0 /* EditProfileViewController.swift in Sources */,
 				DA6B54CE1CC2DFBD00EB6FC0 /* ShowMoreCell.swift in Sources */,
-				DA6B54CF1CC2DFBD00EB6FC0 /* NotificationThreadViewController.swift in Sources */,
 				DA6B54D01CC2DFBD00EB6FC0 /* RootTabBar.swift in Sources */,
 				DA6B54D11CC2DFBD00EB6FC0 /* ANAnimeKit.swift in Sources */,
 				DAD7AEB41CC4907B00BB2FBD /* LibraryStatisticsCell.swift in Sources */,
@@ -2650,7 +2647,7 @@
 				DACE088A1C6DD8BC00470B9F /* PostCell.swift in Sources */,
 				DA8D710D1C6DD0F50016A332 /* LibrarySyncController.swift in Sources */,
 				DA5A3E601CC1ADDC00A76621 /* PostUserView.swift in Sources */,
-				DAA576C11C66EC2D007E81E6 /* ThreadViewController.swift in Sources */,
+				DAA576C11C66EC2D007E81E6 /* BaseThreadViewController.swift in Sources */,
 				DAA576C21C66EC2D007E81E6 /* AnimeCell.swift in Sources */,
 				DAF001411CD2C6AB00452DBA /* Tribute.swift in Sources */,
 				DAA576C31C66EC2D007E81E6 /* InAppPurchaseController.swift in Sources */,
@@ -2710,7 +2707,7 @@
 				DAA576D71C66EC2D007E81E6 /* DialogController.swift in Sources */,
 				DAA576D81C66EC2D007E81E6 /* AnimeListViewController.swift in Sources */,
 				DAA576DA1C66EC2D007E81E6 /* FilterViewController.swift in Sources */,
-				DAA576DB1C66EC2D007E81E6 /* CustomThreadViewController.swift in Sources */,
+				DAA576DB1C66EC2D007E81E6 /* ThreadViewController.swift in Sources */,
 				DAA576DC1C66EC2D007E81E6 /* BrowseViewController.swift in Sources */,
 				DAA576DE1C66EC2D007E81E6 /* ProfileViewController.swift in Sources */,
 				DA64D9F61CCAD9EF005D493F /* Analytics.swift in Sources */,
@@ -2742,7 +2739,6 @@
 				DA2991DC1C6DD10500CCB04D /* UserDetails.swift in Sources */,
 				DAA576ED1C66EC2D007E81E6 /* EditProfileViewController.swift in Sources */,
 				DACE088D1C6DD8BC00470B9F /* ShowMoreCell.swift in Sources */,
-				DAA576EE1C66EC2D007E81E6 /* NotificationThreadViewController.swift in Sources */,
 				DAA576EF1C66EC2D007E81E6 /* RootTabBar.swift in Sources */,
 				DAA576F01C66EC2D007E81E6 /* ANAnimeKit.swift in Sources */,
 				DAD7AEB51CC4907B00BB2FBD /* LibraryStatisticsCell.swift in Sources */,

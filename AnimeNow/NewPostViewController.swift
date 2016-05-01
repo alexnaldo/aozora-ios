@@ -129,6 +129,7 @@ public class NewPostViewController: CommentViewController {
             
             if let parentPost = parentPost as? TimelinePost {
                 parentPost.addUniqueObject(postedBy!, forKey: "subscribers")
+                parentPost.lastReply = timelinePost
                 parentPost.incrementReplyCount(byAmount: 1)
                 parentSaveTask = parentPost.saveInBackground()
             } else {
@@ -183,6 +184,7 @@ public class NewPostViewController: CommentViewController {
             if let parentPost = parentPost as? Post {
                 parentPost.addUniqueObject(postedBy!, forKey: "subscribers")
                 parentPost.incrementReplyCount(byAmount: 1)
+                parentPost.lastReply = post
                 parentSaveTask = parentPost.saveInBackground()
             } else {
                 post.subscribers = [postedBy!]
@@ -219,7 +221,7 @@ public class NewPostViewController: CommentViewController {
                         ] as [String : AnyObject]
                     
                     // Only on user threads, episode threads do not have startedBy
-                    if let startedBy = post.thread.startedBy {
+                    if let startedBy = post.thread.postedBy {
                         parameters["toUserId"] = startedBy.objectId!
                     }
                     

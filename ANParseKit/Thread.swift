@@ -21,17 +21,15 @@ public class Thread: PFObject, PFSubclassing, Postable {
     public class func parseClassName() -> String {
         return "Thread"
     }
-    
-    
+
     @NSManaged public var title: String
+
     @NSManaged public var anime: Anime?
     @NSManaged public var episode: Episode?
-    @NSManaged public var startedBy: User?
     
     @NSManaged public var pinType: String?
     @NSManaged public var locked: Bool
     @NSManaged public var tags: [PFObject]
-    @NSManaged public var subscribers: [User]
     @NSManaged public var lastPostedBy: User?
     
     public var imagesDataInternal: [ImageData]?

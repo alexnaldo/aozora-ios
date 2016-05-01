@@ -15,6 +15,7 @@ protocol PostCellDelegate: class {
     func postCellSelectedUserProfile(postCell: PostCellProtocol)
     func postCellSelectedToUserProfile(postCell: PostCellProtocol)
     func postCellSelectedComment(postCell: PostCellProtocol)
+    func postCellSelectedShowComments(postCell: PostCellProtocol)
     func postCellSelectedLike(postCell: PostCellProtocol)
     func postCellSelectedShowLikes(postCell: PostCellProtocol)
 }
@@ -74,6 +75,10 @@ class PostCell: UITableViewCell, PostCellProtocol {
 
         actionsView?.showLikesCallback = {
             self.delegate?.postCellSelectedShowLikes(self)
+        }
+
+        actionsView?.showRepliesCallback = {
+            self.delegate?.postCellSelectedShowComments(self)
         }
 
         actionsView?.likeCallback = {

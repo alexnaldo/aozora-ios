@@ -12,32 +12,9 @@ import ANCommonKit
 
 class NotificationThreadViewController: BaseThreadViewController {
     
-    @IBOutlet weak var viewMoreButton: UIButton!
-    var timelinePost: TimelinePostable?
-    var post: ThreadPostable?
-    
-    func initWithPost(post: Postable) {
-        if let timelinePost = post as? TimelinePostable {
-            self.timelinePost = timelinePost
-        } else if let threadPost = post as? ThreadPostable {
-            self.post = threadPost
-            self.thread = threadPost.thread
-        }
-        self.threadType = .Custom
-        self.replyConfiguration = .ShowCreateReply
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        if let _ = timelinePost {
-            // Fetch posts, if not a thread
-            tableView.tableHeaderView = nil
-            fetchPosts()
-        } else if let _ = post {
-            // Other class will call fetchPosts...
-            viewMoreButton.setTitle("View Thread  ", forState: .Normal)
-        }
     }
     
     override func updateUIWithThread(thread: Thread) {
@@ -45,9 +22,7 @@ class NotificationThreadViewController: BaseThreadViewController {
         
         title = "Loading..."
         
-        if thread.locked {
-            navigationItem.rightBarButtonItem?.enabled = false
-        }
+
     }
     
     override func fetchPosts() {
@@ -169,7 +144,7 @@ class NotificationThreadViewController: BaseThreadViewController {
             openProfile(timelinePost.userTimeline)
             
         } else if let _ = post, let thread = thread {
-            let threadController = Storyboard.customThreadViewController()
+            let threadController = Storyboard.ThreadViewController()
             if let episode = thread.episode, let anime = thread.anime {
                 threadController.initWithEpisode(episode, anime: anime)
             } else {

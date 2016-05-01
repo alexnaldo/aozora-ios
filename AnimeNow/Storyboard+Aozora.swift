@@ -69,8 +69,8 @@ enum Storyboard: String {
         return Storyboard.Search.navigationControllerForViewControllerWithClass(SearchViewController)
     }
 
-    static func customThreadViewController() -> CustomThreadViewController {
-        return Storyboard.Thread.viewControllerWithClass(CustomThreadViewController)
+    static func threadViewController() -> ThreadViewController {
+        return Storyboard.Thread.viewControllerWithClass(ThreadViewController)
     }
 
     static func malLoginViewController() -> MALLoginViewController {
@@ -83,10 +83,6 @@ enum Storyboard: String {
 
     static func animeForumViewController() -> UINavigationController {
         return Storyboard.Forum.navigationControllerForViewControllerWithClass(ForumViewController)
-    }
-
-    static func notificationThreadViewController() -> NotificationThreadViewController {
-        return Storyboard.Notifications.viewControllerWithClass(NotificationThreadViewController)
     }
 
     static func tagsViewController() -> TagsViewController {

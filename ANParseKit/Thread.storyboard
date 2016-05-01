@@ -9,7 +9,7 @@
         <!--Loading...-->
         <scene sceneID="eRg-d5-9Ag">
             <objects>
-                <viewController storyboardIdentifier="CustomThreadViewController" hidesBottomBarWhenPushed="YES" id="8jA-5m-8Uw" customClass="CustomThreadViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ThreadViewController" hidesBottomBarWhenPushed="YES" id="8jA-5m-8Uw" customClass="ThreadViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yso-45-GXv"/>
                         <viewControllerLayoutGuide type="bottom" id="5TH-lI-urx"/>

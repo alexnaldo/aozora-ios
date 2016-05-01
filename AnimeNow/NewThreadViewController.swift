@@ -117,7 +117,7 @@ public class NewThreadViewController: CommentViewController {
             thread.youtubeID = youtubeID
         }
     
-        thread.startedBy = postedBy
+        thread.postedBy = postedBy
         thread.saveInBackgroundWithBlock({ (result, error) -> Void in
             self.postedBy?.incrementPostCount(1)
             self.completeRequest(thread, parentPost:nil, error: error)

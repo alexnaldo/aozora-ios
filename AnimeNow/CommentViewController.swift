@@ -62,7 +62,7 @@ public class CommentViewController: UIViewController {
     var initialStatusBarStyle: UIStatusBarStyle!
     var postedBy = User.currentUser()
     var postedIn: User!
-    var parentPost: Postable?
+    var parentPost: Commentable?
     var thread: Thread?
     var threadType: ThreadType = .Timeline
     var editingPost: PFObject?
@@ -70,7 +70,7 @@ public class CommentViewController: UIViewController {
     
     var fetchingData = false
     
-    public func initWithTimelinePost(delegate: CommentViewControllerDelegate?, postedIn: User, editingPost: PFObject? = nil, parentPost: Postable? = nil) {
+    public func initWithTimelinePost(delegate: CommentViewControllerDelegate?, postedIn: User, editingPost: PFObject? = nil, parentPost: Commentable? = nil) {
         self.postedIn = postedIn
         self.threadType = .Timeline
         self.editingPost = editingPost
@@ -78,7 +78,7 @@ public class CommentViewController: UIViewController {
         self.parentPost = parentPost
     }
     
-    public func initWith(thread: Thread? = nil, threadType: ThreadType, delegate: CommentViewControllerDelegate?, editingPost: PFObject? = nil, parentPost: Postable? = nil, anime: Anime? = nil) {
+    public func initWith(thread: Thread? = nil, threadType: ThreadType, delegate: CommentViewControllerDelegate?, editingPost: PFObject? = nil, parentPost: Commentable? = nil, anime: Anime? = nil) {
         self.postedBy = User.currentUser()!
         self.thread = thread
         self.threadType = threadType

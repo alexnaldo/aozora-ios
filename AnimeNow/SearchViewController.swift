@@ -237,7 +237,7 @@ extension SearchViewController: UICollectionViewDelegate {
             profileViewController.initWithUser(user)
             navigationController?.pushViewController(profileViewController, animated: true)
         } else if let thread = object as? Thread {
-            let threadController = Storyboard.customThreadViewController()
+            let threadController = Storyboard.threadViewController()
             
             if let episode = thread.episode, let anime = thread.anime {
                 threadController.initWithEpisode(episode, anime: anime)

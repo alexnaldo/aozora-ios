@@ -167,7 +167,7 @@ extension EpisodesViewController: UICollectionViewDelegate {
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let episode = dataSource[indexPath.row]
-        let threadController = Storyboard.customThreadViewController()
+        let threadController = Storyboard.threadViewController()
         threadController.initWithEpisode(episode, anime: anime)
         
         if let tabBar = tabBarController as? AnimeDetailsTabBarController {

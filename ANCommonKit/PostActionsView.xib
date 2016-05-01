@@ -125,7 +125,7 @@
                         </mask>
                     </variation>
                     <connections>
-                        <action selector="replyPressed:" destination="-1" eventType="touchUpInside" id="vDc-r1-UTl"/>
+                        <action selector="showRepliesPressed:" destination="-1" eventType="touchUpInside" id="HVI-en-zc7"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BKI-UF-48X">

@@ -76,9 +76,14 @@ final class PostActionsView: UIView {
     var replyCallback: ActionCallback!
     var likeCallback: ActionCallback!
     var showLikesCallback: ActionCallback!
+    var showRepliesCallback: ActionCallback!
 
     @IBAction func showLikesPressed(sender: AnyObject) {
         showLikesCallback?()
+    }
+
+    @IBAction func showRepliesPressed(sender: AnyObject) {
+        showRepliesCallback?()
     }
 
     @IBAction func replyPressed(sender: AnyObject) {
