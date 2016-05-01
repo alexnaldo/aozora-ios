@@ -557,8 +557,17 @@ extension BaseThreadViewController: UITableViewDataSource {
             }
 
             attributedContent = NSMutableAttributedString()
-                .add("\(anime.title ?? "") - Episode \(episode.number)\n", setter: subtitleAttributes)
-                .add("\(episode.title ?? "")", setter: hightlightedAttributes)
+
+            if anime.type == "Movie" {
+                attributedContent
+                    .add("Movie\n", setter: subtitleAttributes)
+                    .add("\(anime.title ?? "")", setter: hightlightedAttributes)
+            } else {
+                attributedContent
+                    .add("\(anime.title ?? "")\n", setter: subtitleAttributes)
+                    .add("Episode \(episode.number) - \(episode.title ?? "")", setter: hightlightedAttributes)
+            }
+
         } else if isFanclub {
             let titleAttributes = { (inout attr: Attributes) in
                 attr.color = UIColor.midnightBlue()
