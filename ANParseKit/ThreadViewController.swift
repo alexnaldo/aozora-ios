@@ -19,12 +19,6 @@ class ThreadViewController: BaseThreadViewController {
     var anime: Anime?
     var timelinePost: TimelinePostable?
     var post: ThreadPostable?
-    
-    func initWithEpisode(episode: Episode, anime: Anime) {
-        self.episode = episode
-        self.anime = anime
-        threadType = .Episode
-    }
 
     func initWithPost(post: Commentable) {
         if let timelinePost = post as? TimelinePostable {
@@ -41,13 +35,22 @@ class ThreadViewController: BaseThreadViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let _ = timelinePost {
+        switch threadType {
+        case .Timeline:
             // Fetch posts, if not a thread
             tableView.tableHeaderView = nil
             fetchPosts()
-        } else if let _ = post {
+        case .Post:
             // Other class will call fetchPosts...
             viewMoreButton.setTitle("View Thread  ", forState: .Normal)
+        case .ThreadPosts:
+            if let thread = thread where thread.locked {
+                navigationItem.rightBarButtonItem?.enabled = false
+            }
+        case .Threads:
+            break
+        case .Episode:
+            break
         }
 
         navigationController?.setNavigationBarHidden(false, animated: true)
@@ -56,54 +59,6 @@ class ThreadViewController: BaseThreadViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         canDisplayBannerAds = InAppController.canDisplayAds()
-    }
-
-    override func updateUIWithThread(thread: Thread) {
-        super.updateUIWithThread(thread)
-        
-        title = "Loading..."
-        
-        if let _ = episode {
-            updateUIWithEpisodeThread(thread)
-        } else {
-            updateUIWithGeneralThread(thread)
-        }
-        
-        if thread.locked {
-            navigationItem.rightBarButtonItem?.enabled = false
-        }
-    }
-    
-    var resizedTableHeader = false
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        if !resizedTableHeader && title != nil {
-            resizedTableHeader = true
-            sizeHeaderToFit()
-        }
-    }
-    
-    func updateUIWithEpisodeThread(thread: Thread) {
-    }
-    
-    func updateUIWithGeneralThread(thread: Thread) {
-    }
-    
-    func sizeHeaderToFit() {
-        guard let header = tableView.tableHeaderView else {
-            return
-        }
-        
-        header.setNeedsLayout()
-        header.layoutIfNeeded()
-
-        let height = header.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize).height
-        var frame = header.frame
-        
-        frame.size.height = height
-        header.frame = frame
-        tableView.tableHeaderView = header
     }
     
     override func fetchThread() {
@@ -129,7 +84,7 @@ class ThreadViewController: BaseThreadViewController {
                 // TODO: Show error
             } else if let result = result, let thread = result.last as? Thread {
                 self.thread = thread
-                self.updateUIWithThread(thread)
+                //self.updateUIWithThread(thread)
             } else if let episode = self.episode, let anime = self.anime where self.threadType == ThreadType.Episode {
                 
                 // Create episode threads lazily
@@ -156,7 +111,13 @@ class ThreadViewController: BaseThreadViewController {
     
     override func fetchPosts() {
         super.fetchPosts()
-        fetchController.configureWith(self, queryDelegate: self, tableView: tableView, limit: FetchLimit, datasourceUsesSections: true)
+        var pinnedData: [PFObject] = []
+
+        if let thread = thread {
+            pinnedData.append(thread)
+        }
+
+        fetchController.configureWith(self, queryDelegate: self, tableView: tableView, limit: FetchLimit, datasourceUsesSections: true, pinnedData: pinnedData)
     }
     
     // MARK: - FetchControllerQueryDelegate
@@ -261,46 +222,43 @@ class ThreadViewController: BaseThreadViewController {
     override func commentViewControllerDidFinishedPosting(post: PFObject, parentPost: PFObject?, edited: Bool) {
         super.commentViewControllerDidFinishedPosting(post, parentPost: parentPost, edited: edited)
         
-        if let _ = post as? Commentable {
-            if edited {
-                // Don't insert if edited
-                tableView.reloadData()
-                return
-            }
-            
-            // Only posts and TimelinePosts
-            if let parentPost = parentPost {
-                // Inserting a new reply in-place
-                let parentPost = parentPost as! Commentable
-                parentPost.replies.append(post)
-                tableView.reloadData()
-            } else if parentPost == nil {
+        guard let _ = post as? Commentable else {
+            return
+        }
 
-                switch threadType {
-                case .ThreadPosts:
-                    // Inserting a new post in the bottom, if we're in the bottom of the thread
-                    if !fetchController.canFetchMoreData {
-                        fetchController.dataSource.append(post)
-                        tableView.reloadData()
-                    }
-                case .Episode:
-                    // Inserting a new post in the top
-                    fetchController.dataSource.insert(post, atIndex: 0)
+        if edited {
+            // Don't insert if edited
+            tableView.reloadData()
+            return
+        }
+        
+        // Only posts and TimelinePosts
+        if let parentPost = parentPost {
+            // Inserting a new reply in-place
+            let parentPost = parentPost as! Commentable
+            parentPost.replies.append(post)
+            tableView.reloadData()
+        } else if parentPost == nil {
+
+            switch threadType {
+            case .ThreadPosts:
+                // Inserting a new post in the bottom, if we're in the bottom of the thread
+                if !fetchController.canFetchMoreData {
+                    fetchController.dataSource.append(post)
                     tableView.reloadData()
-                case .Timeline, .Post:
-                    break
-                default:
-                    assertionFailure()
-                    break
                 }
-
+            case .Episode:
+                // Inserting a new post in the top
+                fetchController.dataSource.insert(post, atIndex: 0)
+                tableView.reloadData()
+            case .Timeline, .Post:
+                break
+            default:
+                assertionFailure()
+                break
             }
-        } else if let thread = post as? Thread {
-            updateUIWithThread(thread)
-            sizeHeaderToFit()
         }
     }
-
 
     // MARK: - IBAction
     

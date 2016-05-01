@@ -238,13 +238,7 @@ extension SearchViewController: UICollectionViewDelegate {
             navigationController?.pushViewController(profileViewController, animated: true)
         } else if let thread = object as? Thread {
             let threadController = Storyboard.threadViewController()
-            
-            if let episode = thread.episode, let anime = thread.anime {
-                threadController.initWithEpisode(episode, anime: anime)
-            } else {
-                threadController.initWithThread(thread, replyConfiguration: .ShowCreateReply)
-            }
-            
+            threadController.initWithThread(thread, replyConfiguration: .ShowCreateReply)
             navigationController?.pushViewController(threadController, animated: true)
         } else if let string = object as? String {
             guard let browse = UIStoryboard(name: "Browse", bundle: nil).instantiateViewControllerWithIdentifier("BrowseViewController") as? BrowseViewController,

@@ -271,10 +271,10 @@ extension AnimeListViewController: AnimeLibraryCellDelegate {
     
     func cellPressedEpisodeThread(cell: AnimeLibraryCell, anime: Anime, episode: Episode) {
         
-        let threadController = Storyboard.threadViewController()
-        threadController.initWithEpisode(episode, anime: anime)
+        //let threadController = Storyboard.threadViewController()
+        //threadController.initWithEpisode(episode, anime: anime)
         
-        navigationController?.pushViewController(threadController, animated: true)
+        //navigationController?.pushViewController(threadController, animated: true)
 
         Analytics.tappedLibraryAnimeEpisodeComment(anime.objectId!, list: anime.progress!.myAnimeListList().rawValue, row: collectionView.indexPathForCell(cell)!.row)
     }

@@ -31,6 +31,7 @@ class BaseThreadViewController: UIViewController {
             UrlCell.registerNibFor(tableView: tableView)
             WriteACommentCell.registerNibFor(tableView: tableView)
             ShowMoreCell.registerNibFor(tableView: tableView)
+            ThreadCell.registerNibFor(tableView: tableView)
         }
     }
     
@@ -76,10 +77,11 @@ class BaseThreadViewController: UIViewController {
         addRefreshControl(refreshControl, action:#selector(BaseThreadViewController.fetchPosts), forTableView: tableView)
 
         switch threadType {
-        case .ThreadPosts:
+        case .ThreadPosts, .Episode:
             if let thread = thread {
-                updateUIWithThread(thread)
-            } else {
+                title = thread.title
+                fetchPosts()
+            } else  {
                 fetchThread()
             }
         default:
@@ -90,10 +92,6 @@ class BaseThreadViewController: UIViewController {
     deinit {
         fetchController.tableView = nil
         NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
-    
-    func updateUIWithThread(thread: Thread) {
-        fetchPosts()
     }
     
     // MARK: - Fetching
@@ -162,7 +160,7 @@ class BaseThreadViewController: UIViewController {
         }
     }
 
-    func showPostThread(post: Postable) {
+    func showPostReplies(post: Postable) {
         if let post = post as? Commentable {
             let notificationThread = Storyboard.threadViewController()
             notificationThread.initWithPost(post)
@@ -744,7 +742,7 @@ extension BaseThreadViewController: UITableViewDelegate {
         } else if shouldShowContractedRepliesForPost(post, forIndexPath: indexPath) {
             // Show all
             if indexPath.row == 1 {
-                showPostThread(post)
+                showPostReplies(post)
             } else {
                 let index = indexForContactedReplyForPost(post, forIndexPath: indexPath)
                 var comment: Commentable?
@@ -768,12 +766,7 @@ extension BaseThreadViewController: UITableViewDelegate {
 
     func showThreadPosts(thread: Thread) {
         let threadController = Storyboard.threadViewController()
-
-        if let episode = thread.episode, let anime = thread.anime {
-            threadController.initWithEpisode(episode, anime: anime)
-        } else {
-            threadController.initWithThread(thread, replyConfiguration: .ShowThreadDetail)
-        }
+        threadController.initWithThread(thread, replyConfiguration: .ShowThreadDetail)
 
         navigationController?.pushViewController(threadController, animated: true)
     }
@@ -911,7 +904,7 @@ extension BaseThreadViewController: PostCellDelegate {
         case .ShowCreateReply:
             replyToPost(post)
         case .ShowThreadDetail:
-            showPostThread(post)
+            showPostReplies(post)
         }
     }
     

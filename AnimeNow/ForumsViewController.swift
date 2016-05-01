@@ -36,14 +36,7 @@ class ForumsViewController: BaseThreadViewController {
             tableView.reloadData()
         }
     }
-    
-    @IBOutlet override weak var tableView: UITableView! {
-        didSet {
-            tableView.estimatedRowHeight = 150.0
-            tableView.rowHeight = UITableViewAutomaticDimension
-            ThreadCell.registerNibFor(tableView: tableView)
-        }
-    }
+
     @IBOutlet weak var navigationBarTitle: UILabel!
     @IBOutlet weak var createThreadButton: UIButton!
     @IBOutlet weak var sortingButton: UIButton!
