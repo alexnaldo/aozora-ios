@@ -57,7 +57,13 @@ class BaseThreadViewController: UIViewController {
     
     func initWithThread(thread: Thread, replyConfiguration: ReplyConfiguration) {
         self.thread = thread
-        self.threadType = .ThreadPosts
+        switch thread.type {
+        case .FanClub, .Custom:
+            threadType = .ThreadPosts
+        case .Episode:
+            threadType = .Episode
+        }
+
         self.replyConfiguration = replyConfiguration
     }
     
@@ -128,7 +134,7 @@ class BaseThreadViewController: UIViewController {
         presentMoviePlayerViewControllerAnimated(playerController)
     }
     
-    func replyToPost(post: Commentable) {
+    func replyToPost(post: Postable) {
         guard User.currentUserLoggedIn() else {
             presentAlertWithTitle("Login first", message: "Select 'Me' tab")
             return
@@ -143,18 +149,27 @@ class BaseThreadViewController: UIViewController {
                 newPostViewController.initWith(thread, threadType: threadType, delegate: self, parentPost: post)
                 animator = presentViewControllerModal(newPostViewController)
             }
-
         } else if let post = post as? TimelinePostable {
             newPostViewController.initWithTimelinePost(self, postedIn:post.userTimeline, parentPost: post)
             animator = presentViewControllerModal(newPostViewController)
+        } else if let thread = post as? Thread {
+            if thread.locked {
+                presentAlertWithTitle("Thread is locked")
+            } else {
+                newPostViewController.initWith(thread, threadType: threadType, delegate: self, parentPost: nil)
+                animator = presentViewControllerModal(newPostViewController)
+            }
         }
-
     }
 
-    func showPostThread(post: Commentable) {
-        let notificationThread = Storyboard.threadViewController()
-        notificationThread.initWithPost(post)
-        navigationController?.pushViewController(notificationThread, animated: true)
+    func showPostThread(post: Postable) {
+        if let post = post as? Commentable {
+            let notificationThread = Storyboard.threadViewController()
+            notificationThread.initWithPost(post)
+            navigationController?.pushViewController(notificationThread, animated: true)
+        } else if let thread = post as? Thread {
+            showThreadPosts(thread)
+        }
     }
 
     func shouldShowAllRepliesForPost(post: Postable, forIndexPath indexPath: NSIndexPath? = nil) -> Bool {
@@ -187,43 +202,47 @@ class BaseThreadViewController: UIViewController {
         return post.replies.count - 3 + indexPath.row
     }
     
-    func postForCell(cell: PostCellProtocol) -> Commentable? {
+    func postForCell(cell: PostCellProtocol) -> Postable? {
         let indexPath = cell.currentIndexPath
-        if let post = fetchController.objectAtIndex(indexPath.section) as? Commentable {
-            if cell.currentIndexPath.row == 0 {
-                return post
-            // TODO organize this code better it has dup lines everywhere D:
-            } else if shouldShowAllRepliesForPost(post, forIndexPath: indexPath) {
-                return post.replies[indexPath.row - 1] as? Commentable
-            } else if shouldShowContractedRepliesForPost(post, forIndexPath: indexPath) {
-                let index = indexForContactedReplyForPost(post, forIndexPath: indexPath)
-                return post.replies[index] as? Commentable
-            }
+        guard let post = fetchController.objectAtIndex(indexPath.section) as? Postable else {
+            return nil
         }
-        
+
+        if cell.currentIndexPath.row == 0 {
+            return post
+        // TODO organize this code better it has dup lines everywhere D:
+        } else if let post = post as? Commentable where shouldShowAllRepliesForPost(post, forIndexPath: indexPath) {
+            return post.replies[indexPath.row - 1] as? Postable
+        } else if let post = post as? Commentable where shouldShowContractedRepliesForPost(post, forIndexPath: indexPath) {
+            let index = indexForContactedReplyForPost(post, forIndexPath: indexPath)
+            return post.replies[index] as? Postable
+        }
+
         return nil
     }
     
-    func like(post: Commentable) {
+    func like(post: Postable) {
         if !User.currentUserLoggedIn() {
             presentAlertWithTitle("Login first", message: "Select 'Me' tab")
             return
         }
         
-        if let postObject = post as? PFObject where !postObject.dirty {
-            let likedBy = post.likedBy ?? []
-            let currentUser = User.currentUser()!
-            if likedBy.contains(currentUser) {
-                postObject.removeObject(currentUser, forKey: "likedBy")
-                post.incrementLikeCount(byAmount: -1)
-            } else {
-                postObject.addUniqueObject(currentUser, forKey: "likedBy")
-                post.incrementLikeCount(byAmount: 1)
-            }
-            postObject.saveInBackground()
+        guard let postObject = post as? PFObject where !postObject.dirty else {
+            return
         }
+
+        let likedBy = post.likedBy ?? []
+        let currentUser = User.currentUser()!
+        if likedBy.contains(currentUser) {
+            postObject.removeObject(currentUser, forKey: "likedBy")
+            post.incrementLikeCount(byAmount: -1)
+        } else {
+            postObject.addUniqueObject(currentUser, forKey: "likedBy")
+            post.incrementLikeCount(byAmount: 1)
+        }
+        postObject.saveInBackground()
     }
-    
+
     // MARK: - IBAction
     
     @IBAction func dismissPressed(sender: AnyObject) {
@@ -548,9 +567,13 @@ extension BaseThreadViewController: UITableViewDataSource {
 
         let attributedContent: NSMutableAttributedString
 
-        let isFanclub = !thread.tags.filter{ $0.objectId == "8Vm8UTKGqY" }.isEmpty
 
-        if let episode = thread.episode, let anime = thread.anime {
+        switch thread.type {
+        case .Episode:
+            guard let episode = thread.episode, let anime = thread.anime else {
+                return
+            }
+
             let subtitleAttributes = { (inout attr: Attributes) in
                 attr.color = UIColor.belizeHole()
                 attr.font = UIFont.boldSystemFontOfSize(13)
@@ -567,16 +590,7 @@ extension BaseThreadViewController: UITableViewDataSource {
                     .add("\(anime.title ?? "")\n", setter: subtitleAttributes)
                     .add("Episode \(episode.number) - \(episode.title ?? "")", setter: hightlightedAttributes)
             }
-
-        } else if isFanclub {
-            let titleAttributes = { (inout attr: Attributes) in
-                attr.color = UIColor.midnightBlue()
-                attr.font = UIFont.boldSystemFontOfSize(17)
-            }
-
-            attributedContent = NSMutableAttributedString()
-                .add(thread.title, setter: titleAttributes)
-        } else {
+        case .Custom:
             let titleAttributes = { (inout attr: Attributes) in
                 attr.color = UIColor.midnightBlue()
                 attr.font = UIFont.boldSystemFontOfSize(17)
@@ -592,6 +606,14 @@ extension BaseThreadViewController: UITableViewDataSource {
                 .add(thread.title+"\n\n", setter: titleAttributes)
                 .add(content.truncate(110)+"\n\nby ", setter: contentAttributes)
                 .add(thread.postedBy?.aozoraUsername ?? "", setter: hightlightedAttributes)
+        case .FanClub:
+            let titleAttributes = { (inout attr: Attributes) in
+                attr.color = UIColor.midnightBlue()
+                attr.font = UIFont.boldSystemFontOfSize(17)
+            }
+
+            attributedContent = NSMutableAttributedString()
+                .add(thread.title, setter: titleAttributes)
         }
 
         updateAttributedTextProperties(cell.textContent)
@@ -690,7 +712,7 @@ extension BaseThreadViewController: UITableViewDelegate {
         if let post = post as? Commentable {
             selectedPost(post, atIndexPath: indexPath)
         } else if let thread = post as? Thread {
-            selectedThread(thread, atIndexPath: indexPath)
+            showThreadPosts(thread)
         }
     }
 
@@ -744,7 +766,7 @@ extension BaseThreadViewController: UITableViewDelegate {
         }
     }
 
-    func selectedThread(thread: Thread, atIndexPath indexPath: NSIndexPath) {
+    func showThreadPosts(thread: Thread) {
         let threadController = Storyboard.threadViewController()
 
         if let episode = thread.episode, let anime = thread.anime {
@@ -862,13 +884,15 @@ extension BaseThreadViewController: CommentViewControllerDelegate {
 // MARK: - PostCellDelegate
 extension BaseThreadViewController: PostCellDelegate {
     func postCellSelectedImage(postCell: PostCellProtocol) {
-        if let post = postForCell(postCell) {
-            if let imagesData = post.imagesData where !imagesData.isEmpty {
-                let photosViewController = PhotosViewController(allPhotos: imagesData)
-                presentViewController(photosViewController, animated: true, completion: nil)
-            } else if let videoID = post.youtubeID {
-                playTrailer(videoID)
-            }
+        guard let post = postForCell(postCell) else {
+            return
+        }
+
+        if let imagesData = post.imagesData where !imagesData.isEmpty {
+            let photosViewController = PhotosViewController(allPhotos: imagesData)
+            presentViewController(photosViewController, animated: true, completion: nil)
+        } else if let videoID = post.youtubeID {
+            playTrailer(videoID)
         }
     }
     
@@ -889,7 +913,6 @@ extension BaseThreadViewController: PostCellDelegate {
         case .ShowThreadDetail:
             showPostThread(post)
         }
-
     }
     
     func postCellSelectedComment(postCell: PostCellProtocol) {
@@ -912,9 +935,7 @@ extension BaseThreadViewController: PostCellDelegate {
         like(post)
         updateActionsView(postCell, post: post)
 
-
         // Resizes the cell without updating the tableView, sweet!
-
         UIView.animateWithDuration(0.3, animations: {
             self.tableView.layoutIfNeeded()
         })

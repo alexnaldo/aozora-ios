@@ -26,7 +26,7 @@ class ThreadViewController: BaseThreadViewController {
         threadType = .Episode
     }
 
-    func initWithPost(post: Postable) {
+    func initWithPost(post: Commentable) {
         if let timelinePost = post as? TimelinePostable {
             self.timelinePost = timelinePost
             threadType = .Timeline

@@ -82,7 +82,7 @@ class NotificationsController {
         pushViewController(profileController)
     }
     
-    class func showNotificationThread(post: Postable, returnAnimator: Bool) {
+    class func showNotificationThread(post: Commentable, returnAnimator: Bool) {
         
         let notificationThread = Storyboard.threadViewController()
         notificationThread.initWithPost(post)
