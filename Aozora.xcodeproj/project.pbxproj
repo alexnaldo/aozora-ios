@@ -771,7 +771,6 @@
 		DAA26C8D1BCC92B1001CF62D /* PublicListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicListViewController.swift; sourceTree = "<group>"; };
 		DAA2C5571B66919300152FF9 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		DAA393281B42F21900A8D5D5 /* RootTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootTabBar.swift; sourceTree = "<group>"; };
-		DAA546D11B9EF26E003989DE /* NotificationThreadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationThreadViewController.swift; path = ../ANParseKit/NotificationThreadViewController.swift; sourceTree = "<group>"; };
 		DAA546D31BA0902E003989DE /* NotificationsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsController.swift; sourceTree = "<group>"; };
 		DAA546D51BA090C0003989DE /* UIApplication+Navigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIApplication+Navigation.swift"; path = "../ANCommonKit/UIApplication+Navigation.swift"; sourceTree = "<group>"; };
 		DAA5768B1C669904007E81E6 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Frameworks/Crashlytics.framework; sourceTree = "<group>"; };
@@ -1531,7 +1530,6 @@
 				DAD486AE1C6EA3ED0045B769 /* Notifications.storyboard */,
 				DAA546D31BA0902E003989DE /* NotificationsController.swift */,
 				DA1340AC1B9E17410073C6EF /* NotificationsViewController.swift */,
-				DAA546D11B9EF26E003989DE /* NotificationThreadViewController.swift */,
 			);
 			name = Notifications;
 			sourceTree = "<group>";

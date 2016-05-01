@@ -168,7 +168,7 @@ class BaseThreadViewController: UIViewController {
             return indexPathIsSafe
         case .ShowThreadDetail:
             if let indexPath = indexPath {
-                indexPathIsSafe = (indexPath.row - 1) < 1
+                indexPathIsSafe = indexPath.row - 1 < 1
             }
             return post.replyCount <= 1 && indexPathIsSafe
         }
@@ -327,20 +327,23 @@ extension BaseThreadViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let post = fetchController.objectInSection(section) as! Commentable
-        if post.lastReply != nil || !post.replies.isEmpty {
-            switch replyConfiguration {
-            case .ShowThreadDetail:
-                if shouldShowAllRepliesForPost(post) {
-                    return 1 + 1 + 1
-                } else {
-                    // 1 post, 1 show more, 1 replies, 1 reply to post
-                    return 1 + 1 + 1 + 1
-                }
-            case .ShowCreateReply:
+
+        switch replyConfiguration {
+        case .ShowThreadDetail:
+            if post.lastReply == nil {
+                return 1
+            } else if shouldShowAllRepliesForPost(post) {
+                return 1 + 1 + 1
+            } else {
+                // 1 post, 1 show more, 1 replies, 1 reply to post
+                return 1 + 1 + 1 + 1
+            }
+        case .ShowCreateReply:
+            if post.replies.isEmpty {
+                return 1
+            } else {
                 return 1 + (post.replies.count ?? 0) + 1
             }
-        } else {
-            return 1
         }
     }
     

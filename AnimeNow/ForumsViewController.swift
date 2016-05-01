@@ -328,7 +328,7 @@ extension ForumsViewController: UITableViewDelegate {
         if let episode = thread.episode, let anime = thread.anime {
             threadController.initWithEpisode(episode, anime: anime)
         } else {
-            threadController.initWithThread(thread, replyConfiguration: .ShowCreateReply)
+            threadController.initWithThread(thread, replyConfiguration: .ShowThreadDetail)
         }
 
         navigationController?.pushViewController(threadController, animated: true)
