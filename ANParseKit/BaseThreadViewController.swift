@@ -35,7 +35,7 @@ class BaseThreadViewController: UIViewController {
     }
     
     var thread: Thread?
-    var threadType: ThreadType = .Custom
+    var threadType: ThreadType = .Thread
     var replyConfiguration: ReplyConfiguration = .ShowThreadDetail
     
     var fetchController = FetchController()
@@ -57,7 +57,7 @@ class BaseThreadViewController: UIViewController {
     
     func initWithThread(thread: Thread, replyConfiguration: ReplyConfiguration) {
         self.thread = thread
-        self.threadType = .Custom
+        self.threadType = .Thread
         self.replyConfiguration = replyConfiguration
     }
     
@@ -68,11 +68,16 @@ class BaseThreadViewController: UIViewController {
 
         loadingView = LoaderView(parentView: view)
         addRefreshControl(refreshControl, action:#selector(BaseThreadViewController.fetchPosts), forTableView: tableView)
-        
-        if let thread = thread {
-            updateUIWithThread(thread)
-        } else {
-            fetchThread()
+
+        switch threadType {
+        case .Thread:
+            if let thread = thread {
+                updateUIWithThread(thread)
+            } else {
+                fetchThread()
+            }
+        default:
+            break
         }
     }
     

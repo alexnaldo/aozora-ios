@@ -27,7 +27,7 @@ public class NewThreadViewController: CommentViewController {
     var tagToSet: PFObject?
 
     public func initCustomThreadWithDelegate(delegate: CommentViewControllerDelegate?, tag: PFObject?) {
-        super.initWith(threadType: ThreadType.Custom, delegate: delegate)
+        super.initWith(threadType: .Thread, delegate: delegate)
         tagToSet = tag
     }
     

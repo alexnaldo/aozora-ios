@@ -29,11 +29,12 @@ class ThreadViewController: BaseThreadViewController {
     func initWithPost(post: Postable) {
         if let timelinePost = post as? TimelinePostable {
             self.timelinePost = timelinePost
+            threadType = .Timeline
         } else if let threadPost = post as? ThreadPostable {
             self.post = threadPost
             self.thread = threadPost.thread
+            threadType = .Post
         }
-        threadType = .Custom
         replyConfiguration = .ShowCreateReply
     }
     
@@ -107,15 +108,6 @@ class ThreadViewController: BaseThreadViewController {
     
     override func fetchThread() {
 
-        switch threadType {
-        case .Custom:
-            return
-        case .Episode:
-            break
-        case .Timeline:
-            return
-        }
-
         super.fetchThread()
 
         let query = Thread.query()!
@@ -177,7 +169,7 @@ class ThreadViewController: BaseThreadViewController {
         var repliesQuery: PFQuery!
 
         switch threadType {
-        case .Custom:
+        case .Timeline, .Post:
 
             if let timelinePost = timelinePost as? TimelinePost {
                 query = TimelinePost.query()!
@@ -200,7 +192,7 @@ class ThreadViewController: BaseThreadViewController {
             repliesQuery.limit = 2000
             queryBatch.whereQuery(repliesQuery, matchesKey: "parentPost", onQuery: query)
 
-        case .Episode:
+        case .Episode, .Thread:
 
             query = Post.query()!
             query.skip = skip
@@ -217,9 +209,6 @@ class ThreadViewController: BaseThreadViewController {
             repliesQuery.limit = 2000
 
             queryBatch.whereQuery(repliesQuery, matchesKey: "parentPost", onQuery: query)
-
-        case .Timeline:
-            break
         }
 
         return queryBatch.executeQueries([query, repliesQuery])
@@ -233,17 +222,15 @@ class ThreadViewController: BaseThreadViewController {
         super.didFetchFor(skip: skip)
 
         switch threadType {
-        case .Episode:
+        case .Episode, .Thread:
             break
-        case .Custom:
+        case .Timeline, .Post:
             let post = fetchController.objectInSection(0)
             if let post = post as? TimelinePostable {
                 navigationItem.title = post.userTimeline.aozoraUsername
             } else if let post = post as? ThreadPostable {
                 navigationItem.title = "In " + post.thread.title
             }
-        case .Timeline:
-            break
         }
 
     }
@@ -284,7 +271,7 @@ class ThreadViewController: BaseThreadViewController {
             } else if parentPost == nil {
 
                 switch threadType {
-                case .Custom:
+                case .Thread:
                     // Inserting a new post in the bottom, if we're in the bottom of the thread
                     if !fetchController.canFetchMoreData {
                         fetchController.dataSource.append(post)
@@ -294,7 +281,7 @@ class ThreadViewController: BaseThreadViewController {
                     // Inserting a new post in the top
                     fetchController.dataSource.insert(post, atIndex: 0)
                     tableView.reloadData()
-                case .Timeline:
+                case .Timeline, .Post:
                     break
                 }
 

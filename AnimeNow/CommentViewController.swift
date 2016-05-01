@@ -15,9 +15,10 @@ public protocol CommentViewControllerDelegate: class {
 }
 
 public enum ThreadType {
-    case Timeline
     case Episode
-    case Custom
+    case Thread
+    case Post
+    case Timeline
 }
 
 public class CommentViewController: UIViewController {
