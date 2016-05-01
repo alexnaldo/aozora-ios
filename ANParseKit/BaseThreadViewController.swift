@@ -560,7 +560,7 @@ extension BaseThreadViewController: UITableViewDataSource {
 
         let hightlightedAttributes = { (inout attr: Attributes) in
             attr.color = UIColor.midnightBlue()
-            attr.font = UIFont.boldSystemFontOfSize(15)
+            attr.font = UIFont.systemFontOfSize(18, weight: UIFontWeightLight)
         }
 
         let attributedContent: NSMutableAttributedString
@@ -574,7 +574,7 @@ extension BaseThreadViewController: UITableViewDataSource {
 
             let subtitleAttributes = { (inout attr: Attributes) in
                 attr.color = UIColor.belizeHole()
-                attr.font = UIFont.boldSystemFontOfSize(13)
+                attr.font = UIFont.systemFontOfSize(14)
             }
 
             attributedContent = NSMutableAttributedString()
@@ -582,32 +582,26 @@ extension BaseThreadViewController: UITableViewDataSource {
             if anime.type == "Movie" {
                 attributedContent
                     .add("Movie\n", setter: subtitleAttributes)
-                    .add("\(anime.title ?? "")", setter: hightlightedAttributes)
+                    .add("\(anime.title ?? "") [Spoilers]", setter: hightlightedAttributes)
             } else {
                 attributedContent
                     .add("\(anime.title ?? "")\n", setter: subtitleAttributes)
-                    .add("Episode \(episode.number) - \(episode.title ?? "")", setter: hightlightedAttributes)
+                    .add("Episode \(episode.number) Review [Spoilers]", setter: hightlightedAttributes)
             }
         case .Custom:
             let titleAttributes = { (inout attr: Attributes) in
                 attr.color = UIColor.midnightBlue()
-                attr.font = UIFont.boldSystemFontOfSize(17)
+                attr.font = UIFont.systemFontOfSize(18, weight: UIFontWeightLight)
             }
 
-            let contentAttributes = { (inout attr: Attributes) in
-                attr.color = UIColor.blackColor()
-                attr.font = UIFont.systemFontOfSize(15)
-            }
-
-            let content = (thread.content ?? "").stringByReplacingOccurrencesOfString("\n", withString: " ")
+            //let content = (thread.content ?? "").stringByReplacingOccurrencesOfString("\n", withString: " ")
             attributedContent = NSMutableAttributedString()
-                .add(thread.title+"\n\n", setter: titleAttributes)
-                .add(content.truncate(110)+"\n\nby ", setter: contentAttributes)
-                .add(thread.postedBy?.aozoraUsername ?? "", setter: hightlightedAttributes)
+                .add(thread.title, setter: titleAttributes)
+                //.add(content+"\n\n", setter: titleAttributes)
         case .FanClub:
             let titleAttributes = { (inout attr: Attributes) in
                 attr.color = UIColor.midnightBlue()
-                attr.font = UIFont.boldSystemFontOfSize(17)
+                attr.font = UIFont.systemFontOfSize(18, weight: UIFontWeightLight)
             }
 
             attributedContent = NSMutableAttributedString()

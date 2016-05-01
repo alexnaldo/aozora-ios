@@ -29,17 +29,6 @@ final class PostActionsView: UIView {
         reuseViewWithClass(PostActionsView)
     }
 
-
-    var showDetails: Bool = false {
-        didSet {
-            if showDetails {
-                showLikesConstraint?.constant = 36
-            } else {
-                showLikesConstraint?.constant = 6
-            }
-        }
-    }
-
     func setupWithSmallLikeStatus(liked: Bool, likeCount: Int) {
         if liked {
             likeButton.setImage(UIImage(named: "icon-like-filled-small"), forState: .Normal)
@@ -64,13 +53,19 @@ final class PostActionsView: UIView {
             likeButton.setImage(UIImage(named: "icon-like-empty"), forState: .Normal)
         }
 
-        let likeString = likeCount == 1 ? "like" : "likes"
-        likeCountLabel?.setTitle(" \(likeCount) \(likeString)", forState: .Normal)
+        if likeCount == 0 {
+            likeCountLabel?.setTitle("Like", forState: .Normal)
+        } else {
+            let likeString = likeCount == 1 ? "Like" : "Likes"
+            likeCountLabel?.setTitle("\(likeCount) \(likeString)", forState: .Normal)
+        }
 
-        let commentString = commentCount == 1 ? "comment" : "comments"
-        commentCountLabel?.setTitle("\(commentCount) \(commentString)", forState: .Normal)
-
-        showDetails = likeCount > 0 || commentCount > 0
+        if commentCount == 0 {
+            commentCountLabel?.setTitle("Comment", forState: .Normal)
+        } else {
+            let commentString = commentCount == 1 ? "Comment" : "Comments"
+            commentCountLabel?.setTitle("\(commentCount) \(commentString)", forState: .Normal)
+        }
     }
 
     var replyCallback: ActionCallback!
