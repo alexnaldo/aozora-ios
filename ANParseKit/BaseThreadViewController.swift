@@ -724,6 +724,12 @@ extension BaseThreadViewController: UITableViewDataSource {
                     .add("\(anime.title ?? "")\n", setter: subtitleAttributes)
                     .add("Episode \(episode.number) Review [Spoilers]", setter: hightlightedAttributes)
             }
+
+            // TODO: fix .ThreadPosts
+//            if let overview = episode.overview where threadType == .ThreadPosts {
+//                attributedContent.add("\n\n"+overview, setter: contentAttributes)
+//            }
+
         case .Custom:
 
             let titleAttributes = { (inout attr: Attributes) in

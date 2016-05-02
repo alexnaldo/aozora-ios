@@ -109,7 +109,8 @@ class ThreadViewController: BaseThreadViewController {
         super.fetchPosts()
         var pinnedData: [PFObject] = []
 
-        if let thread = thread where threadType == .ThreadPosts {
+        if let thread = thread where
+            threadType == .ThreadPosts || threadType == .Episode {
             pinnedData.append(thread)
         }
 
