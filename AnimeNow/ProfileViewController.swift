@@ -68,6 +68,8 @@ class ProfileViewController: BaseThreadViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        threadType = .Threads
         
         segmentedControlView.hidden = true
         
