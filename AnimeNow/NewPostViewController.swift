@@ -82,6 +82,8 @@ public class NewPostViewController: CommentViewController {
             
             if let parentPost = parentPost as? TimelinePostable {
                 inReply.text = "  Editing Reply to \(parentPost.userTimeline.aozoraUsername)"
+            } else if let _ = parentPost {
+                inReply.text = "  Editing Post Reply"
             } else {
                 inReply.text = "  Editing Post"
             }
@@ -89,6 +91,8 @@ public class NewPostViewController: CommentViewController {
         } else {
             if let parentPost = parentPost as? TimelinePostable {
                 inReply.text = "  In Reply to \(parentPost.userTimeline.aozoraUsername)"
+            } else if let _ = parentPost {
+                inReply.text = "  New Post Reply"
             } else {
                 inReply.text = "  New Post"
             }
