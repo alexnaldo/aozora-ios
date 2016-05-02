@@ -545,6 +545,9 @@ extension BaseThreadViewController: UITableViewDataSource {
             cell.imageHeightConstraint?.constant = 190
             cell.imageContent?.setImageFrom(urlString: episode.imageURLString())
             cell.playButton?.hidden = true
+        } else if thread.type == .FanClub {
+            cell.imageHeightConstraint?.constant = 0
+            cell.playButton?.hidden = true
         } else {
             setImages(thread.imagesData, imageView: cell.imageContent, imageHeightConstraint: cell.imageHeightConstraint, baseWidth: calculatedBaseWidth)
             prepareForVideo(cell.playButton, imageView: cell.imageContent, imageHeightConstraint: cell.imageHeightConstraint, youtubeID: thread.youtubeID)
@@ -562,6 +565,15 @@ extension BaseThreadViewController: UITableViewDataSource {
         let contentAttributes = { (inout attr: Attributes) in
             attr.color = UIColor.darkGrayColor()
             attr.font = UIFont.systemFontOfSize(14)
+        }
+
+        let subtitleAttributes = { (inout attr: Attributes) in
+            attr.color = UIColor.lightGrayColor()
+            attr.font = UIFont.systemFontOfSize(12)
+        }
+
+        let smallSpaceAttributes = { (inout attr: Attributes) in
+            attr.font = UIFont.systemFontOfSize(4)
         }
 
         let attributedContent: NSMutableAttributedString
@@ -595,15 +607,6 @@ extension BaseThreadViewController: UITableViewDataSource {
                 attr.font = UIFont.systemFontOfSize(18, weight: UIFontWeightLight)
             }
 
-            let subtitleAttributes = { (inout attr: Attributes) in
-                attr.color = UIColor.lightGrayColor()
-                attr.font = UIFont.systemFontOfSize(12)
-            }
-
-            let smallSpaceAttributes = { (inout attr: Attributes) in
-                attr.font = UIFont.systemFontOfSize(4)
-            }
-
             var tagName: String = ""
             if let tag = thread.tags.last as? ThreadTag {
                 tagName = tag.name
@@ -624,7 +627,9 @@ extension BaseThreadViewController: UITableViewDataSource {
             }
 
             attributedContent = NSMutableAttributedString()
-                .add(thread.title, setter: titleAttributes)
+                .add(thread.title+"\n", setter: titleAttributes)
+                .add("\n", setter: smallSpaceAttributes)
+                .add("by \(thread.postedBy!.aozoraUsername)", setter: subtitleAttributes)
         }
 
         switch threadType {

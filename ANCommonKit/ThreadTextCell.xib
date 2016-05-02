@@ -29,7 +29,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C2g-82-Q5W" customClass="PostActionsView" customModule="AnimeTrakr" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="42" width="320" height="86"/>
+                        <rect key="frame" x="0.0" y="34" width="320" height="94"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                 </subviews>
@@ -43,7 +43,7 @@
                     <constraint firstAttribute="bottomMargin" secondItem="DFr-ZH-YGC" secondAttribute="bottom" constant="-8.5" id="ItV-Jr-9FD"/>
                     <constraint firstItem="IIt-M3-Ebc" firstAttribute="leading" secondItem="CE8-oB-25Y" secondAttribute="leading" constant="8" id="VkN-v5-yLe"/>
                     <constraint firstItem="C2g-82-Q5W" firstAttribute="leading" secondItem="CE8-oB-25Y" secondAttribute="leading" id="Z4z-x3-O3e"/>
-                    <constraint firstItem="C2g-82-Q5W" firstAttribute="top" secondItem="IIt-M3-Ebc" secondAttribute="bottom" constant="8" id="mGe-Jx-RD6"/>
+                    <constraint firstItem="C2g-82-Q5W" firstAttribute="top" secondItem="IIt-M3-Ebc" secondAttribute="bottom" id="mGe-Jx-RD6"/>
                     <constraint firstItem="IIt-M3-Ebc" firstAttribute="top" secondItem="CE8-oB-25Y" secondAttribute="top" constant="16" id="xfp-Wy-Lp2"/>
                 </constraints>
             </tableViewCellContentView>

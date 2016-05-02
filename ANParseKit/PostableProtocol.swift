@@ -167,14 +167,22 @@ extension Postable where Self: PFObject {
     }
 
     public var postContent: PostContent {
-        if imagesData?.count != 0{
+
+        // Special cases for thread type, should refactor in the future
+        if let thread = self as? Thread {
+            if thread.episode != nil {
+                return .Episode
+            } else if thread.type == .FanClub {
+                return .Text
+            }
+        }
+
+        if imagesData?.count != 0 {
             return .Image
         } else if youtubeID != nil {
             return .Video
         } else if linkData != nil {
             return .Link
-        } else if let thread = self as? Thread where thread.episode != nil {
-            return .Episode
         } else {
             return .Text
         }

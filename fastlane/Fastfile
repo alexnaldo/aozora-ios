@@ -38,12 +38,12 @@ platform :ios do
   desc "This will also make sure the profile is up to date"
   lane :deploy do |options|
     # Increase the app version number
-    patch = options[:patch] # Bool
-    minor = options[:minor] # Bool
-    major = options[:major] # Bool
-    testflight = options[:testflight] # Bool
-    waitTestflight = options[:waitTestflight] # Bool
-    appstore = options[:appstore] # Bool
+    patch = options[:patch] ||= false # Bool
+    minor = options[:minor] ||= false # Bool
+    major = options[:major] ||= false # Bool
+    testflight = options[:testflight] ||= false # Bool
+    waitTestflight = options[:waitTestflight] ||= false # Bool
+    appstore = options[:appstore] ||= false # Bool
 
     # A increment_version_number is required, force patch if needed
     if appstore and !patch and !minor and !major
@@ -102,7 +102,7 @@ EOS
       add_git_tag
 
     elsif testflight
-      if !patch && !minor && !major
+      if !patch && !minor && !major #unless 
         slack(
           message: "New Aozora build #{version}(#{build_number}) incoming :tanabata_tree::rocket:",
           default_payloads: [],
