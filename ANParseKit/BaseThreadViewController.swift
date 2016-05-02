@@ -254,10 +254,12 @@ class BaseThreadViewController: UIViewController {
 
     // MARK: - Edit Sheet
 
-    func showSheetFor(post post: Commentable, parentPost: Commentable? = nil, indexPath: NSIndexPath) {
-        // If user's comment show delete/edit
+    func showSheetFor(post post: Postable, parentPost: Postable? = nil, indexPath: NSIndexPath) {
 
-        guard let currentUser = User.currentUser(), let postedBy = post.postedBy, let cell = tableView.cellForRowAtIndexPath(indexPath) else {
+        // If user's comment show delete/edit
+        guard let currentUser = User.currentUser(),
+            let postedBy = post.postedBy,
+            let cell = tableView.cellForRowAtIndexPath(indexPath) else {
             return
         }
 
@@ -265,11 +267,133 @@ class BaseThreadViewController: UIViewController {
         let isParentPostOrShowingAllComments = replyConfiguration == .ShowCreateReply || parentPost == nil
         let isCurrentUserOrAdministrating = postedBy.isTheCurrentUser() || administrating
         if let postedBy = post.postedBy where isParentPostOrShowingAllComments && isCurrentUserOrAdministrating {
-            showEditPostActionSheet(administrating, canEdit: true, canDelete: true, cell: cell, postedBy: postedBy, currentUser: currentUser, post: post, parentPost: parentPost)
+            if let post = post as? Commentable {
+                showEditPostActionSheet(administrating, canEdit: true, canDelete: true, cell: cell, postedBy: postedBy, currentUser: currentUser, post: post, parentPost: parentPost)
+            } else if let thread = post as? Thread {
+                showEditThreadActionSheet(thread, cell: cell)
+            }
         }
     }
 
-    func showEditPostActionSheet(administrating: Bool, canEdit: Bool, canDelete: Bool, cell: UITableViewCell, postedBy: User, currentUser: User, post: Commentable, parentPost: Commentable?) {
+    func showEditThreadActionSheet(thread: Thread, cell: UITableViewCell) {
+
+        guard let currentUser = User.currentUser() else {
+            return
+        }
+        let administrating = currentUser.isAdmin() && !thread.postedBy!.isAdmin() || currentUser.isTopAdmin()
+
+        let alert: UIAlertController!
+
+        if administrating {
+            alert = UIAlertController(title: "NOTE: Editing \(thread.postedBy!.aozoraUsername) thread", message: "Only edit user threads if they are breaking guidelines", preferredStyle: UIAlertControllerStyle.ActionSheet)
+        } else {
+            alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+        }
+        alert.popoverPresentationController?.sourceView = cell.superview
+        alert.popoverPresentationController?.sourceRect = cell.frame
+
+        alert.addAction(UIAlertAction(title: "Edit", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction!) -> Void in
+            let comment = Storyboard.newThreadViewController()
+            comment.initWith(thread, threadType: self.threadType, delegate: self, editingPost: thread)
+            self.animator = self.presentViewControllerModal(comment)
+        }))
+
+        if User.currentUser()!.isAdmin() {
+            let locked = thread.locked
+            alert.addAction(UIAlertAction(title: locked ? "Unlock" : "Lock", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction!) -> Void in
+                thread.locked = !locked
+                thread.saveInBackgroundWithBlock({ (success, error) -> Void in
+                    if success {
+                        self.presentAlertWithTitle(thread.locked ? "Locked!" : "Unlocked!")
+                    } else {
+                        self.presentAlertWithTitle("Failed saving")
+                    }
+                })
+            }))
+
+            let pinned = thread.pinType != nil
+
+            // TODO: Refactor all this
+            if pinned {
+                alert.addAction(UIAlertAction(title: "Unpin", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction!) -> Void in
+                    thread.pinType = nil
+                    thread.saveInBackgroundWithBlock({ (success, error) -> Void in
+                        var alertTitle = ""
+                        if success {
+                            alertTitle = "Unpinned!"
+                        } else {
+                            alertTitle = "Failed unpinning"
+                        }
+                        self.presentAlertWithTitle(alertTitle)
+                    })
+                }))
+            } else {
+                alert.addAction(UIAlertAction(title: "Pin Global", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction!) -> Void in
+                    thread.pinType = "global"
+                    thread.saveInBackgroundWithBlock({ (success, error) -> Void in
+                        var alertTitle = ""
+                        if success {
+                            alertTitle = "Pinned Globally!"
+                        } else {
+                            alertTitle = "Failed pinning"
+                        }
+
+                        self.presentAlertWithTitle(alertTitle)
+                    })
+                }))
+                alert.addAction(UIAlertAction(title: "Pin Tag", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction!) -> Void in
+                    thread.pinType = "tag"
+                    thread.saveInBackgroundWithBlock({ (success, error) -> Void in
+                        var alertTitle = ""
+                        if success {
+                            alertTitle = "Pinned on Tag!"
+                        } else {
+                            alertTitle = "Failed pinning"
+                        }
+
+                        self.presentAlertWithTitle(alertTitle)
+                    })
+                }))
+            }
+
+        }
+
+        alert.addAction(UIAlertAction(title: "Delete", style: UIAlertActionStyle.Destructive, handler: { (alertAction: UIAlertAction!) -> Void in
+
+            let childPostsQuery = Post.query()!
+            childPostsQuery.whereKey("thread", equalTo: thread)
+            childPostsQuery.includeKey("postedBy")
+            childPostsQuery.findObjectsInBackgroundWithBlock({ (result, error) -> Void in
+                if let result = result {
+
+                    PFObject.deleteAllInBackground(result+[thread], block: { (success, error) -> Void in
+                        if let _ = error {
+                            // Show some error
+                        } else {
+                            thread.postedBy?.incrementPostCount(-1)
+                            if !thread.isForumGame {
+                                for post in result {
+                                    (post["postedBy"] as? User)?.incrementPostCount(-1)
+                                }
+                            }
+
+                            self.navigationController?.popViewControllerAnimated(true)
+                        }
+                    })
+
+                } else {
+                    // TODO: Show error
+                }
+            })
+        }))
+
+
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler:nil))
+
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+
+    func showEditPostActionSheet(administrating: Bool, canEdit: Bool, canDelete: Bool, cell: UITableViewCell, postedBy: User, currentUser: User, post: Postable, parentPost: Postable?) {
 
         if !canEdit && !canDelete {
             return
@@ -741,8 +865,12 @@ extension BaseThreadViewController: UITableViewDelegate {
 
         if let post = post as? Commentable {
             selectedPost(post, atIndexPath: indexPath)
-        } else if let thread = post as? Thread where threadType != .ThreadPosts {
-            showThreadPosts(thread)
+        } else if let thread = post as? Thread {
+            if threadType == .ThreadPosts {
+                showSheetFor(post: thread, indexPath: indexPath)
+            } else {
+                showThreadPosts(thread)
+            }
         }
     }
 

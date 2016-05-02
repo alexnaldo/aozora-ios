@@ -131,7 +131,7 @@ class ProfileViewController: BaseThreadViewController {
 
     // MARK: - Overrides
 
-    override func showSheetFor(post post: Commentable, parentPost: Commentable?, indexPath: NSIndexPath) {
+    override func showSheetFor(post post: Postable, parentPost: Postable?, indexPath: NSIndexPath) {
         guard let currentUser = User.currentUser(), let postedBy = post.postedBy, let cell = tableView.cellForRowAtIndexPath(indexPath),
             let userProfile = userProfile where userProfile.isTheCurrentUser() && !userProfile.isAdmin() else {
                 // Fallback to default implementation
