@@ -133,7 +133,7 @@ class BaseThreadViewController: UIViewController {
     }
     
     func replyToPost(post: Postable) {
-        guard User.currentUserLoggedIn() else {
+        if !User.currentUserLoggedIn() {
             presentAlertWithTitle("Login first", message: "Select 'Me' tab")
             return
         }

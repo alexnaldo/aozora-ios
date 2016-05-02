@@ -262,15 +262,23 @@ class ThreadViewController: BaseThreadViewController {
     
     override func replyToThreadPressed(sender: AnyObject) {
         super.replyToThreadPressed(sender)
-        
-        if let thread = thread where User.currentUserLoggedIn() && !thread.locked {
-            let newPostViewController = Storyboard.newPostViewController()
-            newPostViewController.initWith(thread, threadType: threadType, delegate: self)
-            animator = presentViewControllerModal(newPostViewController)
-        } else if let thread = thread where thread.locked {
-            presentAlertWithTitle("Thread is locked", message: nil)
-        } else {
-            presentAlertWithTitle("Login first", message: "Select 'Me' tab")
+
+        switch threadType {
+        case .ThreadPosts, .Episode:
+            if let thread = thread {
+                replyToPost(thread)
+            }
+        case .Post:
+            if let post = post {
+                replyToPost(post)
+            }
+        case .Timeline:
+            if let post = timelinePost {
+                replyToPost(post)
+            }
+        default:
+            assertionFailure()
+            break
         }
     }
     
