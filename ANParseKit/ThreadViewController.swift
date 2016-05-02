@@ -29,7 +29,7 @@ class ThreadViewController: BaseThreadViewController {
             self.thread = threadPost.thread
             threadType = .Post
         }
-        replyConfiguration = .ShowCreateReply
+        threadConfiguration = .ShowCreateReply
     }
     
     override func viewDidLoad() {
@@ -39,15 +39,18 @@ class ThreadViewController: BaseThreadViewController {
         case .Timeline, .Post:
             // Fetch posts, if not a thread
             fetchPosts()
-        case .ThreadPosts:
-            if let thread = thread where thread.locked {
-                navigationItem.rightBarButtonItem?.enabled = false
-            }
         case .Threads:
             break
-        case .Episode:
-            break
+        case .ThreadPosts, .Episode:
+            if let thread = thread {
+                title = thread.title
+                fetchPosts()
+            } else {
+                fetchThread()
+            }
         }
+
+        addRefreshControl(refreshControl, action:#selector(fetchPosts), forTableView: tableView)
 
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
@@ -57,9 +60,7 @@ class ThreadViewController: BaseThreadViewController {
         canDisplayBannerAds = InAppController.canDisplayAds()
     }
     
-    override func fetchThread() {
-
-        super.fetchThread()
+    func fetchThread() {
 
         let query = Thread.query()!
         query.limit = 1
@@ -105,8 +106,8 @@ class ThreadViewController: BaseThreadViewController {
         
     }
     
-    override func fetchPosts() {
-        super.fetchPosts()
+    func fetchPosts() {
+
         var pinnedData: [PFObject] = []
 
         if let thread = thread where
@@ -174,8 +175,6 @@ class ThreadViewController: BaseThreadViewController {
         }
 
         return queryBatch.executeQueries([query, repliesQuery])
-
-
     }
 
     // MARK: - FetchControllerDelegate
@@ -197,7 +196,6 @@ class ThreadViewController: BaseThreadViewController {
             assertionFailure()
             break
         }
-
     }
 
     
@@ -290,7 +288,7 @@ class ThreadViewController: BaseThreadViewController {
     
     @IBAction func openUserProfile(sender: AnyObject) {
         if let startedBy = thread?.postedBy {
-            openProfile(startedBy)
+            openProfileForUser(startedBy)
         }
     }
 }

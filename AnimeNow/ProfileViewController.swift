@@ -88,7 +88,9 @@ class ProfileViewController: BaseThreadViewController {
         aboutLabel.linkAttributes = [kCTForegroundColorAttributeName: UIColor.peterRiver()]
         aboutLabel.enabledTextCheckingTypes = NSTextCheckingType.Link.rawValue
         aboutLabel.delegate = self;
-        
+
+        addRefreshControl(refreshControl, action:#selector(fetchPosts), forTableView: tableView)
+
         fetchPosts()
     }
 
@@ -150,8 +152,7 @@ class ProfileViewController: BaseThreadViewController {
     
     // MARK: - Fetching
     
-    override func fetchPosts() {
-        super.fetchPosts()
+    func fetchPosts() {
         let username = self.username ?? userProfile!.aozoraUsername
         fetchUserDetails(username)
     }

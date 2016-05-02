@@ -11,7 +11,7 @@ import ANCommonKit
 import TTTAttributedLabel
 import XCDYouTubeKit
 
-enum ReplyConfiguration {
+enum ThreadConfiguration {
     case ShowCreateReply
     case ShowThreadDetail
 }
@@ -37,7 +37,7 @@ class BaseThreadViewController: UIViewController {
     
     var thread: Thread?
     var threadType: ThreadType = .ThreadPosts
-    var replyConfiguration: ReplyConfiguration = .ShowThreadDetail
+    var threadConfiguration: ThreadConfiguration = .ShowThreadDetail
     
     var fetchController = FetchController()
     var refreshControl = UIRefreshControl()
@@ -56,7 +56,7 @@ class BaseThreadViewController: UIViewController {
         }
     }
     
-    func initWithThread(thread: Thread, replyConfiguration: ReplyConfiguration) {
+    func initWithThread(thread: Thread, threadConfiguration: ThreadConfiguration) {
         self.thread = thread
         switch thread.type {
         case .FanClub, .Custom:
@@ -65,7 +65,7 @@ class BaseThreadViewController: UIViewController {
             threadType = .Episode
         }
 
-        self.replyConfiguration = replyConfiguration
+        self.threadConfiguration = threadConfiguration
     }
     
     override func viewDidLoad() {
@@ -74,58 +74,38 @@ class BaseThreadViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BaseThreadViewController.moviePlayerPlaybackDidFinish(_:)), name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
 
         loadingView = LoaderView(parentView: view)
-        addRefreshControl(refreshControl, action:#selector(BaseThreadViewController.fetchPosts), forTableView: tableView)
-
-        switch threadType {
-        case .ThreadPosts, .Episode:
-            if let thread = thread {
-                title = thread.title
-                fetchPosts()
-            } else  {
-                fetchThread()
-            }
-        default:
-            break
-        }
+        
     }
     
     deinit {
         fetchController.tableView = nil
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
-    
-    // MARK: - Fetching
-    func fetchThread() {
-        
-    }
-    
-    func fetchPosts() {
 
-    }
-    
     // MARK: - Internal functions
-    
-    func openProfile(user: User) {
+    func openProfileForUser(user: User) {
+
+        func openProfile(user: User) {
+            let profileController = Storyboard.profileViewController()
+            profileController.initWithUser(user)
+            navigationController?.pushViewController(profileController, animated: true)
+        }
+
         if let profileController = self as? ProfileViewController {
             if profileController.userProfile != user && !user.isTheCurrentUser() {
-                openProfileNow(user)
+                openProfile(user)
             }
         } else if !user.isTheCurrentUser() {
-            openProfileNow(user)
+            openProfile(user)
         }
     }
-    
-    func openProfileNow(user: User? = nil, username: String? = nil) {
+
+    func openProfileForUsername(username: String) {
         let profileController = Storyboard.profileViewController()
-
-        if let user = user  {
-            profileController.initWithUser(user)
-        } else if let username = username {
-            profileController.initWithUsername(username)
-        }
-
+        profileController.initWithUsername(username)
         navigationController?.pushViewController(profileController, animated: true)
     }
+
 
     func playTrailer(videoID: String) {
         playerController = XCDYouTubeVideoPlayerViewController(videoIdentifier: videoID)
@@ -173,7 +153,7 @@ class BaseThreadViewController: UIViewController {
     func shouldShowAllRepliesForPost(post: Postable, forIndexPath indexPath: NSIndexPath? = nil) -> Bool {
         var indexPathIsSafe = true
 
-        switch replyConfiguration {
+        switch threadConfiguration {
         case .ShowCreateReply:
             // TODO: Swich to replyCount property in the future
             if let commentable = post as? Commentable, let indexPath = indexPath {
@@ -189,7 +169,7 @@ class BaseThreadViewController: UIViewController {
     }
     
     func shouldShowContractedRepliesForPost(post: Postable, forIndexPath indexPath: NSIndexPath) -> Bool {
-        switch replyConfiguration {
+        switch threadConfiguration {
         case .ShowCreateReply:
             return post.replyCount > 1 && indexPath.row < 3
         case .ShowThreadDetail:
@@ -211,7 +191,7 @@ class BaseThreadViewController: UIViewController {
             return post
         // TODO organize this code better it has dup lines everywhere D:
         } else if let post = post as? Commentable where shouldShowAllRepliesForPost(post, forIndexPath: indexPath) {
-            switch replyConfiguration {
+            switch threadConfiguration {
             case .ShowCreateReply:
                 return post.replies[indexPath.row - 1] as? Postable
             case .ShowThreadDetail:
@@ -220,7 +200,7 @@ class BaseThreadViewController: UIViewController {
 
         } else if let post = post as? Commentable where shouldShowContractedRepliesForPost(post, forIndexPath: indexPath) {
             let index = indexForContactedReplyForPost(post, forIndexPath: indexPath)
-            switch replyConfiguration {
+            switch threadConfiguration {
             case .ShowCreateReply:
                 return post.replies[index] as? Postable
             case .ShowThreadDetail:
@@ -480,7 +460,7 @@ extension BaseThreadViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let post = fetchController.objectInSection(section) as! Postable
 
-        switch replyConfiguration {
+        switch threadConfiguration {
         case .ShowThreadDetail:
             if post.lastReply == nil {
                 return 1
@@ -588,7 +568,7 @@ extension BaseThreadViewController: UITableViewDataSource {
     func reuseCommentCellFor(comment: Commentable, replyIndex: Int, indexPath: NSIndexPath) -> CommentCell {
         var reply: Commentable
 
-        switch replyConfiguration {
+        switch threadConfiguration {
         case .ShowThreadDetail:
             reply = comment.lastReply as! Commentable
         case .ShowCreateReply:
@@ -904,7 +884,7 @@ extension BaseThreadViewController: UITableViewDelegate {
 
             var comment: Commentable?
 
-            switch replyConfiguration {
+            switch threadConfiguration {
             case .ShowThreadDetail:
                 comment = post.lastReply as? Commentable
             case .ShowCreateReply:
@@ -923,7 +903,7 @@ extension BaseThreadViewController: UITableViewDelegate {
                 let index = indexForContactedReplyForPost(post, forIndexPath: indexPath)
                 var comment: Commentable?
 
-                switch replyConfiguration {
+                switch threadConfiguration {
                 case .ShowThreadDetail:
                     comment = post.lastReply as? Commentable
                 case .ShowCreateReply:
@@ -942,7 +922,7 @@ extension BaseThreadViewController: UITableViewDelegate {
 
     func showThreadPosts(thread: Thread) {
         let threadController = Storyboard.threadViewController()
-        threadController.initWithThread(thread, replyConfiguration: .ShowThreadDetail)
+        threadController.initWithThread(thread, threadConfiguration: .ShowThreadDetail)
 
         navigationController?.pushViewController(threadController, animated: true)
     }
@@ -1031,10 +1011,10 @@ extension BaseThreadViewController: TTTAttributedLabelDelegate {
                 let isNotCurrentUser = username != User.currentUser()!.aozoraUsername
                 if let profileController = self as? ProfileViewController {
                     if profileController.userProfile?.aozoraUsername != username && isNotCurrentUser {
-                        openProfileNow(username: username)
+                        openProfileForUsername(username)
                     }
                 } else if isNotCurrentUser {
-                    openProfileNow(username: username)
+                    openProfileForUsername(username)
                 }
             
         } else if url.scheme != "aozoraapp" {
@@ -1074,7 +1054,7 @@ extension BaseThreadViewController: PostCellDelegate {
     
     func postCellSelectedUserProfile(postCell: PostCellProtocol) {
         if let post = postForCell(postCell), let postedByUser = post.postedBy {
-            openProfile(postedByUser)
+            openProfileForUser(postedByUser)
         }
     }
 
@@ -1083,7 +1063,7 @@ extension BaseThreadViewController: PostCellDelegate {
             return
         }
 
-        switch replyConfiguration {
+        switch threadConfiguration {
         case .ShowCreateReply:
             replyToPost(post)
         case .ShowThreadDetail:
@@ -1108,7 +1088,7 @@ extension BaseThreadViewController: PostCellDelegate {
     
     func postCellSelectedToUserProfile(postCell: PostCellProtocol) {
         if let post = postForCell(postCell) as? TimelinePostable {
-            openProfile(post.userTimeline)
+            openProfileForUser(post.userTimeline)
         }
     }
     
