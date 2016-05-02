@@ -131,17 +131,18 @@ class ThreadViewController: BaseThreadViewController {
             if let timelinePost = timelinePost as? TimelinePost {
                 query = TimelinePost.query()!
                 query.whereKey("objectId", equalTo: timelinePost.objectId!)
+                query.includeKey("userTimeline")
 
                 repliesQuery = TimelinePost.query()!
             } else if let post = post as? Post {
                 query = Post.query()!
+                print(post.objectId)
                 query.whereKey("objectId", equalTo: post.objectId!)
 
                 repliesQuery = Post.query()!
             }
 
             query.includeKey("postedBy")
-            query.includeKey("userTimeline")
 
             repliesQuery.skip = 0
             repliesQuery.orderByAscending("createdAt")

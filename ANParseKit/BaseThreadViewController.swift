@@ -175,8 +175,8 @@ class BaseThreadViewController: UIViewController {
 
         switch replyConfiguration {
         case .ShowCreateReply:
-            if let indexPath = indexPath {
-                indexPathIsSafe = indexPath.row - 1 < post.replyCount
+            if let commentable = post as? Commentable, let indexPath = indexPath {
+                indexPathIsSafe = indexPath.row - 1 < commentable.replies.count
             }
             return indexPathIsSafe
         case .ShowThreadDetail:
