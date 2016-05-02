@@ -735,7 +735,7 @@ extension BaseThreadViewController: UITableViewDelegate {
 
         if let post = post as? Commentable {
             selectedPost(post, atIndexPath: indexPath)
-        } else if let thread = post as? Thread {
+        } else if let thread = post as? Thread where threadType != .ThreadPosts {
             showThreadPosts(thread)
         }
     }
