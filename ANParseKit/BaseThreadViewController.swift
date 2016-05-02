@@ -175,6 +175,7 @@ class BaseThreadViewController: UIViewController {
 
         switch replyConfiguration {
         case .ShowCreateReply:
+            // TODO: Swich to replyCount property in the future
             if let commentable = post as? Commentable, let indexPath = indexPath {
                 indexPathIsSafe = indexPath.row - 1 < commentable.replies.count
             }
@@ -843,8 +844,12 @@ extension BaseThreadViewController: UITableViewDelegate {
 
                     // Decrement parentPost reply count
                     parentPost.incrementReplyCount(byAmount: -childPosts.count)
-                    // TODO: This can break really badly
-                    parentPost.lastReply = parentPost.replies.last
+                    
+                    if let last = parentPost.replies.last {
+                        parentPost.lastReply = last
+                    } else {
+                        (parentPost as! PFObject).removeObjectForKey("lastReply")
+                    }
                     (parentPost as! PFObject).saveInBackground()
                 }
             }

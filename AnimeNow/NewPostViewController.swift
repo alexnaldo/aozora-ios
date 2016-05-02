@@ -125,13 +125,13 @@ public class NewPostViewController: CommentViewController {
             var timelinePost = TimelinePost()
             timelinePost = updatePostable(timelinePost, edited: false) as! TimelinePost
 
-            var parentSaveTask = BFTask(result: nil)
+            var saveTask: BFTask?
             
             if let parentPost = parentPost as? TimelinePost {
                 parentPost.addUniqueObject(postedBy!, forKey: "subscribers")
                 parentPost.lastReply = timelinePost
                 parentPost.incrementReplyCount(byAmount: 1)
-                parentSaveTask = parentPost.saveInBackground()
+                saveTask = parentPost.saveInBackground()
             } else {
                 if postedBy! != postedIn {
                     timelinePost.subscribers = [postedBy!, postedIn]
@@ -148,11 +148,12 @@ public class NewPostViewController: CommentViewController {
                 timelinePost.replyLevel = 0
                 timelinePost.userTimeline = postedIn
             }
+
+            if saveTask == nil {
+                saveTask = timelinePost.saveInBackground()
+            }
             
-            let postSaveTask = timelinePost.saveInBackground()
-            
-            BFTask(forCompletionOfAllTasks: [parentSaveTask, postSaveTask])
-                .continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task: BFTask!) -> AnyObject! in
+            saveTask?.continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task: BFTask!) -> AnyObject! in
                 // Send timeline post notification
                 if let parentPost = self.parentPost as? TimelinePost {
                     let parameters = [
@@ -179,13 +180,13 @@ public class NewPostViewController: CommentViewController {
             post = updatePostable(post, edited: false) as! Post
             
             // Add subscribers to parent post or current post if there is no parent
-            var parentSaveTask = BFTask(result: nil)
+            var saveTask: BFTask?
             
             if let parentPost = parentPost as? Post {
                 parentPost.addUniqueObject(postedBy!, forKey: "subscribers")
                 parentPost.incrementReplyCount(byAmount: 1)
                 parentPost.lastReply = post
-                parentSaveTask = parentPost.saveInBackground()
+                saveTask = parentPost.saveInBackground()
             } else {
                 post.subscribers = [postedBy!]
             }
@@ -200,11 +201,12 @@ public class NewPostViewController: CommentViewController {
             }
             post.thread.incrementReplyCount()
             post.thread.lastPostedBy = postedBy
-               
-            let postSaveTask = post.saveInBackground()
+
+            if saveTask == nil {
+                saveTask = post.saveInBackground()
+            }
             
-            BFTask(forCompletionOfAllTasks: [parentSaveTask, postSaveTask])
-                .continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task: BFTask!) -> AnyObject! in
+            saveTask?.continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task: BFTask!) -> AnyObject! in
                 
                 // Send post notification
                 if let parentPost = self.parentPost as? Post {

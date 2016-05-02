@@ -37,7 +37,7 @@
                     </variation>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GZZ-Lb-ngf">
-                    <rect key="frame" x="276" y="11" width="85" height="30"/>
+                    <rect key="frame" x="274" y="11" width="85" height="30"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="0vZ-wJ-oCa"/>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="2XO-QT-wSj"/>
@@ -92,7 +92,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W6o-4a-OfW">
-                    <rect key="frame" x="42" y="10" width="52" height="30"/>
+                    <rect key="frame" x="40" y="10" width="52" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="1Rk-rL-7xb"/>
                         <constraint firstAttribute="width" constant="52" id="O2I-3h-nVW"/>
@@ -157,9 +157,9 @@
                 <constraint firstItem="GZZ-Lb-ngf" firstAttribute="top" secondItem="kYp-L9-JDI" secondAttribute="top" constant="50" id="et5-0i-J0b"/>
                 <constraint firstItem="Y56-cI-35D" firstAttribute="top" secondItem="kYp-L9-JDI" secondAttribute="top" constant="6" id="fNQ-KN-0ri"/>
                 <constraint firstItem="W6o-4a-OfW" firstAttribute="leading" secondItem="kYp-L9-JDI" secondAttribute="leading" constant="14" id="gli-Yp-gDX"/>
-                <constraint firstItem="GZZ-Lb-ngf" firstAttribute="leading" secondItem="Y56-cI-35D" secondAttribute="trailing" constant="-6" id="jXi-7W-NYP"/>
+                <constraint firstItem="GZZ-Lb-ngf" firstAttribute="leading" secondItem="Y56-cI-35D" secondAttribute="trailing" constant="-8" id="jXi-7W-NYP"/>
                 <constraint firstItem="Y56-cI-35D" firstAttribute="leading" secondItem="W6o-4a-OfW" secondAttribute="trailing" id="oaL-YJ-sYa"/>
-                <constraint firstItem="W6o-4a-OfW" firstAttribute="leading" secondItem="BKI-UF-48X" secondAttribute="trailing" constant="-6" id="q1I-ho-XWk"/>
+                <constraint firstItem="W6o-4a-OfW" firstAttribute="leading" secondItem="BKI-UF-48X" secondAttribute="trailing" constant="-8" id="q1I-ho-XWk"/>
                 <constraint firstItem="Y56-cI-35D" firstAttribute="leading" secondItem="GZZ-Lb-ngf" secondAttribute="trailing" constant="-6" id="qSq-JD-kKu"/>
                 <constraint firstItem="W6o-4a-OfW" firstAttribute="top" secondItem="kYp-L9-JDI" secondAttribute="top" constant="50" id="qmF-j5-UxJ"/>
                 <constraint firstItem="CWy-6e-nnn" firstAttribute="top" secondItem="kYp-L9-JDI" secondAttribute="top" constant="6" id="x4X-Lc-teK"/>
