@@ -1087,10 +1087,17 @@ extension BaseThreadViewController: PostCellDelegate {
         case .ShowCreateReply:
             replyToPost(post)
         case .ShowThreadDetail:
-            if threadType == .ThreadPosts || post.replyCount == 0 {
+            if post.replyCount == 0 {
                 replyToPost(post)
                 break
             }
+
+            // Don't show thread replies if in a thread post
+            if let _ = post as? Thread where threadType == .ThreadPosts {
+                replyToPost(post)
+                break
+            }
+
             showPostReplies(post)
         }
     }
