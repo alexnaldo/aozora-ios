@@ -527,15 +527,9 @@ extension BaseThreadViewController: UITableViewDataSource {
 
         // Adding links to text content
         updateAttributedTextProperties(cell.textContent)
-        cell.textContent.setText(textContent, afterInheritingLabelAttributesAndConfiguringWithBlock: { (attributedString) -> NSMutableAttributedString! in
-            return attributedString
-        })
 
-        if let encodedUsername = postedByUsername.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet()),
-            let url = NSURL(string: "aozoraapp://profile/"+encodedUsername) {
-            let range = (textContent as NSString).rangeOfString(postedByUsername)
-            cell.textContent.addLinkToURL(url, withRange: range)
-        }
+        cell.textContent.setText(textContent)
+        cell.textContent.addLinkForUsername(postedByUsername)
 
         // Like button
         updateActionsView(cell, post: post)
@@ -549,6 +543,7 @@ extension BaseThreadViewController: UITableViewDataSource {
         if let episode = thread.episode {
             cell.imageHeightConstraint?.constant = 190
             cell.imageContent?.setImageFrom(urlString: episode.imageURLString())
+            cell.playButton?.hidden = true
         } else {
             setImages(thread.imagesData, imageView: cell.imageContent, imageHeightConstraint: cell.imageHeightConstraint, baseWidth: calculatedBaseWidth)
             prepareForVideo(cell.playButton, imageView: cell.imageContent, imageHeightConstraint: cell.imageHeightConstraint, youtubeID: thread.youtubeID)
@@ -564,7 +559,6 @@ extension BaseThreadViewController: UITableViewDataSource {
         }
 
         let attributedContent: NSMutableAttributedString
-
 
         switch thread.type {
         case .Episode:
@@ -589,15 +583,36 @@ extension BaseThreadViewController: UITableViewDataSource {
                     .add("Episode \(episode.number) Review [Spoilers]", setter: hightlightedAttributes)
             }
         case .Custom:
+
             let titleAttributes = { (inout attr: Attributes) in
                 attr.color = UIColor.midnightBlue()
                 attr.font = UIFont.systemFontOfSize(18, weight: UIFontWeightLight)
             }
 
+            let subtitleAttributes = { (inout attr: Attributes) in
+                attr.color = UIColor.lightGrayColor()
+                attr.font = UIFont.systemFontOfSize(12)
+            }
+
+            let smallSpaceAttributes = { (inout attr: Attributes) in
+                attr.font = UIFont.systemFontOfSize(4)
+            }
+
             //let content = (thread.content ?? "").stringByReplacingOccurrencesOfString("\n", withString: " ")
+
+            var tagName: String = ""
+            if let tag = thread.tags.last as? ThreadTag {
+                tagName = tag.name
+            } else if let anime = thread.tags.last as? Anime {
+                tagName = anime.title!
+            }
+
+            let title = "\(thread.postedBy!.aozoraUsername) · \(thread.createdAt!.timeAgo()) · #\(tagName)"
             attributedContent = NSMutableAttributedString()
+                .add(title+"\n", setter: subtitleAttributes)
+                .add("\n", setter: smallSpaceAttributes)
                 .add(thread.title, setter: titleAttributes)
-                //.add(content+"\n\n", setter: titleAttributes)
+
         case .FanClub:
             let titleAttributes = { (inout attr: Attributes) in
                 attr.color = UIColor.midnightBlue()
@@ -611,6 +626,10 @@ extension BaseThreadViewController: UITableViewDataSource {
         updateAttributedTextProperties(cell.textContent)
 
         cell.textContent.setText(attributedContent)
+
+        if let username = thread.postedBy?.aozoraUsername {
+            cell.textContent.addLinkForUsername(username)
+        }
 
         // Like button
         updateActionsView(cell, post: thread)
@@ -646,7 +665,7 @@ extension BaseThreadViewController: UITableViewDataSource {
     
     func setImages(images: [ImageData]?, imageView: UIImageView?, imageHeightConstraint: NSLayoutConstraint?, baseWidth: CGFloat) {
         if let image = images?.first {
-            imageHeightConstraint?.constant = baseWidth * CGFloat(image.height)/CGFloat(image.width)
+            imageHeightConstraint?.constant = min(baseWidth * CGFloat(image.height)/CGFloat(image.width), baseWidth)
             imageView?.setImageFrom(urlString: image.url, animated: false)
         } else {
             imageHeightConstraint?.constant = 0
@@ -654,25 +673,27 @@ extension BaseThreadViewController: UITableViewDataSource {
     }
 
     func prepareForVideo(playButton: UIButton?, imageView: UIImageView?, imageHeightConstraint: NSLayoutConstraint?, youtubeID: String?) {
-        if let playButton = playButton {
-            if let youtubeID = youtubeID {
-                let urlString = "https://i.ytimg.com/vi/\(youtubeID)/hqdefault.jpg"
-                imageView?.setImageFrom(urlString: urlString, animated: false)
-                imageHeightConstraint?.constant = baseWidth * CGFloat(180)/CGFloat(340)
-                
-                playButton.hidden = false
-                playButton.layer.borderWidth = 1.0;
-                playButton.layer.borderColor = UIColor(white: 1.0, alpha: 0.5).CGColor;
-            } else {
-                playButton.hidden = true
-            }
+        guard let playButton = playButton else {
+            return
+        }
+
+        if let youtubeID = youtubeID {
+            let urlString = "https://i.ytimg.com/vi/\(youtubeID)/hqdefault.jpg"
+            imageView?.setImageFrom(urlString: urlString, animated: false)
+            imageHeightConstraint?.constant = baseWidth * CGFloat(180)/CGFloat(340)
+            
+            playButton.hidden = false
+            playButton.layer.borderWidth = 1.0;
+            playButton.layer.borderColor = UIColor(white: 1.0, alpha: 0.5).CGColor;
+        } else {
+            playButton.hidden = true
         }
     }
     
-    func updateAttributedTextProperties(textContent: TTTAttributedLabel) {
-        textContent.linkAttributes = [kCTForegroundColorAttributeName: UIColor.peterRiver()]
+    func updateAttributedTextProperties(textContent: TTTAttributedLabel, linkColor: UIColor = UIColor.peterRiver()) {
+        textContent.linkAttributes = [kCTForegroundColorAttributeName: linkColor]
         textContent.enabledTextCheckingTypes = NSTextCheckingType.Link.rawValue
-        textContent.delegate = self;
+        textContent.delegate = self
     }
     
     func updateActionsView(cell: PostCellProtocol, post: Postable) {
@@ -691,11 +712,11 @@ extension BaseThreadViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension BaseThreadViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.1
+        return UIDevice.isPad() ? 8.0 : 6.0
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return UIDevice.isPad() ? 8.0 : 6.0
+        return CGFloat.min
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

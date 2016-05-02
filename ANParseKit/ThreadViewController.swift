@@ -36,13 +36,9 @@ class ThreadViewController: BaseThreadViewController {
         super.viewDidLoad()
 
         switch threadType {
-        case .Timeline:
+        case .Timeline, .Post:
             // Fetch posts, if not a thread
-            tableView.tableHeaderView = nil
             fetchPosts()
-        case .Post:
-            // Other class will call fetchPosts...
-            viewMoreButton.setTitle("View Thread  ", forState: .Normal)
         case .ThreadPosts:
             if let thread = thread where thread.locked {
                 navigationItem.rightBarButtonItem?.enabled = false
@@ -113,7 +109,7 @@ class ThreadViewController: BaseThreadViewController {
         super.fetchPosts()
         var pinnedData: [PFObject] = []
 
-        if let thread = thread {
+        if let thread = thread where threadType == .ThreadPosts {
             pinnedData.append(thread)
         }
 

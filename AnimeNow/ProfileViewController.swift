@@ -647,6 +647,14 @@ class ProfileViewController: BaseThreadViewController {
             segmentedControlTopSpaceConstraint.constant = topSpace
         }
     }
+
+    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return CGFloat.min
+    }
+
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return UIDevice.isPad() ? 8.0 : 6.0
+    }
 }
 
 // MARK: - EditProfileViewControllerProtocol

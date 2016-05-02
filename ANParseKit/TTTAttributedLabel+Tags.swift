@@ -48,4 +48,12 @@ extension TTTAttributedLabel {
             }
         }
     }
+
+    public func addLinkForUsername(username: String) {
+        if let encodedUsername = username.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet()),
+            let url = NSURL(string: "aozoraapp://profile/"+encodedUsername) {
+            let range = ((text ?? "") as NSString).rangeOfString(username)
+            addLinkToURL(url, withRange: range)
+        }
+    }
 }

@@ -152,6 +152,7 @@ class ForumsViewController: BaseThreadViewController {
 
             finalQuery = PFQuery.orQueryWithSubqueries([query, query2])
             finalQuery.whereKey("tags", notContainedIn: [fanClub])
+            finalQuery.includeKey("episode")
         case .Anime:
             let anime = LibraryController.sharedInstance.library ?? []
             finalQuery = Thread.query()!
@@ -272,6 +273,7 @@ class ForumsViewController: BaseThreadViewController {
     // MARK: - Override TTTAttributedLabelDelegate
 
     override func attributedLabel(label: TTTAttributedLabel!, didSelectLinkWithURL url: NSURL!) {
+        super.attributedLabel(label, didSelectLinkWithURL: url)
 
         if let host = url.host where host == "tag",
             let index = url.pathComponents?[1],
