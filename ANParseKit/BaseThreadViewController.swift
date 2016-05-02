@@ -1068,11 +1068,8 @@ extension BaseThreadViewController: PostCellDelegate {
         case .ShowCreateReply:
             replyToPost(post)
         case .ShowThreadDetail:
-            if threadType == .ThreadPosts {
-                return
-            }
-            if post.replyCount == 0 {
-                return
+            if threadType == .ThreadPosts || post.replyCount == 0{
+                postCellSelectedComment(postCell)
             }
             showPostReplies(post)
         }

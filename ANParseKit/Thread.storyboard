@@ -51,7 +51,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="2"/>
-                                <state key="normal" title="Reply" image="icon-create"/>
+                                <state key="normal" title="Comment" image="icon-create"/>
                                 <connections>
                                     <action selector="replyToThreadPressed:" destination="8jA-5m-8Uw" eventType="touchUpInside" id="REE-3G-rbN"/>
                                 </connections>
