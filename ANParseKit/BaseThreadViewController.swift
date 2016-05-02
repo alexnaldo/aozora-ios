@@ -12,8 +12,16 @@ import TTTAttributedLabel
 import XCDYouTubeKit
 
 enum ThreadConfiguration {
-    case ShowCreateReply
-    case ShowThreadDetail
+    case ThreadDetail
+    case ThreadMain
+}
+
+public enum ThreadType {
+    case Threads
+    case ThreadPosts
+    case Episode
+    case Post
+    case Timeline
 }
 
 // Class intended to be subclassed
@@ -37,7 +45,7 @@ class BaseThreadViewController: UIViewController {
     
     var thread: Thread?
     var threadType: ThreadType = .ThreadPosts
-    var threadConfiguration: ThreadConfiguration = .ShowThreadDetail
+    var threadConfiguration: ThreadConfiguration = .ThreadMain
     
     var fetchController = FetchController()
     var refreshControl = UIRefreshControl()
@@ -120,6 +128,18 @@ class BaseThreadViewController: UIViewController {
 
         let newPostViewController = Storyboard.newPostViewController()
 
+//        switch threadType {
+//        case Threads:
+//
+//        case ThreadPosts:
+//
+//        case Episode:
+//
+//        case Post:
+//
+//        case Timeline:
+//
+//        }
         if let post = post as? ThreadPostable, let thread = thread {
             if thread.locked {
                 presentAlertWithTitle("Thread is locked")
@@ -154,13 +174,13 @@ class BaseThreadViewController: UIViewController {
         var indexPathIsSafe = true
 
         switch threadConfiguration {
-        case .ShowCreateReply:
+        case .ThreadDetail:
             // TODO: Swich to replyCount property in the future
             if let commentable = post as? Commentable, let indexPath = indexPath {
                 indexPathIsSafe = indexPath.row - 1 < commentable.replies.count
             }
             return indexPathIsSafe
-        case .ShowThreadDetail:
+        case .ThreadMain:
             if let indexPath = indexPath {
                 indexPathIsSafe = indexPath.row - 1 < 1
             }
@@ -170,9 +190,9 @@ class BaseThreadViewController: UIViewController {
     
     func shouldShowContractedRepliesForPost(post: Postable, forIndexPath indexPath: NSIndexPath) -> Bool {
         switch threadConfiguration {
-        case .ShowCreateReply:
+        case .ThreadDetail:
             return post.replyCount > 1 && indexPath.row < 3
-        case .ShowThreadDetail:
+        case .ThreadMain:
             return post.replyCount > 1 && indexPath.row < 3
         }
     }
@@ -192,18 +212,18 @@ class BaseThreadViewController: UIViewController {
         // TODO organize this code better it has dup lines everywhere D:
         } else if let post = post as? Commentable where shouldShowAllRepliesForPost(post, forIndexPath: indexPath) {
             switch threadConfiguration {
-            case .ShowCreateReply:
+            case .ThreadDetail:
                 return post.replies[indexPath.row - 1] as? Postable
-            case .ShowThreadDetail:
+            case .ThreadMain:
                 return post.lastReply as? Postable
             }
 
         } else if let post = post as? Commentable where shouldShowContractedRepliesForPost(post, forIndexPath: indexPath) {
             let index = indexForContactedReplyForPost(post, forIndexPath: indexPath)
             switch threadConfiguration {
-            case .ShowCreateReply:
+            case .ThreadDetail:
                 return post.replies[index] as? Postable
-            case .ShowThreadDetail:
+            case .ThreadMain:
                 return post.lastReply as? Postable
             }
         }
@@ -461,7 +481,7 @@ extension BaseThreadViewController: UITableViewDataSource {
         let post = fetchController.objectInSection(section) as! Postable
 
         switch threadConfiguration {
-        case .ShowThreadDetail:
+        case .ThreadMain:
             if post.lastReply == nil {
                 return 1
             } else if shouldShowAllRepliesForPost(post) {
@@ -470,7 +490,7 @@ extension BaseThreadViewController: UITableViewDataSource {
                 // 1 post, 1 show more, 1 replies, 1 reply to post
                 return 1 + 1 + 1 + 1
             }
-        case .ShowCreateReply:
+        case .ThreadDetail:
             guard let post = post as? Commentable else {
                 return 0
             }
@@ -569,9 +589,9 @@ extension BaseThreadViewController: UITableViewDataSource {
         var reply: Commentable
 
         switch threadConfiguration {
-        case .ShowThreadDetail:
+        case .ThreadMain:
             reply = comment.lastReply as! Commentable
-        case .ShowCreateReply:
+        case .ThreadDetail:
             reply = comment.replies[replyIndex] as! Commentable
         }
         
@@ -885,9 +905,9 @@ extension BaseThreadViewController: UITableViewDelegate {
             var comment: Commentable?
 
             switch threadConfiguration {
-            case .ShowThreadDetail:
+            case .ThreadMain:
                 comment = post.lastReply as? Commentable
-            case .ShowCreateReply:
+            case .ThreadDetail:
                 comment = post.replies[indexPath.row - 1] as? Commentable
             }
 
@@ -904,9 +924,9 @@ extension BaseThreadViewController: UITableViewDelegate {
                 var comment: Commentable?
 
                 switch threadConfiguration {
-                case .ShowThreadDetail:
+                case .ThreadMain:
                     comment = post.lastReply as? Commentable
-                case .ShowCreateReply:
+                case .ThreadDetail:
                     comment = post.replies[index] as? Commentable
                 }
 
@@ -922,7 +942,7 @@ extension BaseThreadViewController: UITableViewDelegate {
 
     func showThreadPosts(thread: Thread) {
         let threadController = Storyboard.threadViewController()
-        threadController.initWithThread(thread, threadConfiguration: .ShowThreadDetail)
+        threadController.initWithThread(thread, threadConfiguration: .ThreadMain)
 
         navigationController?.pushViewController(threadController, animated: true)
     }
@@ -1064,9 +1084,9 @@ extension BaseThreadViewController: PostCellDelegate {
         }
 
         switch threadConfiguration {
-        case .ShowCreateReply:
+        case .ThreadDetail:
             replyToPost(post)
-        case .ShowThreadDetail:
+        case .ThreadMain:
             if post.replyCount == 0 {
                 replyToPost(post)
                 break

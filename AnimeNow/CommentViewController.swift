@@ -14,14 +14,6 @@ public protocol CommentViewControllerDelegate: class {
     func commentViewControllerDidFinishedPosting(newPost: PFObject, parentPost: PFObject?, edited: Bool)
 }
 
-public enum ThreadType {
-    case Threads
-    case ThreadPosts
-    case Episode
-    case Post
-    case Timeline
-}
-
 public class CommentViewController: UIViewController {
     
     @IBOutlet weak var textView: UITextView!

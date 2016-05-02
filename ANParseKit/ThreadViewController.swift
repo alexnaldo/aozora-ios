@@ -29,7 +29,7 @@ class ThreadViewController: BaseThreadViewController {
             self.thread = threadPost.thread
             threadType = .Post
         }
-        threadConfiguration = .ShowCreateReply
+        threadConfiguration = .ThreadDetail
     }
     
     override func viewDidLoad() {
