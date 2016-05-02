@@ -49,6 +49,8 @@ class ForumsViewController: BaseThreadViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        threadType = .Threads
+
         loadingView = LoaderView(parentView: view)
         loadingView.startAnimating()
         

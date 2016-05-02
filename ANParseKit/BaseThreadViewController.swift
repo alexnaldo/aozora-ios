@@ -558,6 +558,11 @@ extension BaseThreadViewController: UITableViewDataSource {
             attr.font = UIFont.systemFontOfSize(18, weight: UIFontWeightLight)
         }
 
+        let contentAttributes = { (inout attr: Attributes) in
+            attr.color = UIColor.darkGrayColor()
+            attr.font = UIFont.systemFontOfSize(14)
+        }
+
         let attributedContent: NSMutableAttributedString
 
         switch thread.type {
@@ -598,8 +603,6 @@ extension BaseThreadViewController: UITableViewDataSource {
                 attr.font = UIFont.systemFontOfSize(4)
             }
 
-            //let content = (thread.content ?? "").stringByReplacingOccurrencesOfString("\n", withString: " ")
-
             var tagName: String = ""
             if let tag = thread.tags.last as? ThreadTag {
                 tagName = tag.name
@@ -621,6 +624,14 @@ extension BaseThreadViewController: UITableViewDataSource {
 
             attributedContent = NSMutableAttributedString()
                 .add(thread.title, setter: titleAttributes)
+        }
+
+        switch threadType {
+        case .ThreadPosts:
+            attributedContent
+                .add("\n\n\(thread.content ?? "")", setter: contentAttributes)
+        default:
+            break
         }
 
         updateAttributedTextProperties(cell.textContent)
@@ -1041,15 +1052,5 @@ extension BaseThreadViewController: FetchControllerQueryDelegate {
 extension BaseThreadViewController: ModalTransitionScrollable {
     var transitionScrollView: UIScrollView? {
         return tableView
-    }
-}
-
-private extension String {
-    func truncate(length: Int, trailing: String? = "...") -> String {
-        if self.characters.count > length {
-            return self.substringToIndex(self.startIndex.advancedBy(length)) + (trailing ?? "")
-        } else {
-            return self
-        }
     }
 }
