@@ -211,10 +211,21 @@ class BaseThreadViewController: UIViewController {
             return post
         // TODO organize this code better it has dup lines everywhere D:
         } else if let post = post as? Commentable where shouldShowAllRepliesForPost(post, forIndexPath: indexPath) {
-            return post.replies[indexPath.row - 1] as? Postable
+            switch replyConfiguration {
+            case .ShowCreateReply:
+                return post.replies[indexPath.row - 1] as? Postable
+            case .ShowThreadDetail:
+                return post.lastReply as? Postable
+            }
+
         } else if let post = post as? Commentable where shouldShowContractedRepliesForPost(post, forIndexPath: indexPath) {
             let index = indexForContactedReplyForPost(post, forIndexPath: indexPath)
-            return post.replies[index] as? Postable
+            switch replyConfiguration {
+            case .ShowCreateReply:
+                return post.replies[index] as? Postable
+            case .ShowThreadDetail:
+                return post.lastReply as? Postable
+            }
         }
 
         return nil
@@ -264,9 +275,8 @@ class BaseThreadViewController: UIViewController {
         }
 
         let administrating = currentUser.isAdmin() && !postedBy.isAdmin() || currentUser.isTopAdmin()
-        let isParentPostOrShowingAllComments = replyConfiguration == .ShowCreateReply || parentPost == nil
         let isCurrentUserOrAdministrating = postedBy.isTheCurrentUser() || administrating
-        if let postedBy = post.postedBy where isParentPostOrShowingAllComments && isCurrentUserOrAdministrating {
+        if let postedBy = post.postedBy where isCurrentUserOrAdministrating {
             if let post = post as? Commentable {
                 showEditPostActionSheet(administrating, canEdit: true, canDelete: true, cell: cell, postedBy: postedBy, currentUser: currentUser, post: post, parentPost: parentPost)
             } else if let thread = post as? Thread {
@@ -978,7 +988,6 @@ extension BaseThreadViewController: UITableViewDelegate {
 
                     if let index = parentPost.replies.indexOf(childPosts.last!) {
                         parentPost.replies.removeAtIndex(index)
-                        self.tableView.reloadData()
                     }
 
                     // Decrement parentPost reply count
@@ -989,6 +998,10 @@ extension BaseThreadViewController: UITableViewDelegate {
                     } else {
                         (parentPost as! PFObject).removeObjectForKey("lastReply")
                     }
+
+                    // Reload after updating replies and lastReply
+                    self.tableView.reloadData()
+
                     (parentPost as! PFObject).saveInBackground()
                 }
             }
@@ -1074,17 +1087,16 @@ extension BaseThreadViewController: PostCellDelegate {
         case .ShowCreateReply:
             replyToPost(post)
         case .ShowThreadDetail:
-            if threadType == .ThreadPosts || post.replyCount == 0{
-                postCellSelectedComment(postCell)
+            if threadType == .ThreadPosts || post.replyCount == 0 {
+                replyToPost(post)
+                break
             }
             showPostReplies(post)
         }
     }
     
     func postCellSelectedComment(postCell: PostCellProtocol) {
-        if let post = postForCell(postCell) {
-            replyToPost(post)
-        }
+        postCellSelectedShowComments(postCell)
     }
     
     func postCellSelectedToUserProfile(postCell: PostCellProtocol) {
