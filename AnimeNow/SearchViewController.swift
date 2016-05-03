@@ -138,6 +138,7 @@ class SearchViewController: UIViewController {
             query.includeKey("tags")
             query.includeKey("startedBy")
             query.includeKey("lastPostedBy")
+            query.includeKey("episode")
             query.orderByAscending("updatedAt")
         default:
             break
@@ -238,7 +239,7 @@ extension SearchViewController: UICollectionViewDelegate {
             navigationController?.pushViewController(profileViewController, animated: true)
         } else if let thread = object as? Thread {
             let threadController = Storyboard.threadViewController()
-            threadController.initWithPost(thread, threadConfiguration: .ThreadDetail)
+            threadController.initWithPost(thread, threadConfiguration: .ThreadMain)
             navigationController?.pushViewController(threadController, animated: true)
         } else if let string = object as? String {
             guard let browse = UIStoryboard(name: "Browse", bundle: nil).instantiateViewControllerWithIdentifier("BrowseViewController") as? BrowseViewController,
