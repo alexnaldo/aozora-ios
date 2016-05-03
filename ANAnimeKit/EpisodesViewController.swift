@@ -166,15 +166,26 @@ extension EpisodesViewController: UICollectionViewDataSource {
 extension EpisodesViewController: UICollectionViewDelegate {
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        //let episode = dataSource[indexPath.row]
-        //let threadController = Storyboard.threadViewController()
-        //threadController.initWithEpisode(episode, anime: anime)
-        
-        if let tabBar = tabBarController as? AnimeDetailsTabBarController {
-            tabBar.disableDragDismiss()
-        }
-        
-        //navigationController?.pushViewController(threadController, animated: true)
+        let episode = dataSource[indexPath.row]
+
+        ThreadViewController.threadForEpisode(episode, anime: anime)
+            .continueWithExecutor(BFExecutor.mainThreadExecutor(), withSuccessBlock: { (task) -> AnyObject? in
+                guard let thread = task.result as? Thread else {
+                    self.presentAlertWithTitle("Failed fetching episode discussion")
+                    return nil
+                }
+
+                let threadController = Storyboard.threadViewController()
+                threadController.initWithPost(thread, threadConfiguration: .ThreadMain)
+
+                if let tabBar = self.tabBarController as? AnimeDetailsTabBarController {
+                    tabBar.disableDragDismiss()
+                }
+
+                self.navigationController?.pushViewController(threadController, animated: true)
+
+                return nil
+        })
     }
 }
 

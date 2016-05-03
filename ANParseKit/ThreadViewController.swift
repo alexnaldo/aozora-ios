@@ -15,10 +15,6 @@ class ThreadViewController: BaseThreadViewController {
 
     @IBOutlet weak var viewMoreButton: UIButton!
 
-    // TODO: Remove this, just get it from the thread..
-    var episode: Episode?
-    var anime: Anime?
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -51,14 +47,7 @@ class ThreadViewController: BaseThreadViewController {
 
         let query = Thread.query()!
         query.limit = 1
-        
-        if let episode = episode {
-            query.whereKey("episode", equalTo: episode)
-            query.includeKey("episode")
-        } else if let thread = thread, let objectId = thread.objectId {
-            query.whereKey("objectId", equalTo: objectId)
-        }
-        
+        query.whereKey("objectId", equalTo: thread!.objectId!)
         query.includeKey("anime")
         query.includeKey("startedBy")
         query.includeKey("tags")
@@ -68,29 +57,47 @@ class ThreadViewController: BaseThreadViewController {
                 // TODO: Show error
             } else if let result = result, let thread = result.last as? Thread {
                 self.thread = thread
-                //self.updateUIWithThread(thread)
-            } else if let episode = self.episode, let anime = self.anime where self.threadType == ThreadType.Episode {
-                
-                // Create episode threads lazily
-                let parameters = [
-                    "animeID":anime.objectId!,
-                    "episodeID":episode.objectId!,
-                    "animeTitle": anime.title!,
-                    "episodeNumber": anime.type == "Movie" ? -1 : episode.number
-                ] as [String : AnyObject]
-                
-                PFCloud.callFunctionInBackground("createEpisodeThread", withParameters: parameters, block: { (result, error) -> Void in
-                    
-                    if let _ = error {
-                        
-                    } else {
-                        print("Created episode thread")
-                        self.fetchThread()
-                    }
-                })
             }
         })
         
+    }
+
+    static func threadForEpisode(episode: Episode, anime: Anime) -> BFTask {
+        let query = Thread.query()!
+        query.limit = 1
+        query.whereKey("episode", equalTo: episode)
+        query.includeKey("episode")
+        query.includeKey("anime")
+        query.includeKey("startedBy")
+        query.includeKey("tags")
+        return query.findObjectsInBackground().continueWithSuccessBlock { task -> AnyObject? in
+
+            if let threads = task.result as? [Thread], let thread = threads.last {
+                return BFTask(result: thread)
+            }
+
+            // Create episode threads lazily, new episodes will be created automatically
+            let parameters = [
+                "animeID":anime.objectId!,
+                "episodeID":episode.objectId!,
+                "animeTitle": anime.title!,
+                "episodeNumber": anime.type == "Movie" ? -1 : episode.number
+                ] as [String : AnyObject]
+
+            let successful = BFTaskCompletionSource()
+
+            PFCloud.callFunctionInBackground("createEpisodeThread", withParameters: parameters, block: { (result, error) -> Void in
+                if let error = error {
+                    successful.setError(error)
+                } else {
+                    successful.setResult(result)
+                }
+            })
+
+            return successful.task.continueWithSuccessBlock { task -> AnyObject? in
+                return threadForEpisode(episode, anime: anime)
+            }
+        }
     }
     
     func fetchPosts() {

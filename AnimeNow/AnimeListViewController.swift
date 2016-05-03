@@ -270,11 +270,20 @@ extension AnimeListViewController: AnimeLibraryCellDelegate {
     }
     
     func cellPressedEpisodeThread(cell: AnimeLibraryCell, anime: Anime, episode: Episode) {
-        
-        //let threadController = Storyboard.threadViewController()
-        //threadController.initWithEpisode(episode, anime: anime)
-        
-        //navigationController?.pushViewController(threadController, animated: true)
+
+        ThreadViewController.threadForEpisode(episode, anime: anime)
+            .continueWithExecutor(BFExecutor.mainThreadExecutor(), withSuccessBlock: { (task) -> AnyObject? in
+                guard let thread = task.result as? Thread else {
+                    self.presentAlertWithTitle("Failed fetching episode discussion")
+                    return nil
+                }
+
+                let threadController = Storyboard.threadViewController()
+                threadController.initWithPost(thread, threadConfiguration: .ThreadMain)
+                self.navigationController?.pushViewController(threadController, animated: true)
+                
+                return nil
+            })
 
         Analytics.tappedLibraryAnimeEpisodeComment(anime.objectId!, list: anime.progress!.myAnimeListList().rawValue, row: collectionView.indexPathForCell(cell)!.row)
     }

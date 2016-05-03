@@ -164,7 +164,6 @@ class ForumsViewController: BaseThreadViewController {
             let anime = LibraryController.sharedInstance.library ?? []
             finalQuery = Thread.query()!
             finalQuery.whereKeyExists("episode")
-            finalQuery.whereKey("replies", greaterThan: 0)
             finalQuery.whereKey("tags", containedIn: anime)
             finalQuery.includeKey("episode")
             finalQuery.includeKey("anime")
