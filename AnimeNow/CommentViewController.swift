@@ -81,7 +81,18 @@ public class CommentViewController: UIViewController {
         self.parentPost = parentPost
         self.anime = anime
     }
-    
+
+//    // The ones above ^ shall be deprecated
+//    public func initWithPost(
+//        post: Postable?,
+//        threadType: ThreadType,
+//        delegate: CommentViewControllerDelegate?,
+//        editingPost: Postable? = nil,
+//        parentPost: Postable? = nil) {
+//
+//
+//    }
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         

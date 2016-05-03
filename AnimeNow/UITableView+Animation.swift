@@ -11,7 +11,9 @@ import Foundation
 extension UITableView {
     func updateTableViewCellsHeight() {
         layoutIfNeeded()
+        UIView.setAnimationsEnabled(false)
         beginUpdates()
         endUpdates()
+        UIView.setAnimationsEnabled(true)
     }
 }
