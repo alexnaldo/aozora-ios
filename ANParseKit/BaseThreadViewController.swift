@@ -44,6 +44,21 @@ class BaseThreadViewController: UIViewController {
     }
     
     var thread: Thread?
+    var timelinePost: TimelinePostable?
+    var post: ThreadPostable?
+
+    var mainPost: Postable? {
+        if let post = post as? Postable {
+            return post
+        } else if let post = timelinePost as? Postable {
+            return post
+        } else if let post = thread as? Postable {
+            return post
+        } else {
+            return nil
+        }
+    }
+
     var threadType: ThreadType = .ThreadPosts
     var threadConfiguration: ThreadConfiguration = .ThreadMain
     
@@ -63,26 +78,33 @@ class BaseThreadViewController: UIViewController {
             }
         }
     }
-    
-    func initWithThread(thread: Thread, threadConfiguration: ThreadConfiguration) {
-        self.thread = thread
-        switch thread.type {
-        case .FanClub, .Custom:
-            threadType = .ThreadPosts
-        case .Episode:
-            threadType = .Episode
-        }
 
+    func initWithPost(post: Postable, threadConfiguration: ThreadConfiguration) {
+        if let timelinePost = post as? TimelinePostable {
+            self.timelinePost = timelinePost
+            threadType = .Timeline
+        } else if let threadPost = post as? ThreadPostable {
+            self.post = threadPost
+            self.thread = threadPost.thread
+            threadType = .Post
+        } else if let thread = post as? Thread {
+            self.thread = thread
+            switch thread.type {
+            case .FanClub, .Custom:
+                threadType = .ThreadPosts
+            case .Episode:
+                threadType = .Episode
+            }
+        }
         self.threadConfiguration = threadConfiguration
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BaseThreadViewController.moviePlayerPlaybackDidFinish(_:)), name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(moviePlayerPlaybackDidFinish(_:)), name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
 
         loadingView = LoaderView(parentView: view)
-        
     }
     
     deinit {
@@ -128,18 +150,7 @@ class BaseThreadViewController: UIViewController {
 
         let newPostViewController = Storyboard.newPostViewController()
 
-//        switch threadType {
-//        case Threads:
-//
-//        case ThreadPosts:
-//
-//        case Episode:
-//
-//        case Post:
-//
-//        case Timeline:
-//
-//        }
+        // Post thread
         if let post = post as? ThreadPostable, let thread = thread {
             if thread.locked {
                 presentAlertWithTitle("Thread is locked")
@@ -147,9 +158,12 @@ class BaseThreadViewController: UIViewController {
                 newPostViewController.initWith(thread, threadType: threadType, delegate: self, parentPost: post)
                 animator = presentViewControllerModal(newPostViewController)
             }
+        // Post in timeline
         } else if let post = post as? TimelinePostable {
             newPostViewController.initWithTimelinePost(self, postedIn:post.userTimeline, parentPost: post)
             animator = presentViewControllerModal(newPostViewController)
+
+        // Thread
         } else if let thread = post as? Thread {
             if thread.locked {
                 presentAlertWithTitle("Thread is locked")
@@ -163,7 +177,7 @@ class BaseThreadViewController: UIViewController {
     func showPostReplies(post: Postable) {
         if let post = post as? Commentable {
             let notificationThread = Storyboard.threadViewController()
-            notificationThread.initWithPost(post)
+            notificationThread.initWithPost(post, threadConfiguration: .ThreadDetail)
             navigationController?.pushViewController(notificationThread, animated: true)
         } else if let thread = post as? Thread {
             showThreadPosts(thread)
@@ -942,8 +956,7 @@ extension BaseThreadViewController: UITableViewDelegate {
 
     func showThreadPosts(thread: Thread) {
         let threadController = Storyboard.threadViewController()
-        threadController.initWithThread(thread, threadConfiguration: .ThreadMain)
-
+        threadController.initWithPost(thread, threadConfiguration: .ThreadMain)
         navigationController?.pushViewController(threadController, animated: true)
     }
 

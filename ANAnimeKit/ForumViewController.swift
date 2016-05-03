@@ -125,8 +125,7 @@ extension ForumViewController: UITableViewDelegate {
         let thread = fetchController.objectAtIndex(indexPath.row) as! Thread
         
         let threadController = Storyboard.threadViewController()
-        threadController.initWithThread(thread, threadConfiguration: .ThreadDetail)
-        
+        threadController.initWithPost(thread, threadConfiguration: .ThreadDetail)
         navigationController?.pushViewController(threadController, animated: true)
     }
 }

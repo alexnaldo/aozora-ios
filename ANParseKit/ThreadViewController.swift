@@ -14,24 +14,11 @@ import ANCommonKit
 class ThreadViewController: BaseThreadViewController {
 
     @IBOutlet weak var viewMoreButton: UIButton!
-    
+
+    // TODO: Remove this, just get it from the thread..
     var episode: Episode?
     var anime: Anime?
-    var timelinePost: TimelinePostable?
-    var post: ThreadPostable?
 
-    func initWithPost(post: Commentable) {
-        if let timelinePost = post as? TimelinePostable {
-            self.timelinePost = timelinePost
-            threadType = .Timeline
-        } else if let threadPost = post as? ThreadPostable {
-            self.post = threadPost
-            self.thread = threadPost.thread
-            threadType = .Post
-        }
-        threadConfiguration = .ThreadDetail
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
