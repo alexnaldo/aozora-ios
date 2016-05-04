@@ -60,10 +60,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             $0.localDatastoreEnabled = true
         }
         Parse.initializeWithConfiguration(configuration)
-
-//        Parse.enableLocalDatastore()
-//        Parse.setApplicationId(AozoraKeys().parseApplicationId(),
-//                               clientKey: AozoraKeys().parseClientKey())
         PFUser.enableRevocableSessionInBackground()
 
         //PostsService.addLikeAndCommentToPostsCounters()

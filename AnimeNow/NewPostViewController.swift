@@ -211,7 +211,9 @@ public class NewPostViewController: CommentViewController {
             }
             
             saveTask?.continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task: BFTask!) -> AnyObject! in
-                
+
+                PFCloud.callFunctionInBackground("Thread.UpdateHotRanking", withParameters: ["threadId": post.thread.objectId!])
+
                 // Send post notification
                 if let parentPost = self.parentPost as? Post {
                     let parameters = [

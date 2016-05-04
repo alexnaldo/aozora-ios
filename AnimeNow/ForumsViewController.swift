@@ -23,7 +23,7 @@ class ForumsViewController: BaseThreadViewController {
     }
 
     enum SelectedSorting: String {
-        case Recent
+        case Popular
         case New
     }
 
@@ -42,7 +42,7 @@ class ForumsViewController: BaseThreadViewController {
     @IBOutlet weak var sortingButton: UIButton!
 
     var selectedList: SelectedList = .All
-    var selectedSort: SelectedSorting = .Recent
+    var selectedSort: SelectedSorting = .Popular
     var selectedThreadTag: ThreadTag?
     var selectedAnime: Anime?
     
@@ -185,8 +185,15 @@ class ForumsViewController: BaseThreadViewController {
         finalQuery.includeKey("lastPostedBy")
 
         switch selectedSort {
-        case .Recent:
-            finalQuery.orderByDescending("updatedAt")
+        case .Popular:
+            switch selectedList {
+            case .All, .Anime, .Episode, .Videos:
+                finalQuery.orderByDescending("hotRanking")
+            case .FanClub:
+                finalQuery.orderByDescending("updatedAt")
+            default:
+                break
+            }
         case .New:
             finalQuery.orderByDescending("createdAt")
         }
@@ -255,11 +262,11 @@ class ForumsViewController: BaseThreadViewController {
     }
     
     @IBAction func updateSorting(sender: AnyObject) {
-        if selectedSort == .Recent {
+        if selectedSort == .Popular {
             selectedSort = .New
             sortingButton.setTitle(" New", forState: .Normal)
         } else {
-            selectedSort = .Recent
+            selectedSort = .Popular
             sortingButton.setTitle(" Popular", forState: .Normal)
         }
         fetchThreads()

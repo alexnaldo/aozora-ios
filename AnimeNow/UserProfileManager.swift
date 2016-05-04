@@ -189,7 +189,7 @@ public class UserProfileManager: NSObject {
         return user.saveInBackground().continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task: BFTask!) -> AnyObject! in
             
             if let error = task.error {
-                let errorMessage = error.userInfo["error"] as! String
+                let errorMessage = error.userInfo["error"] as? String ?? ""
                 viewController.presentAlertWithTitle("Error", message: errorMessage)
                 return BFTask(error: error)
             } else {

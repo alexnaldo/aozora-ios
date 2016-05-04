@@ -403,10 +403,27 @@
                                 <action selector="showFilterPressed:" destination="sfh-gj-hB0" id="De0-04-i1J"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="icon-search" id="qcD-Hv-Sns" userLabel="Search">
-                            <connections>
-                                <action selector="presentSearchPressed:" destination="sfh-gj-hB0" id="8Eu-X0-HbQ"/>
-                            </connections>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="xBy-pR-xS1">
+                            <view key="customView" contentMode="scaleToFill" id="O0T-71-8ls">
+                                <rect key="frame" x="510" y="5" width="70" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bao-YZ-hIK">
+                                        <rect key="frame" x="35" y="0.0" width="35" height="35"/>
+                                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <state key="normal" image="icon-search"/>
+                                        <connections>
+                                            <action selector="presentSearchPressed:" destination="sfh-gj-hB0" eventType="touchUpInside" id="yGX-zJ-i1q"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zra-5y-mUg">
+                                        <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
+                                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <state key="normal" image="icon-library"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
@@ -646,6 +663,7 @@
     </scenes>
     <resources>
         <image name="icon-airing" width="26" height="26"/>
+        <image name="icon-library" width="25" height="25"/>
         <image name="icon-library-filled" width="25" height="25"/>
         <image name="icon-search" width="22" height="22"/>
         <image name="icon-sort" width="22" height="22"/>
