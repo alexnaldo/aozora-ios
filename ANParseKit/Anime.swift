@@ -144,7 +144,7 @@ public class Anime: PFObject, PFSubclassing {
         let episodesQuery = Episode.query()!
         episodesQuery.orderByAscending("number")
         episodesQuery.whereKey("anime", equalTo: self)
-        episodesQuery.limit = 1000
+        episodesQuery.limit = 2000
         return episodesQuery.findObjectsInBackground()
     }
     

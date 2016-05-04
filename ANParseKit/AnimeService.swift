@@ -19,7 +19,8 @@ public class AnimeService {
         query.selectKeys(["anime"])
         query.includeKey("anime")
         query.whereKey("createdAt", lessThan: date)
-        query.findAllObjectsInBackground().continueWithBlock { (task) -> AnyObject? in
+        query.limit = 10000
+        query.findObjectsInBackground().continueWithBlock { (task) -> AnyObject? in
             guard let result = task.result as? [AnimeProgress] else {
                 return nil
             }
@@ -51,7 +52,8 @@ public class AnimeService {
         let query = Anime.query()!
         query.selectKeys(["myAnimeListID", "characters" ,"cast", "relations", "details"])
         query.addAscendingOrder("createdAt")
-        query.findAllObjectsInBackground().continueWithSuccessBlock({ (task: BFTask!) -> AnyObject! in
+        query.limit = 10000
+        query.findObjectsInBackground().continueWithSuccessBlock({ (task: BFTask!) -> AnyObject! in
             let allanime = task.result as! [Anime]
 
             print("Got \(allanime.count)")
@@ -92,7 +94,8 @@ public class AnimeService {
         // Delete animeProgress
         let query = AnimeProgress.query()!
         query.whereKey("anime", containedIn: duplicatedAnime)
-        query.findAllObjectsInBackground().continueWithSuccessBlock({ (task: BFTask!) -> AnyObject! in
+        query.limit = 10000
+        query.findObjectsInBackground().continueWithSuccessBlock({ (task: BFTask!) -> AnyObject! in
 
             let animeProgress = task.result as! [AnimeProgress]
 
@@ -102,7 +105,8 @@ public class AnimeService {
                 print(task.error)
                 let query = Episode.query()!
                 query.whereKey("anime", containedIn: duplicatedAnime)
-                query.findAllObjectsInBackground().continueWithSuccessBlock({ (task: BFTask!) -> AnyObject! in
+                query.limit = 11000
+                query.findObjectsInBackground().continueWithSuccessBlock({ (task: BFTask!) -> AnyObject! in
 
                     let animeProgress = task.result as! [Episode]
 

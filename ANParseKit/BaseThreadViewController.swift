@@ -1158,7 +1158,7 @@ extension BaseThreadViewController: PostCellDelegate {
         let query = User.query()!
         query.whereKey("objectId", containedIn: likedByIds)
         query.orderByAscending("aozoraUsername")
-        query.limit = 1000
+        query.limit = 2000
         userListController.initWithQuery(query, title: "Liked by", user: User.currentUser())
         userListController.hidesBottomBarWhenPushed = true
 

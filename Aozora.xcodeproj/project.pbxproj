@@ -99,7 +99,6 @@
 		DA6B54671CC2DFBD00EB6FC0 /* UICollectionView+Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4F15A41C6EBD7400C71227 /* UICollectionView+Cells.swift */; };
 		DA6B54681CC2DFBD00EB6FC0 /* InAppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC7D9011B50201300898FF6 /* InAppController.swift */; };
 		DA6B54691CC2DFBD00EB6FC0 /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4167E21B275CEB00847F56 /* ReviewCell.swift */; };
-		DA6B546A1CC2DFBD00EB6FC0 /* PFQuery+Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7996DF1CBE0AC800AD7EAD /* PFQuery+Query.swift */; };
 		DA6B546B1CC2DFBD00EB6FC0 /* LibraryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFCF8F51C14DD9000591C28 /* LibraryController.swift */; };
 		DA6B546C1CC2DFBD00EB6FC0 /* UIView+Reuse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4F159E1C6EBCF600C71227 /* UIView+Reuse.swift */; };
 		DA6B546D1CC2DFBD00EB6FC0 /* AnimeLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF618751B377CA700286517 /* AnimeLibraryViewController.swift */; };
@@ -287,7 +286,6 @@
 		DA7996BD1CB8D8BF00AD7EAD /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA7996B81CB8D8BE00AD7EAD /* Parse.framework */; };
 		DA7996BF1CB8D8BF00AD7EAD /* ParseFacebookUtilsV4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA7996B91CB8D8BE00AD7EAD /* ParseFacebookUtilsV4.framework */; };
 		DA7996C21CB9BA9000AD7EAD /* QueryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7996C01CB9BA9000AD7EAD /* QueryBuilder.swift */; };
-		DA7996E11CBE0AC800AD7EAD /* PFQuery+Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7996DF1CBE0AC800AD7EAD /* PFQuery+Query.swift */; };
 		DA7A16951C6DD0BC00AA2882 /* UIViewController+WebScraper.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6E12D91B10D96F00B278B0 /* UIViewController+WebScraper.m */; };
 		DA7A16961C6DD0BC00AA2882 /* WSWebScraper.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6E12DB1B10D96F00B278B0 /* WSWebScraper.m */; };
 		DA7A16991C6DD0C100AA2882 /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6E12D21B10D96F00B278B0 /* TFHpple.m */; };
@@ -759,7 +757,6 @@
 		DA7996B81CB8D8BE00AD7EAD /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = Frameworks/Parse.framework; sourceTree = "<group>"; };
 		DA7996B91CB8D8BE00AD7EAD /* ParseFacebookUtilsV4.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtilsV4.framework; path = Frameworks/ParseFacebookUtilsV4.framework; sourceTree = "<group>"; };
 		DA7996C01CB9BA9000AD7EAD /* QueryBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryBuilder.swift; sourceTree = "<group>"; };
-		DA7996DF1CBE0AC800AD7EAD /* PFQuery+Query.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PFQuery+Query.swift"; sourceTree = "<group>"; };
 		DA7C84C81B4379AA0036D119 /* UIViewController+Navigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Navigation.swift"; sourceTree = "<group>"; };
 		DA7EDDC81C1FED4E0097D818 /* String+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+Utils.swift"; path = "../ANParseKit/String+Utils.swift"; sourceTree = "<group>"; };
 		DA7EDDCA1C1FEDCA0097D818 /* LinkScrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkScrapper.swift; sourceTree = "<group>"; };
@@ -1485,7 +1482,6 @@
 				DA03F15B1B8B818E00402AC4 /* TTTAttributedLabel+Tags.swift */,
 				DA7EDDC81C1FED4E0097D818 /* String+Utils.swift */,
 				DAA546D51BA090C0003989DE /* UIApplication+Navigation.swift */,
-				DA7996DF1CBE0AC800AD7EAD /* PFQuery+Query.swift */,
 				DA64C59E1CCD987B001A6AFE /* UITableView+Animation.swift */,
 			);
 			name = Extensions;
@@ -2512,7 +2508,6 @@
 				DA6B54671CC2DFBD00EB6FC0 /* UICollectionView+Cells.swift in Sources */,
 				DA6B54681CC2DFBD00EB6FC0 /* InAppController.swift in Sources */,
 				DA6B54691CC2DFBD00EB6FC0 /* ReviewCell.swift in Sources */,
-				DA6B546A1CC2DFBD00EB6FC0 /* PFQuery+Query.swift in Sources */,
 				DA6B546B1CC2DFBD00EB6FC0 /* LibraryController.swift in Sources */,
 				DAD7AEAA1CC461EC00BB2FBD /* LinksCollectionTableCell.swift in Sources */,
 				DA6B546C1CC2DFBD00EB6FC0 /* UIView+Reuse.swift in Sources */,
@@ -2646,7 +2641,6 @@
 				DA4F15A61C6EBD7400C71227 /* UICollectionView+Cells.swift in Sources */,
 				DA2992001C6DD11100CCB04D /* InAppController.swift in Sources */,
 				DAA576BA1C66EC2D007E81E6 /* ReviewCell.swift in Sources */,
-				DA7996E11CBE0AC800AD7EAD /* PFQuery+Query.swift in Sources */,
 				DA8D710C1C6DD0F50016A332 /* LibraryController.swift in Sources */,
 				DAD7AEAB1CC461EC00BB2FBD /* LinksCollectionTableCell.swift in Sources */,
 				DA4F15A01C6EBCF600C71227 /* UIView+Reuse.swift in Sources */,

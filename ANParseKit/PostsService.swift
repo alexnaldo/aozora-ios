@@ -17,7 +17,8 @@ class PostsService {
         query.selectKeys(["likeCount", "likedBy"])
         query.whereKeyExists("likedBy")
         query.whereKey("createdAt", lessThan: date)
-        query.findAllObjectsInBackground().continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task) -> AnyObject? in
+        query.limit = 11000
+        query.findObjectsInBackground().continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task) -> AnyObject? in
 
             guard let result = task.result as? [TimelinePost] else {
                 return nil
@@ -53,7 +54,8 @@ class PostsService {
         query.selectKeys(["likeCount", "likedBy"])
         query.whereKeyExists("likedBy")
         query.whereKey("createdAt", lessThan: date)
-        query.findAllObjectsInBackground().continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task) -> AnyObject? in
+        query.limit = 11000
+        query.findObjectsInBackground().continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task) -> AnyObject? in
 
             guard let result = task.result as? [Post] else {
                 return nil
