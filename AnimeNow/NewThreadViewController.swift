@@ -101,23 +101,19 @@ public class NewThreadViewController: CommentViewController {
         
         let thread = Thread()
         thread.edited = false
-        thread.title = threadTitle.text!
-        thread.content = textView.text
         let postable = thread as Postable
         postable.replyCount = 0
-        thread.tags = [tag!]
+        
+        // Initialize with one like (self)
+        postable.likeCount = 1
+        postable.likedBy = [postedBy!]
+
         thread.subscribers = [postedBy!]
         thread.lastPostedBy = postedBy
-        
-        if let selectedImageData = selectedImageData {
-            thread.imagesData = [selectedImageData]
-        }
-        
-        if let youtubeID = selectedVideoID {
-            thread.youtubeID = youtubeID
-        }
-    
         thread.postedBy = postedBy
+
+        updateThread(thread)
+
         thread.saveInBackgroundWithBlock({ (result, error) -> Void in
             self.postedBy?.incrementPostCount(1)
             self.completeRequest(thread, parentPost:nil, error: error)
@@ -138,28 +134,39 @@ public class NewThreadViewController: CommentViewController {
         
         if let thread = post as? Thread {
             thread.edited = true
-            thread.title = threadTitle.text!
-            thread.content = textView.text
-            thread.tags = [tag!]
-            
-            if let selectedImageData = selectedImageData {
-                thread.imagesData = [selectedImageData]
-            } else {
-                thread.imagesData = []
-            }
-            
-            if let youtubeID = selectedVideoID {
-                thread.youtubeID = youtubeID
-            } else {
-                thread.youtubeID = nil
-            }
+
+            updateThread(thread)
             
             thread.saveInBackgroundWithBlock({ (result, error) -> Void in
                 self.completeRequest(thread, parentPost:nil, error: error)
             })
         }
     }
-    
+
+    func updateThread(thread: Thread) {
+        thread.title = threadTitle.text!
+        thread.content = textView.text
+        thread.tags = [tag!]
+
+        if let selectedImageData = selectedImageData {
+            thread.imagesData = [selectedImageData]
+        } else {
+            thread.imagesData = []
+        }
+
+        if let youtubeID = selectedVideoID {
+            thread.youtubeID = youtubeID
+        } else {
+            thread.youtubeID = nil
+        }
+
+        if let linkData = selectedLinkData {
+            thread.linkData = linkData
+        } else {
+            thread.linkData = nil
+        }
+    }
+
     override func completeRequest(post: PFObject, parentPost: PFObject?, error: NSError?) {
         super.completeRequest(post, parentPost: parentPost, error: error)
         NSUserDefaults.standardUserDefaults().removeObjectForKey(EditingTitleCacheKey)
