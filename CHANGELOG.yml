@@ -18,6 +18,7 @@ upcoming:
 - Better link embedding support.
 - Note > Comment counts and like counts might not be accurate. This will be accurate when all users update. This also affects popular section (which won't show new posts)
 - Note > Pinned posts on forums will not appear on this build.
+- Note > Link embedding is not working on forums yet.
 
 
 
