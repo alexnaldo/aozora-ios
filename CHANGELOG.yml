@@ -16,9 +16,9 @@ upcoming:
 - New forum layout.
 - Sorting forum threads using Reddit's ranking.
 - Better link embedding support.
-- Note > Comment counts and like counts might not be accurate. This will be accurate when all users update. This also affects popular section (which won't show new posts)
-- Note > Pinned posts on forums will not appear on this build.
-- Note > Link embedding is not working on forums yet.
+- NOTE > Comment counts and like counts might not be accurate. This will be accurate when all users update. This also affects popular section (which won't show new posts)
+- NOTE > Pinned posts on forums will not appear on this build.
+- NOTE > Link embedding is not working on forums yet.
 
 
 
