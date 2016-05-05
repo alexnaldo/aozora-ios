@@ -13,6 +13,7 @@ class PostEmbeddedUrlView: UIView {
     @IBOutlet weak var linkContentLabel: UILabel!
     @IBOutlet weak var linkUrlLabel: UILabel!
     @IBOutlet weak var imageContent: FLAnimatedImageView?
+    @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint?
 
     override init(frame: CGRect) {
         super.init(frame: frame)

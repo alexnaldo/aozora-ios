@@ -35,11 +35,13 @@ class BaseThreadViewController: UIViewController {
             tableView.estimatedRowHeight = 112.0
             tableView.rowHeight = UITableViewAutomaticDimension
 
+            PostCell.registerNibFor(tableView: tableView)
+            PostUrlCell.registerNibFor(tableView: tableView)
             CommentCell.registerNibFor(tableView: tableView)
-            UrlCell.registerNibFor(tableView: tableView)
             WriteACommentCell.registerNibFor(tableView: tableView)
             ShowMoreCell.registerNibFor(tableView: tableView)
             ThreadCell.registerNibFor(tableView: tableView)
+            ThreadURLCell.registerNibFor(tableView: tableView)
         }
     }
     
@@ -529,8 +531,7 @@ extension BaseThreadViewController: UITableViewDataSource {
                 case .Image, .Video, .Episode:
                     reuseIdentifier = "ThreadImageCell"
                 case .Link:
-                    assertionFailure()
-                    return UITableViewCell()
+                    reuseIdentifier = "ThreadUrlCell"
                 case .Text:
                     reuseIdentifier = "ThreadTextCell"
                 }
@@ -550,7 +551,7 @@ extension BaseThreadViewController: UITableViewDataSource {
                 case .Image, .Video, .Episode:
                     reuseIdentifier = "PostImageCell"
                 case .Link:
-                    reuseIdentifier = "UrlCell"
+                    reuseIdentifier = "PostUrlCell"
                 case .Text:
                     reuseIdentifier = "PostTextCell"
                 }
@@ -667,11 +668,27 @@ extension BaseThreadViewController: UITableViewDataSource {
         }
 
         let postedByUsername = post.postedBy?.aozoraUsername ?? ""
-        // Updates to each style
+
+        // Comment cells have a different text content
         if let _ = cell as? CommentCell {
             textContent = postedByUsername + " " + textContent
+        }
+
+        if let linkCell = cell as? PostUrlCell,
+            let linkData = post.linkData {
+            linkCell.linkDelegate = self
+            prepareForLink(linkCell.linkContentView, linkData: linkData)
+        }
+
+        // From and to information
+        if let timelinePostable = post as? TimelinePostable,
+            postedBy = post.postedBy
+            where timelinePostable.userTimeline != postedBy {
+            cell.userView?.toUsername?.text = timelinePostable.userTimeline.aozoraUsername
+            cell.userView?.toIcon?.text = ""
         } else {
-            _updatePostCell(cell, withPost: post)
+            cell.userView?.toUsername?.text = ""
+            cell.userView?.toIcon?.text = ""
         }
 
         // Adding links to text content
@@ -804,44 +821,21 @@ extension BaseThreadViewController: UITableViewDataSource {
             break
         }
 
+        // Link support
+        if let linkCell = cell as? ThreadURLCell,
+            let linkData = thread.linkData {
+            linkCell.linkDelegate = self
+            prepareForLink(linkCell.linkContentView, linkData: linkData)
+        }
+
         updateAttributedTextProperties(cell.textContent)
-
         cell.textContent.setText(attributedContent)
-
         if let username = thread.postedBy?.aozoraUsername {
             cell.textContent.addLinkForUsername(username)
         }
 
         // Like button
         updateActionsView(cell, post: thread)
-    }
-
-    func _updatePostCell(cell: PostCellProtocol, withPost post: Postable) {
-        
-        // Only embed links on post cells for now
-        if let linkCell = cell as? UrlCell, let linkData = post.linkData, let linkUrl = linkData.url {
-            linkCell.linkDelegate = self
-            linkCell.linkContentView.linkTitleLabel.text = linkData.title
-            linkCell.linkContentView.linkContentLabel.text = linkData.description
-            linkCell.linkContentView.linkUrlLabel.text = NSURL(string: linkUrl)?.host?.uppercaseString
-            if let imageURL = linkData.imageUrls.first {
-                linkCell.linkContentView.imageContent?.setImageFrom(urlString: imageURL, animated: false)
-                linkCell.imageHeightConstraint?.constant = (baseWidth - 16) * CGFloat(158)/CGFloat(305)
-            } else {
-                linkCell.linkContentView.imageContent?.image = nil
-                linkCell.imageHeightConstraint?.constant = 0
-            }
-        }
-
-        // From and to information
-        if let timelinePostable = post as? TimelinePostable, postedBy = post.postedBy where timelinePostable.userTimeline != postedBy {
-            cell.userView?.toUsername?.text = timelinePostable.userTimeline.aozoraUsername
-            cell.userView?.toIcon?.text = ""
-        } else {
-            cell.userView?.toUsername?.text = ""
-            cell.userView?.toIcon?.text = ""
-        }
-
     }
     
     func setImages(images: [ImageData]?, imageView: UIImageView?, imageHeightConstraint: NSLayoutConstraint?, baseWidth: CGFloat) {
@@ -870,7 +864,21 @@ extension BaseThreadViewController: UITableViewDataSource {
             playButton.hidden = true
         }
     }
-    
+
+    func prepareForLink(linkContentView: PostEmbeddedUrlView, linkData: LinkData) {
+
+        linkContentView.linkTitleLabel.text = linkData.title
+        linkContentView.linkContentLabel.text = linkData.description
+        linkContentView.linkUrlLabel.text = NSURL(string: linkData.url)?.host?.uppercaseString
+        if let imageURL = linkData.imageUrls.first {
+            linkContentView.imageContent?.setImageFrom(urlString: imageURL, animated: false)
+            linkContentView.imageHeightConstraint?.constant = (baseWidth - 16) * CGFloat(158)/CGFloat(305)
+        } else {
+            linkContentView.imageContent?.image = nil
+            linkContentView.imageHeightConstraint?.constant = 0
+        }
+    }
+
     func updateAttributedTextProperties(textContent: TTTAttributedLabel, linkColor: UIColor = UIColor.peterRiver()) {
         textContent.linkAttributes = [kCTForegroundColorAttributeName: linkColor]
         textContent.enabledTextCheckingTypes = NSTextCheckingType.Link.rawValue
@@ -1179,16 +1187,16 @@ extension BaseThreadViewController: PostCellDelegate {
 
 // MARK: - LinkCellDelegate
 extension BaseThreadViewController: LinkCellDelegate {
-    func postCellSelectedLink(linkCell: UrlCell) {
-        guard let indexPath = tableView.indexPathForCell(linkCell),
-            let postable = fetchController.objectAtIndex(indexPath.section) as? Commentable,
-            let linkData = postable.linkData,
-            let url = linkData.url else {
+    func postCellSelectedLink(linkCell: PostCellProtocol) {
+        guard let cell = linkCell as? UITableViewCell,
+            let indexPath = tableView.indexPathForCell(cell),
+            let postable = fetchController.objectAtIndex(indexPath.section) as? Postable,
+            let linkData = postable.linkData else {
             return
         }
 
         let webController = Storyboard.webBrowserViewController()
-        let initialUrl = NSURL(string: url)
+        let initialUrl = NSURL(string: linkData.url)
         webController.initWithInitialUrl(initialUrl)
         webController.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(webController, animated: true)

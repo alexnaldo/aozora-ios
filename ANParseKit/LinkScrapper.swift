@@ -10,7 +10,7 @@ import Foundation
 
 public class LinkData {
     
-    public var url: String?
+    public var url: String = ""
     public var type: String?
     public var title: String?
     public var description: String?

@@ -10,10 +10,10 @@ import UIKit
 import TTTAttributedLabel
 
 protocol LinkCellDelegate: PostCellDelegate {
-    func postCellSelectedLink(linkCell: UrlCell)
+    func postCellSelectedLink(linkCell: PostCellProtocol)
 }
 
-class UrlCell: PostCell {
+class PostUrlCell: PostCell {
 
     @IBOutlet weak var linkContentView: PostEmbeddedUrlView!
     
@@ -21,10 +21,8 @@ class UrlCell: PostCell {
     
     override class func registerNibFor(tableView tableView: UITableView) {
         
-        super.registerNibFor(tableView: tableView)
-        
-        let listNib = UINib(nibName: "UrlCell", bundle: nil)
-        tableView.registerNib(listNib, forCellReuseIdentifier: "UrlCell")
+        let listNib = UINib(nibName: "PostUrlCell", bundle: nil)
+        tableView.registerNib(listNib, forCellReuseIdentifier: "PostUrlCell")
     }
     
     override func awakeFromNib() {
@@ -34,7 +32,5 @@ class UrlCell: PostCell {
             self.linkDelegate?.postCellSelectedLink(self)
         }
     }
-
-    
 }
 

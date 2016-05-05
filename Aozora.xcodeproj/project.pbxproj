@@ -76,10 +76,6 @@
 		DA5A3E651CC1C0CC00A76621 /* ADVSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A3E631CC1C0CC00A76621 /* ADVSegmentedControl.swift */; };
 		DA5AB9491CD33BFE00551BFC /* ANCommonKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4AF8B51B276E060020252E /* ANCommonKit.framework */; };
 		DA5AB94A1CD33C0900551BFC /* ANCommonKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4AF8B51B276E060020252E /* ANCommonKit.framework */; };
-		DA5AB9501CD4122000551BFC /* CommentReplyImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA5AB94E1CD4122000551BFC /* CommentReplyImageCell.xib */; };
-		DA5AB9511CD4122000551BFC /* CommentReplyImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA5AB94E1CD4122000551BFC /* CommentReplyImageCell.xib */; };
-		DA5AB9521CD4122000551BFC /* CommentReplyTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA5AB94F1CD4122000551BFC /* CommentReplyTextCell.xib */; };
-		DA5AB9531CD4122000551BFC /* CommentReplyTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA5AB94F1CD4122000551BFC /* CommentReplyTextCell.xib */; };
 		DA5AB9561CD5C67900551BFC /* ThreadImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA5AB9541CD5C67900551BFC /* ThreadImageCell.xib */; };
 		DA5AB9571CD5C67900551BFC /* ThreadImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA5AB9541CD5C67900551BFC /* ThreadImageCell.xib */; };
 		DA5AB9581CD5C67900551BFC /* ThreadTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA5AB9551CD5C67900551BFC /* ThreadTextCell.xib */; };
@@ -118,7 +114,7 @@
 		DA6B547B1CC2DFBD00EB6FC0 /* InAppPurchaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3B61D81B4F59E700A3F7BA /* InAppPurchaseController.swift */; };
 		DA6B547C1CC2DFBD00EB6FC0 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC077A61B6890830067DA90 /* CommentCell.swift */; };
 		DA6B547D1CC2DFBD00EB6FC0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD67DFC1B726724000BB325 /* User.swift */; };
-		DA6B547E1CC2DFBD00EB6FC0 /* UrlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6F15F31C20131700EE4C4B /* UrlCell.swift */; };
+		DA6B547E1CC2DFBD00EB6FC0 /* PostUrlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6F15F31C20131700EE4C4B /* PostUrlCell.swift */; };
 		DA6B547F1CC2DFBD00EB6FC0 /* ForumsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6187B1B3784E300286517 /* ForumsViewController.swift */; };
 		DA6B54801CC2DFBD00EB6FC0 /* TimelinePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9AE39A1B6930F60053C2EA /* TimelinePost.swift */; };
 		DA6B54811CC2DFBD00EB6FC0 /* AnimeCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFE19AD1B29E4CD002F3A76 /* AnimeCharacter.swift */; };
@@ -265,7 +261,7 @@
 		DA6B55171CC2DFBD00EB6FC0 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAC13C071B41DF0E0013D479 /* Onboarding.storyboard */; };
 		DA6B55181CC2DFBD00EB6FC0 /* Library.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAF618791B37825700286517 /* Library.storyboard */; };
 		DA6B55191CC2DFBD00EB6FC0 /* MALLogin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA5A3BF31B35EB4F00C07D71 /* MALLogin.storyboard */; };
-		DA6B551A1CC2DFBD00EB6FC0 /* UrlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA6F15F11C20129F00EE4C4B /* UrlCell.xib */; };
+		DA6B551A1CC2DFBD00EB6FC0 /* PostUrlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA6F15F11C20129F00EE4C4B /* PostUrlCell.xib */; };
 		DA6B551B1CC2DFBD00EB6FC0 /* Aller_Rg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DAC13C141B4223450013D479 /* Aller_Rg.ttf */; };
 		DA6B551C1CC2DFBD00EB6FC0 /* Aller_LtIt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DAC13C131B4223450013D479 /* Aller_LtIt.ttf */; };
 		DA6B551D1CC2DFBD00EB6FC0 /* Rate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DACD6AAD1B62F4C700DDA55C /* Rate.storyboard */; };
@@ -417,6 +413,10 @@
 		DACAFBFA1CDBCA6D00BE0FCE /* PostEmbeddedUrlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACAFBF81CDBCA6D00BE0FCE /* PostEmbeddedUrlView.swift */; };
 		DACAFBFC1CDBCA8100BE0FCE /* PostEmbeddedUrlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DACAFBFB1CDBCA8100BE0FCE /* PostEmbeddedUrlView.xib */; };
 		DACAFBFD1CDBCA8100BE0FCE /* PostEmbeddedUrlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DACAFBFB1CDBCA8100BE0FCE /* PostEmbeddedUrlView.xib */; };
+		DACAFC001CDBDEF400BE0FCE /* ThreadUrlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACAFBFE1CDBDEF400BE0FCE /* ThreadUrlCell.swift */; };
+		DACAFC011CDBDEF400BE0FCE /* ThreadUrlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACAFBFE1CDBDEF400BE0FCE /* ThreadUrlCell.swift */; };
+		DACAFC021CDBDEF400BE0FCE /* ThreadUrlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DACAFBFF1CDBDEF400BE0FCE /* ThreadUrlCell.xib */; };
+		DACAFC031CDBDEF400BE0FCE /* ThreadUrlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DACAFBFF1CDBDEF400BE0FCE /* ThreadUrlCell.xib */; };
 		DACE085F1C6DD3E900470B9F /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DACE085D1C6DD3DA00470B9F /* libxml2.tbd */; };
 		DACE08621C6DD3EF00470B9F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DAFB071D1C14FFFE00F7F745 /* libz.tbd */; };
 		DACE08631C6DD3EF00470B9F /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DAFB071B1C14FFC300F7F745 /* libsqlite3.tbd */; };
@@ -444,8 +444,8 @@
 		DACE088B1C6DD8BC00470B9F /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC077A61B6890830067DA90 /* CommentCell.swift */; };
 		DACE088C1C6DD8BC00470B9F /* WriteACommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD390A51B6C322A000A84DE /* WriteACommentCell.swift */; };
 		DACE088D1C6DD8BC00470B9F /* ShowMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA472DF91BD409EF00E09AB0 /* ShowMoreCell.swift */; };
-		DACE088E1C6DD8BC00470B9F /* UrlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA6F15F11C20129F00EE4C4B /* UrlCell.xib */; };
-		DACE088F1C6DD8BC00470B9F /* UrlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6F15F31C20131700EE4C4B /* UrlCell.swift */; };
+		DACE088E1C6DD8BC00470B9F /* PostUrlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA6F15F11C20129F00EE4C4B /* PostUrlCell.xib */; };
+		DACE088F1C6DD8BC00470B9F /* PostUrlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6F15F31C20131700EE4C4B /* PostUrlCell.swift */; };
 		DACE77C21B294D7B00037486 /* NSDate+AniNow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACE77C11B294D7B00037486 /* NSDate+AniNow.swift */; };
 		DAD486B01C6EA3ED0045B769 /* Notifications.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAD486AE1C6EA3ED0045B769 /* Notifications.storyboard */; };
 		DAD7AEA61CC45A7900BB2FBD /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD7AEA51CC45A7900BB2FBD /* NumberFormatter.swift */; };
@@ -712,8 +712,6 @@
 		DA5A3E5D1CC1A45300A76621 /* PostActionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostActionsView.swift; sourceTree = "<group>"; };
 		DA5A3E631CC1C0CC00A76621 /* ADVSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADVSegmentedControl.swift; sourceTree = "<group>"; };
 		DA5AB9471CD33BF300551BFC /* MMWormhole.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MMWormhole.framework; path = "../../../Library/Developer/Xcode/DerivedData/Aozora-adnebwoyjewdsdeqpjynyylaouno/Build/Products/Debug-iphoneos/MMWormhole/MMWormhole.framework"; sourceTree = "<group>"; };
-		DA5AB94E1CD4122000551BFC /* CommentReplyImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentReplyImageCell.xib; sourceTree = "<group>"; };
-		DA5AB94F1CD4122000551BFC /* CommentReplyTextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentReplyTextCell.xib; sourceTree = "<group>"; };
 		DA5AB9541CD5C67900551BFC /* ThreadImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThreadImageCell.xib; sourceTree = "<group>"; };
 		DA5AB9551CD5C67900551BFC /* ThreadTextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThreadTextCell.xib; sourceTree = "<group>"; };
 		DA5AB95A1CD5C6A400551BFC /* ThreadCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadCell.swift; sourceTree = "<group>"; };
@@ -749,8 +747,8 @@
 		DA6E131C1B10F9C800B278B0 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		DA6E83B11B1672A500970D27 /* TraktV1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraktV1.swift; sourceTree = "<group>"; };
 		DA6E83B31B167F1E00970D27 /* TraktV2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraktV2.swift; sourceTree = "<group>"; };
-		DA6F15F11C20129F00EE4C4B /* UrlCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UrlCell.xib; sourceTree = "<group>"; };
-		DA6F15F31C20131700EE4C4B /* UrlCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UrlCell.swift; sourceTree = "<group>"; };
+		DA6F15F11C20129F00EE4C4B /* PostUrlCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostUrlCell.xib; sourceTree = "<group>"; };
+		DA6F15F31C20131700EE4C4B /* PostUrlCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostUrlCell.swift; sourceTree = "<group>"; };
 		DA6FB2631C1D3B3E000A7A6B /* UIDevice+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Utils.swift"; sourceTree = "<group>"; };
 		DA75C8971BB1A6EF00C27A68 /* AnimeProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeProgress.swift; sourceTree = "<group>"; };
 		DA75C8991BB1A76F00C27A68 /* LibrarySyncController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LibrarySyncController.swift; path = ../ANParseKit/LibrarySyncController.swift; sourceTree = "<group>"; };
@@ -835,6 +833,8 @@
 		DAC7D9051B50464B00898FF6 /* DialogController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogController.swift; sourceTree = "<group>"; };
 		DACAFBF81CDBCA6D00BE0FCE /* PostEmbeddedUrlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostEmbeddedUrlView.swift; sourceTree = "<group>"; };
 		DACAFBFB1CDBCA8100BE0FCE /* PostEmbeddedUrlView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostEmbeddedUrlView.xib; sourceTree = "<group>"; };
+		DACAFBFE1CDBDEF400BE0FCE /* ThreadUrlCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadUrlCell.swift; sourceTree = "<group>"; };
+		DACAFBFF1CDBDEF400BE0FCE /* ThreadUrlCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThreadUrlCell.xib; sourceTree = "<group>"; };
 		DACCF35E1B111016006A13EB /* AnimeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeService.swift; sourceTree = "<group>"; };
 		DACD6AAB1B62E54F00DDA55C /* RateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RateViewController.swift; path = ../ANAnimeKit/RateViewController.swift; sourceTree = "<group>"; };
 		DACD6AAD1B62F4C700DDA55C /* Rate.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Rate.storyboard; path = ../ANAnimeKit/Rate.storyboard; sourceTree = "<group>"; };
@@ -1456,13 +1456,11 @@
 				DAC0779D1B688DFD0067DA90 /* PostTextCell.xib */,
 				DAD3909D1B6C2F35000A84DE /* PostImageCell.xib */,
 				DAC077BB1B6894670067DA90 /* PostCell.swift */,
+				DA6F15F11C20129F00EE4C4B /* PostUrlCell.xib */,
+				DA6F15F31C20131700EE4C4B /* PostUrlCell.swift */,
 				DAD390A11B6C303D000A84DE /* CommentTextCell.xib */,
 				DA897F8A1B6D203D00A9510C /* CommentImageCell.xib */,
 				DAC077A61B6890830067DA90 /* CommentCell.swift */,
-				DA5AB94E1CD4122000551BFC /* CommentReplyImageCell.xib */,
-				DA5AB94F1CD4122000551BFC /* CommentReplyTextCell.xib */,
-				DA6F15F11C20129F00EE4C4B /* UrlCell.xib */,
-				DA6F15F31C20131700EE4C4B /* UrlCell.swift */,
 				DA897F881B6D1FCC00A9510C /* WriteACommentCell.xib */,
 				DA472DFA1BD409EF00E09AB0 /* ShowMoreCell.xib */,
 				DAD390A51B6C322A000A84DE /* WriteACommentCell.swift */,
@@ -1470,6 +1468,8 @@
 				DA5AB9541CD5C67900551BFC /* ThreadImageCell.xib */,
 				DA5AB9551CD5C67900551BFC /* ThreadTextCell.xib */,
 				DA5AB95A1CD5C6A400551BFC /* ThreadCell.swift */,
+				DACAFBFF1CDBDEF400BE0FCE /* ThreadUrlCell.xib */,
+				DACAFBFE1CDBDEF400BE0FCE /* ThreadUrlCell.swift */,
 			);
 			name = Posts;
 			path = ../ANCommonKit;
@@ -2089,12 +2089,12 @@
 				DA6B55171CC2DFBD00EB6FC0 /* Onboarding.storyboard in Resources */,
 				DA6B55181CC2DFBD00EB6FC0 /* Library.storyboard in Resources */,
 				DA6B55191CC2DFBD00EB6FC0 /* MALLogin.storyboard in Resources */,
-				DA6B551A1CC2DFBD00EB6FC0 /* UrlCell.xib in Resources */,
+				DA6B551A1CC2DFBD00EB6FC0 /* PostUrlCell.xib in Resources */,
 				DA6B551B1CC2DFBD00EB6FC0 /* Aller_Rg.ttf in Resources */,
+				DACAFC021CDBDEF400BE0FCE /* ThreadUrlCell.xib in Resources */,
 				DA6B551C1CC2DFBD00EB6FC0 /* Aller_LtIt.ttf in Resources */,
 				DA6B551D1CC2DFBD00EB6FC0 /* Rate.storyboard in Resources */,
 				DA6B551E1CC2DFBD00EB6FC0 /* LaunchScreen.xib in Resources */,
-				DA5AB9521CD4122000551BFC /* CommentReplyTextCell.xib in Resources */,
 				DA6B551F1CC2DFBD00EB6FC0 /* anime-scenery.jpg in Resources */,
 				DA6B55201CC2DFBD00EB6FC0 /* CommentImageCell.xib in Resources */,
 				DA6B55211CC2DFBD00EB6FC0 /* Forum.storyboard in Resources */,
@@ -2103,7 +2103,6 @@
 				DA6B55241CC2DFBD00EB6FC0 /* Aller_BdIt.ttf in Resources */,
 				DA6B55251CC2DFBD00EB6FC0 /* Notifications.storyboard in Resources */,
 				DA6B55261CC2DFBD00EB6FC0 /* Images.xcassets in Resources */,
-				DA5AB9501CD4122000551BFC /* CommentReplyImageCell.xib in Resources */,
 				DA6B55271CC2DFBD00EB6FC0 /* AnimeCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2146,12 +2145,12 @@
 				DAA577171C66EC2D007E81E6 /* Onboarding.storyboard in Resources */,
 				DAA577181C66EC2D007E81E6 /* Library.storyboard in Resources */,
 				DA8D71041C6DD0EE0016A332 /* MALLogin.storyboard in Resources */,
-				DACE088E1C6DD8BC00470B9F /* UrlCell.xib in Resources */,
+				DACE088E1C6DD8BC00470B9F /* PostUrlCell.xib in Resources */,
 				DAA577191C66EC2D007E81E6 /* Aller_Rg.ttf in Resources */,
+				DACAFC031CDBDEF400BE0FCE /* ThreadUrlCell.xib in Resources */,
 				DAA5771A1C66EC2D007E81E6 /* Aller_LtIt.ttf in Resources */,
 				DAA5771B1C66EC2D007E81E6 /* Rate.storyboard in Resources */,
 				DAA5771C1C66EC2D007E81E6 /* LaunchScreen.xib in Resources */,
-				DA5AB9531CD4122000551BFC /* CommentReplyTextCell.xib in Resources */,
 				DAA5771D1C66EC2D007E81E6 /* anime-scenery.jpg in Resources */,
 				DACE08871C6DD8BC00470B9F /* CommentImageCell.xib in Resources */,
 				DAA5771E1C66EC2D007E81E6 /* Forum.storyboard in Resources */,
@@ -2160,7 +2159,6 @@
 				DAA577211C66EC2D007E81E6 /* Aller_BdIt.ttf in Resources */,
 				DAD486B01C6EA3ED0045B769 /* Notifications.storyboard in Resources */,
 				DAA577221C66EC2D007E81E6 /* Images.xcassets in Resources */,
-				DA5AB9511CD4122000551BFC /* CommentReplyImageCell.xib in Resources */,
 				DAA577231C66EC2D007E81E6 /* AnimeCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2539,7 +2537,7 @@
 				DA6B547B1CC2DFBD00EB6FC0 /* InAppPurchaseController.swift in Sources */,
 				DA6B547C1CC2DFBD00EB6FC0 /* CommentCell.swift in Sources */,
 				DA6B547D1CC2DFBD00EB6FC0 /* User.swift in Sources */,
-				DA6B547E1CC2DFBD00EB6FC0 /* UrlCell.swift in Sources */,
+				DA6B547E1CC2DFBD00EB6FC0 /* PostUrlCell.swift in Sources */,
 				DA6B547F1CC2DFBD00EB6FC0 /* ForumsViewController.swift in Sources */,
 				DA6B54801CC2DFBD00EB6FC0 /* TimelinePost.swift in Sources */,
 				DA6B54811CC2DFBD00EB6FC0 /* AnimeCharacter.swift in Sources */,
@@ -2631,6 +2629,7 @@
 				DA6B54D11CC2DFBD00EB6FC0 /* ANAnimeKit.swift in Sources */,
 				DAD7AEB41CC4907B00BB2FBD /* LibraryStatisticsCell.swift in Sources */,
 				DA6B54D21CC2DFBD00EB6FC0 /* SignUpViewController.swift in Sources */,
+				DACAFC001CDBDEF400BE0FCE /* ThreadUrlCell.swift in Sources */,
 				DA6B54D31CC2DFBD00EB6FC0 /* TopicCell.swift in Sources */,
 				DA6B54D41CC2DFBD00EB6FC0 /* ChartViewController.swift in Sources */,
 				DA6B54D51CC2DFBD00EB6FC0 /* WSWebScraper.m in Sources */,
@@ -2673,7 +2672,7 @@
 				DAA576C31C66EC2D007E81E6 /* InAppPurchaseController.swift in Sources */,
 				DACE088B1C6DD8BC00470B9F /* CommentCell.swift in Sources */,
 				DA2991E01C6DD10500CCB04D /* User.swift in Sources */,
-				DACE088F1C6DD8BC00470B9F /* UrlCell.swift in Sources */,
+				DACE088F1C6DD8BC00470B9F /* PostUrlCell.swift in Sources */,
 				DAA576C41C66EC2D007E81E6 /* ForumsViewController.swift in Sources */,
 				DA2991DD1C6DD10500CCB04D /* TimelinePost.swift in Sources */,
 				DA2991D51C6DD10500CCB04D /* AnimeCharacter.swift in Sources */,
@@ -2765,6 +2764,7 @@
 				DAA576F01C66EC2D007E81E6 /* ANAnimeKit.swift in Sources */,
 				DAD7AEB51CC4907B00BB2FBD /* LibraryStatisticsCell.swift in Sources */,
 				DAA576F11C66EC2D007E81E6 /* SignUpViewController.swift in Sources */,
+				DACAFC011CDBDEF400BE0FCE /* ThreadUrlCell.swift in Sources */,
 				DAA576F21C66EC2D007E81E6 /* TopicCell.swift in Sources */,
 				DAA576F31C66EC2D007E81E6 /* ChartViewController.swift in Sources */,
 				DA7A16961C6DD0BC00AA2882 /* WSWebScraper.m in Sources */,
