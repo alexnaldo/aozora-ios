@@ -91,7 +91,7 @@
                                             </mask>
                                         </variation>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="External Link-50" translatesAutoresizingMaskIntoConstraints="NO" id="8bl-BB-Brh">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="external-link" translatesAutoresizingMaskIntoConstraints="NO" id="8bl-BB-Brh">
                                         <rect key="frame" x="277" y="32" width="15" height="15"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="15" id="Df1-Ta-GI0"/>
@@ -170,6 +170,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="External Link-50" width="50" height="50"/>
+        <image name="external-link" width="25" height="25"/>
     </resources>
 </document>

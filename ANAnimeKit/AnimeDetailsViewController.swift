@@ -684,11 +684,11 @@ extension AnimeDetailsViewController: UITableViewDataSource {
             cell.dataSource = anime.links()
             cell.selectedLinkCallBack = { [weak self] link in
 
-                let navController = Storyboard.webBrowserViewControllerNav()
-                let webController = navController.viewControllers.first as! WebBrowserViewController
+                let webController = Storyboard.webBrowserViewController()
                 let initialUrl = NSURL(string: link.url)
                 webController.initWithInitialUrl(initialUrl)
-                self?.presentViewController(navController, animated: true, completion: nil)
+                webController.hidesBottomBarWhenPushed = true
+                self?.navigationController?.pushViewController(webController, animated: true)
             }
 
             cell.collectionView.reloadData()

@@ -1052,11 +1052,10 @@ extension BaseThreadViewController: TTTAttributedLabelDelegate {
             
         } else if url.scheme != "aozoraapp" {
 
-            let navController = Storyboard.webBrowserViewControllerNav()
-            let webController = navController.viewControllers.first as! WebBrowserViewController
-
+            let webController = Storyboard.webBrowserViewController()
             webController.initWithInitialUrl(url)
-            presentViewController(navController, animated: true, completion: nil)
+            webController.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(webController, animated: true)
         }
     }
 }
@@ -1178,12 +1177,11 @@ extension BaseThreadViewController: LinkCellDelegate {
             return
         }
 
-        let navController = Storyboard.webBrowserViewControllerNav()
-        let webController = navController.viewControllers.first as! WebBrowserViewController
-
+        let webController = Storyboard.webBrowserViewController()
         let initialUrl = NSURL(string: url)
         webController.initWithInitialUrl(initialUrl)
-        presentViewController(navController, animated: true, completion: nil)
+        webController.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(webController, animated: true)
     }
 }
 

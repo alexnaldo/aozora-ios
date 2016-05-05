@@ -77,8 +77,8 @@ enum Storyboard: String {
         return Storyboard.MALLogin.viewControllerWithClass(MALLoginViewController)
     }
 
-    static func webBrowserViewControllerNav() -> UINavigationController {
-        return Storyboard.WebBrowser.navigationControllerForViewControllerWithClass(WebBrowserViewController)
+    static func webBrowserViewController() -> WebBrowserViewController {
+        return Storyboard.WebBrowser.viewControllerWithClass(WebBrowserViewController)
     }
 
     static func animeForumViewController() -> UINavigationController {

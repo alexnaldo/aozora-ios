@@ -49,6 +49,12 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="RTB-ho-x1p"/>
+                                    <barButtonItem image="web-share" id="vm0-fi-m9Y">
+                                        <connections>
+                                            <action selector="pressedShare:" destination="Nc5-67-Let" id="Vgr-k6-IrN"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="ngw-fN-BuZ"/>
                                     <barButtonItem image="icon-safari" id="TaG-F5-9dP">
                                         <connections>
                                             <action selector="openInSafari:" destination="Nc5-67-Let" id="QPO-Ic-iCv"/>
@@ -64,13 +70,11 @@
                             <constraint firstItem="gdX-ma-ar5" firstAttribute="leading" secondItem="SwB-wQ-k19" secondAttribute="leading" id="owX-cd-rFW"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="IjM-8O-GYv">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="ekH-uF-j4I">
-                            <connections>
-                                <action selector="dismissModal" destination="Nc5-67-Let" id="jFS-Lv-LnX"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="IjM-8O-GYv"/>
+                    <connections>
+                        <outlet property="backButton" destination="SUo-bH-JIS" id="WnK-Yc-1o1"/>
+                        <outlet property="forwardButton" destination="Kul-ec-Sy0" id="aRw-4k-wqq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="huq-4f-USB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -81,5 +85,6 @@
         <image name="arrow-back" width="22" height="22"/>
         <image name="arrow-forward" width="22" height="22"/>
         <image name="icon-safari" width="22" height="22"/>
+        <image name="web-share" width="25" height="25"/>
     </resources>
 </document>
