@@ -324,20 +324,18 @@ extension CommentViewController: UITextViewDelegate {
     func scrapeLinkWithURL(url: NSURL) {
         linkCountLabel?.text = ""
         fetchingData = true
-        
-        let scapper = LinkScrapper(viewController: self)
-        scapper.findInformationForLink(url).continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task: BFTask!) -> AnyObject? in
-            
+
+        let data = ["url": url.absoluteString]
+        PFCloud.callFunctionInBackground("Scrapper.ScrapeURLMetadata", withParameters: data) { (result, error) in
             self.fetchingData = false
-            if let linkData = task.result as? LinkData {
+            if let result = result as? [String: AnyObject] {
+                let linkData = LinkData.mapJSON(result)
                 self.selectedLinkData = linkData
                 self.linkCountLabel?.text = "1"
-            } else {
+            } else if let _ = error {
                 self.selectedLinkUrl = nil
             }
-            
-            return nil
-        })
+        }
     }
     
     func scrapeImageWithURL(url: NSURL) {
