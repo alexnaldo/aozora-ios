@@ -140,11 +140,19 @@ class ThreadViewController: BaseThreadViewController {
 
             query.includeKey("postedBy")
 
-            repliesQuery.skip = 0
-            repliesQuery.orderByAscending("createdAt")
-            repliesQuery.includeKey("postedBy")
-            repliesQuery.limit = 2000
-            queryBatch.whereQuery(repliesQuery, matchesKey: "parentPost", onQuery: query)
+            switch threadConfiguration {
+            case .ThreadMain:
+                query.includeKey("lastReply")
+                query.includeKey("lastReply.postedBy")
+                return queryBatch.executeQueries([query])
+            case .ThreadDetail:
+                repliesQuery.skip = 0
+                repliesQuery.orderByAscending("createdAt")
+                repliesQuery.includeKey("postedBy")
+                repliesQuery.limit = 2000
+                queryBatch.whereQuery(repliesQuery, matchesKey: "parentPost", onQuery: query)
+                return queryBatch.executeQueries([query, repliesQuery])
+            }
 
         case .Episode, .ThreadPosts:
 
@@ -156,19 +164,14 @@ class ThreadViewController: BaseThreadViewController {
             query.orderByDescending("updatedAt")
             query.includeKey("postedBy")
 
-            repliesQuery = Post.query()!
-            repliesQuery.skip = 0
-            repliesQuery.orderByAscending("createdAt")
-            repliesQuery.includeKey("postedBy")
-            repliesQuery.limit = 2000
+            query.includeKey("lastReply")
+            query.includeKey("lastReply.postedBy")
 
-            queryBatch.whereQuery(repliesQuery, matchesKey: "parentPost", onQuery: query)
+            return queryBatch.executeQueries([query])
         default:
             assertionFailure()
-            break
+            return nil
         }
-
-        return queryBatch.executeQueries([query, repliesQuery])
     }
 
     // MARK: - FetchControllerDelegate

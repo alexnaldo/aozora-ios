@@ -407,13 +407,11 @@ class ProfileViewController: BaseThreadViewController {
                 let aozoraAccount = User(outDataWithObjectId: "bR0DT6mStO")
                 let darkciriusAccount = User(outDataWithObjectId: "Bt5dy11isC")
                 let allUsers2 = allUsers+[aozoraAccount, darkciriusAccount]
-                query.whereKey("userTimeline", containedIn: allUsers2)
                 query.whereKey("postedBy", containedIn: allUsers2)
             } else {
                 let followingQuery = userProfile!.following().query()
                 followingQuery.orderByDescending("activeStart")
                 followingQuery.limit = 1000
-                queryBatch.whereQuery(query, matchesKey: "userTimeline", onQuery: followingQuery)
                 queryBatch.whereQuery(query, matchesKey: "postedBy", onQuery: followingQuery)
             }
 
@@ -428,6 +426,8 @@ class ProfileViewController: BaseThreadViewController {
         query.includeKey("postedBy")
         query.includeKey("userTimeline")
         query.includeKey("lastReply")
+        query.includeKey("lastReply.postedBy")
+        query.includeKey("lastReply.userTimeline")
         query.limit = FetchLimit
 
         startDate = NSDate()
