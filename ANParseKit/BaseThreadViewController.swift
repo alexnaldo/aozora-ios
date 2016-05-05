@@ -821,14 +821,14 @@ extension BaseThreadViewController: UITableViewDataSource {
         // Only embed links on post cells for now
         if let linkCell = cell as? UrlCell, let linkData = post.linkData, let linkUrl = linkData.url {
             linkCell.linkDelegate = self
-            linkCell.linkTitleLabel.text = linkData.title
-            linkCell.linkContentLabel.text = linkData.description
-            linkCell.linkUrlLabel.text = NSURL(string: linkUrl)?.host?.uppercaseString
+            linkCell.linkContentView.linkTitleLabel.text = linkData.title
+            linkCell.linkContentView.linkContentLabel.text = linkData.description
+            linkCell.linkContentView.linkUrlLabel.text = NSURL(string: linkUrl)?.host?.uppercaseString
             if let imageURL = linkData.imageUrls.first {
-                linkCell.imageContent?.setImageFrom(urlString: imageURL, animated: false)
+                linkCell.linkContentView.imageContent?.setImageFrom(urlString: imageURL, animated: false)
                 linkCell.imageHeightConstraint?.constant = (baseWidth - 16) * CGFloat(158)/CGFloat(305)
             } else {
-                linkCell.imageContent?.image = nil
+                linkCell.linkContentView.imageContent?.image = nil
                 linkCell.imageHeightConstraint?.constant = 0
             }
         }

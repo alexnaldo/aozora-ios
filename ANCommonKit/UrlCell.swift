@@ -14,12 +14,8 @@ protocol LinkCellDelegate: PostCellDelegate {
 }
 
 class UrlCell: PostCell {
-    
-    @IBOutlet weak var linkTitleLabel: UILabel!
-    @IBOutlet weak var linkContentLabel: UILabel!
-    @IBOutlet weak var linkUrlLabel: UILabel!
-    
-    @IBOutlet weak var linkContentView: UIView!
+
+    @IBOutlet weak var linkContentView: PostEmbeddedUrlView!
     
     weak var linkDelegate: LinkCellDelegate?
     
@@ -33,31 +29,12 @@ class UrlCell: PostCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-    
-        do {
-            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(pressedOnLink(_:)))
-            gestureRecognizer.numberOfTouchesRequired = 1
-            gestureRecognizer.numberOfTapsRequired = 1
-            linkContentView.addGestureRecognizer(gestureRecognizer)
+
+        linkContentView.openURLCallback = {
+            self.linkDelegate?.postCellSelectedLink(self)
         }
-        
-        do {
-            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(pressedOnLink(_:)))
-            gestureRecognizer.numberOfTouchesRequired = 1
-            gestureRecognizer.numberOfTapsRequired = 1
-            imageContent?.addGestureRecognizer(gestureRecognizer)
-        }
-        
-        let borderWidth: CGFloat = 1
-        linkContentView.layer.borderColor = UIColor.backgroundDarker().CGColor
-        linkContentView.layer.borderWidth = borderWidth
     }
-    
-    // MARK: - UITapGestureRecognizer
-    
-    func pressedOnLink(sender: AnyObject) {
-        linkDelegate?.postCellSelectedLink(self)
-    }
+
     
 }
 

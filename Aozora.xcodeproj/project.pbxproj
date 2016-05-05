@@ -413,6 +413,10 @@
 		DAA577481C66F0CA007E81E6 /* AnimeTrakrWatching.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DAA577421C66EFCA007E81E6 /* AnimeTrakrWatching.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DAA5774F1C66F2FF007E81E6 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA5774C1C66F17D007E81E6 /* AppEnvironment.swift */; };
 		DAC3F3E11B5E989E001D6072 /* Resources.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAC3F3E01B5E989E001D6072 /* Resources.xcassets */; };
+		DACAFBF91CDBCA6D00BE0FCE /* PostEmbeddedUrlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACAFBF81CDBCA6D00BE0FCE /* PostEmbeddedUrlView.swift */; };
+		DACAFBFA1CDBCA6D00BE0FCE /* PostEmbeddedUrlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACAFBF81CDBCA6D00BE0FCE /* PostEmbeddedUrlView.swift */; };
+		DACAFBFC1CDBCA8100BE0FCE /* PostEmbeddedUrlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DACAFBFB1CDBCA8100BE0FCE /* PostEmbeddedUrlView.xib */; };
+		DACAFBFD1CDBCA8100BE0FCE /* PostEmbeddedUrlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DACAFBFB1CDBCA8100BE0FCE /* PostEmbeddedUrlView.xib */; };
 		DACE085F1C6DD3E900470B9F /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DACE085D1C6DD3DA00470B9F /* libxml2.tbd */; };
 		DACE08621C6DD3EF00470B9F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DAFB071D1C14FFFE00F7F745 /* libz.tbd */; };
 		DACE08631C6DD3EF00470B9F /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DAFB071B1C14FFC300F7F745 /* libsqlite3.tbd */; };
@@ -829,6 +833,8 @@
 		DAC7D8FE1B5018DE00898FF6 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		DAC7D9011B50201300898FF6 /* InAppController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InAppController.swift; path = ../ANCommonKit/InAppController.swift; sourceTree = "<group>"; };
 		DAC7D9051B50464B00898FF6 /* DialogController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogController.swift; sourceTree = "<group>"; };
+		DACAFBF81CDBCA6D00BE0FCE /* PostEmbeddedUrlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostEmbeddedUrlView.swift; sourceTree = "<group>"; };
+		DACAFBFB1CDBCA8100BE0FCE /* PostEmbeddedUrlView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostEmbeddedUrlView.xib; sourceTree = "<group>"; };
 		DACCF35E1B111016006A13EB /* AnimeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeService.swift; sourceTree = "<group>"; };
 		DACD6AAB1B62E54F00DDA55C /* RateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RateViewController.swift; path = ../ANAnimeKit/RateViewController.swift; sourceTree = "<group>"; };
 		DACD6AAD1B62F4C700DDA55C /* Rate.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Rate.storyboard; path = ../ANAnimeKit/Rate.storyboard; sourceTree = "<group>"; };
@@ -1445,6 +1451,8 @@
 				DA5A3E5B1CC1A44900A76621 /* PostUserView.swift */,
 				DA5A3E571CC1A41A00A76621 /* PostActionsView.xib */,
 				DA5A3E5D1CC1A45300A76621 /* PostActionsView.swift */,
+				DACAFBFB1CDBCA8100BE0FCE /* PostEmbeddedUrlView.xib */,
+				DACAFBF81CDBCA6D00BE0FCE /* PostEmbeddedUrlView.swift */,
 				DAC0779D1B688DFD0067DA90 /* PostTextCell.xib */,
 				DAD3909D1B6C2F35000A84DE /* PostImageCell.xib */,
 				DAC077BB1B6894670067DA90 /* PostCell.swift */,
@@ -2053,6 +2061,7 @@
 				DA6B54FE1CC2DFBD00EB6FC0 /* Forums.storyboard in Resources */,
 				DA6B54FF1CC2DFBD00EB6FC0 /* PostActionsView.xib in Resources */,
 				DA6B55001CC2DFBD00EB6FC0 /* Aller_Lt.ttf in Resources */,
+				DACAFBFC1CDBCA8100BE0FCE /* PostEmbeddedUrlView.xib in Resources */,
 				DA6B55011CC2DFBD00EB6FC0 /* ShowMoreCell.xib in Resources */,
 				DA6B55021CC2DFBD00EB6FC0 /* InApp.storyboard in Resources */,
 				DA6B55031CC2DFBD00EB6FC0 /* FacebookSDKStrings.bundle in Resources */,
@@ -2109,6 +2118,7 @@
 				DAA577081C66EC2D007E81E6 /* Forums.storyboard in Resources */,
 				DA5A3E611CC1ADDC00A76621 /* PostActionsView.xib in Resources */,
 				DAA577091C66EC2D007E81E6 /* Aller_Lt.ttf in Resources */,
+				DACAFBFD1CDBCA8100BE0FCE /* PostEmbeddedUrlView.xib in Resources */,
 				DACE08891C6DD8BC00470B9F /* ShowMoreCell.xib in Resources */,
 				DAA5770A1C66EC2D007E81E6 /* InApp.storyboard in Resources */,
 				DAA5770C1C66EC2D007E81E6 /* FacebookSDKStrings.bundle in Resources */,
@@ -2552,6 +2562,7 @@
 				DA6B54931CC2DFBD00EB6FC0 /* Anime.swift in Sources */,
 				DA6B54941CC2DFBD00EB6FC0 /* UserProfileManager.swift in Sources */,
 				DA6B54951CC2DFBD00EB6FC0 /* AnimeRelation.swift in Sources */,
+				DACAFBF91CDBCA6D00BE0FCE /* PostEmbeddedUrlView.swift in Sources */,
 				DA6B54961CC2DFBD00EB6FC0 /* AppDelegate.swift in Sources */,
 				DA6B54971CC2DFBD00EB6FC0 /* WriteACommentCell.swift in Sources */,
 				DA6B54981CC2DFBD00EB6FC0 /* AnimeReview.swift in Sources */,
@@ -2685,6 +2696,7 @@
 				DA2991D71C6DD10500CCB04D /* Anime.swift in Sources */,
 				DAA576CD1C66EC2D007E81E6 /* UserProfileManager.swift in Sources */,
 				DA2991D41C6DD10500CCB04D /* AnimeRelation.swift in Sources */,
+				DACAFBFA1CDBCA6D00BE0FCE /* PostEmbeddedUrlView.swift in Sources */,
 				DAA576CE1C66EC2D007E81E6 /* AppDelegate.swift in Sources */,
 				DACE088C1C6DD8BC00470B9F /* WriteACommentCell.swift in Sources */,
 				DA2991D81C6DD10500CCB04D /* AnimeReview.swift in Sources */,
