@@ -16,10 +16,9 @@ upcoming:
 - New forum layout.
 - Sorting forum threads using Reddit's ranking.
 - Better link embedding support.
+- Embedding links on forums (if posting, leave a copy of the link so AppStore version can see something).
 - NOTE > Comment counts and like counts might not be accurate. This will be accurate when all users update. This also affects popular section (which won't show new posts)
 - NOTE > Pinned posts on forums will not appear on this build.
-- NOTE > Link embedding is not working on forums yet.
-
 
 
 releases:
