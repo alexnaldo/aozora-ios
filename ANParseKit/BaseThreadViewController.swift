@@ -786,9 +786,16 @@ extension BaseThreadViewController: UITableViewDataSource {
                 .add("by \(thread.postedBy!.aozoraUsername)", setter: subtitleAttributes)
         }
 
+        if thread.locked {
+            let alertAttributes = { (inout attr: Attributes) in
+                attr.color = UIColor.onHold()
+                attr.font = UIFont.systemFontOfSize(14)
+            }
+            attributedContent.add(" [Locked]", setter: alertAttributes)
+        }
+
         switch threadType {
         case .ThreadPosts:
-            
             if let content = thread.content where content.characters.count > 1 {
                 attributedContent
                     .add("\n\n\(thread.content ?? "")", setter: contentAttributes)
