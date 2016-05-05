@@ -42,7 +42,7 @@ class PublicListViewController: UIViewController {
     var loadingView: LoaderView!
     var userProfile: User!
     var sectionTitles: [String] = ["Watching", "Planning", "Completed", "On-Hold", "Dropped"]
-    var sectionSubtitles: [String] = ["","","","","",""]
+    var sectionSubtitles: [String] = ["","","","",""]
     var totalSubtitle: String = ""
     var totalWatchedMinutes: Int = 0
     
@@ -153,7 +153,7 @@ class PublicListViewController: UIViewController {
                 var moviesTotalCount = 0
                 var restTotalCount = 0
                 // Set stats
-                for i in 0 ..< self.dataSource.count-1  {
+                for i in 0 ..< self.dataSource.count  {
                     let animeList = self.dataSource[i]
                     var tvCount = 0
                     var moviesCount = 0
@@ -216,7 +216,7 @@ extension PublicListViewController: UICollectionViewDataSource {
         if section == 0 {
             return 1
         } else {
-            return filteredDataSource[section-1].count
+            return filteredDataSource[section-1].count + 1
         }
 
     }
@@ -233,22 +233,19 @@ extension PublicListViewController: UICollectionViewDataSource {
             return cell
         }
 
-        let section = indexPath.section - 1
-
-        switch (section, indexPath.row) {
-        case (_,0):
+        switch indexPath.row {
+        case 0:
             // Title
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("LibrarySectionCell", forIndexPath: indexPath) as! LibrarySectionCell
 
-            cell.titleLabel.text = sectionTitles[section]
-            cell.subtitleLabel.text = sectionSubtitles[section]
+            cell.titleLabel.text = sectionTitles[indexPath.section - 1]
+            cell.subtitleLabel.text = sectionSubtitles[indexPath.section - 1]
 
             return cell
-        case (_,_):
+        default:
             //
             let cell = collectionView.dequeueReusableCellWithClass(AnimeCell.self, indexPath: indexPath)
-
-            let anime = filteredDataSource[section][indexPath.row]
+            let anime = filteredDataSource[indexPath.section - 1][indexPath.row - 1]
             cell.configureWithAnime(anime, canFadeImages: canFadeImages, showEtaAsAired: false, publicAnime: true)
             cell.layoutIfNeeded()
             return cell
@@ -268,7 +265,11 @@ extension PublicListViewController: UICollectionViewDelegate, UICollectionViewDe
         
         view.endEditing(true)
         let section = indexPath.section - 1
-        let anime = filteredDataSource[section][indexPath.row]
+        let row = indexPath.row - 1
+        if section < 0 || row < 0 {
+            return
+        }
+        let anime = filteredDataSource[section][row]
         animator = presentAnimeModal(anime)
     }
 
@@ -276,10 +277,10 @@ extension PublicListViewController: UICollectionViewDelegate, UICollectionViewDe
         if indexPath.section == 0 {
             return CGSize(width: view.bounds.width, height: 68)
         } else {
-            switch (indexPath.section - 1, indexPath.row) {
-            case (_,0):
+            switch indexPath.row {
+            case 0:
                 return CGSize(width: view.bounds.width, height: 76)
-            case (_,_):
+            default:
                 return animeCellSize
             }
         }
