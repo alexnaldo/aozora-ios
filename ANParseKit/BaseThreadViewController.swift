@@ -788,8 +788,11 @@ extension BaseThreadViewController: UITableViewDataSource {
 
         switch threadType {
         case .ThreadPosts:
-            attributedContent
-                .add("\n\n\(thread.content ?? "")", setter: contentAttributes)
+            
+            if let content = thread.content where content.characters.count > 1 {
+                attributedContent
+                    .add("\n\n\(thread.content ?? "")", setter: contentAttributes)
+            }
         default:
             break
         }
