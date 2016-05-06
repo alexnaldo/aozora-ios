@@ -253,7 +253,7 @@ class BaseThreadViewController: UIViewController {
             return
         }
         
-        guard let postObject = post as? PFObject where !postObject.dirty else {
+        guard let postObject = post as? PFObject else {
             return
         }
 
