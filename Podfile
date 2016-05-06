@@ -36,7 +36,6 @@ abstract_target 'AozoraProject' do
             ]
         }
 
-        pod 'JTSImageViewController', '~> 1.3'
         pod 'FontAwesome+iOS'
         pod 'Shimmer'
         pod 'XLPagerTabStrip', '~> 1.1.1'

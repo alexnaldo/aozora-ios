@@ -60,7 +60,6 @@
 		DA4F15A01C6EBCF600C71227 /* UIView+Reuse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4F159E1C6EBCF600C71227 /* UIView+Reuse.swift */; };
 		DA4F15A31C6EBD0400C71227 /* UITableView+Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4F15A11C6EBD0400C71227 /* UITableView+Cells.swift */; };
 		DA4F15A61C6EBD7400C71227 /* UICollectionView+Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4F15A41C6EBD7400C71227 /* UICollectionView+Cells.swift */; };
-		DA4F15A71C6EFDD400C71227 /* UIViewController+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC13BFD1B3F36AB0013D479 /* UIViewController+Image.swift */; };
 		DA4F15A91C6EFDF400C71227 /* UIViewController+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7C84C81B4379AA0036D119 /* UIViewController+Navigation.swift */; };
 		DA58C2DE1B38A3990082B626 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC610BD1B312B0200B60631 /* UserCell.swift */; };
 		DA58C2E21B38A7760082B626 /* String+NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58C2E11B38A7760082B626 /* String+NSDate.swift */; };
@@ -155,7 +154,6 @@
 		DA6B54A51CC2DFBD00EB6FC0 /* ForumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAD79921B30D087009D70ED /* ForumViewController.swift */; };
 		DA6B54A61CC2DFBD00EB6FC0 /* ReminderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACD6AB71B6315AA00DDA55C /* ReminderController.swift */; };
 		DA6B54A71CC2DFBD00EB6FC0 /* Storyboard+Aozora.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4F15951C6EAB9900C71227 /* Storyboard+Aozora.swift */; };
-		DA6B54A81CC2DFBD00EB6FC0 /* UIViewController+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC13BFD1B3F36AB0013D479 /* UIViewController+Image.swift */; };
 		DA6B54A91CC2DFBD00EB6FC0 /* AnimePosterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA561ECF1C5D803100C3E493 /* AnimePosterCell.swift */; };
 		DA6B54AA1CC2DFBD00EB6FC0 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA13806B1B6DBB4C00C53560 /* Post.swift */; };
 		DA6B54AB1CC2DFBD00EB6FC0 /* TTTAttributedLabel+Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA03F15B1B8B818E00402AC4 /* TTTAttributedLabel+Tags.swift */; };
@@ -809,7 +807,6 @@
 		DAC077A61B6890830067DA90 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentCell.swift; path = ../AnimeNow/CommentCell.swift; sourceTree = "<group>"; };
 		DAC077BB1B6894670067DA90 /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostCell.swift; path = ../AnimeNow/PostCell.swift; sourceTree = "<group>"; };
 		DAC13BEE1B3EEF250013D479 /* AnimeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnimeCell.xib; sourceTree = "<group>"; };
-		DAC13BFD1B3F36AB0013D479 /* UIViewController+Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Image.swift"; sourceTree = "<group>"; };
 		DAC13BFF1B3F4A7A0013D479 /* FetchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchController.swift; sourceTree = "<group>"; };
 		DAC13C021B40569F0013D479 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		DAC13C041B4056AB0013D479 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -1480,7 +1477,6 @@
 			children = (
 				DA421E261CC3795500732C14 /* NSMutableAttributedStringExtensions.swift */,
 				DA7C84C81B4379AA0036D119 /* UIViewController+Navigation.swift */,
-				DAC13BFD1B3F36AB0013D479 /* UIViewController+Image.swift */,
 				DA4F15A41C6EBD7400C71227 /* UICollectionView+Cells.swift */,
 				DA4F15A11C6EBD0400C71227 /* UITableView+Cells.swift */,
 				DA4F159E1C6EBCF600C71227 /* UIView+Reuse.swift */,
@@ -1815,6 +1811,7 @@
 				DA354B3F1C5DF3C2008C729F /* Resources */,
 				DAA576AF1C66DD76007E81E6 /* ShellScript */,
 				24CD7D7B9E17E78B60D74616 /* 📦 Copy Pods Resources */,
+				25E721A31C35CA7430E68B6F /* 📦 Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1926,6 +1923,7 @@
 				DAA5773A1C66EFCA007E81E6 /* Resources */,
 				DAA5773E1C66EFCA007E81E6 /* ShellScript */,
 				3406741112349F8C7609423D /* 📦 Copy Pods Resources */,
+				218F1C73DF9F68FB1495587F /* 📦 Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2191,6 +2189,21 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		218F1C73DF9F68FB1495587F /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AnimeTrakrWatching/Pods-AnimeTrakrWatching-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		24CD7D7B9E17E78B60D74616 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2204,6 +2217,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AozoraWatching/Pods-AozoraWatching-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		25E721A31C35CA7430E68B6F /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AozoraWatching/Pods-AozoraWatching-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		295CF3CEC6177BE1DD2D2B40 /* 📦 Check Pods Manifest.lock */ = {
@@ -2582,7 +2610,6 @@
 				DA6B54A51CC2DFBD00EB6FC0 /* ForumViewController.swift in Sources */,
 				DA6B54A61CC2DFBD00EB6FC0 /* ReminderController.swift in Sources */,
 				DA6B54A71CC2DFBD00EB6FC0 /* Storyboard+Aozora.swift in Sources */,
-				DA6B54A81CC2DFBD00EB6FC0 /* UIViewController+Image.swift in Sources */,
 				DA6B54A91CC2DFBD00EB6FC0 /* AnimePosterCell.swift in Sources */,
 				DA6B54AA1CC2DFBD00EB6FC0 /* Post.swift in Sources */,
 				DA6B54AB1CC2DFBD00EB6FC0 /* TTTAttributedLabel+Tags.swift in Sources */,
@@ -2717,7 +2744,6 @@
 				DAA576D41C66EC2D007E81E6 /* ForumViewController.swift in Sources */,
 				DAA576D51C66EC2D007E81E6 /* ReminderController.swift in Sources */,
 				DA4F15971C6EAB9900C71227 /* Storyboard+Aozora.swift in Sources */,
-				DA4F15A71C6EFDD400C71227 /* UIViewController+Image.swift in Sources */,
 				DAA576D61C66EC2D007E81E6 /* AnimePosterCell.swift in Sources */,
 				DA2991DF1C6DD10500CCB04D /* Post.swift in Sources */,
 				DA2991F61C6DD10900CCB04D /* TTTAttributedLabel+Tags.swift in Sources */,
@@ -3207,8 +3233,6 @@
 					"-framework",
 					"\"HCSStarRatingView\"",
 					"-framework",
-					"\"JTSImageViewController\"",
-					"-framework",
 					"\"RMStore\"",
 					"-framework",
 					"\"RSKImageCropper\"",
@@ -3282,8 +3306,6 @@
 					"\"FontAwesome_iOS\"",
 					"-framework",
 					"\"HCSStarRatingView\"",
-					"-framework",
-					"\"JTSImageViewController\"",
 					"-framework",
 					"\"RMStore\"",
 					"-framework",
@@ -3359,8 +3381,6 @@
 					"-framework",
 					"\"HCSStarRatingView\"",
 					"-framework",
-					"\"JTSImageViewController\"",
-					"-framework",
 					"\"RMStore\"",
 					"-framework",
 					"\"RSKImageCropper\"",
@@ -3434,8 +3454,6 @@
 					"\"FontAwesome_iOS\"",
 					"-framework",
 					"\"HCSStarRatingView\"",
-					"-framework",
-					"\"JTSImageViewController\"",
 					"-framework",
 					"\"RMStore\"",
 					"-framework",

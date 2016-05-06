@@ -7,10 +7,8 @@
 //
 
 import UIKit
-
 import ANCommonKit
 import XCDYouTubeKit
-import JTSImageViewController
 import iRate
 import FBSDKShareKit
 import Fabric

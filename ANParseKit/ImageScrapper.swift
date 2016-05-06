@@ -22,7 +22,13 @@ public class ImageData: NSObject, NYTPhoto {
     public var attributedCaptionTitle: NSAttributedString?
     public var attributedCaptionSummary: NSAttributedString?
     public var attributedCaptionCredit: NSAttributedString?
-    
+
+    init(url: String) {
+        self.url = url
+        self.width = 0
+        self.height = 0
+    }
+
     init(url: String, width: Int, height: Int) {
         self.url = url
         self.width = width

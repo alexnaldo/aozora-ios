@@ -22,6 +22,14 @@ class PhotosViewController: NYTPhotosViewController {
         }
     }
 
+    convenience init(imageURL: NSURL) {
+
+        let photo = ImageData(url: imageURL.absoluteString)
+        self.init(photos: [photo])
+        delegate = self
+        updateImageForPhoto(photo, photosViewController: self)
+    }
+
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)

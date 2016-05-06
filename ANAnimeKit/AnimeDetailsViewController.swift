@@ -12,6 +12,7 @@ import ANCommonKit
 import XCDYouTubeKit
 import FBSDKShareKit
 import TTTAttributedLabel
+import NYTPhotoViewer
 
 enum AnimeSection: Int {
     case Information = 0
@@ -255,7 +256,9 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
         guard let imageURL = NSURL(string: imageString) else {
             return
         }
-        presentImageViewController(fanartImageView, imageUrl: imageURL)
+
+        let photosViewController = PhotosViewController(imageURL: imageURL)
+        presentViewController(photosViewController, animated: true, completion: nil)
     }
     
     @IBAction func showPoster(sender: AnyObject) {
@@ -264,7 +267,9 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
         guard let imageURL = NSURL(string: hdImage) else {
             return
         }
-        presentImageViewController(posterImageView, imageUrl: imageURL)
+
+        let photosViewController = PhotosViewController(imageURL: imageURL)
+        presentViewController(photosViewController, animated: true, completion: nil)
     }
    
     
@@ -780,13 +785,15 @@ extension AnimeDetailsViewController: UITableViewDelegate {
         case .ExternalLinks:
             break
         case .Character:
-            let cell = tableView.dequeueReusableCellWithIdentifier("CharacterCell", forIndexPath: indexPath) as! CharacterCell
             let character = anime.characters.characterAtIndex(indexPath.row)
-            presentImageViewController(cell.personImageView, imageUrl: NSURL(string: character.image)! )
+            let imageURL = NSURL(string: character.image)!
+            let photosViewController = PhotosViewController(imageURL: imageURL)
+            presentViewController(photosViewController, animated: true, completion: nil)
         case .Cast:
-            let cell = tableView.dequeueReusableCellWithIdentifier("CastCell", forIndexPath: indexPath) as! CharacterCell
             let cast = anime.cast.castAtIndex(indexPath.row)
-            presentImageViewController(cell.personImageView, imageUrl: NSURL(string: cast.image)! )
+            let imageURL = NSURL(string: cast.image)!
+            let photosViewController = PhotosViewController(imageURL: imageURL)
+            presentViewController(photosViewController, animated: true, completion: nil)
         }
 
     }

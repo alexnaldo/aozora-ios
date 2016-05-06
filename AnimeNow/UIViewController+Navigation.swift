@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import JTSImageViewController
 
 public protocol ModalTransitionScrollable {
     var transitionScrollView: UIScrollView? { get }
