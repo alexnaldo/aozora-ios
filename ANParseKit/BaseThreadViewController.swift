@@ -27,7 +27,7 @@ public enum ThreadType {
 // Class intended to be subclassed
 class BaseThreadViewController: UIViewController {
    
-    let FetchLimit = 12
+    let FetchLimit = 20
     
     @IBOutlet weak var tableView: UITableView! {
         didSet {
@@ -81,14 +81,23 @@ class BaseThreadViewController: UIViewController {
         }
     }
 
+    func lastIndexPath(section section: Int = 0) -> NSIndexPath {
+        let rows = tableView(tableView, numberOfRowsInSection: section)
+        return NSIndexPath(forRow: rows - 1, inSection: section)
+    }
+
     func initWithPost(post: Postable, threadConfiguration: ThreadConfiguration) {
         if let timelinePost = post as? TimelinePostable {
             self.timelinePost = timelinePost
             threadType = .Timeline
+            subscribeForPostUpdates()
+
         } else if let threadPost = post as? ThreadPostable {
             self.post = threadPost
             self.thread = threadPost.thread
             threadType = .Post
+            subscribeForPostUpdates()
+
         } else if let thread = post as? Thread {
             self.thread = thread
             switch thread.type {
@@ -99,7 +108,6 @@ class BaseThreadViewController: UIViewController {
             }
         }
 
-        subscribeForPostUpdates()
         self.threadConfiguration = threadConfiguration
     }
 
@@ -143,16 +151,11 @@ class BaseThreadViewController: UIViewController {
                     return
                 }
 
-                func lastIndexPath() -> NSIndexPath {
-                    let rows = vc.tableView(vc.tableView, numberOfRowsInSection: 0)
-                    return NSIndexPath(forRow: rows - 1, inSection: 0)
-                }
-
                 // Remove items that are already on the array
                 let unnaded = result.filter{ !post.replies.contains($0) }
 
                 var shouldScrollDown = false
-                let lastVisibleIndexPath = lastIndexPath()
+                let lastVisibleIndexPath = vc.lastIndexPath()
                 if let visibleIndexPaths = vc.tableView.indexPathsForVisibleRows, last = visibleIndexPaths.last {
                     if last.row == lastVisibleIndexPath.row &&
                         last.section == lastVisibleIndexPath.section {
@@ -160,11 +163,9 @@ class BaseThreadViewController: UIViewController {
                     }
                 }
 
-                post.replyCount = post.replyCount + unnaded.count
-                post.replies.appendContentsOf(unnaded)
-                post.lastReply = post.replies.last
+                post.addReplies(unnaded)
 
-                let lastIndexPathAfterAddingReplies = lastIndexPath()
+                let lastIndexPathAfterAddingReplies = vc.lastIndexPath()
                 if shouldScrollDown {
                     vc.tableView.scrollToRowAtIndexPath(lastIndexPathAfterAddingReplies, atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
                 }

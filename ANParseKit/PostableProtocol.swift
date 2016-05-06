@@ -55,6 +55,8 @@ public protocol Commentable: Postable {
     var replies: [PFObject] { get set }
     var isSpoilerHidden: Bool { get set }
     var showAllReplies: Bool { get set }
+
+    func addReplies(unnaded: [PFObject])
 }
 
 // Post in timeline
@@ -274,6 +276,14 @@ extension Postable where Self: PFObject {
 
     public func incrementReplyCount(byAmount amount: Int = 1) {
         incrementKey("replyCount", byAmount: amount)
+    }
+}
+
+extension Commentable {
+    public func addReplies(unnaded: [PFObject]) {
+        replyCount = replyCount + unnaded.count
+        replies.appendContentsOf(unnaded)
+        lastReply = replies.last
     }
 }
 

@@ -176,6 +176,8 @@ class ThreadViewController: BaseThreadViewController {
 
     // MARK: - FetchControllerDelegate
 
+    var scrolledDownOnLoadOnce = false
+
     override func didFetchFor(skip skip: Int) {
         super.didFetchFor(skip: skip)
 
@@ -188,6 +190,15 @@ class ThreadViewController: BaseThreadViewController {
                 navigationItem.title = post.userTimeline.aozoraUsername
             } else if let post = post as? ThreadPostable {
                 navigationItem.title = "In " + post.thread.title
+            }
+
+            // Scroll down to see the last post, 
+            // in the future change this for see more replies cell that will show new replies on the top
+            if !scrolledDownOnLoadOnce {
+                scrolledDownOnLoadOnce = true
+                let rows = tableView(tableView, numberOfRowsInSection: 0)
+                let lastIndexPath = NSIndexPath(forRow: rows - 1, inSection: 0)
+                tableView.scrollToRowAtIndexPath(lastIndexPath, atScrollPosition: .Bottom, animated: false)
             }
         default:
             assertionFailure()
@@ -225,24 +236,18 @@ class ThreadViewController: BaseThreadViewController {
             return
         }
         
-        // Only posts and TimelinePosts
-        if let parentPost = parentPost {
+        // Only Posts and TimelinePosts
+        if let parentPost = parentPost as? Commentable {
             // Inserting a new reply in-place
-            let parentPost = parentPost as! Commentable
-            parentPost.replies.append(post)
+            parentPost.addReplies([post])
             tableView.reloadData()
+            tableView.scrollToRowAtIndexPath(lastIndexPath(), atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
         } else if parentPost == nil {
 
             switch threadType {
-            case .ThreadPosts:
-                // Inserting a new post in the bottom, if we're in the bottom of the thread
-                if !fetchController.canFetchMoreData {
-                    fetchController.dataSource.append(post)
-                    tableView.reloadData()
-                }
-            case .Episode:
+            case .Episode, .ThreadPosts:
                 // Inserting a new post in the top
-                fetchController.dataSource.insert(post, atIndex: 0)
+                fetchController.dataSource.insert(post, atIndex: 1)
                 tableView.reloadData()
             case .Timeline, .Post:
                 break
