@@ -749,7 +749,7 @@ extension BaseThreadViewController: UITableViewDataSource {
                 return
             }
 
-            let subtitleAttributes = { (inout attr: Attributes) in
+            let animeSubtitleAttributes = { (inout attr: Attributes) in
                 attr.color = UIColor.belizeHole()
                 attr.font = UIFont.systemFontOfSize(14)
             }
@@ -758,12 +758,17 @@ extension BaseThreadViewController: UITableViewDataSource {
 
             if anime.type == "Movie" {
                 attributedContent
-                    .add("Movie\n", setter: subtitleAttributes)
+                    .add("Movie\n", setter: animeSubtitleAttributes)
                     .add("\(anime.title ?? "") [Spoilers]", setter: hightlightedAttributes)
             } else {
                 attributedContent
-                    .add("\(anime.title ?? "")\n", setter: subtitleAttributes)
-                    .add("Episode \(episode.number) Review [Spoilers]", setter: hightlightedAttributes)
+                    .add("\(anime.title ?? "")", setter: animeSubtitleAttributes)
+                if let date = episode.firstAired {
+                    attributedContent
+                        .add(" · \(date.timeAgo() ?? "")", setter: subtitleAttributes)
+                }
+                attributedContent
+                    .add("\nEpisode \(episode.number) Review [Spoilers]", setter: hightlightedAttributes)
             }
 
             // TODO: fix .ThreadPosts
