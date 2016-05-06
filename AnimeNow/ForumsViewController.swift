@@ -147,7 +147,7 @@ class ForumsViewController: BaseThreadViewController {
         switch selectedList {
         case .All:
             let query = Thread.query()!
-            query.whereKey("replies", greaterThan: 0)
+            query.whereKey("replyCount", greaterThan: 0)
             query.whereKeyExists("episode")
 
             let query2 = Thread.query()!
@@ -157,15 +157,15 @@ class ForumsViewController: BaseThreadViewController {
             finalQuery.whereKey("tags", notContainedIn: [fanClub])
             finalQuery.includeKey("episode")
         case .Anime:
-            //let anime = LibraryController.sharedInstance.library ?? []
             finalQuery = Thread.query()!
             finalQuery.whereKeyDoesNotExist("episode")
+            //let anime = LibraryController.sharedInstance.library ?? []
             //finalQuery.whereKey("tags", containedIn: anime)
             finalQuery.whereKey("tags", notContainedIn: allTagsDataSource)
         case .Episode:
-            //let anime = LibraryController.sharedInstance.library ?? []
             finalQuery = Thread.query()!
             finalQuery.whereKeyExists("episode")
+            //let anime = LibraryController.sharedInstance.library ?? []
             //finalQuery.whereKey("tags", containedIn: anime)
             //finalQuery.whereKey("tags", notContainedIn: [tagsDataSource])
             finalQuery.includeKey("episode")

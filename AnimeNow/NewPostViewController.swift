@@ -80,21 +80,17 @@ public class NewPostViewController: CommentViewController {
                 linkCountLabel?.hidden = false
             }
             
-            if let parentPost = parentPost as? TimelinePostable {
-                inReply.text = "  Editing Comment in \(parentPost.userTimeline.aozoraUsername) timeline"
-            } else if let _ = parentPost {
-                inReply.text = "  Editing Comment Reply"
+            if let _ = parentPost {
+                inReply.text = "  Editing Post Reply"
             } else {
-                inReply.text = "  Editing Comment"
+                inReply.text = "  Editing Post"
             }
 
         } else {
-            if let parentPost = parentPost as? TimelinePostable {
-                inReply.text = "  New Comment in \(parentPost.userTimeline.aozoraUsername) timeline"
-            } else if let _ = parentPost {
-                inReply.text = "  New Comment Reply"
+            if let _ = parentPost {
+                inReply.text = "  New Post Reply"
             } else {
-                inReply.text = "  New Comment"
+                inReply.text = "  New Post"
             }
         }
     }
