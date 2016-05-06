@@ -27,8 +27,9 @@ class ForumsViewController: BaseThreadViewController {
         case New
     }
 
-    let titles = ["All Activity", "Anime Threads", "Episode Threads", "Videos", "Fan Clubs"]
+    let titles = ["All Activity", "Anime Posts", "Episode Discussion", "Videos", "Fan Clubs"]
 
+    var allTagsDataSource: [ThreadTag] = []
     var tagsDataSource: [ThreadTag] = []
     var animeDataSource: [Anime] = []
     var dataSource: [Thread] = [] {
@@ -156,15 +157,17 @@ class ForumsViewController: BaseThreadViewController {
             finalQuery.whereKey("tags", notContainedIn: [fanClub])
             finalQuery.includeKey("episode")
         case .Anime:
-            let anime = LibraryController.sharedInstance.library ?? []
+            //let anime = LibraryController.sharedInstance.library ?? []
             finalQuery = Thread.query()!
             finalQuery.whereKeyDoesNotExist("episode")
-            finalQuery.whereKey("tags", containedIn: anime)
+            //finalQuery.whereKey("tags", containedIn: anime)
+            finalQuery.whereKey("tags", notContainedIn: allTagsDataSource)
         case .Episode:
-            let anime = LibraryController.sharedInstance.library ?? []
+            //let anime = LibraryController.sharedInstance.library ?? []
             finalQuery = Thread.query()!
             finalQuery.whereKeyExists("episode")
-            finalQuery.whereKey("tags", containedIn: anime)
+            //finalQuery.whereKey("tags", containedIn: anime)
+            //finalQuery.whereKey("tags", notContainedIn: [tagsDataSource])
             finalQuery.includeKey("episode")
             finalQuery.includeKey("anime")
         case .Videos:
@@ -228,10 +231,13 @@ class ForumsViewController: BaseThreadViewController {
     
     func fetchThreadTags() {
         let query = ThreadTag.query()!
+        query.limit = 1000
         query.orderByAscending("order")
-        query.whereKey("visible", equalTo: true)
         query.findObjectsInBackground().continueWithSuccessBlock { (task: BFTask!) -> AnyObject! in
-            self.tagsDataSource = task.result as! [ThreadTag]
+
+            self.allTagsDataSource = task.result as! [ThreadTag]
+            self.tagsDataSource = self.allTagsDataSource.filter{ $0.visible == true }
+
             return nil
         }
     }

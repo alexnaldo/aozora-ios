@@ -76,6 +76,13 @@ public class AnimeDetailsTabBarController: UITabBarController {
         }
         
     }
+
+    func updateNavigationControllerStyle(navigationController: UINavigationController?) {
+
+        navigationController?.navigationBar.tintColor = UIColor.peterRiver()
+        navigationController?.navigationBar.barTintColor = UIColor.whiteColor()
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.blackColor()]
+    }
 }
 
 class CustomTabBar: UITabBar {

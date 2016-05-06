@@ -53,9 +53,10 @@ public class NewThreadViewController: CommentViewController {
         tag = tagToSet
         
         if let anime = anime, let animeTitle = anime.title {
-            threadTitle.placeholder = "Enter a thread title for \(animeTitle)"
+            threadTitle.placeholder = "Post title for \(animeTitle)"
+            selectTagButton.hidden = true
         } else {
-            threadTitle.placeholder = "Enter a thread title"
+            threadTitle.placeholder = "Post title"
         }
         
         if let anime = anime {
@@ -175,15 +176,14 @@ public class NewThreadViewController: CommentViewController {
     }
     
     func validThread() -> Bool {
-        let content = textView.text
         
         if User.muted(self) {
             return false
         }
         
-        let title = threadTitle.text
-        if title!.characters.count < 3 {
-            presentAlertWithTitle("Title too short", message: "Thread title should be 3 characters or longer, now \(content.characters.count)")
+        let title = threadTitle.text!
+        if title.characters.count < 3 {
+            presentAlertWithTitle("Title too short", message: "Thread title should be 3 characters or longer, now \(title.characters.count)")
             return false
         }
         
@@ -214,6 +214,9 @@ extension NewThreadViewController: TagsViewControllerDelegate {
 extension NewThreadViewController: TTTAttributedLabelDelegate {
     
     public func attributedLabel(label: TTTAttributedLabel!, didSelectLinkWithURL url: NSURL!) {
+        if let _ = anime {
+            return
+        }
         tag = nil
     }
 }

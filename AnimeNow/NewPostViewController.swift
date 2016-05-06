@@ -127,7 +127,7 @@ public class NewPostViewController: CommentViewController {
         switch threadType {
         case .Timeline:
             performTimelinePost()
-        case .Post:
+        case .Post, .ThreadPosts, .Episode, .Threads:
             performPostPost()
         default:
             break

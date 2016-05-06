@@ -756,6 +756,7 @@
                         <outlet property="linkCountLabel" destination="SzC-01-abh" id="kdG-Cr-MTD"/>
                         <outlet property="photoButton" destination="PU8-8k-OJG" id="ERa-0g-bQM"/>
                         <outlet property="photoCountLabel" destination="CMW-hs-5Kp" id="K6c-Is-hSK"/>
+                        <outlet property="selectTagButton" destination="0NB-LL-iSD" id="PZp-GP-0Rc"/>
                         <outlet property="sendButton" destination="rTc-Uz-z2W" id="awX-d7-f6W"/>
                         <outlet property="tagLabel" destination="LeS-a0-Wax" id="DhH-XP-kGZ"/>
                         <outlet property="textView" destination="ged-pl-XJZ" id="5WN-1H-QVG"/>

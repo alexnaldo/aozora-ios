@@ -29,6 +29,8 @@ public class CommentViewController: UIViewController {
     @IBOutlet weak var linkCountLabel: UILabel?
     @IBOutlet weak var spoilersSwitch: UISwitch!
     
+    @IBOutlet weak var selectTagButton: UIButton!
+
     public weak var delegate: CommentViewControllerDelegate?
     
     var animator: ZFModalTransitionAnimator!
