@@ -944,6 +944,10 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="backButton" destination="Wc4-vN-YRC" id="55P-mc-aws"/>
+                        <outlet property="forwardButton" destination="t7p-Bs-csl" id="Jl8-nj-J1g"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EWR-I8-jLv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

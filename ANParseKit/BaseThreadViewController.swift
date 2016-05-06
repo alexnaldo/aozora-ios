@@ -739,12 +739,18 @@ extension BaseThreadViewController: UITableViewDataSource {
 
         // Setting images and youtube
         if post.hasSpoilers && post.isSpoilerHidden {
-            textContent += "\n\n(Show Spoilers)"
+            if !textContent.characters.isEmpty {
+                textContent += "\n\n"
+            }
+            textContent += "(Show Spoilers)"
             cell.imageHeightConstraint?.constant = 0
             cell.playButton?.hidden = true
         } else {
             if let spoilerContent = post.spoilerContent {
-                textContent += "\n\n\(spoilerContent)"
+                if !textContent.characters.isEmpty {
+                    textContent += "\n\n"
+                }
+                textContent += "\(spoilerContent)"
             }
             let calculatedBaseWidth = post.replyLevel == 0 ? baseWidth : baseWidth - 60
             setImages(post.imagesData, imageView: cell.imageContent, imageHeightConstraint: cell.imageHeightConstraint, baseWidth: calculatedBaseWidth)
