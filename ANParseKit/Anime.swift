@@ -105,6 +105,13 @@ public class Anime: PFObject, PFSubclassing {
         let year = (self.year != 0) ? self.year.description : "?"
         return "\(type) · \(ANAnimeKit.shortClassification(details.classification)) · \(episodes) eps · \(duration) min · \(year)"
     }
+
+    public func informationStringShort() -> String {
+        let episodes = (self.episodes != 0) ? self.episodes.description : "?"
+        let duration = (self.duration != 0) ? self.duration.description : "?"
+        let year = (self.year != 0) ? self.year.description : "?"
+        return "\(type) · \(episodes) eps · \(duration) min · \(year)"
+    }
     
     // Episodes
     var cachedEpisodeList: [Episode] = []

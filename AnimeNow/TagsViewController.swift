@@ -80,24 +80,22 @@ public class TagsViewController: UIViewController {
     }
     
     func fetchAnimeTags(text: String) {
-        
-        let query = Anime.query()!
-        query.includeKey("details")
         if text.characters.count == 0 {
-            query.whereKey("startDate", greaterThanOrEqualTo: NSDate().dateByAddingTimeInterval(-3*30*24*60*60))
-            query.whereKey("status", equalTo: "currently airing")
-            query.orderByAscending("rank")
+            let anime = LibraryController.sharedInstance.library ?? []
+            dataSource = anime.sort{ $0.0.year > $0.1.year }
+            collectionView.reloadData()
         } else {
+            let query = Anime.query()!
+            query.includeKey("details")
             query.whereKey("title", matchesRegex: text, modifiers: "i")
-        }
-        
-        query.limit = 100
-        query.findObjectsInBackgroundWithBlock { (result, error) -> Void in
-            if let _ = error {
-                // Show error
-            } else {
-                self.dataSource = result as! [Anime]
-                self.collectionView.reloadData()
+            query.limit = 100
+            query.findObjectsInBackgroundWithBlock { (result, error) -> Void in
+                if let _ = error {
+                    // Show error
+                } else {
+                    self.dataSource = result as! [Anime]
+                    self.collectionView.reloadData()
+                }
             }
         }
     }
@@ -134,7 +132,7 @@ extension TagsViewController: UICollectionViewDataSource {
             cell.subtitleLabel.text = tag.detail ?? " "
         } else if let anime = tag as? Anime {
             cell.titleLabel.text = "#"+anime.title!
-            cell.subtitleLabel.text = anime.informationString()
+            cell.subtitleLabel.text = anime.informationStringShort()
         }
         
         if selectedTag == tag {

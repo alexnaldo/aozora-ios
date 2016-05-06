@@ -270,7 +270,7 @@ extension CommentViewController: UITextViewDelegate {
     public func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         
         // Grab pasted urls
-        guard selectedLinkUrl == nil && text.characters.count > 1 && parentPost == nil else {
+        guard selectedLinkUrl == nil && text.characters.count > 1 else {
             return true
         }
 
@@ -285,38 +285,43 @@ extension CommentViewController: UITextViewDelegate {
         let matches = detect.matchesInString(text, options: .ReportCompletion, range: NSMakeRange(0, text.characters.count))
         
         for match in matches {
-            if let url = match.URL {
+            guard let url = match.URL else {
+                break
+            }
+
+            // Pin youtube videos separately
+            if let host = url.host where host.containsString("youtube.com") || host.containsString("youtu.be") {
+                if host.containsString("youtube.com") {
+                    WebBrowserSelectorViewControllerSelectedSite(url.absoluteString)
+                }
                 
-                // Pin youtube videos separately
-                if let host = url.host where host.containsString("youtube.com") || host.containsString("youtu.be") {
-                    if host.containsString("youtube.com") {
-                        WebBrowserSelectorViewControllerSelectedSite(url.absoluteString)
-                    }
-                    
-                    if host.containsString("youtu.be") {
-                        let videoID = url.pathComponents![1]
-                        WebBrowserSelectorViewControllerSelectedSite("http://www.youtube.com/watch?v=\(videoID)")
-                    }
+                if host.containsString("youtu.be") {
+                    let videoID = url.pathComponents![1]
+                    WebBrowserSelectorViewControllerSelectedSite("http://www.youtube.com/watch?v=\(videoID)")
+                }
+                return true
+            }
+            
+            // Append image if it's an image
+            if let lastPathComponent = url.lastPathComponent where
+                lastPathComponent.endsWithInsensitiveCase(".png") ||
+                lastPathComponent.endsWithInsensitiveCase(".jpeg") ||
+                lastPathComponent.endsWithInsensitiveCase(".gif") ||
+                lastPathComponent.endsWithInsensitiveCase(".jpg") {
+                    scrapeImageWithURL(url)
                     return true
-                }
-                
-                // Append image if it's an image
-                if let lastPathComponent = url.lastPathComponent where
-                    lastPathComponent.endsWithInsensitiveCase(".png") ||
-                    lastPathComponent.endsWithInsensitiveCase(".jpeg") ||
-                    lastPathComponent.endsWithInsensitiveCase(".gif") ||
-                    lastPathComponent.endsWithInsensitiveCase(".jpg") {
-                        scrapeImageWithURL(url)
-                        return true
-                }
-                
+            }
+
+            if parentPost == nil {
                 selectedLinkUrl = url
                 scrapeLinkWithURL(url)
-                // If only added 1 link and it's the same as the added text, don't add it
-                if matches.count == 1 && match.range.length == text.characters.count {
-                    return true
-                }
             }
+
+            // If only added 1 link and it's the same as the added text, don't add it
+            if matches.count == 1 && match.range.length == text.characters.count {
+                return true
+            }
+
             break
         }
 
