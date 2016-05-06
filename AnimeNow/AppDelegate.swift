@@ -129,7 +129,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 } else {
                     // Not from background
                     Flurry.addSessionOrigin("App.Initialized.Notification")
-                    NotificationsController.showToast(notificationId, objectClass: objectClass, objectId: objectId, message: alert)
+                    NotificationsController.instance.broadcastNotification(notificationId, objectClass: objectClass, objectId: objectId, message: alert)
                 }
                 
                 if let completionHandler = completionHandler {

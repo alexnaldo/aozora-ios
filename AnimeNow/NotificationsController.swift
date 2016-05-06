@@ -95,6 +95,39 @@ class NotificationsController {
         }
         topVC.navigationController?.pushViewController(controller, animated: true)
     }
+
+    static let instance = NotificationsController()
+    var timelinePostSubscription: ((objectId: String) -> ())?
+    var postSubscription: ((objectId: String) -> ())?
+
+    func broadcastNotification(notificationId: String, objectClass: String, objectId: String, message: String) {
+
+        var shouldShowToast = true
+
+        switch objectClass {
+        case "_User":
+            // Not supported
+            break
+        case "TimelinePost":
+            // If there's a subscription don't show the toast!
+            if let subscription = timelinePostSubscription {
+                shouldShowToast = false
+                subscription(objectId: objectId)
+            }
+        case "Post":
+            if let subscription = postSubscription {
+                shouldShowToast = false
+                subscription(objectId: objectId)
+            }
+        default:
+            break
+        }
+
+        if shouldShowToast {
+            NotificationsController.showToast(notificationId, objectClass: objectClass, objectId: objectId, message: message)
+        }
+    }
+
     class func showToast(notificationId: String, objectClass: String, objectId: String, message: String) {
         var tapped = false
         
@@ -122,5 +155,4 @@ class NotificationsController {
             }
         }
     }
-    
 }

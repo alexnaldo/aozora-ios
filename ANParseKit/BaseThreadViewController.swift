@@ -85,6 +85,7 @@ class BaseThreadViewController: UIViewController {
         if let timelinePost = post as? TimelinePostable {
             self.timelinePost = timelinePost
             threadType = .Timeline
+            subscribeForTimelinePostUpdates()
         } else if let threadPost = post as? ThreadPostable {
             self.post = threadPost
             self.thread = threadPost.thread
@@ -100,7 +101,52 @@ class BaseThreadViewController: UIViewController {
         }
         self.threadConfiguration = threadConfiguration
     }
-    
+
+    func subscribeForTimelinePostUpdates() {
+        NotificationsController.instance.timelinePostSubscription = { [weak self] timelinePostID in
+
+            guard let vc = self, let dataSource = vc.fetchController.dataSource as? [TimelinePost] else {
+                return
+            }
+            // Fetch all posts after last reply
+            // Should only be one `parentPost`
+            let post = dataSource[0]
+            let replies = post.replies as! [TimelinePost]
+
+            guard let lastReply = replies.last,
+                let createdAt = lastReply.createdAt,
+                let parentPost = lastReply.parentPost else {
+                return
+            }
+
+            let query = TimelinePost.query()!
+            query.whereKey("parentPost", equalTo: parentPost)
+            query.whereKey("createdAt", greaterThan: createdAt)
+            query.includeKey("postedBy")
+            query.orderByAscending("createdAt")
+            query.findObjectsInBackgroundWithBlock({ [weak vc] (result, error) in
+
+                guard let vc = vc else {
+                    return
+                }
+
+                if let result = result {
+                    post.replyCount = post.replyCount + result.count
+                    post.replies.appendContentsOf(result)
+
+                    let rows = vc.tableView(vc.tableView, numberOfRowsInSection: 0)
+                    let lastIndexPath = NSIndexPath(forRow: rows - 1, inSection: 0)
+                    vc.tableView.reloadData()
+                    vc.tableView.scrollToRowAtIndexPath(lastIndexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
+                }
+            })
+        }
+    }
+
+    func unsubscribeForTimelinePostUpdates() {
+        NotificationsController.instance.timelinePostSubscription = nil
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -110,6 +156,8 @@ class BaseThreadViewController: UIViewController {
     }
     
     deinit {
+        print("DEINITING BASE THREAD")
+        unsubscribeForTimelinePostUpdates()
         fetchController.tableView = nil
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
