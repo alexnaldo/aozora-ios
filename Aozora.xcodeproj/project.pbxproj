@@ -1811,7 +1811,6 @@
 				DA354B3F1C5DF3C2008C729F /* Resources */,
 				DAA576AF1C66DD76007E81E6 /* ShellScript */,
 				24CD7D7B9E17E78B60D74616 /* 📦 Copy Pods Resources */,
-				25E721A31C35CA7430E68B6F /* 📦 Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1923,7 +1922,6 @@
 				DAA5773A1C66EFCA007E81E6 /* Resources */,
 				DAA5773E1C66EFCA007E81E6 /* ShellScript */,
 				3406741112349F8C7609423D /* 📦 Copy Pods Resources */,
-				218F1C73DF9F68FB1495587F /* 📦 Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2189,21 +2187,6 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		218F1C73DF9F68FB1495587F /* 📦 Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "📦 Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AnimeTrakrWatching/Pods-AnimeTrakrWatching-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		24CD7D7B9E17E78B60D74616 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2217,21 +2200,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AozoraWatching/Pods-AozoraWatching-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		25E721A31C35CA7430E68B6F /* 📦 Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "📦 Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AozoraWatching/Pods-AozoraWatching-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		295CF3CEC6177BE1DD2D2B40 /* 📦 Check Pods Manifest.lock */ = {
