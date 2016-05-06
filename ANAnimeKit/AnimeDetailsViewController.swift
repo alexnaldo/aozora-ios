@@ -613,7 +613,7 @@ extension AnimeDetailsViewController: UITableViewDataSource {
         switch AnimeSection(rawValue: indexPath.section)! {
         case .Synopsis:
             let cell = tableView.dequeueReusableCellWithIdentifier("SynopsisCell") as! SynopsisCell
-            cell.synopsisLabel.attributedText = anime.details.attributedSynopsis()
+            cell.synopsisLabel.text = anime.details.synopsisString()
             cell.layoutIfNeeded()
             return cell
         case .Relations:

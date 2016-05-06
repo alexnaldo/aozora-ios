@@ -31,18 +31,14 @@ public class AnimeDetail: PFObject, PFSubclassing {
     @NSManaged public var japaneseTitles: [String]
     @NSManaged public var synonyms: [String]
     @NSManaged public var youtubeID: String?
-    
-    public func attributedSynopsis() -> NSAttributedString? {
-        if let synopsis = synopsis, let data = synopsis.dataUsingEncoding(NSUnicodeStringEncoding) {
-            let font = UIFont.systemFontOfSize(15)
-            if let attributedString = try? NSMutableAttributedString(
-                data: data,
-                options: [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType],
-                documentAttributes: nil) {
-                    attributedString.addAttribute(NSFontAttributeName, value: font, range: NSMakeRange(0, attributedString.length))
-                    return attributedString
-            }
-        }
-        return nil
+
+    public func synopsisString() -> String? {
+
+        guard let synopsis = synopsis else { return nil }
+        return synopsis
+            .stringByReplacingOccurrencesOfString("<br>", withString: "\n")
+            .stringByReplacingOccurrencesOfString("<i>", withString: "")
+            .stringByReplacingOccurrencesOfString("</i>", withString: "")
+
     }
 }
