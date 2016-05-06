@@ -12,6 +12,8 @@ import CRToast
 import ANCommonKit
 import Parse
 
+typealias ObjectSubscription = ((objectId: String) -> ())
+
 class NotificationsController {
     
     class func handleNotification(notificationId: String, objectClass: String, objectId: String, returnAnimator: Bool = false) -> BFTask {
@@ -97,8 +99,9 @@ class NotificationsController {
     }
 
     static let instance = NotificationsController()
-    var timelinePostSubscription: ((objectId: String) -> ())?
-    var postSubscription: ((objectId: String) -> ())?
+
+    var timelinePostSubscription: ObjectSubscription?
+    var postSubscription: ObjectSubscription?
 
     func broadcastNotification(notificationId: String, objectClass: String, objectId: String, message: String) {
 

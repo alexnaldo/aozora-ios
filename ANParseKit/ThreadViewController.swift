@@ -205,7 +205,7 @@ class ThreadViewController: BaseThreadViewController {
             let index = url.pathComponents?[1],
             let idx = Int(index) {
                 if let thread = thread, let anime = thread.tags[idx] as? Anime {
-                    self.animator = presentAnimeModal(anime)
+                    animator = presentAnimeModal(anime)
                 }
         }
     }

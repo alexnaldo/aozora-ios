@@ -85,7 +85,6 @@ class BaseThreadViewController: UIViewController {
         if let timelinePost = post as? TimelinePostable {
             self.timelinePost = timelinePost
             threadType = .Timeline
-            subscribeForTimelinePostUpdates()
         } else if let threadPost = post as? ThreadPostable {
             self.post = threadPost
             self.thread = threadPost.thread
@@ -99,52 +98,101 @@ class BaseThreadViewController: UIViewController {
                 threadType = .Episode
             }
         }
+
+        subscribeForPostUpdates()
         self.threadConfiguration = threadConfiguration
     }
 
-    func subscribeForTimelinePostUpdates() {
-        NotificationsController.instance.timelinePostSubscription = { [weak self] timelinePostID in
+    func subscribeForPostUpdates() {
+        let subscription: ObjectSubscription = { [weak self] timelinePostID in
 
-            guard let vc = self, let dataSource = vc.fetchController.dataSource as? [TimelinePost] else {
+            guard let vc = self else {
                 return
             }
+
             // Fetch all posts after last reply
             // Should only be one `parentPost`
-            let post = dataSource[0]
-            let replies = post.replies as! [TimelinePost]
+            let post = vc.fetchController.dataSource[0] as! Commentable
+            let replies = post.replies
 
-            guard let lastReply = replies.last,
-                let createdAt = lastReply.createdAt,
+            guard let lastReply = replies.last as? Commentable,
+                let createdAt = lastReply.createdDate,
                 let parentPost = lastReply.parentPost else {
                 return
             }
 
-            let query = TimelinePost.query()!
+            let query: PFQuery!
+
+            switch vc.threadType {
+            case .Timeline:
+                query = TimelinePost.query()!
+            case .Post:
+                query = Post.query()!
+            default:
+                assertionFailure()
+                query = PFQuery()
+            }
+
             query.whereKey("parentPost", equalTo: parentPost)
             query.whereKey("createdAt", greaterThan: createdAt)
             query.includeKey("postedBy")
             query.orderByAscending("createdAt")
             query.findObjectsInBackgroundWithBlock({ [weak vc] (result, error) in
 
-                guard let vc = vc else {
+                guard let vc = vc, let result = result else {
                     return
                 }
 
-                if let result = result {
-                    post.replyCount = post.replyCount + result.count
-                    post.replies.appendContentsOf(result)
-
+                func lastIndexPath() -> NSIndexPath {
                     let rows = vc.tableView(vc.tableView, numberOfRowsInSection: 0)
-                    let lastIndexPath = NSIndexPath(forRow: rows - 1, inSection: 0)
-                    vc.tableView.reloadData()
-                    vc.tableView.scrollToRowAtIndexPath(lastIndexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
+                    return NSIndexPath(forRow: rows - 1, inSection: 0)
                 }
+
+                // Remove items that are already on the array
+                let unnaded = result.filter{ !post.replies.contains($0) }
+
+                var shouldScrollDown = false
+                let lastVisibleIndexPath = lastIndexPath()
+                if let visibleIndexPaths = vc.tableView.indexPathsForVisibleRows, last = visibleIndexPaths.last {
+                    if last.row == lastVisibleIndexPath.row &&
+                        last.section == lastVisibleIndexPath.section {
+                        shouldScrollDown = true
+                    }
+                }
+
+                post.replyCount = post.replyCount + unnaded.count
+                post.replies.appendContentsOf(unnaded)
+                post.lastReply = post.replies.last
+
+                let lastIndexPathAfterAddingReplies = lastIndexPath()
+                if shouldScrollDown {
+                    vc.tableView.scrollToRowAtIndexPath(lastIndexPathAfterAddingReplies, atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
+                }
+                vc.tableView.reloadData()
             })
+        }
+
+        switch threadType {
+        case .Timeline:
+            NotificationsController.instance.timelinePostSubscription = subscription
+        case .Post:
+            NotificationsController.instance.postSubscription = subscription
+        default:
+            break
         }
     }
 
-    func unsubscribeForTimelinePostUpdates() {
-        NotificationsController.instance.timelinePostSubscription = nil
+    func unsubscribeForPostUpdates() {
+        switch threadType {
+        case .Timeline:
+            print("UNSUBSCRIBED TIMELINE")
+            NotificationsController.instance.timelinePostSubscription = nil
+        case .Post:
+            print("UNSUBSCRIBED POST")
+            NotificationsController.instance.postSubscription = nil
+        default:
+            break
+        }
     }
 
     override func viewDidLoad() {
@@ -154,10 +202,15 @@ class BaseThreadViewController: UIViewController {
 
         loadingView = LoaderView(parentView: view)
     }
-    
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+
     deinit {
-        print("DEINITING BASE THREAD")
-        unsubscribeForTimelinePostUpdates()
+        print(self, "DEINITING")
+        unsubscribeForPostUpdates()
         fetchController.tableView = nil
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
