@@ -52,7 +52,6 @@ class ProfileViewController: BaseThreadViewController {
     
     var userProfile: User?
     var username: String?
-
     
     func initWithUser(user: User) {
         self.userProfile = user
@@ -228,6 +227,8 @@ class ProfileViewController: BaseThreadViewController {
     func updateViewWithUser(user: User) {
         usernameLabel.text = user.aozoraUsername
         title = user.aozoraUsername
+        navigationController?.tabBarItem.title = ""
+
         if let avatarFile = user.avatarThumb {
             userAvatar.setImageWithPFFile(avatarFile)
         } else {

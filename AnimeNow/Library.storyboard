@@ -307,11 +307,11 @@
             </objects>
             <point key="canvasLocation" x="2417" y="594"/>
         </scene>
-        <!--Library-->
+        <!--Navigation Controller-->
         <scene sceneID="A9r-2g-diP">
             <objects>
                 <navigationController storyboardIdentifier="AnimeLibraryViewControllerNav" id="b2Y-uV-VDe" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Library" image="icon-library-filled" id="QDB-L9-XCB">
+                    <tabBarItem key="tabBarItem" title="" image="icon-library-filled" id="QDB-L9-XCB">
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="icon-library-filled"/>
                         </userDefinedRuntimeAttributes>

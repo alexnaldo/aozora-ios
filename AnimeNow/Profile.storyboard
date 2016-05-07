@@ -12,13 +12,13 @@
         </mutableArray>
     </customFonts>
     <scenes>
-        <!--Me-->
+        <!--Navigation Controller-->
         <scene sceneID="SwR-Gy-uTY">
             <objects>
                 <navigationController storyboardIdentifier="ProfileViewControllerNav" id="caL-pp-H1v" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Me" image="icon-profile-filled" id="VfO-DU-jmA">
+                    <tabBarItem key="tabBarItem" title="" image="icon-profile-3" id="VfO-DU-jmA">
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="icon-profile-filled"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="icon-profile-3"/>
                         </userDefinedRuntimeAttributes>
                     </tabBarItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
@@ -820,7 +820,7 @@
     <resources>
         <image name="icon-create" width="22" height="22"/>
         <image name="icon-more-darker" width="25" height="25"/>
-        <image name="icon-profile-filled" width="25" height="25"/>
+        <image name="icon-profile-3" width="25" height="25"/>
         <image name="icon-search" width="22" height="22"/>
     </resources>
 </document>

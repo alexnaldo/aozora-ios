@@ -10,9 +10,9 @@
         <scene sceneID="qts-i8-pN3">
             <objects>
                 <navigationController storyboardIdentifier="ForumViewControllerNav" id="x4L-h4-vA7" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="icon-forum-filled" id="mxR-vt-fWF">
+                    <tabBarItem key="tabBarItem" title="" image="icon-comment-3" id="mxR-vt-fWF">
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="icon-forum-filled"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="icon-comment-3"/>
                         </userDefinedRuntimeAttributes>
                     </tabBarItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
@@ -104,7 +104,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="icon-comment-3" width="24" height="24"/>
         <image name="icon-create" width="22" height="22"/>
-        <image name="icon-forum-filled" width="25" height="25"/>
     </resources>
 </document>

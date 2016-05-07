@@ -27,7 +27,12 @@ class WorkflowController {
         
         notificationVC.delegate = tabBarController
         
-        tabBarController.viewControllers = [home, library, profile, notifications, forum]
+        tabBarController.viewControllers = [forum, home, library, notifications, profile]
+
+        // Update icons frame
+        for controller in tabBarController.viewControllers! {
+            controller.tabBarItem.imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
+        }
         
         if animated {
             changeRootViewController(tabBarController, animationDuration: 0.5)

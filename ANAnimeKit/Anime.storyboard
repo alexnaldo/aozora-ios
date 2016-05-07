@@ -1321,7 +1321,7 @@ users</string>
         <scene sceneID="12X-ru-2R8">
             <objects>
                 <navigationController storyboardIdentifier="AnimeDetailsViewControllerNav" navigationBarHidden="YES" id="haj-us-SzY" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="icon-details2-filled" id="n3g-M5-D6U"/>
+                    <tabBarItem key="tabBarItem" title="" image="icon-note-2" id="n3g-M5-D6U"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hTB-rd-gn7">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1376,9 +1376,9 @@ users</string>
         <scene sceneID="R8Y-Es-szT">
             <objects>
                 <navigationController storyboardIdentifier="EpisodesViewControllerNav" id="ysS-TF-YDt" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="icon-episode-filled" id="PsM-jC-vdd">
+                    <tabBarItem key="tabBarItem" title="" image="icon-check-1" id="PsM-jC-vdd">
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="icon-episode-filled"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="icon-check-1"/>
                         </userDefinedRuntimeAttributes>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="IjY-Jn-ocV">
@@ -1667,15 +1667,15 @@ users</string>
         </scene>
     </scenes>
     <resources>
-        <image name="icon-check" width="50" height="50"/>
+        <image name="icon-check-1" width="25" height="25"/>
         <image name="icon-close-blue" width="23" height="23"/>
-        <image name="icon-details2-filled" width="25" height="25"/>
         <image name="icon-episode-filled" width="25" height="25"/>
         <image name="icon-forward" width="28" height="28"/>
         <image name="icon-go-to" width="22" height="22"/>
         <image name="icon-like-empty-small" width="14" height="14"/>
         <image name="icon-messenger" width="22" height="22"/>
         <image name="icon-more-darker" width="25" height="25"/>
+        <image name="icon-note-2" width="25" height="25"/>
         <image name="icon-play" width="50" height="50"/>
         <image name="icon-reviews" width="25" height="25"/>
         <image name="text-shadow" width="10" height="45"/>

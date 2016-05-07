@@ -5,11 +5,11 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--Home-->
+        <!--Navigation Controller-->
         <scene sceneID="fDR-jB-y2B">
             <objects>
                 <navigationController id="Q7K-br-0bd" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" image="icon-home" id="MO3-d3-GFw"/>
+                    <tabBarItem key="tabBarItem" title="" image="icon-search-bold" id="MO3-d3-GFw"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="GU3-JR-sxa">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -23,7 +23,7 @@
             </objects>
             <point key="canvasLocation" x="200" y="-1288"/>
         </scene>
-        <!--Home-->
+        <!--Explore-->
         <scene sceneID="hm1-I0-qoV">
             <objects>
                 <viewController storyboardIdentifier="HomeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Zim-e3-hZg" customClass="HomeViewController" customModule="AnimeTrakr" customModuleProvider="target" sceneMemberID="viewController">
@@ -143,7 +143,7 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
-                    <navigationItem key="navigationItem" title="Home" id="gP3-9X-HYS">
+                    <navigationItem key="navigationItem" title="Explore" id="gP3-9X-HYS">
                         <barButtonItem key="backBarButtonItem" title="Back" id="Aeo-Rs-KBN"/>
                         <barButtonItem key="rightBarButtonItem" image="icon-search" id="fS5-Wz-AIM">
                             <connections>
@@ -162,8 +162,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icon-home" width="25" height="25"/>
         <image name="icon-search" width="22" height="22"/>
+        <image name="icon-search-bold" width="25" height="25"/>
         <image name="text-shadow" width="10" height="45"/>
     </resources>
 </document>
