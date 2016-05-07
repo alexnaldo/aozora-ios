@@ -125,8 +125,6 @@ public class NewPostViewController: CommentViewController {
             performTimelinePost()
         case .Post, .ThreadPosts, .Episode, .Threads:
             performPostPost()
-        default:
-            break
         }
     }
 
@@ -141,12 +139,6 @@ public class NewPostViewController: CommentViewController {
             parentPost.lastReply = timelinePost
             parentPost.incrementReplyCount(byAmount: 1)
             saveTask = parentPost.saveInBackground()
-        } else {
-            if postedBy! != postedIn {
-                timelinePost.subscribers = [postedBy!, postedIn]
-            } else {
-                timelinePost.subscribers = [postedBy!]
-            }
         }
 
         if let parentPost = parentPost as? TimelinePostable {
@@ -164,19 +156,54 @@ public class NewPostViewController: CommentViewController {
 
         saveTask?.continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task: BFTask!) -> AnyObject! in
             // Send timeline post notification
+            var message: String?
+            let username = self.postedBy!.aozoraUsername
+            if let content = timelinePost.content where content.characters.count > 1 {
+                message = "\(username): \(content)"
+            }
+
             if let parentPost = self.parentPost as? TimelinePost {
+                if message == nil {
+                    switch timelinePost.postContent {
+                    case .Link:
+                        message = "\(username) replied with a link"
+                    case .Image:
+                        message = "\(username) replied with an image"
+                    case .Video:
+                        message = "\(username) replied with a video"
+                    default:
+                        message = "\(username) replied"
+                    }
+                }
+
                 let parameters = [
                     "toUserId": self.postedIn.objectId!,
                     "timelinePostId": parentPost.objectId!,
-                    "toUserUsername": self.postedIn.aozoraUsername
+                    "toUserUsername": self.postedIn.aozoraUsername,
+                    "message": message!
                     ] as [String : AnyObject]
-                PFCloud.callFunctionInBackground("sendNewTimelinePostReplyPushNotification", withParameters: parameters)
+                PFCloud.callFunctionInBackground("sendNewTimelinePostReplyPushNotificationV2", withParameters: parameters)
+
             } else {
+                if message == nil {
+                    switch timelinePost.postContent {
+                    case .Link:
+                        message = "\(username) posted a link in your timeline"
+                    case .Image:
+                        message = "\(username) posted an image in your timeline"
+                    case .Video:
+                        message = "\(username) posted a video in your timeline"
+                    default:
+                        message = "\(username) posted in your timeline"
+                    }
+                }
+
                 let parameters = [
                     "toUserId": self.postedIn.objectId!,
-                    "timelinePostId": timelinePost.objectId!
+                    "timelinePostId": timelinePost.objectId!,
+                    "message": message!
                     ] as [String : AnyObject]
-                PFCloud.callFunctionInBackground("sendNewTimelinePostPushNotification", withParameters: parameters)
+                PFCloud.callFunctionInBackground("sendNewTimelinePostPushNotificationV2", withParameters: parameters)
             }
 
             self.postedBy?.incrementPostCount(1)
@@ -197,8 +224,6 @@ public class NewPostViewController: CommentViewController {
             parentPost.incrementReplyCount(byAmount: 1)
             parentPost.lastReply = post
             saveTask = parentPost.saveInBackground()
-        } else {
-            post.subscribers = [postedBy!]
         }
 
         if let parentPost = parentPost as? ThreadPostable {

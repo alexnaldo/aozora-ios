@@ -17,7 +17,8 @@ upcoming:
 - Sorting forum threads using Reddit's ranking.
 - Better link embedding support.
 - Embedding links on forums (if posting, leave a copy of the link so AppStore version can see something).
-- Added real time support for timeline post comments.
+- Added real time support for timeline posts and forum posts.
+- Mute notifications from lock screen or iOS notifications panel.
 - NOTE > Comment counts and like counts might not be accurate. This will be accurate when all users update. This also affects popular section (which won't show new posts)
 - NOTE > Pinned posts on forums will not appear on this build.
 

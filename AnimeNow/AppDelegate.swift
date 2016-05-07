@@ -159,12 +159,64 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func registerForPushNotifications(application: UIApplication) {
-        // Push notifications
+
+        let muteAction = UIMutableUserNotificationAction()
+        muteAction.identifier = "MUTE_ACTION"
+        muteAction.title = "Mute"
+        muteAction.activationMode = UIUserNotificationActivationMode.Background
+        muteAction.authenticationRequired = false
+        muteAction.destructive = false
+
+
+        let counterCategory = UIMutableUserNotificationCategory()
+        counterCategory.identifier = "NEW_POST_CATEGORY"
+
+        // A. Set actions for the default context
+        counterCategory.setActions([muteAction],
+        forContext: UIUserNotificationActionContext.Default)
+
+        // B. Set actions for the minimal context
+        counterCategory.setActions([muteAction],
+        forContext: UIUserNotificationActionContext.Minimal)
+
         let userNotificationTypes: UIUserNotificationType = ([UIUserNotificationType.Alert, UIUserNotificationType.Badge, UIUserNotificationType.Sound]);
         
-        let settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: nil)
+        let settings = UIUserNotificationSettings(
+            forTypes: userNotificationTypes,
+            categories: NSSet(object: counterCategory) as? Set<UIUserNotificationCategory>
+        )
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
+    }
+
+    func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forRemoteNotification userInfo: [NSObject : AnyObject], completionHandler: () -> Void) {
+        // Handle notification action *****************************************
+        if let aps = userInfo["aps"] as? [String: AnyObject],
+            let category = aps["category"] as? String
+            where category == "NEW_POST_CATEGORY" {
+
+            guard let identifier = identifier,
+                let userInfo = userInfo as? [String : AnyObject] else {
+                return
+            }
+
+            switch identifier {
+            case "MUTE_ACTION":
+                // Mute future notifications
+                guard let notificationID = userInfo["notificationID"] as? String,
+                    let currentUser = User.currentUser() else {
+                    return
+                }
+
+                let notification = Notification(outDataWithObjectId: notificationID)
+                notification.removeObjectsInArray([currentUser], forKey: "subscribers")
+                notification.saveInBackgroundWithBlock({ (result, error) in
+                    completionHandler()
+                })
+            default:
+                break;
+            }
+        }
     }
 
     func applicationWillResignActive(application: UIApplication) {

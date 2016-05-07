@@ -109,7 +109,6 @@ public class NewThreadViewController: CommentViewController {
         postable.likeCount = 1
         postable.likedBy = [postedBy!]
 
-        thread.subscribers = [postedBy!]
         thread.lastPostedBy = postedBy
         thread.postedBy = postedBy
 

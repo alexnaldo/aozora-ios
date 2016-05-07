@@ -166,10 +166,10 @@ class BaseThreadViewController: UIViewController {
                 post.addReplies(unnaded)
 
                 let lastIndexPathAfterAddingReplies = vc.lastIndexPath()
+                vc.tableView.reloadData()
                 if shouldScrollDown {
                     vc.tableView.scrollToRowAtIndexPath(lastIndexPathAfterAddingReplies, atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
                 }
-                vc.tableView.reloadData()
             })
         }
 
