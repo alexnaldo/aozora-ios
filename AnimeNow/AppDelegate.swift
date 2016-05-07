@@ -18,6 +18,7 @@ import MMWormhole
 import Keys
 import Flurry_iOS_SDK
 import NYTPhotoViewer
+import PINCache
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -95,6 +96,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         makeUpdateChanges()
+
+        PINCache.sharedCache().diskCache.byteLimit = 1024 * 1024 * 500
         
         NSUserDefaults.standardUserDefaults().setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
 
