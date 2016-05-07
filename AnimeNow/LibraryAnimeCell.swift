@@ -47,59 +47,66 @@ class AnimeLibraryCell: AnimeCell {
         showLibraryEta: Bool = false,
         publicAnime: Bool = false) {
         
-            super.configureWithAnime(anime, canFadeImages: canFadeImages, showEtaAsAired: showEtaAsAired, showLibraryEta: showLibraryEta, publicAnime: publicAnime)
-        
-            self.anime = anime
-        
-            guard let progress = publicAnime ? anime.publicProgress : anime.progress else {
-                return
-            }
+        super.configureWithAnime(anime, canFadeImages: canFadeImages, showEtaAsAired: showEtaAsAired, showLibraryEta: showLibraryEta, publicAnime: publicAnime)
+    
+        self.anime = anime
+    
+        guard let progress = publicAnime ? anime.publicProgress : anime.progress,
+            let aozoraList = AozoraList(rawValue: progress.list) else {
+            return
+        }
 
-            userProgressLabel.text = "\(anime.type) · " + FontAwesome.Watched.rawValue + " \(progress.watchedEpisodes)/\(anime.episodes)   " + FontAwesome.Rated.rawValue + " \(progress.score)"
+        var progressString = "\(anime.type) · " + FontAwesome.Watched.rawValue + " \(progress.watchedEpisodes)/\(anime.episodes)"
+
+        if progress.score != 0 || aozoraList == .Completed || aozoraList == .Dropped {
+            progressString += " · " + AnimeDetailsViewController.ratingTitleForScore(progress.score)
+        }
+
+        userProgressLabel.text = progressString
             
-            if let episodeImageView = episodeImageView {
-                if progress.myAnimeListList() == .Watching {
-                    setEpisodeImageView(anime, nextEpisode: progress.watchedEpisodes)
-                } else {
-                    episodeImageView.setImageFrom(urlString: anime.fanartThumbURLString() ?? "")
-                }
-            }
-
-            let title = FontAwesome.Watched.rawValue
-            let aozoraList = AozoraList(rawValue: progress.list)!
-
-            if aozoraList == .Completed || aozoraList == .Dropped || (progress.watchedEpisodes == anime.episodes && anime.episodes != 0) {
-                watchedButton?.enabled = false
-                watchedButton?.setTitle(title, forState: .Normal)
+        if let episodeImageView = episodeImageView {
+            if progress.myAnimeListList() == .Watching {
+                setEpisodeImageView(anime, nextEpisode: progress.watchedEpisodes)
             } else {
-                watchedButton?.enabled = true
-                watchedButton?.setTitle("\(title) Ep \(progress.watchedEpisodes+1)", forState: .Normal)
+                episodeImageView.setImageFrom(urlString: anime.fanartThumbURLString() ?? "")
             }
+        }
 
-            // Setting the badge
-            if let firstAired = anime.startDateTime ?? anime.startDate, let airingStatus = AnimeStatus(rawValue: anime.status)
-                where aozoraList == .Watching {
+        let title = FontAwesome.Watched.rawValue
 
-                badgeButton.hidden = false
 
-                let (etaString, status) = AiringController
-                    .airingStatusForFirstAired(
-                        firstAired,
-                        currentEpisode: progress.watchedEpisodes,
-                        totalEpisodes: anime.episodes,
-                        airingStatus: airingStatus)
+        if aozoraList == .Completed || aozoraList == .Dropped || (progress.watchedEpisodes == anime.episodes && anime.episodes != 0) {
+            watchedButton?.enabled = false
+            watchedButton?.setTitle(title, forState: .Normal)
+        } else {
+            watchedButton?.enabled = true
+            watchedButton?.setTitle("\(title) Ep \(progress.watchedEpisodes+1)", forState: .Normal)
+        }
 
-                    badgeButton.setTitle(etaString, forState: .Normal)
-                switch status {
-                case .Behind:
-                    badgeButton.setBackgroundImage(UIImage(named: "badge-red"), forState: .Normal)
-                case .Future:
-                    badgeButton.setBackgroundImage(UIImage(named: "badge-green"), forState: .Normal)
-                }
-
-            } else {
+        // Setting the badge
+        guard let firstAired = anime.startDateTime ?? anime.startDate,
+            let airingStatus = AnimeStatus(rawValue: anime.status)
+            where aozoraList == .Watching else {
                 badgeButton.hidden = true
-            }
+                return
+        }
+
+        badgeButton.hidden = false
+
+        let (etaString, status) = AiringController
+            .airingStatusForFirstAired(
+                firstAired,
+                currentEpisode: progress.watchedEpisodes,
+                totalEpisodes: anime.episodes,
+                airingStatus: airingStatus)
+
+            badgeButton.setTitle(etaString, forState: .Normal)
+        switch status {
+        case .Behind:
+            badgeButton.setBackgroundImage(UIImage(named: "badge-red"), forState: .Normal)
+        case .Future:
+            badgeButton.setBackgroundImage(UIImage(named: "badge-green"), forState: .Normal)
+        }
     }
     
     func setEpisodeImageView(anime: Anime, nextEpisode: Int?) {

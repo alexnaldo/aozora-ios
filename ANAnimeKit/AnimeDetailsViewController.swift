@@ -154,11 +154,13 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
         
         if let progress = anime.progress {
             updateListButtonTitle(progress.list)
-            updateRateButtonWithScore(progress.score)
+            let rateTitle = AnimeDetailsViewController.ratingTitleForScore(progress.score)
+            rateButton.setTitle(rateTitle, forState: .Normal)
             updateFavoriteButton(progress.isFavorite)
         } else {
             updateListButtonTitle("ADD TO LIST ")
-            updateRateButtonWithScore(0)
+            let rateTitle = AnimeDetailsViewController.ratingTitleForScore(0)
+            rateButton.setTitle(rateTitle, forState: .Normal)
         }
 
         let reminderIsScheduled = ReminderController.scheduledReminderFor(anime) != nil
@@ -206,7 +208,7 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
         tableView.reloadData()
     }
 
-    func updateRateButtonWithScore(score: Int) {
+    class func ratingTitleForScore(score: Int) -> String {
         var title = ""
         switch score {
             case 0: title = " RATE"
@@ -224,7 +226,7 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
             break
         }
 
-        rateButton.setTitle(title, forState: .Normal)
+        return title
     }
 
     func updateReminderButtonEnabled(enabled: Bool) {
