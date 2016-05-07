@@ -581,13 +581,13 @@ class ProfileViewController: BaseThreadViewController {
         alert.popoverPresentationController?.sourceRect = sender.frame
         
         alert.addAction(UIAlertAction(title: "View Library", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
-            if let userProfile = self.userProfile {
-                let navVC = UIStoryboard(name: "Library", bundle: nil).instantiateViewControllerWithIdentifier("PublicListViewControllerNav") as! UINavigationController
-                let publicList = navVC.viewControllers.first as! PublicListViewController
-                publicList.initWithUser(userProfile)
-
-                self.presentViewController(navVC, animated: true, completion: nil)
+            guard let userProfile = self.userProfile else {
+                return
             }
+
+            let publicList = Storyboard.publicListViewController()
+            publicList.initWithUser(userProfile)
+            self.navigationController?.pushViewController(publicList, animated: true)
         }))
         
         guard let currentUser = User.currentUser(), let userProfile = userProfile else {
@@ -605,7 +605,7 @@ class ProfileViewController: BaseThreadViewController {
         
         if userProfile.isTheCurrentUser() {
             alert.addAction(UIAlertAction(title: "Edit Profile", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
-                let editProfileController =  UIStoryboard(name: "Profile", bundle: nil).instantiateViewControllerWithIdentifier("EditProfileViewController") as! EditProfileViewController
+                let editProfileController =  Storyboard.editProfileViewController()
                 editProfileController.delegate = self
                 if UIDevice.isPad() {
                     self.presentSmallViewController(editProfileController, sender: sender)

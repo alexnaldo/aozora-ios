@@ -18,8 +18,9 @@ class PublicListViewController: UIViewController {
     var showTableView = true
 
     var animator: ZFModalTransitionAnimator!
-    
-    var dataSource: [[Anime]] = [[],[],[],[],[]] {
+
+    var library: [Anime]?
+    var dataSource: [[Anime]] = [[]] {
         didSet {
             filteredDataSource = dataSource
         }
@@ -41,8 +42,8 @@ class PublicListViewController: UIViewController {
     
     var loadingView: LoaderView!
     var userProfile: User!
-    var sectionTitles: [String] = ["Watching", "Planning", "Completed", "On-Hold", "Dropped"]
-    var sectionSubtitles: [String] = ["","","","",""]
+    var sectionTitles: [String] = ["Favorites"]
+    var sectionSubtitles: [String] = [""]
     var totalSubtitle: String = ""
     var totalWatchedMinutes: Int = 0
     
@@ -51,24 +52,33 @@ class PublicListViewController: UIViewController {
     @IBOutlet weak var navigationBarTitle: UILabel!
     @IBOutlet weak var filterBar: UIView!
     
-    func initWithUser(user: User) {
+    func initWithUser(user: User, library: [Anime]? = nil) {
         userProfile = user
+
+        if let library = library {
+            for anime in library {
+                anime.publicProgress = anime.progress
+            }
+            self.library = library
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         collectionView.registerNibWithClass(AnimeCell)
-        
-        collectionView.alpha = 0.0
-        
         loadingView = LoaderView(parentView: view)
-        loadingView.startAnimating()
-        
-        title = "\(userProfile.aozoraUsername) Library"
-        
-        fetchUserLibrary()
+        title = "\(userProfile.aozoraUsername) Favorite List"
+
         updateLayout(withSize: view.bounds.size)
+
+        if let library = library {
+            updateSections(library)
+        } else {
+            collectionView.alpha = 0.0
+            loadingView.startAnimating()
+            fetchLibrary()
+        }
     }
     
     deinit {
@@ -79,15 +89,6 @@ class PublicListViewController: UIViewController {
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        if loadingView.animating == false {
-            loadingView.stopAnimating()
-            collectionView.animateFadeIn()
-        }
-    }
-    
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         
@@ -95,7 +96,7 @@ class PublicListViewController: UIViewController {
         
     }
     
-    func fetchUserLibrary() {
+    func fetchLibrary() {
         
         let query = AnimeProgress.query()!
         query.includeKey("anime")
@@ -109,79 +110,87 @@ class PublicListViewController: UIViewController {
                     self.collectionView.animateFadeIn()
                 }
 
-                guard var result = task.result as? [AnimeProgress] else {
+                guard let result = task.result as? [AnimeProgress] else {
                     return nil
                 }
 
-                result.sortInPlace({ (progress1: AnimeProgress, progress2: AnimeProgress) -> Bool in
-                    if progress1.anime.type == progress2.anime.type {
-                        return progress1.anime.title! < progress2.anime.title
-                    } else {
-                        return progress1.anime.type > progress2.anime.type
-                    }
-                })
-                
-
-                self.totalWatchedMinutes = 0
-                for animeProgress in result {
-                    var list = 0
-                    switch animeProgress.list {
-                    case "Watching":
-                        list = 0
-                    case "Planning":
-                        list = 1
-                    case "Completed":
-                        list = 2
-                    case "On-Hold":
-                        list = 3
-                    case "Dropped":
-                        list = 4
-                    default:
-                        break
-                    }
-
+                let allAnime = result.map({ (animeProgress) -> Anime in
                     let anime = animeProgress.anime
                     anime.publicProgress = animeProgress
+                    return anime
+                })
 
-                    self.dataSource[list].append(anime)
-
-                    // Calculate watched minutes
-                    self.totalWatchedMinutes += (anime.duration * animeProgress.watchedEpisodes)
-                }
-                
-                var tvTotalCount = 0
-                var moviesTotalCount = 0
-                var restTotalCount = 0
-                // Set stats
-                for i in 0 ..< self.dataSource.count  {
-                    let animeList = self.dataSource[i]
-                    var tvCount = 0
-                    var moviesCount = 0
-                    var restCount = 0
-                    for anime in animeList {
-                        switch anime.type {
-                        case "TV":
-                            tvCount += 1
-                        case "Movie":
-                            moviesCount += 1
-                        default:
-                            restCount += 1
-                        }
-                    }
-                    tvTotalCount += tvCount
-                    moviesTotalCount += moviesCount
-                    restTotalCount += restCount
-                    self.sectionSubtitles[i] = "\(tvCount) TV · \(moviesCount) Movie · \(restCount) OVA/ONA/Specials"
-                }
-
-                self.totalSubtitle = "\(tvTotalCount) TV · \(moviesTotalCount) Movie · \(restTotalCount) OVA/ONA/Specials"
-
+                self.library = allAnime
+                self.updateSections(allAnime)
                 return nil
         })
     }
 
+    func updateSections(result: [Anime]) {
+        let result = result.sort{ (progress1: Anime, progress2: Anime) -> Bool in
+            if progress1.type == progress2.type {
+                return progress1.title! < progress2.title
+            } else {
+                return progress1.type > progress2.type
+            }
+        }
+
+        totalWatchedMinutes = 0
+
+        for anime in result {
+            // HandleDifferent lists
+            if anime.publicProgress!.isFavorite {
+                dataSource[0].append(anime)
+            }
+
+            // Calculate watched minutes
+            totalWatchedMinutes += (anime.duration * anime.publicProgress!.watchedEpisodes)
+        }
+
+        calculateLibraryStats(result)
+
+        for i in 0 ..< dataSource.count  {
+            let animeList = dataSource[i]
+
+            var tvCount = 0
+            var moviesCount = 0
+            var restCount = 0
+            for anime in animeList {
+                switch anime.type {
+                case "TV":
+                    tvCount += 1
+                case "Movie":
+                    moviesCount += 1
+                default:
+                    restCount += 1
+                }
+            }
+
+            sectionSubtitles[i] = "\(tvCount) TV · \(moviesCount) Movie · \(restCount) OVA/ONA/Specials"
+        }
+    }
+
+    func calculateLibraryStats(library: [Anime]) {
+        var tvTotalCount = 0
+        var moviesTotalCount = 0
+        var restTotalCount = 0
+
+        for anime in library {
+            switch anime.type {
+            case "TV":
+                tvTotalCount += 1
+            case "Movie":
+                moviesTotalCount += 1
+            default:
+                restTotalCount += 1
+            }
+        }
+
+        self.totalSubtitle = "\(tvTotalCount) TV · \(moviesTotalCount) Movie · \(restTotalCount) OVA/ONA/Specials"
+    }
+
     var animeCellSize: CGSize!
-    
+
     // MARK: - Utility Functions
     func updateLayout(withSize viewSize: CGSize) {
         

@@ -242,22 +242,36 @@ class AnimeLibraryViewController: XLButtonBarPagerTabStripViewController {
     
     @IBAction func presentSearchPressed(sender: AnyObject) {
         
-        if let tabBar = tabBarController {
-            tabBar.presentSearchViewController(.MyLibrary)
-            Analytics.tappedLibrarySearch()
+        guard let tabBar = tabBarController else {
+            return
         }
+
+        tabBar.presentSearchViewController(.MyLibrary)
+        Analytics.tappedLibrarySearch()
     }
     
     @IBAction func showFilterPressed(sender: AnyObject) {
         
-        if let tabBar = tabBarController {
-
-            let controller = Storyboard.filterViewController()
-            controller.delegate = self
-            controller.initWith(configuration: currentConfiguration)
-            animator = tabBar.presentViewControllerModal(controller)
-            Analytics.tappedLibraryFilter()
+        guard let tabBar = tabBarController else {
+            return
         }
+
+        let controller = Storyboard.filterViewController()
+        controller.delegate = self
+        controller.initWith(configuration: currentConfiguration)
+        animator = tabBar.presentViewControllerModal(controller)
+        Analytics.tappedLibraryFilter()
+    }
+
+    @IBAction func showFavoritesPressed(sender: AnyObject) {
+        guard let currentUser = User.currentUser(),
+            let library = LibraryController.sharedInstance.library else {
+            return
+        }
+
+        let publicList = Storyboard.publicListViewController()
+        publicList.initWithUser(currentUser, library: library)
+        self.navigationController?.pushViewController(publicList, animated: true)
     }
 }
 

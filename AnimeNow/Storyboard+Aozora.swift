@@ -26,6 +26,7 @@ enum Storyboard: String {
     case Anime
     case Rate
     case Forum
+    case Library
 
     func storyboard() -> UIStoryboard {
         return UIStoryboard(name: self.rawValue, bundle: nil)
@@ -105,5 +106,14 @@ enum Storyboard: String {
     static func userListViewController() -> UserListViewController {
         return Storyboard.Profile.viewControllerWithClass(UserListViewController)
     }
+
+    static func publicListViewController() -> PublicListViewController {
+        return Storyboard.Library.viewControllerWithClass(PublicListViewController)
+    }
+
+    static func editProfileViewController() -> EditProfileViewController {
+        return Storyboard.Profile.viewControllerWithClass(EditProfileViewController)
+    }
+
 }
 
