@@ -1667,9 +1667,9 @@ users</string>
         </scene>
     </scenes>
     <resources>
+        <image name="icon-check" width="50" height="50"/>
         <image name="icon-check-1" width="25" height="25"/>
         <image name="icon-close-blue" width="23" height="23"/>
-        <image name="icon-episode-filled" width="25" height="25"/>
         <image name="icon-forward" width="28" height="28"/>
         <image name="icon-go-to" width="22" height="22"/>
         <image name="icon-like-empty-small" width="14" height="14"/>

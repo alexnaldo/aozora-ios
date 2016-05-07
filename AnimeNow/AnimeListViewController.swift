@@ -117,11 +117,12 @@ class AnimeListViewController: UIViewController {
         }
         
         switch currentLayout {
-        case .CheckIn:
+        case .CheckIn: fallthrough
+        case .CheckInCompact:
             let insets: CGFloat = UIDevice.isPad() ? 15 : 8
 
             let columns: CGFloat = UIDevice.isLandscape() ? 3 : 2
-            let cellHeight: CGFloat = 165
+            let cellHeight: CGFloat = currentLayout == .CheckIn ? 138 : 92
             var cellWidth: CGFloat = 0
             
             layout.sectionInset = UIEdgeInsets(top: insets, left: insets, bottom: insets, right: insets)
@@ -137,7 +138,7 @@ class AnimeListViewController: UIViewController {
             layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
         case .Compact:
             let margin: CGFloat = 4
-            let columns: CGFloat = UIDevice.isPad() ? (UIDevice.isLandscape() ? 14 : 10) : 5
+            let columns: CGFloat = UIDevice.isPad() ? (UIDevice.isLandscape() ? 11 : 8) : 4
             let totalWidth: CGFloat = viewSize.width - (margin * (columns + 1))
             let width = totalWidth / columns
             
@@ -217,10 +218,20 @@ extension AnimeListViewController: UICollectionViewDataSource {
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+
+        var cellIdentifier = ""
         
         switch currentLayout {
-        case .CheckIn:
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CheckIn", forIndexPath: indexPath) as! AnimeLibraryCell
+        case .CheckIn,
+             .CheckInCompact:
+
+            if currentLayout == .CheckIn {
+                cellIdentifier = "CheckIn"
+            } else {
+                cellIdentifier = "CheckInCompact"
+            }
+
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdentifier, forIndexPath: indexPath) as! AnimeLibraryCell
             
             let anime = animeList[indexPath.row]
             cell.delegate = self

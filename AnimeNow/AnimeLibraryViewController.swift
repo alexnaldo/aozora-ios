@@ -20,11 +20,13 @@ enum AnimeList: String {
 
 enum LibraryLayout: String {
     case CheckIn = "Check-In"
+    case CheckInCompact = "Check-In Compact"
     case Compact = "Compact"
     
     static func allRawValues() -> [String] {
         return [
             LibraryLayout.CheckIn.rawValue,
+            LibraryLayout.CheckInCompact.rawValue,
             LibraryLayout.Compact.rawValue
         ]
     }
@@ -73,7 +75,7 @@ class AnimeLibraryViewController: XLButtonBarPagerTabStripViewController {
         if let layoutType = NSUserDefaults.standardUserDefaults().objectForKey(key) as? String, let layoutTypeEnum = LibraryLayout(rawValue: layoutType) {
             return layoutTypeEnum
         } else {
-            return LibraryLayout.CheckIn
+            return LibraryLayout.CheckInCompact
         }
 
     }
