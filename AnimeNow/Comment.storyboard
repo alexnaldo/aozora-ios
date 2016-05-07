@@ -88,7 +88,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="44" id="7ca-p4-Jh4"/>
                                         </constraints>
-                                        <state key="normal" image="icon-photo-gray">
+                                        <state key="normal" image="icon-image-gray">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -170,7 +170,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZS8-hU-TaO">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZS8-hU-TaO">
                                         <rect key="frame" x="420" y="7" width="88" height="30"/>
                                         <color key="backgroundColor" red="0.97254902124404907" green="0.97254902124404907" blue="0.97254902124404907" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -505,7 +505,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="44" id="5y5-yi-S8i"/>
                                         </constraints>
-                                        <state key="normal" image="icon-photo-gray">
+                                        <state key="normal" image="icon-image-gray">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -958,8 +958,8 @@
         <image name="arrow-back" width="22" height="22"/>
         <image name="arrow-forward" width="22" height="22"/>
         <image name="icon-close-blue" width="23" height="23"/>
+        <image name="icon-image-gray" width="22" height="22"/>
         <image name="icon-link-gray" width="22" height="22"/>
-        <image name="icon-photo-gray" width="22" height="22"/>
         <image name="icon-safari" width="22" height="22"/>
         <image name="icon-video-gray" width="22" height="22"/>
     </resources>
