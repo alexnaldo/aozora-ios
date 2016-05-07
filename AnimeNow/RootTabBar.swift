@@ -50,13 +50,14 @@ public class RootTabBar: UITabBarController {
         }
     }
     
-    func newNotifications(count: Int) {
+    func updateUnreadNotificationCount(count: Int) {
         var result: String? = nil
         if count > 0 {
             result = "\(count)"
         }
         
         tabBar.items?[3].badgeValue = result
+        UIApplication.sharedApplication().applicationIconBadgeNumber = count
     }
     
     func checkIfThereAreNotifications() {
@@ -70,10 +71,10 @@ public class RootTabBar: UITabBarController {
 // MARK: - NotificationsViewControllerDelegate
 extension RootTabBar: NotificationsViewControllerDelegate {
     func notificationsViewControllerHasUnreadNotifications(count: Int) {
-        newNotifications(count)
+        updateUnreadNotificationCount(count)
     }
     func notificationsViewControllerClearedAllNotifications() {
-        newNotifications(0)
+        updateUnreadNotificationCount(0)
     }
 }
 

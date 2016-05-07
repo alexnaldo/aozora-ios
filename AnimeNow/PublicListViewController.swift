@@ -68,13 +68,15 @@ class PublicListViewController: UIViewController {
 
         collectionView.registerNibWithClass(AnimeCell)
         loadingView = LoaderView(parentView: view)
-        title = "\(userProfile.aozoraUsername) Favorite List"
 
         updateLayout(withSize: view.bounds.size)
 
         if let library = library {
+            title = "Favorite List"
             updateSections(library)
+            calculateLibraryStats(library)
         } else {
+            title = "\(userProfile.aozoraUsername) Favorite List"
             collectionView.alpha = 0.0
             loadingView.startAnimating()
             fetchLibrary()
@@ -86,6 +88,13 @@ class PublicListViewController: UIViewController {
             for anime in typeList {
                 anime.publicProgress = nil
             }
+        }
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        if let library = library {
+            updateSections(library)
         }
     }
     
@@ -122,6 +131,7 @@ class PublicListViewController: UIViewController {
 
                 self.library = allAnime
                 self.updateSections(allAnime)
+                self.calculateLibraryStats(allAnime)
                 return nil
         })
     }
@@ -135,19 +145,12 @@ class PublicListViewController: UIViewController {
             }
         }
 
-        totalWatchedMinutes = 0
-
         for anime in result {
             // HandleDifferent lists
             if anime.publicProgress!.isFavorite {
                 dataSource[0].append(anime)
             }
-
-            // Calculate watched minutes
-            totalWatchedMinutes += (anime.duration * anime.publicProgress!.watchedEpisodes)
         }
-
-        calculateLibraryStats(result)
 
         for i in 0 ..< dataSource.count  {
             let animeList = dataSource[i]
@@ -175,6 +178,8 @@ class PublicListViewController: UIViewController {
         var moviesTotalCount = 0
         var restTotalCount = 0
 
+        totalWatchedMinutes = 0
+
         for anime in library {
             switch anime.type {
             case "TV":
@@ -184,6 +189,9 @@ class PublicListViewController: UIViewController {
             default:
                 restTotalCount += 1
             }
+
+            // Calculate watched minutes
+            totalWatchedMinutes += (anime.duration * anime.publicProgress!.watchedEpisodes)
         }
 
         self.totalSubtitle = "\(tvTotalCount) TV · \(moviesTotalCount) Movie · \(restTotalCount) OVA/ONA/Specials"
