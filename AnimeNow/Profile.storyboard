@@ -193,9 +193,10 @@
                                     <rect key="frame" x="0.0" y="64" width="600" height="317"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="asH-I6-fJz" userLabel="Banner">
+                                        <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="asH-I6-fJz" userLabel="Banner">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="120"/>
                                             <color key="backgroundColor" red="0.10359226912260056" green="0.10793287307024002" blue="0.13108633458614349" alpha="1" colorSpace="calibratedRGB"/>
+                                            <gestureRecognizers/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="120" id="lns-hV-yxw">
                                                     <variation key="heightClass=regular-widthClass=regular" constant="170"/>
@@ -204,9 +205,13 @@
                                             <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
                                                 <rect key="frame" x="-10" y="0.0" width="748" height="170"/>
                                             </variation>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="1Ye-mP-fHb" appends="YES" id="hMo-st-JFj"/>
+                                            </connections>
                                         </imageView>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9bT-p7-f1f" userLabel="Profile">
+                                        <imageView clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9bT-p7-f1f" userLabel="Profile">
                                             <rect key="frame" x="12" y="100" width="60" height="60"/>
+                                            <gestureRecognizers/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="60" id="1Z8-85-bjB"/>
                                                 <constraint firstAttribute="height" constant="60" id="vEt-Em-fxz"/>
@@ -216,6 +221,9 @@
                                                     <integer key="value" value="30"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="u7l-cQ-HTT" appends="YES" id="MnE-p8-BFF"/>
+                                            </connections>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DZj-27-6Eb" userLabel="Username">
                                             <rect key="frame" x="12" y="165" width="5" height="26"/>
@@ -582,6 +590,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ziF-iV-De6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="u7l-cQ-HTT" userLabel="ProfileImage Tap">
+                    <connections>
+                        <action selector="showProfileImage:" destination="M5q-uq-HPK" id="Rhw-Lf-ysn"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="1Ye-mP-fHb" userLabel="BannerImage Tap">
+                    <connections>
+                        <action selector="showBannerImage:" destination="M5q-uq-HPK" id="cuR-Zp-iUI"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1487" y="560"/>
         </scene>

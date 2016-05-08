@@ -643,6 +643,27 @@ class ProfileViewController: BaseThreadViewController {
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
+    @IBAction func showProfileImage(sender: AnyObject) {
+        guard let userProfile = userProfile,
+            let avatarURLString = userProfile.details.avatarRegular?.url,
+            let avatarURL = NSURL(string: avatarURLString) else {
+            return
+        }
+        let photosViewController = PhotosViewController(imageURL: avatarURL)
+        presentViewController(photosViewController, animated: true, completion: nil)
+    }
+
+    @IBAction func showBannerImage(sender: AnyObject) {
+        guard let userProfile = userProfile,
+            let bannerURLString = userProfile.banner?.url,
+            let bannerURL = NSURL(string: bannerURLString) else {
+            return
+        }
+
+        let photosViewController = PhotosViewController(imageURL: bannerURL)
+        presentViewController(photosViewController, animated: true, completion: nil)
+    }
+
     // MARK: - Overrides
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
