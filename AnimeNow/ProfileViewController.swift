@@ -592,6 +592,7 @@ class ProfileViewController: BaseThreadViewController {
 
                 let libraryVC = UIStoryboard(name: "Library", bundle: nil).instantiateViewControllerWithIdentifier("AnimeLibraryViewController") as! AnimeLibraryViewController
                 libraryVC.initWithUser(userProfile)
+                libraryVC.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(libraryVC, animated: true)
             }))
         }
