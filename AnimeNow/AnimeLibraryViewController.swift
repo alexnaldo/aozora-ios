@@ -60,6 +60,9 @@ class AnimeLibraryViewController: ButtonBarPagerTabStripViewController {
     }
     var configurations: [Configuration] = []
 
+    // Only used to show the public library
+    var publicLibrary: [Anime] = []
+
     func initWithUser(user: User) {
         libraryUser = user
     }
@@ -197,6 +200,7 @@ class AnimeLibraryViewController: ButtonBarPagerTabStripViewController {
                     return anime
                 })
 
+                self.publicLibrary = allAnime
                 self.updateListViewControllers(allAnime)
                 return nil
             })
@@ -320,13 +324,22 @@ class AnimeLibraryViewController: ButtonBarPagerTabStripViewController {
     }
 
     @IBAction func showFavoritesPressed(sender: AnyObject) {
-        guard let libraryUser = libraryUser,
-            let library = LibraryController.sharedInstance.library else {
+        guard let libraryUser = libraryUser else {
             return
         }
 
         let publicList = Storyboard.publicListViewController()
-        publicList.initWithUser(libraryUser, library: library)
+        if libraryIsFromCurrentUser {
+            let library = LibraryController.sharedInstance.library ?? []
+            for anime in library {
+                anime.publicProgress = anime.progress
+            }
+            publicList.initWithUser(libraryUser, library: library)
+        } else {
+            publicList.initWithUser(libraryUser, library: publicLibrary)
+        }
+
+        publicList.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(publicList, animated: true)
     }
 }

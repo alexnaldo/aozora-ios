@@ -575,23 +575,25 @@ class ProfileViewController: BaseThreadViewController {
     }
     
     @IBAction func showSettings(sender: AnyObject) {
-        
+
+        guard let currentUser = User.currentUser(), let userProfile = userProfile else {
+            return
+        }
+
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
         alert.popoverPresentationController?.sourceView = sender.superview
         alert.popoverPresentationController?.sourceRect = sender.frame
-        
-        alert.addAction(UIAlertAction(title: "View Library", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
-            guard let userProfile = self.userProfile else {
-                return
-            }
 
-            let libraryVC = UIStoryboard(name: "Library", bundle: nil).instantiateViewControllerWithIdentifier("AnimeLibraryViewController") as! AnimeLibraryViewController
-            libraryVC.initWithUser(userProfile)
-            self.navigationController?.pushViewController(libraryVC, animated: true)
-        }))
-        
-        guard let currentUser = User.currentUser(), let userProfile = userProfile else {
-            return
+        if !userProfile.isTheCurrentUser() {
+            alert.addAction(UIAlertAction(title: "View Library", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
+                guard let userProfile = self.userProfile else {
+                    return
+                }
+
+                let libraryVC = UIStoryboard(name: "Library", bundle: nil).instantiateViewControllerWithIdentifier("AnimeLibraryViewController") as! AnimeLibraryViewController
+                libraryVC.initWithUser(userProfile)
+                self.navigationController?.pushViewController(libraryVC, animated: true)
+            }))
         }
 
         let hasPermissionsToMute = currentUser.isAdmin() && !userProfile.isAdmin() || currentUser.isTopAdmin()

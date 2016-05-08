@@ -50,11 +50,6 @@ class PublicListViewController: UIViewController {
     
     func initWithUser(user: User, library: [Anime]) {
         userProfile = user
-
-        for anime in library {
-            anime.publicProgress = anime.progress
-        }
-
         self.library = library
     }
     
@@ -74,19 +69,6 @@ class PublicListViewController: UIViewController {
 
         updateSections(library)
         calculateLibraryStats(library)
-    }
-    
-    deinit {
-        for typeList in dataSource {
-            for anime in typeList {
-                anime.publicProgress = nil
-            }
-        }
-    }
-
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        updateSections(library)
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
