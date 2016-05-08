@@ -20,13 +20,9 @@ class PublicListViewController: UIViewController {
     var animator: ZFModalTransitionAnimator!
 
     var library: [Anime]?
-    var dataSource: [[Anime]] = [[]] {
-        didSet {
-            filteredDataSource = dataSource
-        }
-    }
+    var dataSource: [[Anime]] = [[]]
     
-    var filteredDataSource: [[Anime]] = [] {
+    var filteredDataSource: [[Anime]] = [[]] {
         didSet {
             canFadeImages = false
             self.collectionView.reloadData()
@@ -151,6 +147,7 @@ class PublicListViewController: UIViewController {
                 dataSource[0].append(anime)
             }
         }
+        filteredDataSource = dataSource
 
         for i in 0 ..< dataSource.count  {
             let animeList = dataSource[i]
