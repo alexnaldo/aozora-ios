@@ -582,11 +582,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Library" id="lOj-rd-NWO">
-                        <barButtonItem key="leftBarButtonItem" image="icon-sort" id="viB-Wp-f4n" userLabel="Sort">
-                            <connections>
-                                <action selector="showFilterPressed:" destination="sfh-gj-hB0" id="De0-04-i1J"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="backBarButtonItem" title=" " id="ldb-KT-Wg3"/>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="xBy-pR-xS1">
                             <view key="customView" contentMode="scaleToFill" id="O0T-71-8ls">
                                 <rect key="frame" x="510" y="5" width="70" height="33"/>
@@ -830,7 +826,6 @@
         <image name="icon-library-filled" width="25" height="25"/>
         <image name="icon-like-filled-small" width="14" height="14"/>
         <image name="icon-search" width="22" height="22"/>
-        <image name="icon-sort" width="22" height="22"/>
         <image name="icon-time" width="25" height="25"/>
     </resources>
 </document>

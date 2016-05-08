@@ -19,7 +19,7 @@ class PublicListViewController: UIViewController {
 
     var animator: ZFModalTransitionAnimator!
 
-    var library: [Anime]?
+    var library: [Anime] = []
     var dataSource: [[Anime]] = [[]]
     
     var filteredDataSource: [[Anime]] = [[]] {
@@ -48,15 +48,14 @@ class PublicListViewController: UIViewController {
     @IBOutlet weak var navigationBarTitle: UILabel!
     @IBOutlet weak var filterBar: UIView!
     
-    func initWithUser(user: User, library: [Anime]? = nil) {
+    func initWithUser(user: User, library: [Anime]) {
         userProfile = user
 
-        if let library = library {
-            for anime in library {
-                anime.publicProgress = anime.progress
-            }
-            self.library = library
+        for anime in library {
+            anime.publicProgress = anime.progress
         }
+
+        self.library = library
     }
     
     override func viewDidLoad() {
@@ -67,16 +66,14 @@ class PublicListViewController: UIViewController {
 
         updateLayout(withSize: view.bounds.size)
 
-        if let library = library {
+        if userProfile.isTheCurrentUser() {
             title = "Favorite List"
-            updateSections(library)
-            calculateLibraryStats(library)
         } else {
             title = "\(userProfile.aozoraUsername) Favorite List"
-            collectionView.alpha = 0.0
-            loadingView.startAnimating()
-            fetchLibrary()
         }
+
+        updateSections(library)
+        calculateLibraryStats(library)
     }
     
     deinit {
@@ -89,9 +86,7 @@ class PublicListViewController: UIViewController {
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        if let library = library {
-            updateSections(library)
-        }
+        updateSections(library)
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -99,37 +94,6 @@ class PublicListViewController: UIViewController {
         
         updateLayout(withSize: size)
         
-    }
-    
-    func fetchLibrary() {
-        
-        let query = AnimeProgress.query()!
-        query.includeKey("anime")
-        query.whereKey("user", equalTo: userProfile)
-        query.limit = 2000
-        query.findObjectsInBackground()
-            .continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task: BFTask!) -> AnyObject! in
-
-                defer {
-                    self.loadingView.stopAnimating()
-                    self.collectionView.animateFadeIn()
-                }
-
-                guard let result = task.result as? [AnimeProgress] else {
-                    return nil
-                }
-
-                let allAnime = result.map({ (animeProgress) -> Anime in
-                    let anime = animeProgress.anime
-                    anime.publicProgress = animeProgress
-                    return anime
-                })
-
-                self.library = allAnime
-                self.updateSections(allAnime)
-                self.calculateLibraryStats(allAnime)
-                return nil
-        })
     }
 
     func updateSections(result: [Anime]) {

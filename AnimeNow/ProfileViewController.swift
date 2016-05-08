@@ -585,9 +585,9 @@ class ProfileViewController: BaseThreadViewController {
                 return
             }
 
-            let publicList = Storyboard.publicListViewController()
-            publicList.initWithUser(userProfile)
-            self.navigationController?.pushViewController(publicList, animated: true)
+            let libraryVC = UIStoryboard(name: "Library", bundle: nil).instantiateViewControllerWithIdentifier("AnimeLibraryViewController") as! AnimeLibraryViewController
+            libraryVC.initWithUser(userProfile)
+            self.navigationController?.pushViewController(libraryVC, animated: true)
         }))
         
         guard let currentUser = User.currentUser(), let userProfile = userProfile else {

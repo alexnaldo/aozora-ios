@@ -43,6 +43,11 @@ class AnimeLibraryViewController: ButtonBarPagerTabStripViewController {
     var loadingView: LoaderView!
     var libraryController = LibraryController.sharedInstance
     var animator: ZFModalTransitionAnimator!
+
+    var libraryUser: User! = User.currentUser()
+    var libraryIsFromCurrentUser: Bool {
+        return libraryUser.isTheCurrentUser()
+    }
     
     var currentConfiguration: Configuration {
         get {
@@ -54,6 +59,10 @@ class AnimeLibraryViewController: ButtonBarPagerTabStripViewController {
         }
     }
     var configurations: [Configuration] = []
+
+    func initWithUser(user: User) {
+        libraryUser = user
+    }
     
     func sortTypeForList(list: AnimeList) -> SortType {
         let key = SortTypeDefault+list.rawValue
@@ -85,10 +94,12 @@ class AnimeLibraryViewController: ButtonBarPagerTabStripViewController {
         NSUserDefaults.standardUserDefaults().setObject(layout.rawValue, forKey: key)
         NSUserDefaults.standardUserDefaults().synchronize()
     }
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        loadingView = LoaderView(parentView: view)
+        loadingView.startAnimating()
 
         buttonBarView.selectedBar.backgroundColor = UIColor.watching()
         settings.style.buttonBarItemBackgroundColor = .clearColor()
@@ -108,13 +119,23 @@ class AnimeLibraryViewController: ButtonBarPagerTabStripViewController {
             }
         }
 
+        guard libraryIsFromCurrentUser else {
+            title = "\(libraryUser.aozoraUsername) Library"
+            navigationController?.tabBarItem.title = ""
+            fetchPublicLibrary()
+            return
+        }
+
+        // Add sort icon
+        let sortIcon = UIBarButtonItem(image: UIImage(named: "icon-sort"), style: .Plain, target: self, action: #selector(showFilterPressed))
+        navigationItem.leftBarButtonItem = sortIcon
+
+        // Subscribe for notifications
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AnimeLibraryViewController.updateLibrary), name: LibraryUpdatedNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AnimeLibraryViewController.controllerRequestRefresh), name: LibraryCreatedNotification, object: nil)
-     
-        loadingView = LoaderView(parentView: view)
-        
+
+        // Update data
         libraryController.delegate = self
-        loadingView.startAnimating()
         if let library = libraryController.library {
             updateListViewControllers(library)
         }
@@ -152,25 +173,57 @@ class AnimeLibraryViewController: ButtonBarPagerTabStripViewController {
             return nil
         })
     }
+
+    func fetchPublicLibrary() {
+
+        let query = AnimeProgress.query()!
+        query.includeKey("anime")
+        query.whereKey("user", equalTo: libraryUser)
+        query.limit = 2000
+        query.findObjectsInBackground()
+            .continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task: BFTask!) -> AnyObject! in
+
+                defer {
+                    self.loadingView.stopAnimating()
+                }
+
+                guard let result = task.result as? [AnimeProgress] else {
+                    return nil
+                }
+
+                let allAnime = result.map({ (animeProgress) -> Anime in
+                    let anime = animeProgress.anime
+                    anime.publicProgress = animeProgress
+                    return anime
+                })
+
+                self.updateListViewControllers(allAnime)
+                return nil
+            })
+    }
     
     func updateListViewControllers(animeList: [Anime]) {
         
         var lists: [[Anime]] = [[],[],[],[],[]]
         
         for anime in animeList {
-            if let progress = anime.progress {
-                switch progress.myAnimeListList() {
-                case .Watching:
-                    lists[0].append(anime)
-                case .Planning:
-                    lists[1].append(anime)
-                case .OnHold:
-                    lists[2].append(anime)
-                case .Completed:
-                    lists[3].append(anime)
-                case .Dropped:
-                    lists[4].append(anime)
-                }
+            let progress = libraryIsFromCurrentUser ? anime.progress : anime.publicProgress
+
+            guard let animeProgress = progress else {
+                continue
+            }
+
+            switch animeProgress.myAnimeListList() {
+            case .Watching:
+                lists[0].append(anime)
+            case .Planning:
+                lists[1].append(anime)
+            case .OnHold:
+                lists[2].append(anime)
+            case .Completed:
+                lists[3].append(anime)
+            case .Dropped:
+                lists[4].append(anime)
             }
         }
         
@@ -209,7 +262,7 @@ class AnimeLibraryViewController: ButtonBarPagerTabStripViewController {
             if let controller = storyboard.instantiateViewControllerWithIdentifier("AnimeListViewController") as? AnimeListViewController {
                 let animeList = allAnimeLists[index]
                 
-                controller.initWithList(animeList, configuration: configurations[index])
+                controller.initWithList(animeList, configuration: configurations[index], isCurrentUser: libraryIsFromCurrentUser)
                 controller.delegate = self
                 
                 lists.append(controller)
@@ -267,13 +320,13 @@ class AnimeLibraryViewController: ButtonBarPagerTabStripViewController {
     }
 
     @IBAction func showFavoritesPressed(sender: AnyObject) {
-        guard let currentUser = User.currentUser(),
+        guard let libraryUser = libraryUser,
             let library = LibraryController.sharedInstance.library else {
             return
         }
 
         let publicList = Storyboard.publicListViewController()
-        publicList.initWithUser(currentUser, library: library)
+        publicList.initWithUser(libraryUser, library: library)
         self.navigationController?.pushViewController(publicList, animated: true)
     }
 }

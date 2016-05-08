@@ -59,20 +59,28 @@ class AnimeListViewController: UIViewController {
             }
         }
     }
-    
+
+    var isCurrentUser: Bool = true
+
     @IBOutlet weak var collectionView: UICollectionView!
     
-    func initWithList(animeList: AnimeList, configuration: Configuration) {
+    func initWithList(animeList: AnimeList, configuration: Configuration, isCurrentUser: Bool) {
         self.animeListType = animeList
         self.currentConfiguration = configuration
+        self.isCurrentUser = isCurrentUser
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        updateLayout(currentLayout, withSize: view.bounds.size)
-        updateSortType(currentSortType)
-        addRefreshControl(refreshControl, action: #selector(AnimeListViewController.refreshLibrary), forCollectionView: collectionView)
+
+        if isCurrentUser {
+            updateLayout(currentLayout, withSize: view.bounds.size)
+            updateSortType(currentSortType)
+            addRefreshControl(refreshControl, action: #selector(AnimeListViewController.refreshLibrary), forCollectionView: collectionView)
+        } else {
+            collectionView.registerNibWithClass(AnimeCell)
+            updateOtherUserLayout(withSize: view.bounds.size)
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -86,7 +94,11 @@ class AnimeListViewController: UIViewController {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
 
         if UIDevice.isPad() {
-            updateLayout(currentLayout, withSize: size)
+            if isCurrentUser {
+                updateLayout(currentLayout, withSize: size)
+            } else {
+                updateOtherUserLayout(withSize: size)
+            }
         }
     }
     
@@ -147,6 +159,19 @@ class AnimeListViewController: UIViewController {
             layout.itemSize = CGSize(width: width, height: width/83*116)
         }
 
+        collectionView.collectionViewLayout.invalidateLayout()
+        collectionView.reloadData()
+    }
+
+    // Configuration for other user
+    func updateOtherUserLayout(withSize viewSize: CGSize) {
+
+        guard let collectionView = collectionView,
+            let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
+                return
+        }
+
+        layout.itemSize = AnimeCell.updateLayoutItemSizeWithLayout(layout, viewSize: viewSize)
         collectionView.collectionViewLayout.invalidateLayout()
         collectionView.reloadData()
     }
@@ -219,6 +244,14 @@ extension AnimeListViewController: UICollectionViewDataSource {
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 
         var cellIdentifier = ""
+
+        guard isCurrentUser else {
+            let cell = collectionView.dequeueReusableCellWithClass(AnimeCell.self, indexPath: indexPath)
+            let anime = animeList[indexPath.row]
+            cell.configureWithAnime(anime, canFadeImages: false, showEtaAsAired: false, publicAnime: true)
+            cell.layoutIfNeeded()
+            return cell
+        }
         
         switch currentLayout {
         case .CheckIn,
@@ -253,11 +286,12 @@ extension AnimeListViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 extension AnimeListViewController: UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        
+
         let anime = animeList[indexPath.row]
         self.animator = presentAnimeModal(anime, callback: { [weak self] tabBarController in
+            guard let vc = self else { return }
             // Show episodes view controller when calling from here
-            if self?.animeListType == .Watching {
+            if vc.animeListType == .Watching && vc.isCurrentUser {
                 tabBarController.selectedIndex = 1
             }
         })
