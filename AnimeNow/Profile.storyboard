@@ -429,8 +429,20 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cgm-Po-HcN" customClass="ADVSegmentedControl" customModule="AnimeTrakr" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="8" width="600" height="36"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NDN-K1-KkM">
+                                                <rect key="frame" x="0.0" y="35" width="600" height="1"/>
+                                                <color key="backgroundColor" white="0.94916468858718872" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="YlX-Rw-7lW"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstItem="NDN-K1-KkM" firstAttribute="leading" secondItem="cgm-Po-HcN" secondAttribute="leading" id="NFk-4i-f5r"/>
+                                            <constraint firstAttribute="bottom" secondItem="NDN-K1-KkM" secondAttribute="bottom" id="UYR-M5-ZYH"/>
+                                            <constraint firstAttribute="trailing" secondItem="NDN-K1-KkM" secondAttribute="trailing" id="cU1-hM-Z7a"/>
                                             <constraint firstAttribute="height" constant="28" id="meL-tG-3gD"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
