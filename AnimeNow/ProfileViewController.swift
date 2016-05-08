@@ -638,7 +638,7 @@ class ProfileViewController: BaseThreadViewController {
                 query.whereKey("objectId", notContainedIn: followingUsersIds)
                 query.whereKey("details", matchesQuery: postCountQuery)
                 query.orderByAscending("createdAt")
-                query.limit = 100
+                query.limit = 500
                 userListController.initWithQuery(query, title: "Who to follow", user: userProfile)
 
                 self.presentSmallViewController(userListController, sender: sender)
@@ -660,7 +660,7 @@ class ProfileViewController: BaseThreadViewController {
                 let query = User.query()!
                 query.orderByDescending("joinDate")
                 query.whereKeyExists("aozoraUsername")
-                query.limit = 100
+                query.limit = 500
                 userListController.initWithQuery(query, title: "New Users")
                 self.presentSmallViewController(userListController, sender: sender)
             }))
