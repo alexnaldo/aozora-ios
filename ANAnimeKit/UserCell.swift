@@ -9,28 +9,33 @@
 import UIKit
 
 public protocol UserCellDelegate: class {
-    func userCellPressedFollow(userCell: UserCell)
+    func userCellPressedFollow(userCell: UserCollectionCell)
 }
 
-public class UserCell: UITableViewCell {
-    
+
+public class UserCollectionCell: UICollectionViewCell {
+
     public weak var delegate: UserCellDelegate?
-    
+
     @IBOutlet weak public var username: UILabel!
     @IBOutlet weak public var avatar: UIImageView!
     @IBOutlet weak public var date: UILabel!
     @IBOutlet weak public var lastOnline: UILabel!
     @IBOutlet weak public var followButton: UIButton!
-    
+
     public func configureFollowButtonWithState(following: Bool) {
         if following {
-            followButton.setTitle("  Following", forState: .Normal)
+            followButton.backgroundColor = UIColor.backgroundWhite()
+            followButton.setTitleColor(.peterRiver(), forState: .Normal)
+            followButton.setTitle(" FOLLOWING", forState: .Normal)
         } else {
-            followButton.setTitle("  Follow", forState: .Normal)
+            followButton.backgroundColor = UIColor.backgroundWhite()
+            followButton.setTitleColor(.darkGrayColor(), forState: .Normal)
+            followButton.setTitle(" FOLLOW", forState: .Normal)
         }
         self.followButton.layoutIfNeeded()
     }
-    
+
     @IBAction func followPressed(sender: AnyObject) {
         delegate?.userCellPressedFollow(self)
     }

@@ -11,8 +11,8 @@ import Alamofire
 import ANCommonKit
 
 class UserListViewController: UIViewController {
-    
-    @IBOutlet weak var tableView: UITableView!
+
+    @IBOutlet weak var collectionView: UICollectionView!
     
     var loadingView: LoaderView!
     
@@ -33,20 +33,18 @@ class UserListViewController: UIViewController {
         
         title = titleToSet
         
-        tableView.estimatedRowHeight = 44.0
-        tableView.rowHeight = UITableViewAutomaticDimension
-        
         loadingView = LoaderView(parentView: view)
 
         if let query = query {
             fetchUserFriends(query)
         }
 
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.reloadData()
+        guard let collectionView = collectionView,
+            let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
+                return
+        }
+
+        layout.itemSize = CGSize(width: (view.bounds.width-44)/3, height: 134)
     }
     
     func fetchUserFriends(query: PFQuery) {
@@ -59,7 +57,7 @@ class UserListViewController: UIViewController {
             self.dataSource = result
             
             let userIDs = result.flatMap{ $0.objectId }
-            
+
             // Find all relations
             let relationQuery = User.currentUser()!.following().query()
             relationQuery.whereKey("objectId", containedIn: userIDs)
@@ -75,24 +73,24 @@ class UserListViewController: UIViewController {
             }
             
             self.loadingView.stopAnimating()
-            self.tableView.reloadData()
-            self.tableView.animateFadeIn()
+            self.collectionView.reloadData()
+            self.collectionView.animateFadeIn()
             
             return nil
         })
     }
 }
 
-extension UserListViewController: UITableViewDataSource {
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+
+extension UserListViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataSource.count
     }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("UserCell") as! UserCell
-        
+
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("UserCollectionCell", forIndexPath: indexPath) as! UserCollectionCell
+
         let profile = dataSource[indexPath.row]
         if let avatarFile = profile.avatarThumb {
             cell.avatar.setImageWithPFFile(avatarFile)
@@ -101,7 +99,7 @@ extension UserListViewController: UITableViewDataSource {
         }
         cell.username.text = profile.aozoraUsername
         cell.delegate = self
-        
+
         let isCurrentUserList = user?.isTheCurrentUser() ?? false
         if profile.isTheCurrentUser() || !isCurrentUserList {
             cell.followButton.hidden = true
@@ -109,31 +107,30 @@ extension UserListViewController: UITableViewDataSource {
             cell.followButton.hidden = false
             cell.configureFollowButtonWithState(profile.followingThisUser ?? false)
         }
-        
+
         cell.layoutIfNeeded()
-        
+
         return cell
     }
-}
 
-extension UserListViewController: UITableViewDelegate {
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let profile = dataSource[indexPath.row]
         let profileController = Storyboard.profileViewController()
-        
+
         profileController.initWithUser(profile)
         navigationController?.pushViewController(profileController, animated: true)
     }
 }
 
 extension UserListViewController: UserCellDelegate {
-    func userCellPressedFollow(userCell: UserCell) {
-        if let currentUser = User.currentUser(), let indexPath = tableView.indexPathForCell(userCell) {
+    func userCellPressedFollow(userCell: UserCollectionCell) {
+        if let currentUser = User.currentUser(),
+            let indexPath = collectionView.indexPathForCell(userCell) {
+
             let user = dataSource[indexPath.row]
             let follow = !(user.followingThisUser ?? false)
             currentUser.followUser(user, follow: follow)
-            tableView.reloadData()
+            collectionView.reloadData()
         }
     }
 }
