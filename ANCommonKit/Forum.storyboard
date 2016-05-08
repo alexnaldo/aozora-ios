@@ -41,7 +41,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="61" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Fmw-jU-6m7">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="532"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="522"/>
                                 <color key="backgroundColor" white="0.97999999999999998" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="A6G-ah-oIs" id="cqe-1u-9tg"/>
@@ -71,7 +71,7 @@
                             <constraint firstAttribute="trailing" secondItem="U0y-G2-nGH" secondAttribute="trailing" id="FCB-Ci-OEz"/>
                             <constraint firstItem="Fmw-jU-6m7" firstAttribute="leading" secondItem="LXI-Zm-Occ" secondAttribute="leading" id="SgF-1z-4gS"/>
                             <constraint firstItem="tIw-Kj-Jqx" firstAttribute="top" secondItem="Fmw-jU-6m7" secondAttribute="bottom" id="bwd-o4-Qsp"/>
-                            <constraint firstItem="U0y-G2-nGH" firstAttribute="top" secondItem="Fmw-jU-6m7" secondAttribute="bottom" constant="-20" id="k3A-3w-Ypw"/>
+                            <constraint firstItem="U0y-G2-nGH" firstAttribute="top" secondItem="Fmw-jU-6m7" secondAttribute="bottom" constant="-10" id="k3A-3w-Ypw"/>
                             <constraint firstItem="tIw-Kj-Jqx" firstAttribute="top" secondItem="U0y-G2-nGH" secondAttribute="bottom" id="nCU-pq-IiS"/>
                             <constraint firstItem="U0y-G2-nGH" firstAttribute="leading" secondItem="LXI-Zm-Occ" secondAttribute="leading" id="w3Z-zF-LKo"/>
                         </constraints>

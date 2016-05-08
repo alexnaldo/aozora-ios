@@ -616,25 +616,83 @@ class ProfileViewController: BaseThreadViewController {
                     self.presentViewController(editProfileController, animated: true, completion: nil)
                 }
             }))
-            
-            alert.addAction(UIAlertAction(title: "Online Users", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
+
+            alert.addAction(UIAlertAction(title: "Users - Who to follow", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
+
+
+                guard let followingUsers = FriendsController.sharedInstance.following else {
+                    return
+                }
+
+                var followingUsersIds = followingUsers.map{ $0.objectId! }
+                followingUsersIds.append(userProfile.objectId!)
+
+                let userListController = Storyboard.userListViewController()
+
+                let postCountQuery = UserDetails.query()!
+                postCountQuery.whereKey("posts", greaterThan: 400)
+
+                let query = User.query()!
+                query.whereKeyExists("aozoraUsername")
+                query.whereKey("activeStart", greaterThan: NSDate().dateByAddingTimeInterval(-60*60*24))
+                query.whereKey("objectId", notContainedIn: followingUsersIds)
+                query.whereKey("details", matchesQuery: postCountQuery)
+                query.orderByAscending("createdAt")
+                query.limit = 100
+                userListController.initWithQuery(query, title: "Who to follow", user: userProfile)
+
+                self.presentSmallViewController(userListController, sender: sender)
+            }))
+
+            alert.addAction(UIAlertAction(title: "Users - Online Now", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
                 let userListController = Storyboard.userListViewController()
                 let query = User.query()!
                 query.whereKeyExists("aozoraUsername")
                 query.whereKey("active", equalTo: true)
-                query.limit = 100
+                query.limit = 1000
                 userListController.initWithQuery(query, title: "Online Users")
                 
                 self.presentSmallViewController(userListController, sender: sender)
             }))
             
-            alert.addAction(UIAlertAction(title: "New Users", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
+            alert.addAction(UIAlertAction(title: "Users - New", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
                 let userListController = Storyboard.userListViewController()
                 let query = User.query()!
                 query.orderByDescending("joinDate")
                 query.whereKeyExists("aozoraUsername")
                 query.limit = 100
                 userListController.initWithQuery(query, title: "New Users")
+                self.presentSmallViewController(userListController, sender: sender)
+            }))
+
+            alert.addAction(UIAlertAction(title: "Users - Aozora Staff", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
+                let userListController = Storyboard.userListViewController()
+                let query = User.query()!
+                query.whereKeyExists("aozoraUsername")
+                query.whereKey("badges", containedIn: ["Admin", "Mod"])
+                query.limit = 1000
+                userListController.initWithQuery(query, title: "Aozora Staff")
+
+                self.presentSmallViewController(userListController, sender: sender)
+            }))
+
+            alert.addAction(UIAlertAction(title: "Users - Oldest Active Users", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
+                guard let followingUsers = FriendsController.sharedInstance.following else {
+                    return
+                }
+
+                var followingUsersIds = followingUsers.map{ $0.objectId! }
+                followingUsersIds.append(userProfile.objectId!)
+
+                let userListController = Storyboard.userListViewController()
+
+                let query = User.query()!
+                query.whereKeyExists("aozoraUsername")
+                query.whereKey("activeStart", greaterThan: NSDate().dateByAddingTimeInterval(-60*60*24*2))
+                query.orderByAscending("createdAt")
+                query.limit = 1000
+                userListController.initWithQuery(query, title: "Oldest Active Users", user: userProfile)
+
                 self.presentSmallViewController(userListController, sender: sender)
             }))
         }
