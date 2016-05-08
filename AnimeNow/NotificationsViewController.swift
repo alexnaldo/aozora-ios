@@ -8,7 +8,7 @@
 
 import Foundation
 import ANCommonKit
-
+import XLPagerTabStrip  
 
 protocol NotificationsViewControllerDelegate: class {
     func notificationsViewControllerHasUnreadNotifications(count: Int)
@@ -30,10 +30,9 @@ class NotificationsViewController: UIViewController {
         tableView.estimatedRowHeight = 112.0
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        let clearAll = UIBarButtonItem(title: "Read all", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(NotificationsViewController.clearAllPressed(_:)))
-        navigationItem.leftBarButtonItem = clearAll
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NotificationsViewController.fetchNotifications), name: "newNotification", object: nil)
+
+        delegate = tabBarController as! RootTabBar
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -212,3 +211,10 @@ extension NotificationsViewController: FetchControllerDelegate {
     }
 }
 
+// MARK: - IndicatorInfoProvider
+extension NotificationsViewController: IndicatorInfoProvider {
+
+    func indicatorInfoForPagerTabStrip(pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
+        return IndicatorInfo(title: "Notifications")
+    }
+}

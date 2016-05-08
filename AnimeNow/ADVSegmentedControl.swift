@@ -143,8 +143,8 @@ import UIKit
         UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.8, options: [], animations: {
 
             var frame = label.frame
-            frame.origin.y = frame.origin.y + frame.size.height - 4
-            frame.size.height = 4
+            frame.origin.y = frame.origin.y + frame.size.height - 5
+            frame.size.height = 5
             self.thumbView.frame = frame
 
             }, completion: nil)

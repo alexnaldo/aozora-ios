@@ -39,7 +39,6 @@ class ForumViewController: BaseThreadViewController {
         return customTabBar.anime
     }
 
-
     var customTabBar: AnimeDetailsTabBarController {
         return tabBarController as! AnimeDetailsTabBarController
     }

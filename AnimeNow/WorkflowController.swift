@@ -17,17 +17,14 @@ class WorkflowController {
         let home = UIStoryboard(name: "Home", bundle: nil).instantiateInitialViewController() as! UINavigationController
         let library = UIStoryboard(name: "Library", bundle: nil).instantiateInitialViewController() as! UINavigationController
         let profile = UIStoryboard(name: "Profile", bundle: nil).instantiateInitialViewController() as! UINavigationController
-        let notifications = UIStoryboard(name: "Notifications", bundle: nil).instantiateViewControllerWithIdentifier("NotificationsViewControllerNav") as! UINavigationController
-        let notificationVC = notifications.viewControllers.first as! NotificationsViewController
-        
+
+        let baseNotificationViewController = UIStoryboard(name: "Notifications", bundle: nil).instantiateViewControllerWithIdentifier("BaseNotificationViewControllerNab") as! UINavigationController
         
         let forum = UIStoryboard(name: "Forums", bundle: nil).instantiateInitialViewController() as! UINavigationController
         
         let tabBarController = RootTabBar()
         
-        notificationVC.delegate = tabBarController
-        
-        tabBarController.viewControllers = [forum, home, library, notifications, profile]
+        tabBarController.viewControllers = [forum, home, library, baseNotificationViewController, profile]
 
         // Update icons frame
         for controller in tabBarController.viewControllers! {

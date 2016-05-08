@@ -62,7 +62,7 @@ public class RootTabBar: UITabBarController {
     
     func checkIfThereAreNotifications() {
         if let navController = viewControllers![3] as? UINavigationController,
-            let notificationVC = navController.viewControllers.first as? NotificationsViewController {
+            let notificationVC = navController.viewControllers.first as? BaseNotificationViewController {
             notificationVC.fetchNotifications()
         }
     }
@@ -122,6 +122,6 @@ extension RootTabBar: UITabBarControllerDelegate {
 
 extension RootTabBar: MALLoginViewControllerDelegate {
     public func loginViewControllerPressedDoesntHaveAnAccount() {
-        selectedIndex = 1
+        selectedIndex = 2
     }
 }

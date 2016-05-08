@@ -415,6 +415,10 @@
 		DACAFC011CDBDEF400BE0FCE /* ThreadUrlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACAFBFE1CDBDEF400BE0FCE /* ThreadUrlCell.swift */; };
 		DACAFC021CDBDEF400BE0FCE /* ThreadUrlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DACAFBFF1CDBDEF400BE0FCE /* ThreadUrlCell.xib */; };
 		DACAFC031CDBDEF400BE0FCE /* ThreadUrlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DACAFBFF1CDBDEF400BE0FCE /* ThreadUrlCell.xib */; };
+		DACAFC081CDEC4D800BE0FCE /* BaseNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACAFC071CDEC4D800BE0FCE /* BaseNotificationViewController.swift */; };
+		DACAFC091CDEC4D800BE0FCE /* BaseNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACAFC071CDEC4D800BE0FCE /* BaseNotificationViewController.swift */; };
+		DACAFC0C1CDED7E800BE0FCE /* AnnouncementsViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACAFC0B1CDED7E800BE0FCE /* AnnouncementsViewControler.swift */; };
+		DACAFC0D1CDED7E800BE0FCE /* AnnouncementsViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACAFC0B1CDED7E800BE0FCE /* AnnouncementsViewControler.swift */; };
 		DACE085F1C6DD3E900470B9F /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DACE085D1C6DD3DA00470B9F /* libxml2.tbd */; };
 		DACE08621C6DD3EF00470B9F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DAFB071D1C14FFFE00F7F745 /* libz.tbd */; };
 		DACE08631C6DD3EF00470B9F /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DAFB071B1C14FFC300F7F745 /* libsqlite3.tbd */; };
@@ -832,6 +836,8 @@
 		DACAFBFB1CDBCA8100BE0FCE /* PostEmbeddedUrlView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostEmbeddedUrlView.xib; sourceTree = "<group>"; };
 		DACAFBFE1CDBDEF400BE0FCE /* ThreadUrlCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadUrlCell.swift; sourceTree = "<group>"; };
 		DACAFBFF1CDBDEF400BE0FCE /* ThreadUrlCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThreadUrlCell.xib; sourceTree = "<group>"; };
+		DACAFC071CDEC4D800BE0FCE /* BaseNotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNotificationViewController.swift; sourceTree = "<group>"; };
+		DACAFC0B1CDED7E800BE0FCE /* AnnouncementsViewControler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnouncementsViewControler.swift; sourceTree = "<group>"; };
 		DACCF35E1B111016006A13EB /* AnimeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeService.swift; sourceTree = "<group>"; };
 		DACD6AAB1B62E54F00DDA55C /* RateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RateViewController.swift; path = ../ANAnimeKit/RateViewController.swift; sourceTree = "<group>"; };
 		DACD6AAD1B62F4C700DDA55C /* Rate.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Rate.storyboard; path = ../ANAnimeKit/Rate.storyboard; sourceTree = "<group>"; };
@@ -1540,8 +1546,10 @@
 			isa = PBXGroup;
 			children = (
 				DAD486AE1C6EA3ED0045B769 /* Notifications.storyboard */,
+				DACAFC071CDEC4D800BE0FCE /* BaseNotificationViewController.swift */,
 				DAA546D31BA0902E003989DE /* NotificationsController.swift */,
 				DA1340AC1B9E17410073C6EF /* NotificationsViewController.swift */,
+				DACAFC0B1CDED7E800BE0FCE /* AnnouncementsViewControler.swift */,
 			);
 			name = Notifications;
 			sourceTree = "<group>";
@@ -2518,6 +2526,7 @@
 				DA6B546D1CC2DFBD00EB6FC0 /* AnimeLibraryViewController.swift in Sources */,
 				DA6B546E1CC2DFBD00EB6FC0 /* UIViewController+Navigation.swift in Sources */,
 				DA6B546F1CC2DFBD00EB6FC0 /* MALLoginViewController.swift in Sources */,
+				DACAFC0C1CDED7E800BE0FCE /* AnnouncementsViewControler.swift in Sources */,
 				DA6B54701CC2DFBD00EB6FC0 /* CharacterCell.swift in Sources */,
 				DA6B54711CC2DFBD00EB6FC0 /* InformationCell.swift in Sources */,
 				DA6B54721CC2DFBD00EB6FC0 /* UserListViewController.swift in Sources */,
@@ -2536,6 +2545,7 @@
 				DA6B547E1CC2DFBD00EB6FC0 /* PostUrlCell.swift in Sources */,
 				DA6B547F1CC2DFBD00EB6FC0 /* ForumsViewController.swift in Sources */,
 				DA6B54801CC2DFBD00EB6FC0 /* TimelinePost.swift in Sources */,
+				DACAFC081CDEC4D800BE0FCE /* BaseNotificationViewController.swift in Sources */,
 				DA6B54811CC2DFBD00EB6FC0 /* AnimeCharacter.swift in Sources */,
 				DA6B54821CC2DFBD00EB6FC0 /* DataRefresherController.swift in Sources */,
 				DA6B54831CC2DFBD00EB6FC0 /* QueryBuilder.swift in Sources */,
@@ -2652,6 +2662,7 @@
 				DAA576BB1C66EC2D007E81E6 /* AnimeLibraryViewController.swift in Sources */,
 				DA4F15A91C6EFDF400C71227 /* UIViewController+Navigation.swift in Sources */,
 				DA8D71051C6DD0EE0016A332 /* MALLoginViewController.swift in Sources */,
+				DACAFC0D1CDED7E800BE0FCE /* AnnouncementsViewControler.swift in Sources */,
 				DAA576BC1C66EC2D007E81E6 /* CharacterCell.swift in Sources */,
 				DAA576BD1C66EC2D007E81E6 /* InformationCell.swift in Sources */,
 				DAA576BE1C66EC2D007E81E6 /* UserListViewController.swift in Sources */,
@@ -2670,6 +2681,7 @@
 				DACE088F1C6DD8BC00470B9F /* PostUrlCell.swift in Sources */,
 				DAA576C41C66EC2D007E81E6 /* ForumsViewController.swift in Sources */,
 				DA2991DD1C6DD10500CCB04D /* TimelinePost.swift in Sources */,
+				DACAFC091CDEC4D800BE0FCE /* BaseNotificationViewController.swift in Sources */,
 				DA2991D51C6DD10500CCB04D /* AnimeCharacter.swift in Sources */,
 				DA32EBE51C6A9A780090CD51 /* DataRefresherController.swift in Sources */,
 				DA7996C21CB9BA9000AD7EAD /* QueryBuilder.swift in Sources */,

@@ -37,7 +37,7 @@ PODS:
   - TTTAttributedLabel (1.13.4)
   - uservoice-iphone-sdk (3.2.7)
   - XCDYouTubeKit (2.4.3)
-  - XLPagerTabStrip (1.1.1)
+  - XLPagerTabStrip (5.0.0)
   - YoutubeSourceParserKit (0.2.4)
 
 DEPENDENCIES:
@@ -60,7 +60,7 @@ DEPENDENCIES:
   - TTTAttributedLabel (~> 1.13.4)
   - uservoice-iphone-sdk (~> 3.2)
   - XCDYouTubeKit (~> 2.4.1)
-  - XLPagerTabStrip (~> 1.1.1)
+  - XLPagerTabStrip (~> 5.0.0)
   - YoutubeSourceParserKit
 
 EXTERNAL SOURCES:
@@ -88,9 +88,9 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f
   uservoice-iphone-sdk: 9abf27254c8488d7b72d70fb9b621132d6beebd4
   XCDYouTubeKit: a4a1a60faa7bc97744a1184501e82ef10ca15897
-  XLPagerTabStrip: 222995115ef0d3a7134073b02d38023592835c17
+  XLPagerTabStrip: 87b8b705f9a7178e76a063ffaa2d70045944a965
   YoutubeSourceParserKit: d1506222a62718ed41f18ab52ebbc1b1d9ecabcc
 
-PODFILE CHECKSUM: 539cf165483962acbe2bdcd64428e380bb3d7933
+PODFILE CHECKSUM: a7860a6cfd6e81baa621345a30af63daf211c5c5
 
 COCOAPODS: 1.0.0.beta.8

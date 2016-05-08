@@ -32,7 +32,7 @@ enum LibraryLayout: String {
     }
 }
 
-class AnimeLibraryViewController: XLButtonBarPagerTabStripViewController {
+class AnimeLibraryViewController: ButtonBarPagerTabStripViewController {
     
     let SortTypeDefault = "Library.SortType."
     let LayoutTypeDefault = "Library.LayoutType."
@@ -88,10 +88,14 @@ class AnimeLibraryViewController: XLButtonBarPagerTabStripViewController {
 
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-
-        isProgressiveIndicator = true
+        
         buttonBarView.selectedBar.backgroundColor = UIColor.watching()
+        settings.style.buttonBarItemBackgroundColor = .clearColor()
+        settings.style.buttonBarItemFont = .boldSystemFontOfSize(14)
+        settings.style.buttonBarItemsShouldFillAvailiableWidth = false
+        settings.style.buttonBarItemLeftRightMargin = 12
+
+        super.viewDidLoad()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AnimeLibraryViewController.updateLibrary), name: LibraryUpdatedNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AnimeLibraryViewController.controllerRequestRefresh), name: LibraryCreatedNotification, object: nil)
@@ -174,9 +178,9 @@ class AnimeLibraryViewController: XLButtonBarPagerTabStripViewController {
     
     
     // MARK: - XLPagerTabStripViewControllerDataSource
-    
-    override func childViewControllersForPagerTabStripViewController(pagerTabStripViewController: XLPagerTabStripViewController!) -> [AnyObject]! {
-        
+
+    override func viewControllersForPagerTabStrip(pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
+
         // Initialize configurations
         for list in allAnimeLists {
             configurations.append(
@@ -210,16 +214,16 @@ class AnimeLibraryViewController: XLButtonBarPagerTabStripViewController {
     
     // MARK: - XLPagerTabStripViewControllerDelegate
     
-    override func pagerTabStripViewController(pagerTabStripViewController: XLPagerTabStripViewController!, updateIndicatorFromIndex fromIndex: Int, toIndex: Int, withProgressPercentage progressPercentage: CGFloat) {
-        super.pagerTabStripViewController(pagerTabStripViewController, updateIndicatorFromIndex: fromIndex, toIndex: toIndex, withProgressPercentage: progressPercentage)
-        
-        if progressPercentage > 0.5 {
-            self.buttonBarView.selectedBar.backgroundColor = colorForIndex(toIndex)
-        } else {
-            self.buttonBarView.selectedBar.backgroundColor = colorForIndex(fromIndex)
-        }
-    }
-    
+//    override func pagerTabStripViewController(pagerTabStripViewController: PagerTabStripViewController!, updateIndicatorFromIndex fromIndex: Int, toIndex: Int, withProgressPercentage progressPercentage: CGFloat) {
+//        super.pagerTabStripViewController(pagerTabStripViewController, updateIndicatorFromIndex: fromIndex, toIndex: toIndex, withProgressPercentage: progressPercentage)
+//        
+//        if progressPercentage > 0.5 {
+//            self.buttonBarView.selectedBar.backgroundColor = colorForIndex(toIndex)
+//        } else {
+//            self.buttonBarView.selectedBar.backgroundColor = colorForIndex(fromIndex)
+//        }
+//    }
+
     func colorForIndex(index: Int) -> UIColor {
         var color: UIColor?
         switch index {

@@ -55,12 +55,12 @@ public class DropDownListViewController: UIViewController {
         self.yPosition = yPosition
         self.imageDataSource = imageDataSource
     }
+
+    var tableHeight: CGFloat = 0
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-        
-        var tableHeight: CGFloat = 0
-        
+
         for array in dataSource {
             tableHeight += CGFloat(array.count*CellHeight) + 22
         }
@@ -98,7 +98,13 @@ public class DropDownListViewController: UIViewController {
     }
     
     @IBAction func dismissPressed(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
+        UIView.animateWithDuration(0.25, delay: 0.0, options: [UIViewAnimationOptions.CurveEaseOut, UIViewAnimationOptions.AllowUserInteraction], animations: { () -> Void in
+            self.tableTopSpaceConstraint.constant = -self.tableHeight
+            self.view.layoutIfNeeded()
+
+        }) { (finished) -> Void in
+            self.dismissViewControllerAnimated(false, completion: nil)
+        }
     }
 }
 

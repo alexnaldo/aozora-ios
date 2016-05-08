@@ -8,7 +8,6 @@
 
 import UIKit
 import ANCommonKit
-
 import XLPagerTabStrip
 
 protocol AnimeListControllerDelegate: class {
@@ -307,13 +306,10 @@ extension AnimeListViewController: RateViewControllerProtocol {
     }
 }
 
-// MARK: - XLPagerTabStripChildItem
-extension AnimeListViewController: XLPagerTabStripChildItem {
-    func titleForPagerTabStripViewController(pagerTabStripViewController: XLPagerTabStripViewController!) -> String! {
-        return animeListType.rawValue
-    }
-    
-    func colorForPagerTabStripViewController(pagerTabStripViewController: XLPagerTabStripViewController!) -> UIColor! {
-        return UIColor.whiteColor()
+
+extension AnimeListViewController: IndicatorInfoProvider {
+
+    func indicatorInfoForPagerTabStrip(pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
+        return IndicatorInfo(title: animeListType.rawValue)
     }
 }

@@ -16,6 +16,11 @@ enum SearchScope: Int {
     case Forum
 }
 
+func delayOnMainThread(delay: NSTimeInterval, block: dispatch_block_t) {
+    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC)))
+    dispatch_after(time, dispatch_get_main_queue(), block)
+}
+
 class SearchViewController: UIViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
@@ -147,7 +152,7 @@ class SearchViewController: UIViewController {
         currentOperation.cancel()
         let newOperation = NSOperation()
         
-        dispatch_after_delay(0.6, queue: dispatch_get_main_queue()) { _ in
+        delayOnMainThread(0.6) { _ in
             
             if newOperation.cancelled == true {
                 return
@@ -172,11 +177,6 @@ class SearchViewController: UIViewController {
         }
         
         currentOperation = newOperation
-    }
-    
-    func dispatch_after_delay(delay: NSTimeInterval, queue: dispatch_queue_t, block: dispatch_block_t) {
-        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC)))
-        dispatch_after(time, queue, block)
     }
 }
 
