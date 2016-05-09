@@ -44,7 +44,14 @@ class UserListViewController: UIViewController {
                 return
         }
 
-        layout.itemSize = CGSize(width: (view.bounds.width-44)/3, height: 134)
+        var width: CGFloat = 0
+        if UIDevice.isPad() {
+            width = 320 - 44
+        } else {
+            width = view.bounds.width - 44
+        }
+
+        layout.itemSize = CGSize(width: width/3, height: 134)
     }
     
     func fetchUserFriends(query: PFQuery) {

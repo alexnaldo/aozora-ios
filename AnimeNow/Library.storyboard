@@ -254,6 +254,34 @@
                                             <rect key="frame" x="0.0" y="0.0" width="340" height="92"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sjg-en-4nR">
+                                                    <rect key="frame" x="0.0" y="0.0" width="340" height="92"/>
+                                                    <color key="backgroundColor" white="0.94916466489999995" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="56" id="Vwc-cD-LI1"/>
+                                                        <constraint firstAttribute="width" priority="999" constant="83" id="c6U-SE-D8s"/>
+                                                        <constraint firstAttribute="width" constant="121" id="cWk-8T-B8S"/>
+                                                        <constraint firstAttribute="width" secondItem="sjg-en-4nR" secondAttribute="height" multiplier="83:116" id="kV9-vY-zRd"/>
+                                                        <constraint firstAttribute="height" constant="63" id="lbd-xD-lH0"/>
+                                                        <constraint firstAttribute="height" constant="116" id="nQ7-1D-N8Q"/>
+                                                        <constraint firstAttribute="width" constant="147" id="scP-3z-Bvj"/>
+                                                    </constraints>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="lbd-xD-lH0"/>
+                                                            <exclude reference="c6U-SE-D8s"/>
+                                                            <exclude reference="scP-3z-Bvj"/>
+                                                            <exclude reference="Vwc-cD-LI1"/>
+                                                            <exclude reference="nQ7-1D-N8Q"/>
+                                                            <exclude reference="kV9-vY-zRd"/>
+                                                            <exclude reference="cWk-8T-B8S"/>
+                                                        </mask>
+                                                    </variation>
+                                                </imageView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bdd-td-KAF">
+                                                    <rect key="frame" x="0.0" y="0.0" width="340" height="92"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                </view>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eil-ee-buT">
                                                     <rect key="frame" x="4" y="4" width="60" height="84"/>
                                                     <color key="backgroundColor" white="0.94916466489999995" alpha="1" colorSpace="calibratedWhite"/>
@@ -390,9 +418,12 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <color key="backgroundColor" white="0.19786218619246862" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="bdd-td-KAF" secondAttribute="bottom" id="1TQ-NN-v4U"/>
+                                            <constraint firstAttribute="trailing" secondItem="sjg-en-4nR" secondAttribute="trailing" id="1mj-02-YLs"/>
                                             <constraint firstItem="eil-ee-buT" firstAttribute="leading" secondItem="MaG-I3-apS" secondAttribute="leading" constant="4" id="8Zr-Cc-Yq6"/>
+                                            <constraint firstAttribute="bottom" secondItem="sjg-en-4nR" secondAttribute="bottom" id="9Vu-pm-pSG"/>
                                             <constraint firstItem="ecf-eL-Ae7" firstAttribute="top" secondItem="AuD-iQ-gs3" secondAttribute="bottom" constant="1.5" id="BJq-kp-oir"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="ecf-eL-Ae7" secondAttribute="bottom" constant="-4" id="BxF-SL-iKl"/>
                                             <constraint firstItem="ecf-eL-Ae7" firstAttribute="trailing" secondItem="AuD-iQ-gs3" secondAttribute="trailing" id="G0T-Am-Czg"/>
@@ -402,16 +433,22 @@
                                             <constraint firstItem="h0W-5s-gRQ" firstAttribute="leading" secondItem="AuD-iQ-gs3" secondAttribute="trailing" constant="8" id="SaF-Pd-XfI"/>
                                             <constraint firstAttribute="bottom" secondItem="TUE-zR-sbf" secondAttribute="bottom" constant="3" id="VxL-ir-KOj"/>
                                             <constraint firstItem="ecf-eL-Ae7" firstAttribute="leading" secondItem="AuD-iQ-gs3" secondAttribute="leading" id="akW-9h-S0J"/>
+                                            <constraint firstItem="bdd-td-KAF" firstAttribute="top" secondItem="MaG-I3-apS" secondAttribute="top" id="bkD-ch-foG"/>
                                             <constraint firstItem="TUE-zR-sbf" firstAttribute="leading" secondItem="h0W-5s-gRQ" secondAttribute="trailing" constant="3" id="bku-2C-fKr"/>
+                                            <constraint firstItem="sjg-en-4nR" firstAttribute="leading" secondItem="MaG-I3-apS" secondAttribute="leading" id="cwQ-aS-UM6"/>
+                                            <constraint firstItem="sjg-en-4nR" firstAttribute="top" secondItem="MaG-I3-apS" secondAttribute="top" id="eQO-30-ulm"/>
                                             <constraint firstAttribute="trailing" secondItem="TUE-zR-sbf" secondAttribute="trailing" constant="8" id="fIc-z1-78w"/>
                                             <constraint firstAttribute="trailing" secondItem="Ks7-cf-bAV" secondAttribute="trailing" constant="8" id="gCU-Bx-jfz"/>
                                             <constraint firstItem="Ks7-cf-bAV" firstAttribute="top" secondItem="MaG-I3-apS" secondAttribute="top" constant="8" id="kqC-6z-ZFg"/>
                                             <constraint firstItem="h0W-5s-gRQ" firstAttribute="centerY" secondItem="TUE-zR-sbf" secondAttribute="centerY" id="ku0-63-mHt"/>
+                                            <constraint firstItem="bdd-td-KAF" firstAttribute="leading" secondItem="MaG-I3-apS" secondAttribute="leading" id="mOx-b7-duu"/>
+                                            <constraint firstAttribute="trailing" secondItem="bdd-td-KAF" secondAttribute="trailing" id="vk9-ym-ra3"/>
                                         </constraints>
                                         <size key="customSize" width="340" height="92"/>
                                         <connections>
                                             <outlet property="badgeButton" destination="Ks7-cf-bAV" id="Ywp-Xz-YvW"/>
                                             <outlet property="commentButton" destination="h0W-5s-gRQ" id="PKL-dr-3Sc"/>
+                                            <outlet property="episodeImageView" destination="sjg-en-4nR" id="S4l-Dw-GvR"/>
                                             <outlet property="posterImageView" destination="eil-ee-buT" id="3Wj-jB-feV"/>
                                             <outlet property="titleLabel" destination="AuD-iQ-gs3" id="4eT-u2-YQ2"/>
                                             <outlet property="userProgressLabel" destination="ecf-eL-Ae7" id="ur7-PJ-UW2"/>
