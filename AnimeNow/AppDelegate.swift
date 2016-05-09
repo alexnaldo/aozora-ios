@@ -20,6 +20,26 @@ import Flurry_iOS_SDK
 import NYTPhotoViewer
 import PINCache
 
+
+struct ParseConfig {
+    static var lastFetchedDate: NSDate? = nil
+
+    static func FetchIfNeeded() {
+        // Fetches the config at most once every 12 hours per app runtime
+        let date: NSDate? = ParseConfig.lastFetchedDate
+        let configRefreshInterval: NSTimeInterval = 12.0 * 60.0 * 60.0
+
+        if date == nil || date!.timeIntervalSinceNow * -1.0 > configRefreshInterval {
+            PFConfig.getConfigInBackgroundWithBlock(nil)
+            ParseConfig.lastFetchedDate = NSDate()
+        }
+    }
+
+    static func ProfilePopularFeedMinimumLikeCount() -> Int {
+        return PFConfig.currentConfig()["Profile_PopularFeed_MinimumLikeCount"] as? Int ?? 5
+    }
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -277,6 +297,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NSNotificationCenter.defaultCenter().postNotificationName("newNotification", object: nil)
         ReminderController.updateScheduledLocalNotifications()
         FBSDKAppEvents.activateApp()
+
+        ParseConfig.FetchIfNeeded()
     }
 
     func applicationWillTerminate(application: UIApplication) {

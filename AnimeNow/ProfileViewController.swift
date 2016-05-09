@@ -417,7 +417,8 @@ class ProfileViewController: BaseThreadViewController {
             }
 
         case .Popular:
-            query.whereKey("likeCount", greaterThan: 4)
+            let minimumLikeCount = ParseConfig.ProfilePopularFeedMinimumLikeCount()
+            query.whereKey("likeCount", greaterThan: minimumLikeCount)
         case .Me:
             query.whereKey("userTimeline", equalTo: userProfile!)
         }
