@@ -328,6 +328,11 @@ class AnimeLibraryViewController: ButtonBarPagerTabStripViewController {
             return
         }
 
+        if !InAppController.hasAnyPro() {
+            InAppPurchaseViewController.showInAppPurchaseWith(self)
+            return
+        }
+
         let publicList = Storyboard.publicListViewController()
         if libraryIsFromCurrentUser {
             let library = LibraryController.sharedInstance.library ?? []
