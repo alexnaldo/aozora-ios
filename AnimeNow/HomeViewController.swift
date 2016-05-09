@@ -475,6 +475,7 @@ private extension HomeViewController {
     func showAdvancedFilter() {
         let browse = UIStoryboard(name: "Browse", bundle: nil).instantiateViewControllerWithIdentifier("BrowseViewController") as! BrowseViewController
         browse.currentBrowseType = .Filtering
+        browse.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(browse, animated: true)
         Analytics.viewedHomeAdvancedFilter()
     }
