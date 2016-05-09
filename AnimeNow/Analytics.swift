@@ -95,6 +95,11 @@ class Analytics {
         Flurry.logEvent(eventID, withParameters: nil)
     }
 
+    class func viewedHomeAdvancedFilter() {
+        let eventID = "View.Home.AdvancedFilter"
+        Flurry.logEvent(eventID, withParameters: nil)
+    }
+
     // MARK: - Library
 
     class func viewedLibrary(list: String, layout: String, sort: String) {

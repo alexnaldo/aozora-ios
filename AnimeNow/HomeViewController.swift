@@ -13,15 +13,15 @@ import ANCommonKit
 class HomeViewController: UIViewController {
 
     enum HomeSection: Int {
-        case AiringToday, CurrentSeason, ExploreAll, Genres, Years, Studios, Classifications
+        case AiringToday, CurrentSeason, ExploreAll, Genres, Years, Studios, Classifications, AdvancedFilter
     }
 
     @IBOutlet weak var headerViewController: UICollectionView?
     @IBOutlet weak var tableView: UITableView!
 
-    var sections: [String] = ["Airing Today", "Current Season", "Explore all anime", "Explore by Genre", "Explore by Year", "Explore by Studio", "Explore by Classification"]
-    var sectionDetails: [String] = ["", "", "", "", "", "", ""]
-    var rightButtonTitle: [String] = ["Calendar", "Seasons", "Discover", "Genres", "Years", "Studios", "Classifications"]
+    var sections: [String] = ["Airing Today", "Current Season", "Explore all anime", "Explore by Genre", "Explore by Year", "Explore by Studio", "Explore by Classification", "Advanced Filter"]
+    var sectionDetails: [String] = ["", "", "", "", "", "", "", ""]
+    var rightButtonTitle: [String] = ["Calendar", "Seasons", "Discover", "Genres", "Years", "Studios", "Classifications", "Find the 👌 anime"]
 
     var airingDataSource: [[Anime]] = [[]] {
         didSet {
@@ -471,6 +471,13 @@ private extension HomeViewController {
 
         Analytics.viewedHomeClassifications()
     }
+
+    func showAdvancedFilter() {
+        let browse = UIStoryboard(name: "Browse", bundle: nil).instantiateViewControllerWithIdentifier("BrowseViewController") as! BrowseViewController
+        browse.currentBrowseType = .Filtering
+        navigationController?.pushViewController(browse, animated: true)
+        Analytics.viewedHomeAdvancedFilter()
+    }
 }
 
 // MARK: - TableViewDataSource, Delegate
@@ -515,14 +522,13 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
                 case .Genres:
                     self.showGenres()
                 case .Years:
-                    self.showYears()
-                    //showInAppPurchasesIfNeeded()
+                    showInAppPurchasesIfNeeded(self.showYears)
                 case .Studios:
-                    self.showStudios()
-                    //showInAppPurchasesIfNeeded()
+                    showInAppPurchasesIfNeeded(self.showStudios)
                 case .Classifications:
-                    self.showClassifications()
-                    //showInAppPurchasesIfNeeded()
+                    showInAppPurchasesIfNeeded(self.showClassifications)
+                case .AdvancedFilter:
+                    showInAppPurchasesIfNeeded(self.showAdvancedFilter)
                 }
             }
             
