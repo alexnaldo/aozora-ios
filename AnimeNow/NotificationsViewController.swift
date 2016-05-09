@@ -34,12 +34,6 @@ class NotificationsViewController: UIViewController {
 
         delegate = tabBarController as! RootTabBar
     }
-
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-
-        canDisplayBannerAds = InAppController.canDisplayAds()
-    }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
