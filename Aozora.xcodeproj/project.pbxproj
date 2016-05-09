@@ -419,6 +419,8 @@
 		DACAFC091CDEC4D800BE0FCE /* BaseNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACAFC071CDEC4D800BE0FCE /* BaseNotificationViewController.swift */; };
 		DACAFC0C1CDED7E800BE0FCE /* AnnouncementsViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACAFC0B1CDED7E800BE0FCE /* AnnouncementsViewControler.swift */; };
 		DACAFC0D1CDED7E800BE0FCE /* AnnouncementsViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACAFC0B1CDED7E800BE0FCE /* AnnouncementsViewControler.swift */; };
+		DACAFC0F1CE0355E00BE0FCE /* CALayer+InterfaceBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACAFC0E1CE0355E00BE0FCE /* CALayer+InterfaceBuilder.swift */; };
+		DACAFC101CE0355E00BE0FCE /* CALayer+InterfaceBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACAFC0E1CE0355E00BE0FCE /* CALayer+InterfaceBuilder.swift */; };
 		DACE085F1C6DD3E900470B9F /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DACE085D1C6DD3DA00470B9F /* libxml2.tbd */; };
 		DACE08621C6DD3EF00470B9F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DAFB071D1C14FFFE00F7F745 /* libz.tbd */; };
 		DACE08631C6DD3EF00470B9F /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DAFB071B1C14FFC300F7F745 /* libsqlite3.tbd */; };
@@ -838,6 +840,7 @@
 		DACAFBFF1CDBDEF400BE0FCE /* ThreadUrlCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThreadUrlCell.xib; sourceTree = "<group>"; };
 		DACAFC071CDEC4D800BE0FCE /* BaseNotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNotificationViewController.swift; sourceTree = "<group>"; };
 		DACAFC0B1CDED7E800BE0FCE /* AnnouncementsViewControler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnouncementsViewControler.swift; sourceTree = "<group>"; };
+		DACAFC0E1CE0355E00BE0FCE /* CALayer+InterfaceBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+InterfaceBuilder.swift"; sourceTree = "<group>"; };
 		DACCF35E1B111016006A13EB /* AnimeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeService.swift; sourceTree = "<group>"; };
 		DACD6AAB1B62E54F00DDA55C /* RateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RateViewController.swift; path = ../ANAnimeKit/RateViewController.swift; sourceTree = "<group>"; };
 		DACD6AAD1B62F4C700DDA55C /* Rate.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Rate.storyboard; path = ../ANAnimeKit/Rate.storyboard; sourceTree = "<group>"; };
@@ -1493,6 +1496,7 @@
 				DA7EDDC81C1FED4E0097D818 /* String+Utils.swift */,
 				DAA546D51BA090C0003989DE /* UIApplication+Navigation.swift */,
 				DA64C59E1CCD987B001A6AFE /* UITableView+Animation.swift */,
+				DACAFC0E1CE0355E00BE0FCE /* CALayer+InterfaceBuilder.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -2525,6 +2529,7 @@
 				DA6B546C1CC2DFBD00EB6FC0 /* UIView+Reuse.swift in Sources */,
 				DA6B546D1CC2DFBD00EB6FC0 /* AnimeLibraryViewController.swift in Sources */,
 				DA6B546E1CC2DFBD00EB6FC0 /* UIViewController+Navigation.swift in Sources */,
+				DACAFC0F1CE0355E00BE0FCE /* CALayer+InterfaceBuilder.swift in Sources */,
 				DA6B546F1CC2DFBD00EB6FC0 /* MALLoginViewController.swift in Sources */,
 				DACAFC0C1CDED7E800BE0FCE /* AnnouncementsViewControler.swift in Sources */,
 				DA6B54701CC2DFBD00EB6FC0 /* CharacterCell.swift in Sources */,
@@ -2661,6 +2666,7 @@
 				DA4F15A01C6EBCF600C71227 /* UIView+Reuse.swift in Sources */,
 				DAA576BB1C66EC2D007E81E6 /* AnimeLibraryViewController.swift in Sources */,
 				DA4F15A91C6EFDF400C71227 /* UIViewController+Navigation.swift in Sources */,
+				DACAFC101CE0355E00BE0FCE /* CALayer+InterfaceBuilder.swift in Sources */,
 				DA8D71051C6DD0EE0016A332 /* MALLoginViewController.swift in Sources */,
 				DACAFC0D1CDED7E800BE0FCE /* AnnouncementsViewControler.swift in Sources */,
 				DAA576BC1C66EC2D007E81E6 /* CharacterCell.swift in Sources */,
