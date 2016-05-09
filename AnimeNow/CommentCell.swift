@@ -49,6 +49,10 @@ class CommentCell: UITableViewCell, PostCellProtocol {
         userView?.onlineIndicator = onlineIndicator
         userView?.avatar = avatar
         userView?.date = date
+        userView?.initializeTapTargets()
+        userView?.pressedUserProfile = {
+            self.delegate?.postCellSelectedUserProfile(self)
+        }
 
         actionsView = PostActionsView()
         actionsView?.likeButton = likeButton
