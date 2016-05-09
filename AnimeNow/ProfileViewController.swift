@@ -677,6 +677,28 @@ class ProfileViewController: BaseThreadViewController {
                 self.presentSmallViewController(userListController, sender: sender)
             }))
 
+            alert.addAction(UIAlertAction(title: "Users - New PRO Members", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
+
+
+                guard let followingUsers = FriendsController.sharedInstance.following else {
+                    return
+                }
+
+                var followingUsersIds = followingUsers.map{ $0.objectId! }
+                followingUsersIds.append(userProfile.objectId!)
+
+                let userListController = Storyboard.userListViewController()
+
+                let query = User.query()!
+                query.whereKeyExists("aozoraUsername")
+                query.whereKey("badges", containedIn: ["PRO","PRO+"])
+                query.orderByDescending("createdAt")
+                query.limit = 200
+                userListController.initWithQuery(query, title: "New PRO Members", user: userProfile)
+
+                self.presentSmallViewController(userListController, sender: sender)
+            }))
+
             alert.addAction(UIAlertAction(title: "Users - Oldest Active Users", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
                 guard let followingUsers = FriendsController.sharedInstance.following else {
                     return
