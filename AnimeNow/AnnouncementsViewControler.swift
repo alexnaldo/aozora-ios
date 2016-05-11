@@ -49,6 +49,7 @@ class AnnouncementsViewController: BaseThreadViewController {
                 query.includeKey("anime")
                 query.includeKey("episode")
                 query.includeKey("startedBy")
+                query.includeKey("postedBy")
                 query.includeKey("lastPostedBy")
                 query.orderByDescending("createdAt")
                 self.fetchController.configureWith(self, query: query, tableView: self.tableView, limit: 100)

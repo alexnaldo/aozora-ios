@@ -50,6 +50,7 @@ class ThreadViewController: BaseThreadViewController {
         query.whereKey("objectId", equalTo: thread!.objectId!)
         query.includeKey("anime")
         query.includeKey("startedBy")
+        query.includeKey("postedBy")
         query.includeKey("tags")
         query.findObjectsInBackgroundWithBlock({ (result, error) -> Void in
             
@@ -69,6 +70,7 @@ class ThreadViewController: BaseThreadViewController {
         query.includeKey("episode")
         query.includeKey("anime")
         query.includeKey("startedBy")
+        query.includeKey("postedBy")
         query.includeKey("tags")
         return query.findObjectsInBackground().continueWithSuccessBlock { task -> AnyObject? in
 

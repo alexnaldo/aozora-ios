@@ -128,6 +128,7 @@ class ForumsViewController: BaseThreadViewController {
             pinnedQuery.includeKey("tags")
             pinnedQuery.includeKey("lastPostedBy")
             pinnedQuery.includeKey("startedBy")
+            pinnedQuery.includeKey("postedBy")
             pinnedQuery.findObjectsInBackgroundWithBlock { (result, error) -> Void in
                 if let pinnedData = result as? [Thread] {
                     self.cachedGlobalThreads = pinnedData
@@ -184,7 +185,10 @@ class ForumsViewController: BaseThreadViewController {
 
         finalQuery.whereKeyDoesNotExist("pinType")
         finalQuery.includeKey("tags")
+        // Deprecated:
         finalQuery.includeKey("startedBy")
+        // Use from now on
+        finalQuery.includeKey("postedBy")
         finalQuery.includeKey("lastPostedBy")
 
         switch selectedSort {
@@ -214,6 +218,7 @@ class ForumsViewController: BaseThreadViewController {
         query.includeKey("tags")
         query.includeKey("lastPostedBy")
         query.includeKey("startedBy")
+        query.includeKey("postedBy")
         query.findObjectsInBackgroundWithBlock { (result, error) -> Void in
             if let pinnedData = result as? [Thread] {
                 let query = Thread.query()!
@@ -223,6 +228,7 @@ class ForumsViewController: BaseThreadViewController {
                 query.includeKey("tags")
                 query.includeKey("lastPostedBy")
                 query.includeKey("startedBy")
+                query.includeKey("postedBy")
                 query.orderByDescending("updatedAt")
                 self.fetchController.configureWith(self, query: query, tableView: self.tableView, limit: 50, pinnedData: pinnedData)
             }

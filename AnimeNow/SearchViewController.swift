@@ -142,6 +142,7 @@ class SearchViewController: UIViewController {
             query.whereKey("title", matchesRegex: text, modifiers: "i")
             query.includeKey("tags")
             query.includeKey("startedBy")
+            query.includeKey("postedBy")
             query.includeKey("lastPostedBy")
             query.includeKey("episode")
             query.orderByAscending("updatedAt")

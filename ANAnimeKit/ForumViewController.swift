@@ -73,6 +73,7 @@ class ForumViewController: BaseThreadViewController {
         query.includeKey("anime")
         query.includeKey("episode")
         query.includeKey("startedBy")
+        query.includeKey("postedBy")
         query.includeKey("lastPostedBy")
         query.orderByDescending("hotRanking")
         fetchController.configureWith(self, query: query, tableView: tableView, limit: 100)
