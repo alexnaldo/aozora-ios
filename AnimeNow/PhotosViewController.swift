@@ -57,6 +57,7 @@ extension PhotosViewController: NYTPhotosViewControllerDelegate {
         }
 
         let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+        activityVC.popoverPresentationController?.barButtonItem = rightBarButtonItem
         activityVC.excludedActivityTypes = [UIActivityTypeAssignToContact, UIActivityTypeAddToReadingList,UIActivityTypePrint]
         presentViewController(activityVC, animated: true, completion: nil)
 

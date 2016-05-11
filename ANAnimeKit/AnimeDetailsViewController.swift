@@ -500,6 +500,7 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
             }
             
             let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+            activityVC.popoverPresentationController?.sourceView = (sender as! UIView)
             activityVC.excludedActivityTypes = [UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard, UIActivityTypeAddToReadingList,UIActivityTypePrint];
             self.presentViewController(activityVC, animated: true, completion: nil)
             

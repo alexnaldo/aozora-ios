@@ -121,6 +121,7 @@ public class WebBrowserViewController: UIViewController {
 
         let objectsToShare: [AnyObject] = [currentURL]
         let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+        activityVC.popoverPresentationController?.barButtonItem = (sender as! UIBarButtonItem)
         activityVC.excludedActivityTypes = [UIActivityTypeAssignToContact, UIActivityTypeAddToReadingList, UIActivityTypePrint];
         self.presentViewController(activityVC, animated: true, completion: nil)
     }

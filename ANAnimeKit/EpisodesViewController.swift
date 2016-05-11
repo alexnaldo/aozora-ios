@@ -236,7 +236,8 @@ extension EpisodesViewController: EpisodeCellDelegate {
         }
         
         let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
-        activityVC.excludedActivityTypes = [UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard, UIActivityTypeAddToReadingList,UIActivityTypePrint];
+        activityVC.popoverPresentationController?.sourceView = cell.moreButton
+        activityVC.excludedActivityTypes = [UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard, UIActivityTypeAddToReadingList,UIActivityTypePrint]
         self.presentViewController(activityVC, animated: true, completion: nil)
     
     }
