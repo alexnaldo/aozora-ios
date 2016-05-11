@@ -148,8 +148,7 @@ class SettingsViewController: UITableViewController {
             UserVoice.presentUserVoiceInterfaceForParentViewController(self)
         case (2,0):
             // Unlock features
-            let controller = UIStoryboard(name: "InApp", bundle: nil).instantiateViewControllerWithIdentifier("InAppPurchaseViewController") as! InAppPurchaseViewController
-            navigationController?.pushViewController(controller, animated: true)
+            PurchaseViewController.showInAppPurchaseWith(self)
         case (2,1):
             // Restore purchases
             InAppPurchaseController.restorePurchases().continueWithBlock({ (task: BFTask!) -> AnyObject! in

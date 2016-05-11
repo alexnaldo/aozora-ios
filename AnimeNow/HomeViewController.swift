@@ -509,7 +509,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
                     if InAppController.hasAnyPro() {
                         function()
                     } else {
-                        InAppPurchaseViewController.showInAppPurchaseWith(self)
+                        PurchaseViewController.showInAppPurchaseWith(self.tabBarController!)
                     }
                 }
 
@@ -523,11 +523,11 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
                 case .Genres:
                     self.showGenres()
                 case .Years:
-                    showInAppPurchasesIfNeeded(self.showYears)
+                    self.showYears()
                 case .Studios:
-                    showInAppPurchasesIfNeeded(self.showStudios)
+                    self.showStudios()
                 case .Classifications:
-                    showInAppPurchasesIfNeeded(self.showClassifications)
+                    self.showClassifications()
                 case .AdvancedFilter:
                     showInAppPurchasesIfNeeded(self.showAdvancedFilter)
                 }

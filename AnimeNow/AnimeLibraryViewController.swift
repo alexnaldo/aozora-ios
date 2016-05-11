@@ -87,7 +87,7 @@ class AnimeLibraryViewController: ButtonBarPagerTabStripViewController {
         if let layoutType = NSUserDefaults.standardUserDefaults().objectForKey(key) as? String, let layoutTypeEnum = LibraryLayout(rawValue: layoutType) {
             return layoutTypeEnum
         } else {
-            return LibraryLayout.CheckInCompact
+            return LibraryLayout.CheckIn
         }
 
     }
@@ -329,7 +329,7 @@ class AnimeLibraryViewController: ButtonBarPagerTabStripViewController {
         }
 
         if !InAppController.hasAnyPro() {
-            InAppPurchaseViewController.showInAppPurchaseWith(self)
+            PurchaseViewController.showInAppPurchaseWith(self.tabBarController!)
             return
         }
 

@@ -16,6 +16,8 @@
 		DA10E9111C60774F0023F41F /* badge-green@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA10E90F1C60774F0023F41F /* badge-green@2x.png */; };
 		DA10E9121C60774F0023F41F /* badge-red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA10E9101C60774F0023F41F /* badge-red@2x.png */; };
 		DA13806E1B6DC08300C53560 /* UIViewController+Aozora.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA13806D1B6DC08300C53560 /* UIViewController+Aozora.swift */; };
+		DA1BD5791CE2F22600B8A318 /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1BD5781CE2F22600B8A318 /* PurchaseViewController.swift */; };
+		DA1BD57A1CE2F22600B8A318 /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1BD5781CE2F22600B8A318 /* PurchaseViewController.swift */; };
 		DA27D1AD1AF1BA9D00CC854E /* AnimeNowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA27D1AC1AF1BA9D00CC854E /* AnimeNowTests.swift */; };
 		DA2991D31C6DD10500CCB04D /* SeasonalChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA76A1991B2375E1006CB489 /* SeasonalChart.swift */; };
 		DA2991D41C6DD10500CCB04D /* AnimeRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACE77C31B29517F00037486 /* AnimeRelation.swift */; };
@@ -635,6 +637,7 @@
 		DA1380691B6DBB4100C53560 /* Thread.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Thread.swift; sourceTree = "<group>"; };
 		DA13806B1B6DBB4C00C53560 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		DA13806D1B6DC08300C53560 /* UIViewController+Aozora.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+Aozora.swift"; path = "../AnimeNow/UIViewController+Aozora.swift"; sourceTree = "<group>"; };
+		DA1BD5781CE2F22600B8A318 /* PurchaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
 		DA27D1951AF1BA9D00CC854E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA27D1961AF1BA9D00CC854E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA27D19B1AF1BA9D00CC854E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Season.storyboard; sourceTree = "<group>"; };
@@ -1055,6 +1058,7 @@
 				DAC7D9011B50201300898FF6 /* InAppController.swift */,
 				DA3B61D81B4F59E700A3F7BA /* InAppPurchaseController.swift */,
 				DA07A3491B4C2B860028B81B /* InAppPurchaseViewController.swift */,
+				DA1BD5781CE2F22600B8A318 /* PurchaseViewController.swift */,
 			);
 			name = "In-App Purchases";
 			sourceTree = "<group>";
@@ -2613,6 +2617,7 @@
 				DA6B54B91CC2DFBD00EB6FC0 /* AnimeService.swift in Sources */,
 				DA6B54BA1CC2DFBD00EB6FC0 /* TFHpple.m in Sources */,
 				DA6B54BB1CC2DFBD00EB6FC0 /* AnimeDetail.swift in Sources */,
+				DA1BD5791CE2F22600B8A318 /* PurchaseViewController.swift in Sources */,
 				DA6B54BC1CC2DFBD00EB6FC0 /* SeasonalChart.swift in Sources */,
 				DA6B54BD1CC2DFBD00EB6FC0 /* EpisodesViewController.swift in Sources */,
 				DAD7AEBA1CC4BADA00BB2FBD /* RecommendationsViewController.swift in Sources */,
@@ -2750,6 +2755,7 @@
 				DA7A16A01C6DD0C400AA2882 /* AnimeService.swift in Sources */,
 				DA7A16991C6DD0C100AA2882 /* TFHpple.m in Sources */,
 				DA2991DA1C6DD10500CCB04D /* AnimeDetail.swift in Sources */,
+				DA1BD57A1CE2F22600B8A318 /* PurchaseViewController.swift in Sources */,
 				DA2991D31C6DD10500CCB04D /* SeasonalChart.swift in Sources */,
 				DAA576E21C66EC2D007E81E6 /* EpisodesViewController.swift in Sources */,
 				DAD7AEBB1CC4BADA00BB2FBD /* RecommendationsViewController.swift in Sources */,

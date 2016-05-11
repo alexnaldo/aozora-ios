@@ -1143,10 +1143,10 @@ extension BaseThreadViewController: UITableViewDelegate {
                         (parentPost as! PFObject).removeObjectForKey("lastReply")
                     }
 
+                    (parentPost as! PFObject).saveInBackground()
+
                     // Reload after updating replies and lastReply
                     self.tableView.reloadData()
-
-                    (parentPost as! PFObject).saveInBackground()
                 }
             }
         })

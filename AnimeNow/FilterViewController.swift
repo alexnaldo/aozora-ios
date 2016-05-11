@@ -91,7 +91,7 @@ class FilterViewController: UIViewController {
             delegate?.finishedWith(configuration: sectionsDataSource, selectedGenres: selectedGenres)
             dismissViewControllerAnimated(true, completion: nil)
         } else {
-            InAppPurchaseViewController.showInAppPurchaseWith(self)
+            PurchaseViewController.showInAppPurchaseWith(self)
         }
         
     }
