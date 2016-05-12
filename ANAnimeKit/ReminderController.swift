@@ -68,7 +68,7 @@ public class ReminderController {
         return matchingNotifications.last
     }
     
-    public class func updateScheduledLocalNotifications() {
+    public class func updateScheduledLocalNotifications(library: [Anime]) {
         
         // Update titles, fire dates and disable notifications
         guard let scheduledNotifications = UIApplication.sharedApplication().scheduledLocalNotifications else {
@@ -80,27 +80,14 @@ public class ReminderController {
         let idList: [Int] = scheduledNotifications
             .flatMap{ $0.userInfo as? [String: AnyObject] }
             .flatMap{ $0["objectID"] as? Int }
-        
-        let query = Anime.query()!
-        query.whereKey("myAnimeListID", containedIn: idList)
-        query.limit = 2000
-        query.findObjectsInBackground()
-            .continueWithExecutor(BFExecutor.mainThreadExecutor(), withSuccessBlock: { (task: BFTask!) -> AnyObject! in
-                
-                guard let animeList = task.result as? [Anime] else {
-                    return nil
-                }
-                
-                LibrarySyncController.matchAnimeWithProgress(animeList)
-                
-                for anime in animeList {
-                    if let progress = anime.progress where progress.myAnimeListList() != .Dropped {
-                        self.scheduleReminderForAnime(anime)
-                    }
-                }  
-                return nil
-            })
+        print("enabled reminders \(idList.count)")
 
+        let reminderEnabledList = library.filter{ idList.contains($0.myAnimeListID) }
+        
+        for anime in reminderEnabledList {
+            if anime.progress!.myAnimeListList() != .Dropped {
+                self.scheduleReminderForAnime(anime)
+            }
+        }
     }
-    
 }

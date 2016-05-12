@@ -164,7 +164,6 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
         }
 
         let reminderIsScheduled = ReminderController.scheduledReminderFor(anime) != nil
-        ReminderController.updateScheduledLocalNotifications()
         updateReminderButtonEnabled(reminderIsScheduled)
 
         reminderButton.enabled = ReminderController.canScheduleReminderForAnime(anime)
