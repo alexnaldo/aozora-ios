@@ -44,9 +44,11 @@ class AnimeLibraryViewController: ButtonBarPagerTabStripViewController {
     var libraryController = LibraryController.sharedInstance
     var animator: ZFModalTransitionAnimator!
 
-    var libraryUser: User! = User.currentUser()
+    var libraryUser: User? = User.currentUser()
+
     var libraryIsFromCurrentUser: Bool {
-        return libraryUser.isTheCurrentUser()
+        // Crash if currentUser is nil (logged in anonymously) then opened library again
+        return (libraryUser ?? User.currentUser())?.isTheCurrentUser() ?? false
     }
     
     var currentConfiguration: Configuration {
@@ -123,7 +125,7 @@ class AnimeLibraryViewController: ButtonBarPagerTabStripViewController {
         }
 
         guard libraryIsFromCurrentUser else {
-            title = "\(libraryUser.aozoraUsername) Library"
+            title = "\(libraryUser!.aozoraUsername) Library"
             navigationController?.tabBarItem.title = ""
             fetchPublicLibrary()
             return
@@ -181,7 +183,7 @@ class AnimeLibraryViewController: ButtonBarPagerTabStripViewController {
 
         let query = AnimeProgress.query()!
         query.includeKey("anime")
-        query.whereKey("user", equalTo: libraryUser)
+        query.whereKey("user", equalTo: libraryUser!)
         query.limit = 2000
         query.findObjectsInBackground()
             .continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task: BFTask!) -> AnyObject! in
