@@ -309,7 +309,7 @@ class BaseThreadViewController: UIViewController {
     func shouldShowContractedRepliesForPost(post: Postable, forIndexPath indexPath: NSIndexPath) -> Bool {
         switch threadConfiguration {
         case .ThreadDetail:
-            return post.replyCount > 1 && indexPath.row < 3
+            return false//post.replyCount > 1 && indexPath.row < 3
         case .ThreadMain:
             return post.replyCount > 1 && indexPath.row < 3
         }
@@ -676,6 +676,7 @@ extension BaseThreadViewController: UITableViewDataSource {
                 assertionFailure()
                 return UITableViewCell()
             }
+            print("shouldShowAllRepliesForPost \(indexPath)")
             let replyIndex = indexPath.row - 1
             return reuseCommentCellFor(post, replyIndex: replyIndex, indexPath: indexPath)
             
@@ -686,6 +687,7 @@ extension BaseThreadViewController: UITableViewDataSource {
                 cell.layoutIfNeeded()
                 return cell
             } else {
+                print("shouldShowContractedRepliesForPost \(indexPath)")
                 guard let post = post as? Commentable else {
                     assertionFailure()
                     return UITableViewCell()

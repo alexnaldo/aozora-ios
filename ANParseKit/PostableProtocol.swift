@@ -281,7 +281,6 @@ extension Postable where Self: PFObject {
 
 extension Commentable {
     public func addReplies(unnaded: [PFObject]) {
-        replyCount = replyCount + unnaded.count
         replies.appendContentsOf(unnaded)
         lastReply = replies.last
     }
