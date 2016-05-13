@@ -1,5 +1,5 @@
 //
-//  UIImageView+SDWebImage.swift
+//  UIImageView+PINRemoteImage.swift
 //  AnimeNow
 //
 //  Created by Paul Chavarria Podoliako on 6/10/15.

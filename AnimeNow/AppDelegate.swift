@@ -19,7 +19,7 @@ import Keys
 import Flurry_iOS_SDK
 import NYTPhotoViewer
 import PINCache
-
+import PINRemoteImage
 
 struct ParseConfig {
     static var lastFetchedDate: NSDate? = nil
@@ -43,7 +43,7 @@ struct ParseConfig {
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    let maximumCacheSize: UInt = 1024 * 1024 * 250
+    let MaximumCacheSize: UInt = 1024 * 1024 * 500
     var window: UIWindow?
     var backgroundTask: UIBackgroundTaskIdentifier!
     
@@ -81,6 +81,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Parse.initializeWithConfiguration(configuration)
         PFUser.enableRevocableSessionInBackground()
 
+
+
         //PostsService.addLikeAndCommentToPostsCounters()
         //PostsService.addLikeAndCommentToTimelinePostsCounters()
 
@@ -117,7 +119,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         makeUpdateChanges()
 
-        PINCache.sharedCache().diskCache.byteLimit = 1024 * 1024 * 500
+        PINRemoteImageManager.sharedImageManager().cache.diskCache.byteLimit = MaximumCacheSize
         
         NSUserDefaults.standardUserDefaults().setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
 
