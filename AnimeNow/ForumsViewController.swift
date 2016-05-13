@@ -242,7 +242,7 @@ class ForumsViewController: BaseThreadViewController {
         query.findObjectsInBackground().continueWithSuccessBlock { (task: BFTask!) -> AnyObject! in
 
             self.allTagsDataSource = task.result as! [ThreadTag]
-            self.tagsDataSource = self.allTagsDataSource.filter{ $0.visible == true }
+            self.tagsDataSource = self.allTagsDataSource.filter{ $0.visible == true && $0.type == "forums" }
 
             return nil
         }

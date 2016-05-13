@@ -27,6 +27,6 @@ public class ThreadTag: PFObject, PFSubclassing {
     @NSManaged public var order: Int
     @NSManaged public var privateTag: Bool
     @NSManaged public var visible: Bool
-    @NSManaged public var announcement: String
+    @NSManaged public var type: String
     
 }
