@@ -611,11 +611,7 @@ class ProfileViewController: BaseThreadViewController {
             alert.addAction(UIAlertAction(title: "Edit Profile", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
                 let editProfileController =  Storyboard.editProfileViewController()
                 editProfileController.delegate = self
-                if UIDevice.isPad() {
-                    self.presentSmallViewController(editProfileController, sender: sender)
-                } else {
-                    self.presentViewController(editProfileController, animated: true, completion: nil)
-                }
+                self.presentViewController(editProfileController, animated: true, completion: nil)
             }))
 
             alert.addAction(UIAlertAction(title: "Users - Who to follow", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
