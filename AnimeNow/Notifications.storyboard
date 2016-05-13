@@ -95,7 +95,7 @@
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="2 hrs" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DRg-yF-lRd">
-                                                    <rect key="frame" x="60" y="30" width="32.5" height="19"/>
+                                                    <rect key="frame" x="60" y="30" width="33" height="19"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="18.5" id="qIA-UR-P2Q"/>
                                                     </constraints>
@@ -218,6 +218,21 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="61" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="LFz-7K-b7N">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="507"/>
                                 <color key="backgroundColor" white="0.97999999999999998" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="800" id="FtE-Pr-ehI">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="748"/>
+                                    </constraint>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="FtE-Pr-ehI"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="FtE-Pr-ehI"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <outlet property="dataSource" destination="TTB-mr-yFn" id="gr5-4o-kJC"/>
                                     <outlet property="delegate" destination="TTB-mr-yFn" id="PUb-n2-xtk"/>
@@ -227,10 +242,23 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="LFz-7K-b7N" firstAttribute="leading" secondItem="899-Cw-hFr" secondAttribute="leading" id="EmL-OT-HCz"/>
+                            <constraint firstItem="LFz-7K-b7N" firstAttribute="centerX" secondItem="899-Cw-hFr" secondAttribute="centerX" id="IyD-qr-Tsf"/>
                             <constraint firstAttribute="bottomMargin" secondItem="LFz-7K-b7N" secondAttribute="bottom" constant="-20" id="Po5-Da-MyO"/>
                             <constraint firstAttribute="topMargin" secondItem="LFz-7K-b7N" secondAttribute="top" id="l3C-sH-Y9D"/>
                             <constraint firstAttribute="trailing" secondItem="LFz-7K-b7N" secondAttribute="trailing" id="wR5-Ut-ZO2"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="IyD-qr-Tsf"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=regular">
+                            <mask key="constraints">
+                                <exclude reference="EmL-OT-HCz"/>
+                                <include reference="IyD-qr-Tsf"/>
+                                <exclude reference="wR5-Ut-ZO2"/>
+                            </mask>
+                        </variation>
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
@@ -272,7 +300,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="Uho-s5-Ccz" customClass="XLButtonBarViewCell">
-                                        <rect key="frame" x="0.0" y="0.5" width="79" height="42"/>
+                                        <rect key="frame" x="0.0" y="1" width="79" height="42"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="79" height="42"/>

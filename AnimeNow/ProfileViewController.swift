@@ -614,7 +614,7 @@ class ProfileViewController: BaseThreadViewController {
                 self.presentViewController(editProfileController, animated: true, completion: nil)
             }))
 
-            alert.addAction(UIAlertAction(title: "Users - Who to follow", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
+            alert.addAction(UIAlertAction(title: "Who to follow", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
 
 
                 guard let followingUsers = FriendsController.sharedInstance.following else {
@@ -641,7 +641,7 @@ class ProfileViewController: BaseThreadViewController {
                 self.presentSmallViewController(userListController, sender: sender)
             }))
 
-            alert.addAction(UIAlertAction(title: "Users - Online Now", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
+            alert.addAction(UIAlertAction(title: "Online Now", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
                 let userListController = Storyboard.userListViewController()
                 let query = User.query()!
                 query.whereKeyExists("aozoraUsername")
@@ -652,7 +652,7 @@ class ProfileViewController: BaseThreadViewController {
                 self.presentSmallViewController(userListController, sender: sender)
             }))
             
-            alert.addAction(UIAlertAction(title: "Users - New", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
+            alert.addAction(UIAlertAction(title: "New Users", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
                 let userListController = Storyboard.userListViewController()
                 let query = User.query()!
                 query.orderByDescending("joinDate")
@@ -662,7 +662,7 @@ class ProfileViewController: BaseThreadViewController {
                 self.presentSmallViewController(userListController, sender: sender)
             }))
 
-            alert.addAction(UIAlertAction(title: "Users - Aozora Staff", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
+            alert.addAction(UIAlertAction(title: "Aozora Staff", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
                 let userListController = Storyboard.userListViewController()
                 let query = User.query()!
                 query.whereKeyExists("aozoraUsername")
@@ -673,7 +673,7 @@ class ProfileViewController: BaseThreadViewController {
                 self.presentSmallViewController(userListController, sender: sender)
             }))
 
-            alert.addAction(UIAlertAction(title: "Users - New PRO Members", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
+            alert.addAction(UIAlertAction(title: "New PRO Members", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
 
 
                 guard let followingUsers = FriendsController.sharedInstance.following else {
@@ -695,7 +695,7 @@ class ProfileViewController: BaseThreadViewController {
                 self.presentSmallViewController(userListController, sender: sender)
             }))
 
-            alert.addAction(UIAlertAction(title: "Users - Oldest Active Users", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
+            alert.addAction(UIAlertAction(title: "Oldest Active Users", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
                 guard let followingUsers = FriendsController.sharedInstance.following else {
                     return
                 }
