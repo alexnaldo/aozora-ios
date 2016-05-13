@@ -14,8 +14,8 @@ extension UICollectionView {
         registerNib(UINib(nibName: className, bundle: nil), forCellWithReuseIdentifier: className)
     }
 
-    func dequeueReusableCellWithClass<T>(cell: T.Type, indexPath: NSIndexPath) -> T? {
+    func dequeueReusableCellWithClass<T>(cell: T.Type, indexPath: NSIndexPath) -> T! {
         let className = String(cell)
-        return dequeueReusableCellWithReuseIdentifier(className, forIndexPath: indexPath) as? T
+        return dequeueReusableCellWithReuseIdentifier(className, forIndexPath: indexPath) as! T
     }
 }

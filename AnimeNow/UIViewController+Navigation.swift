@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import JTSImageViewController
 
 public protocol ModalTransitionScrollable {
     var transitionScrollView: UIScrollView? { get }
@@ -64,9 +63,9 @@ extension UIViewController {
         return animator
     }
 
-    public func presentAnimeModal(anime: Anime, callback: ((CustomTabBarController) -> Void)? = nil) -> ZFModalTransitionAnimator {
+    public func presentAnimeModal(anime: Anime, callback: ((AnimeDetailsTabBarController) -> Void)? = nil) -> ZFModalTransitionAnimator {
 
-        let tabBarController = Storyboard.customTabBarController()
+        let tabBarController = Storyboard.animeDetailsTabBarController()
         tabBarController.initWithAnime(anime)
         callback?(tabBarController)
 

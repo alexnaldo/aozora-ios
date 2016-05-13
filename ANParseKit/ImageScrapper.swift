@@ -8,13 +8,27 @@
 
 import UIKit
 import ANCommonKit
+import NYTPhotoViewer
 
-public class ImageData {
+public class ImageData: NSObject, NYTPhoto {
     
     public var url: String
     public var width: Int
     public var height: Int
-    
+
+    public var image: UIImage?
+    public var imageData: NSData?
+    public var placeholderImage: UIImage?
+    public var attributedCaptionTitle: NSAttributedString?
+    public var attributedCaptionSummary: NSAttributedString?
+    public var attributedCaptionCredit: NSAttributedString?
+
+    init(url: String) {
+        self.url = url
+        self.width = 0
+        self.height = 0
+    }
+
     init(url: String, width: Int, height: Int) {
         self.url = url
         self.width = width

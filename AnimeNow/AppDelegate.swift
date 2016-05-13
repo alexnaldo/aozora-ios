@@ -7,18 +7,38 @@
 //
 
 import UIKit
-
 import ANCommonKit
 import XCDYouTubeKit
-import JTSImageViewController
 import iRate
 import FBSDKShareKit
 import Fabric
 import Crashlytics
 import ParseFacebookUtilsV4
-import SDWebImage
 import MMWormhole
 import Keys
+import Flurry_iOS_SDK
+import NYTPhotoViewer
+import PINCache
+
+
+struct ParseConfig {
+    static var lastFetchedDate: NSDate? = nil
+
+    static func FetchIfNeeded() {
+        // Fetches the config at most once every 12 hours per app runtime
+        let date: NSDate? = ParseConfig.lastFetchedDate
+        let configRefreshInterval: NSTimeInterval = 12.0 * 60.0 * 60.0
+
+        if date == nil || date!.timeIntervalSinceNow * -1.0 > configRefreshInterval {
+            PFConfig.getConfigInBackgroundWithBlock(nil)
+            ParseConfig.lastFetchedDate = NSDate()
+        }
+    }
+
+    static func ProfilePopularFeedMinimumLikeCount() -> Int {
+        return PFConfig.currentConfig()["Profile_PopularFeed_MinimumLikeCount"] as? Int ?? 5
+    }
+}
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -51,24 +71,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ThreadTag.registerSubclass()
         Notification.registerSubclass()
 
-//        let configuration = ParseClientConfiguration {
-//            $0.applicationId = AozoraKeys().parseApplicationId()
-//            $0.clientKey = " "
-//            //$0.server = "http://8f12bab1.ngrok.io/parse"
-//            $0.server = AozoraKeys().parseServerURL()
-//            $0.localDatastoreEnabled = true
-//        }
-//        Parse.initializeWithConfiguration(configuration)
-
-        Parse.enableLocalDatastore()
-        Parse.setApplicationId(AozoraKeys().parseApplicationId(),
-                               clientKey: AozoraKeys().parseClientKey())
+        let configuration = ParseClientConfiguration {
+            $0.applicationId = AozoraKeys().parseApplicationId()
+            $0.clientKey = " "
+            //$0.server = "http://8f12bab1.ngrok.io/parse"
+            $0.server = AozoraKeys().parseServerURL()
+            $0.localDatastoreEnabled = true
+        }
+        Parse.initializeWithConfiguration(configuration)
         PFUser.enableRevocableSessionInBackground()
+
+        //PostsService.addLikeAndCommentToPostsCounters()
+        //PostsService.addLikeAndCommentToTimelinePostsCounters()
+
+        if let currentUser = User.currentUser() {
+            Analytics.setSessionDataforUser(currentUser)
+            Crashlytics.sharedInstance().setUserEmail(currentUser.email)
+            Crashlytics.sharedInstance().setUserIdentifier(currentUser.objectId)
+            Crashlytics.sharedInstance().setUserName(currentUser.aozoraUsername)
+        }
     }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
+
         Fabric.with([Crashlytics()])
+
+        Flurry.startSession(AozoraKeys().flurryAPIKey())
+        Flurry.addSessionOrigin("App.Initialized.HomeIconPress")
+
         initializeParse()
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
         PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
@@ -85,11 +115,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             WorkflowController.presentOnboardingController(true)
         }
         
-        SDImageCache.sharedImageCache().maxCacheSize = 1024 * 1024 * 250
-        
         makeUpdateChanges()
+
+        PINCache.sharedCache().diskCache.byteLimit = 1024 * 1024 * 500
         
         NSUserDefaults.standardUserDefaults().setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
+
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+        } catch {
+
+        }
 
         return true
     }
@@ -105,15 +141,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let objectClass = userInfo["targetClass"] as? String,
             let objectId = userInfo["targetID"] as? String,
             let notificationId = userInfo["notificationID"] as? String,
-        let aps = userInfo["aps"] as? [String: AnyObject], let alert =  aps["alert"] as? String {
+            let aps = userInfo["aps"] as? [String: AnyObject],
+            let alert = aps["alert"] as? String {
                 
                 let state = UIApplication.sharedApplication().applicationState;
                 if state == UIApplicationState.Background || state == UIApplicationState.Inactive
                 {
+                    Flurry.addSessionOrigin("App.FromBackground.Notification")
                     NotificationsController.handleNotification(notificationId, objectClass: objectClass, objectId: objectId)
                 } else {
                     // Not from background
-                    NotificationsController.showToast(notificationId, objectClass: objectClass, objectId: objectId, message: alert)
+                    Flurry.addSessionOrigin("App.Initialized.Notification")
+                    NotificationsController.instance.broadcastNotification(notificationId, objectClass: objectClass, objectId: objectId, message: alert)
                 }
                 
                 if let completionHandler = completionHandler {
@@ -143,12 +182,64 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func registerForPushNotifications(application: UIApplication) {
-        // Push notifications
+
+        let muteAction = UIMutableUserNotificationAction()
+        muteAction.identifier = "MUTE_ACTION"
+        muteAction.title = "Mute"
+        muteAction.activationMode = UIUserNotificationActivationMode.Background
+        muteAction.authenticationRequired = false
+        muteAction.destructive = false
+
+
+        let counterCategory = UIMutableUserNotificationCategory()
+        counterCategory.identifier = "NEW_POST_CATEGORY"
+
+        // A. Set actions for the default context
+        counterCategory.setActions([muteAction],
+        forContext: UIUserNotificationActionContext.Default)
+
+        // B. Set actions for the minimal context
+        counterCategory.setActions([muteAction],
+        forContext: UIUserNotificationActionContext.Minimal)
+
         let userNotificationTypes: UIUserNotificationType = ([UIUserNotificationType.Alert, UIUserNotificationType.Badge, UIUserNotificationType.Sound]);
         
-        let settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: nil)
+        let settings = UIUserNotificationSettings(
+            forTypes: userNotificationTypes,
+            categories: NSSet(object: counterCategory) as? Set<UIUserNotificationCategory>
+        )
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
+    }
+
+    func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forRemoteNotification userInfo: [NSObject : AnyObject], completionHandler: () -> Void) {
+        // Handle notification action *****************************************
+        if let aps = userInfo["aps"] as? [String: AnyObject],
+            let category = aps["category"] as? String
+            where category == "NEW_POST_CATEGORY" {
+
+            guard let identifier = identifier,
+                let userInfo = userInfo as? [String : AnyObject] else {
+                return
+            }
+
+            switch identifier {
+            case "MUTE_ACTION":
+                // Mute future notifications
+                guard let notificationID = userInfo["notificationID"] as? String,
+                    let currentUser = User.currentUser() else {
+                    return
+                }
+
+                let notification = Notification(outDataWithObjectId: notificationID)
+                notification.removeObjectsInArray([currentUser], forKey: "subscribers")
+                notification.saveInBackgroundWithBlock({ (result, error) in
+                    completionHandler()
+                })
+            default:
+                break;
+            }
+        }
     }
 
     func applicationWillResignActive(application: UIApplication) {
@@ -197,14 +288,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 // Checking for invalid sessions
                 if error.code == 209 || error.code == 206 {
+                    WorkflowController.logoutUser()
                     WorkflowController.presentOnboardingController(true)
                 }
             })
         }
         
         NSNotificationCenter.defaultCenter().postNotificationName("newNotification", object: nil)
-        ReminderController.updateScheduledLocalNotifications()
         FBSDKAppEvents.activateApp()
+
+        ParseConfig.FetchIfNeeded()
     }
 
     func applicationWillTerminate(application: UIApplication) {
@@ -258,8 +351,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UITabBar.appearance().tintColor = UIColor.peterRiver()
         UITabBar.appearance().translucent = false
-        
-        UITextField.appearance().textColor = UIColor.whiteColor()
     }
     
     func makeUpdateChanges() {
@@ -292,7 +383,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let topViewController = UIApplication.topViewController()
         
-        if let controller = topViewController as? JTSImageViewController where !controller.isBeingDismissed() {
+        if let controller = topViewController as? NYTPhotosViewController where !controller.isBeingDismissed() {
             return UIInterfaceOrientationMask.All
         } else if let controller = topViewController as? XCDYouTubeVideoPlayerViewController where !controller.isBeingDismissed() {
             return UIInterfaceOrientationMask.All

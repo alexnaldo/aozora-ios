@@ -38,11 +38,12 @@ platform :ios do
   desc "This will also make sure the profile is up to date"
   lane :deploy do |options|
     # Increase the app version number
-    patch = options[:patch] # Bool
-    minor = options[:minor] # Bool
-    major = options[:major] # Bool
-    testflight = options[:testflight] # Bool
-    appstore = options[:appstore] # Bool
+    patch = options[:patch] ||= false # Bool
+    minor = options[:minor] ||= false # Bool
+    major = options[:major] ||= false # Bool
+    testflight = options[:testflight] ||= false # Bool
+    waitTestflight = options[:waitTestflight] ||= false # Bool
+    appstore = options[:appstore] ||= false # Bool
 
     # A increment_version_number is required, force patch if needed
     if appstore and !patch and !minor and !major
@@ -50,9 +51,7 @@ platform :ios do
     end
 
     ensure_git_status_clean
-    build_number = increment_build_number({
-      build_number: latest_testflight_build_number + 1
-    })
+    build_number = increment_build_number
 
     # Generate release notes from CHANGELOG
     changelog_filename = '../CHANGELOG.yml'
@@ -60,15 +59,15 @@ platform :ios do
     release_notes = changelog_yaml['upcoming'].map{ |note| note.prepend '- ' }.join("\n")
 
     version = get_aozora_version_number
-    if patch || minor || major
-      if patch
-        version = increment_version_number(bump_type: "patch")
-      elsif minor
-        version = increment_version_number(bump_type: "minor")
-      elsif major
-        version = increment_version_number(bump_type: "major")
-      end
+    if patch
+      version = increment_version_number(bump_type: "patch")
+    elsif minor
+      version = increment_version_number(bump_type: "minor")
+    elsif major
+      version = increment_version_number(bump_type: "major")
+    end
 
+    if appstore
       # Add a changelog entry for this version, 
       # yes, there is a reason for the EOS content to be on the left.
       changelog_contents = File.read(changelog_filename)
@@ -100,19 +99,30 @@ EOS
     # Send AppStore udpate
     if appstore
       deliver
-    end
+      add_git_tag
 
-    if testflight
-      slack(
-        message: "New Aozora build #{version}(#{build_number}) incoming :tanabata_tree::rocket:",
-        default_payloads: [],
-        payload: {
-          "Release Notes" => release_notes
-        }
-      )
-
+    elsif testflight
+      if !patch && !minor && !major #unless 
+        slack(
+          message: "New Aozora build #{version}(#{build_number}) incoming :tanabata_tree::rocket:",
+          default_payloads: [],
+          payload: {
+            "Release Notes" => release_notes
+          }
+        )
+      end
       # Send to TestFlight and distribute!
-      pilot(distribute_external: true, changelog: release_notes)
+      if waitTestflight
+        pilot(distribute_external: true, changelog: release_notes)
+      elsif 
+        pilot(skip_submission: true)
+      end
+      
+      if !patch && !minor && !major
+        slack(
+          message: "New Aozora build #{version}(#{build_number}) is out! :rocket:,\n if you haven't already read the beta wiki: https://goo.gl/SUC2oO",
+        )
+      end
     end
 
     clean_build_artifacts
@@ -120,16 +130,7 @@ EOS
     # Can't use commit_version_bump to include changelog changes
     sh "git add .. ; git commit -m 'Deploying version #{version}(#{build_number}).'" 
 
-    if patch || minor || major
-      add_git_tag
-    end
     push_to_git_remote
-
-    if testflight
-      slack(
-        message: "New Aozora build #{version}(#{build_number}) is out! :rocket:,\n if you haven't already read the beta wiki: https://goo.gl/SUC2oO",
-      )
-    end
 
   end
   # You can define as many lanes as you want
@@ -149,7 +150,8 @@ EOS
     # )
     puts "Unable to deploy, resetting git repository."
     clean_build_artifacts
-    reset_git_repo
+    # If you want 'git clean' to be skipped, thus NOT deleting untracked files like '.env'. Optional, defaults to false.
+    reset_git_repo(skip_clean: true)
   end
 end
 

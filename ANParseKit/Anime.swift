@@ -9,6 +9,24 @@
 import Foundation
 import ANCommonKit
 
+// External Links
+
+public enum ExternalLink: String {
+    case Crunchyroll = "Crunchyroll"
+    case OfficialSite = "Official Site"
+    case Daisuki = "Daisuki"
+    case Funimation = "Funimation"
+    case MyAnimeList = "MyAnimeList"
+    case Hummingbird = "Hummingbird"
+    case Anilist = "Anilist"
+    case Other = "Other"
+}
+
+public struct AnimeLink {
+    public var site: ExternalLink
+    public var url: String
+}
+
 public class Anime: PFObject, PFSubclassing {
     
     override public class func initialize() {
@@ -87,6 +105,13 @@ public class Anime: PFObject, PFSubclassing {
         let year = (self.year != 0) ? self.year.description : "?"
         return "\(type) · \(ANAnimeKit.shortClassification(details.classification)) · \(episodes) eps · \(duration) min · \(year)"
     }
+
+    public func informationStringShort() -> String {
+        let episodes = (self.episodes != 0) ? self.episodes.description : "?"
+        let duration = (self.duration != 0) ? self.duration.description : "?"
+        let year = (self.year != 0) ? self.year.description : "?"
+        return "\(type) · \(episodes) eps · \(duration) min · \(year)"
+    }
     
     // Episodes
     var cachedEpisodeList: [Episode] = []
@@ -126,7 +151,7 @@ public class Anime: PFObject, PFSubclassing {
         let episodesQuery = Episode.query()!
         episodesQuery.orderByAscending("number")
         episodesQuery.whereKey("anime", equalTo: self)
-        episodesQuery.limit = 1000
+        episodesQuery.limit = 2000
         return episodesQuery.findObjectsInBackground()
     }
     
@@ -160,30 +185,18 @@ public class Anime: PFObject, PFSubclassing {
         }
     }
     
-    // External Links
-    
-    public enum ExternalLink: String {
-        case Crunchyroll = "Crunchyroll"
-        case OfficialSite = "Official Site"
-        case Daisuki = "Daisuki"
-        case Funimation = "Funimation"
-        case MyAnimeList = "MyAnimeList"
-        case Hummingbird = "Hummingbird"
-        case Anilist = "Anilist"
-        case Other = "Other"
-    }
-    
-    public struct Link {
-        public var site: ExternalLink
-        public var url: String
-    }
-    
-    public func linkAtIndex(index: Int) -> Link {
-        
-        let linkData = externalLinks[index] as! [String: AnyObject]
-        let externalLink = ExternalLink(rawValue: linkData["site"] as! String) ?? .Other
 
-        return Link(site: externalLink, url: (linkData["url"] as! String))
+
+    public func links() -> [AnimeLink] {
+
+        var links: [AnimeLink] = []
+
+        for linkData in (externalLinks as! [[String: AnyObject]]) {
+            let externalLink = ExternalLink(rawValue: linkData["site"] as! String) ?? .Other
+            links.append( AnimeLink(site: externalLink, url: (linkData["url"] as! String)) )
+        }
+
+        return links
     }
     
     // Fetching

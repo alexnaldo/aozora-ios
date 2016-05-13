@@ -16,6 +16,11 @@ enum SearchScope: Int {
     case Forum
 }
 
+func delayOnMainThread(delay: NSTimeInterval, block: dispatch_block_t) {
+    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC)))
+    dispatch_after(time, dispatch_get_main_queue(), block)
+}
+
 class SearchViewController: UIViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
@@ -137,7 +142,9 @@ class SearchViewController: UIViewController {
             query.whereKey("title", matchesRegex: text, modifiers: "i")
             query.includeKey("tags")
             query.includeKey("startedBy")
+            query.includeKey("postedBy")
             query.includeKey("lastPostedBy")
+            query.includeKey("episode")
             query.orderByAscending("updatedAt")
         default:
             break
@@ -146,7 +153,7 @@ class SearchViewController: UIViewController {
         currentOperation.cancel()
         let newOperation = NSOperation()
         
-        dispatch_after_delay(0.6, queue: dispatch_get_main_queue()) { _ in
+        delayOnMainThread(0.6) { _ in
             
             if newOperation.cancelled == true {
                 return
@@ -171,11 +178,6 @@ class SearchViewController: UIViewController {
         }
         
         currentOperation = newOperation
-    }
-    
-    func dispatch_after_delay(delay: NSTimeInterval, queue: dispatch_queue_t, block: dispatch_block_t) {
-        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC)))
-        dispatch_after(time, queue, block)
     }
 }
 
@@ -237,14 +239,8 @@ extension SearchViewController: UICollectionViewDelegate {
             profileViewController.initWithUser(user)
             navigationController?.pushViewController(profileViewController, animated: true)
         } else if let thread = object as? Thread {
-            let threadController = Storyboard.customThreadViewController()
-            
-            if let episode = thread.episode, let anime = thread.anime {
-                threadController.initWithEpisode(episode, anime: anime)
-            } else {
-                threadController.initWithThread(thread)
-            }
-            
+            let threadController = Storyboard.threadViewController()
+            threadController.initWithPost(thread, threadConfiguration: .ThreadMain)
             navigationController?.pushViewController(threadController, animated: true)
         } else if let string = object as? String {
             guard let browse = UIStoryboard(name: "Browse", bundle: nil).instantiateViewControllerWithIdentifier("BrowseViewController") as? BrowseViewController,

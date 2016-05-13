@@ -42,6 +42,7 @@ public class AnimeProgress: PFObject, PFSubclassing {
     @NSManaged public var collectedEpisodes: Int
     @NSManaged public var watchedEpisodes: Int
     @NSManaged public var list: String
+    @NSManaged public var isFavorite: Bool
     
     // Used to cache the ID to sync with MyAnimeList faster
     var myAnimeListID: Int = 0

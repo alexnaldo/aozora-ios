@@ -20,17 +20,19 @@ enum AnimeList: String {
 
 enum LibraryLayout: String {
     case CheckIn = "Check-In"
+    case CheckInCompact = "Check-In Compact"
     case Compact = "Compact"
     
     static func allRawValues() -> [String] {
         return [
             LibraryLayout.CheckIn.rawValue,
+            LibraryLayout.CheckInCompact.rawValue,
             LibraryLayout.Compact.rawValue
         ]
     }
 }
 
-class AnimeLibraryViewController: XLButtonBarPagerTabStripViewController {
+class AnimeLibraryViewController: ButtonBarPagerTabStripViewController {
     
     let SortTypeDefault = "Library.SortType."
     let LayoutTypeDefault = "Library.LayoutType."
@@ -41,6 +43,11 @@ class AnimeLibraryViewController: XLButtonBarPagerTabStripViewController {
     var loadingView: LoaderView!
     var libraryController = LibraryController.sharedInstance
     var animator: ZFModalTransitionAnimator!
+
+    var libraryUser: User! = User.currentUser()
+    var libraryIsFromCurrentUser: Bool {
+        return libraryUser.isTheCurrentUser()
+    }
     
     var currentConfiguration: Configuration {
         get {
@@ -52,6 +59,13 @@ class AnimeLibraryViewController: XLButtonBarPagerTabStripViewController {
         }
     }
     var configurations: [Configuration] = []
+
+    // Only used to show the public library
+    var publicLibrary: [Anime] = []
+
+    func initWithUser(user: User) {
+        libraryUser = user
+    }
     
     func sortTypeForList(list: AnimeList) -> SortType {
         let key = SortTypeDefault+list.rawValue
@@ -83,21 +97,48 @@ class AnimeLibraryViewController: XLButtonBarPagerTabStripViewController {
         NSUserDefaults.standardUserDefaults().setObject(layout.rawValue, forKey: key)
         NSUserDefaults.standardUserDefaults().synchronize()
     }
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.isProgressiveIndicator = true
-        self.buttonBarView.selectedBar.backgroundColor = UIColor.watching()
+        loadingView = LoaderView(parentView: view)
+        loadingView.startAnimating()
+
+        buttonBarView.selectedBar.backgroundColor = UIColor.watching()
+        settings.style.buttonBarItemBackgroundColor = .clearColor()
+        settings.style.buttonBarItemFont = .boldSystemFontOfSize(14)
+        settings.style.buttonBarItemsShouldFillAvailiableWidth = false
+        settings.style.buttonBarItemLeftRightMargin = 12
         
+        changeCurrentIndexProgressive = { [weak self] (oldCell: ButtonBarViewCell?, newCell: ButtonBarViewCell?, progressPercentage: CGFloat, changeCurrentIndex: Bool, animated: Bool) -> Void in
+            guard let vc = self, let oldCell = oldCell, let fromIndex = vc.buttonBarView.indexPathForCell(oldCell)?.row,
+                let newCell = newCell, let toIndex = vc.buttonBarView.indexPathForCell(newCell)?.row
+                where changeCurrentIndex == true else { return }
+
+            if progressPercentage > 0.5 {
+                vc.buttonBarView.selectedBar.backgroundColor = vc.colorForIndex(toIndex)
+            } else {
+                vc.buttonBarView.selectedBar.backgroundColor = vc.colorForIndex(fromIndex)
+            }
+        }
+
+        guard libraryIsFromCurrentUser else {
+            title = "\(libraryUser.aozoraUsername) Library"
+            navigationController?.tabBarItem.title = ""
+            fetchPublicLibrary()
+            return
+        }
+
+        // Add sort icon
+        let sortIcon = UIBarButtonItem(image: UIImage(named: "icon-sort"), style: .Plain, target: self, action: #selector(showFilterPressed))
+        navigationItem.leftBarButtonItem = sortIcon
+
+        // Subscribe for notifications
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AnimeLibraryViewController.updateLibrary), name: LibraryUpdatedNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AnimeLibraryViewController.controllerRequestRefresh), name: LibraryCreatedNotification, object: nil)
-     
-        loadingView = LoaderView(parentView: view)
-        
+
+        // Update data
         libraryController.delegate = self
-        loadingView.startAnimating()
         if let library = libraryController.library {
             updateListViewControllers(library)
         }
@@ -135,25 +176,58 @@ class AnimeLibraryViewController: XLButtonBarPagerTabStripViewController {
             return nil
         })
     }
+
+    func fetchPublicLibrary() {
+
+        let query = AnimeProgress.query()!
+        query.includeKey("anime")
+        query.whereKey("user", equalTo: libraryUser)
+        query.limit = 2000
+        query.findObjectsInBackground()
+            .continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task: BFTask!) -> AnyObject! in
+
+                defer {
+                    self.loadingView.stopAnimating()
+                }
+
+                guard let result = task.result as? [AnimeProgress] else {
+                    return nil
+                }
+
+                let allAnime = result.map({ (animeProgress) -> Anime in
+                    let anime = animeProgress.anime
+                    anime.publicProgress = animeProgress
+                    return anime
+                })
+
+                self.publicLibrary = allAnime
+                self.updateListViewControllers(allAnime)
+                return nil
+            })
+    }
     
     func updateListViewControllers(animeList: [Anime]) {
         
         var lists: [[Anime]] = [[],[],[],[],[]]
         
         for anime in animeList {
-            if let progress = anime.progress {
-                switch progress.myAnimeListList() {
-                case .Watching:
-                    lists[0].append(anime)
-                case .Planning:
-                    lists[1].append(anime)
-                case .OnHold:
-                    lists[2].append(anime)
-                case .Completed:
-                    lists[3].append(anime)
-                case .Dropped:
-                    lists[4].append(anime)
-                }
+            let progress = libraryIsFromCurrentUser ? anime.progress : anime.publicProgress
+
+            guard let animeProgress = progress else {
+                continue
+            }
+
+            switch animeProgress.myAnimeListList() {
+            case .Watching:
+                lists[0].append(anime)
+            case .Planning:
+                lists[1].append(anime)
+            case .OnHold:
+                lists[2].append(anime)
+            case .Completed:
+                lists[3].append(anime)
+            case .Dropped:
+                lists[4].append(anime)
             }
         }
         
@@ -169,12 +243,10 @@ class AnimeLibraryViewController: XLButtonBarPagerTabStripViewController {
         loadingView.stopAnimating()
     }
     
-    
-    
     // MARK: - XLPagerTabStripViewControllerDataSource
-    
-    override func childViewControllersForPagerTabStripViewController(pagerTabStripViewController: XLPagerTabStripViewController!) -> [AnyObject]! {
-        
+
+    override func viewControllersForPagerTabStrip(pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
+
         // Initialize configurations
         for list in allAnimeLists {
             configurations.append(
@@ -194,7 +266,7 @@ class AnimeLibraryViewController: XLButtonBarPagerTabStripViewController {
             if let controller = storyboard.instantiateViewControllerWithIdentifier("AnimeListViewController") as? AnimeListViewController {
                 let animeList = allAnimeLists[index]
                 
-                controller.initWithList(animeList, configuration: configurations[index])
+                controller.initWithList(animeList, configuration: configurations[index], isCurrentUser: libraryIsFromCurrentUser)
                 controller.delegate = self
                 
                 lists.append(controller)
@@ -206,18 +278,8 @@ class AnimeLibraryViewController: XLButtonBarPagerTabStripViewController {
         return lists
     }
     
-    // MARK: - XLPagerTabStripViewControllerDelegate
-    
-    override func pagerTabStripViewController(pagerTabStripViewController: XLPagerTabStripViewController!, updateIndicatorFromIndex fromIndex: Int, toIndex: Int, withProgressPercentage progressPercentage: CGFloat) {
-        super.pagerTabStripViewController(pagerTabStripViewController, updateIndicatorFromIndex: fromIndex, toIndex: toIndex, withProgressPercentage: progressPercentage)
-        
-        if progressPercentage > 0.5 {
-            self.buttonBarView.selectedBar.backgroundColor = colorForIndex(toIndex)
-        } else {
-            self.buttonBarView.selectedBar.backgroundColor = colorForIndex(fromIndex)
-        }
-    }
-    
+
+
     func colorForIndex(index: Int) -> UIColor {
         var color: UIColor?
         switch index {
@@ -240,20 +302,50 @@ class AnimeLibraryViewController: XLButtonBarPagerTabStripViewController {
     
     @IBAction func presentSearchPressed(sender: AnyObject) {
         
-        if let tabBar = tabBarController {
-            tabBar.presentSearchViewController(.MyLibrary)
+        guard let tabBar = tabBarController else {
+            return
         }
+
+        tabBar.presentSearchViewController(.MyLibrary)
+        Analytics.tappedLibrarySearch()
     }
     
     @IBAction func showFilterPressed(sender: AnyObject) {
         
-        if let tabBar = tabBarController {
-
-            let controller = Storyboard.filterViewController()
-            controller.delegate = self
-            controller.initWith(configuration: currentConfiguration)
-            animator = tabBar.presentViewControllerModal(controller)
+        guard let tabBar = tabBarController else {
+            return
         }
+
+        let controller = Storyboard.filterViewController()
+        controller.delegate = self
+        controller.initWith(configuration: currentConfiguration)
+        animator = tabBar.presentViewControllerModal(controller)
+        Analytics.tappedLibraryFilter()
+    }
+
+    @IBAction func showFavoritesPressed(sender: AnyObject) {
+        guard let libraryUser = libraryUser else {
+            return
+        }
+
+        if !InAppController.hasAnyPro() {
+            PurchaseViewController.showInAppPurchaseWith(self.tabBarController!)
+            return
+        }
+
+        let publicList = Storyboard.publicListViewController()
+        if libraryIsFromCurrentUser {
+            let library = LibraryController.sharedInstance.library ?? []
+            for anime in library {
+                anime.publicProgress = anime.progress
+            }
+            publicList.initWithUser(libraryUser, library: library)
+        } else {
+            publicList.initWithUser(libraryUser, library: publicLibrary)
+        }
+
+        publicList.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(publicList, animated: true)
     }
 }
 
@@ -274,7 +366,6 @@ extension AnimeLibraryViewController: FilterViewControllerDelegate {
             let sortType = SortType(rawValue: value) {
                 setSortTypeForList(sortType, list: allAnimeLists[currentListIndex])
         }
-        
     }
 }
 

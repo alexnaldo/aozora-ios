@@ -73,7 +73,7 @@
                         <constraint firstAttribute="height" constant="10" id="hXW-jD-cc5"/>
                     </constraints>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="731-Kw-jXN">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="731-Kw-jXN">
                     <rect key="frame" x="556" y="0.0" width="44" height="45"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="45" id="bLK-Mi-95F"/>

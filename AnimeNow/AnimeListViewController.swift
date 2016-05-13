@@ -8,7 +8,6 @@
 
 import UIKit
 import ANCommonKit
-
 import XLPagerTabStrip
 
 protocol AnimeListControllerDelegate: class {
@@ -60,32 +59,46 @@ class AnimeListViewController: UIViewController {
             }
         }
     }
-    
+
+    var isCurrentUser: Bool = true
+
     @IBOutlet weak var collectionView: UICollectionView!
     
-    func initWithList(animeList: AnimeList, configuration: Configuration) {
+    func initWithList(animeList: AnimeList, configuration: Configuration, isCurrentUser: Bool) {
         self.animeListType = animeList
         self.currentConfiguration = configuration
+        self.isCurrentUser = isCurrentUser
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        updateLayout(currentLayout, withSize: view.bounds.size)
-        updateSortType(currentSortType)
-        addRefreshControl(refreshControl, action: #selector(AnimeListViewController.refreshLibrary), forCollectionView: collectionView)
+
+        if isCurrentUser {
+            updateLayout(currentLayout, withSize: view.bounds.size)
+            updateSortType(currentSortType)
+            addRefreshControl(refreshControl, action: #selector(AnimeListViewController.refreshLibrary), forCollectionView: collectionView)
+        } else {
+            collectionView.registerNibWithClass(AnimeCell)
+            updateOtherUserLayout(withSize: view.bounds.size)
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         refreshControl.endRefreshing()
+
+        Analytics.viewedLibrary(animeListType.rawValue, layout: currentLayout.rawValue, sort: currentSortType.rawValue)
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
 
         if UIDevice.isPad() {
-            updateLayout(currentLayout, withSize: size)
+            if isCurrentUser {
+                updateLayout(currentLayout, withSize: size)
+            } else {
+                updateOtherUserLayout(withSize: size)
+            }
         }
     }
     
@@ -115,11 +128,12 @@ class AnimeListViewController: UIViewController {
         }
         
         switch currentLayout {
-        case .CheckIn:
+        case .CheckIn: fallthrough
+        case .CheckInCompact:
             let insets: CGFloat = UIDevice.isPad() ? 15 : 8
 
             let columns: CGFloat = UIDevice.isLandscape() ? 3 : 2
-            let cellHeight: CGFloat = 165
+            let cellHeight: CGFloat = currentLayout == .CheckIn ? 138 : 92
             var cellWidth: CGFloat = 0
             
             layout.sectionInset = UIEdgeInsets(top: insets, left: insets, bottom: insets, right: insets)
@@ -135,7 +149,7 @@ class AnimeListViewController: UIViewController {
             layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
         case .Compact:
             let margin: CGFloat = 4
-            let columns: CGFloat = UIDevice.isPad() ? (UIDevice.isLandscape() ? 14 : 10) : 5
+            let columns: CGFloat = UIDevice.isPad() ? (UIDevice.isLandscape() ? 11 : 8) : 4
             let totalWidth: CGFloat = viewSize.width - (margin * (columns + 1))
             let width = totalWidth / columns
             
@@ -145,6 +159,19 @@ class AnimeListViewController: UIViewController {
             layout.itemSize = CGSize(width: width, height: width/83*116)
         }
 
+        collectionView.collectionViewLayout.invalidateLayout()
+        collectionView.reloadData()
+    }
+
+    // Configuration for other user
+    func updateOtherUserLayout(withSize viewSize: CGSize) {
+
+        guard let collectionView = collectionView,
+            let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
+                return
+        }
+
+        layout.itemSize = AnimeCell.updateLayoutItemSizeWithLayout(layout, viewSize: viewSize)
         collectionView.collectionViewLayout.invalidateLayout()
         collectionView.reloadData()
     }
@@ -215,10 +242,28 @@ extension AnimeListViewController: UICollectionViewDataSource {
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+
+        var cellIdentifier = ""
+
+        guard isCurrentUser else {
+            let cell = collectionView.dequeueReusableCellWithClass(AnimeCell.self, indexPath: indexPath)
+            let anime = animeList[indexPath.row]
+            cell.configureWithAnime(anime, canFadeImages: false, showEtaAsAired: false, publicAnime: true)
+            cell.layoutIfNeeded()
+            return cell
+        }
         
         switch currentLayout {
-        case .CheckIn:
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CheckIn", forIndexPath: indexPath) as! AnimeLibraryCell
+        case .CheckIn,
+             .CheckInCompact:
+
+            if currentLayout == .CheckIn {
+                cellIdentifier = "CheckIn"
+            } else {
+                cellIdentifier = "CheckInCompact"
+            }
+
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdentifier, forIndexPath: indexPath) as! AnimeLibraryCell
             
             let anime = animeList[indexPath.row]
             cell.delegate = self
@@ -241,11 +286,14 @@ extension AnimeListViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 extension AnimeListViewController: UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        
+
         let anime = animeList[indexPath.row]
-        self.animator = presentAnimeModal(anime, callback: { tabBarController in
+        self.animator = presentAnimeModal(anime, callback: { [weak self] tabBarController in
+            guard let vc = self else { return }
             // Show episodes view controller when calling from here
-            tabBarController.selectedIndex = 2
+            if vc.animeListType == .Watching && vc.isCurrentUser {
+                tabBarController.selectedIndex = 1
+            }
         })
     }
 }
@@ -255,8 +303,10 @@ extension AnimeListViewController: AnimeLibraryCellDelegate {
     func cellPressedWatched(cell: AnimeLibraryCell, anime: Anime) {
         if let progress = anime.progress {
 
+            Analytics.tappedLibraryAnimeEpisodeWatched(anime.objectId!, list: progress.myAnimeListList().rawValue, row: collectionView.indexPathForCell(cell)!.row)
+
             if progress.myAnimeListList() == .Completed {
-                RateViewController.showRateDialogWith(self.tabBarController!, title: "You've finished\n\(anime.title!)!\ngive it a rating", initialRating: Float(progress.score)/2.0, anime: anime, delegate: self)
+                RateViewController.showRateDialogWith(tabBarController!, title: "You've finished\n\(anime.title!)!\ngive it a rating", initialRating: Float(progress.score)/2.0, anime: anime, delegate: self)
             }
 
             cell.configureWithAnime(anime, showLibraryEta: true)
@@ -264,11 +314,22 @@ extension AnimeListViewController: AnimeLibraryCellDelegate {
     }
     
     func cellPressedEpisodeThread(cell: AnimeLibraryCell, anime: Anime, episode: Episode) {
-        
-        let threadController = Storyboard.customThreadViewController()
-        threadController.initWithEpisode(episode, anime: anime)
-        
-        navigationController?.pushViewController(threadController, animated: true)
+
+        ThreadViewController.threadForEpisode(episode, anime: anime)
+            .continueWithExecutor(BFExecutor.mainThreadExecutor(), withSuccessBlock: { (task) -> AnyObject? in
+                guard let thread = task.result as? Thread else {
+                    self.presentAlertWithTitle("Failed fetching episode discussion")
+                    return nil
+                }
+
+                let threadController = Storyboard.threadViewController()
+                threadController.initWithPost(thread, threadConfiguration: .ThreadMain)
+                self.navigationController?.pushViewController(threadController, animated: true)
+                
+                return nil
+            })
+
+        Analytics.tappedLibraryAnimeEpisodeComment(anime.objectId!, list: anime.progress!.myAnimeListList().rawValue, row: collectionView.indexPathForCell(cell)!.row)
     }
 }
 
@@ -279,13 +340,10 @@ extension AnimeListViewController: RateViewControllerProtocol {
     }
 }
 
-// MARK: - XLPagerTabStripChildItem
-extension AnimeListViewController: XLPagerTabStripChildItem {
-    func titleForPagerTabStripViewController(pagerTabStripViewController: XLPagerTabStripViewController!) -> String! {
-        return animeListType.rawValue
-    }
-    
-    func colorForPagerTabStripViewController(pagerTabStripViewController: XLPagerTabStripViewController!) -> UIColor! {
-        return UIColor.whiteColor()
+
+extension AnimeListViewController: IndicatorInfoProvider {
+
+    func indicatorInfoForPagerTabStrip(pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
+        return IndicatorInfo(title: animeListType.rawValue)
     }
 }

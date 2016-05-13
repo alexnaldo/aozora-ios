@@ -17,17 +17,19 @@ class WorkflowController {
         let home = UIStoryboard(name: "Home", bundle: nil).instantiateInitialViewController() as! UINavigationController
         let library = UIStoryboard(name: "Library", bundle: nil).instantiateInitialViewController() as! UINavigationController
         let profile = UIStoryboard(name: "Profile", bundle: nil).instantiateInitialViewController() as! UINavigationController
-        let notifications = UIStoryboard(name: "Notifications", bundle: nil).instantiateViewControllerWithIdentifier("NotificationsViewControllerNav") as! UINavigationController
-        let notificationVC = notifications.viewControllers.first as! NotificationsViewController
-        
+
+        let baseNotificationViewController = UIStoryboard(name: "Notifications", bundle: nil).instantiateViewControllerWithIdentifier("BaseNotificationViewControllerNab") as! UINavigationController
         
         let forum = UIStoryboard(name: "Forums", bundle: nil).instantiateInitialViewController() as! UINavigationController
         
         let tabBarController = RootTabBar()
         
-        notificationVC.delegate = tabBarController
-        
-        tabBarController.viewControllers = [home, library, profile, notifications, forum]
+        tabBarController.viewControllers = [forum, home, library, baseNotificationViewController, profile]
+
+        // Update icons frame
+        for controller in tabBarController.viewControllers! {
+            controller.tabBarItem.imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
+        }
         
         if animated {
             changeRootViewController(tabBarController, animationDuration: 0.5)
@@ -97,10 +99,10 @@ class WorkflowController {
         // Logout MAL
         User.logoutMyAnimeList()
         
-        // Remove defaults
-        NSUserDefaults.standardUserDefaults().removeObjectForKey(LibraryController.LastSyncDateDefaultsKey)
-        NSUserDefaults.standardUserDefaults().removeObjectForKey(RootTabBar.ShowedMyAnimeListLoginDefault)
-        NSUserDefaults.standardUserDefaults().synchronize()
+        // Remove all defaults
+        if let appDomain = NSBundle.mainBundle().bundleIdentifier {
+            NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain)
+        }
         
         // Logout user
         return User.logOutInBackground()

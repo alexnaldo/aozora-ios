@@ -37,16 +37,6 @@ class AnimeCell: UICollectionViewCell {
         }
         return Static.instance
     }
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        if let posterImageView = posterImageView {
-            posterImageView.layer.shadowColor = UIColor(colorLiteralRed: 48/255.0, green: 50/255.0, blue: 60/255.0, alpha: 1.0).CGColor
-            posterImageView.layer.shadowOffset = CGSize.zero
-            posterImageView.layer.shadowOpacity = 1
-            posterImageView.layer.shadowRadius = 4
-        }
-    }
     
     func configureWithAnime(
         anime: Anime,
@@ -179,7 +169,7 @@ class AnimeCell: UICollectionViewCell {
 
 // MARK: - Layout
 extension AnimeCell {
-    class func updateLayoutItemSizeWithLayout(layout: UICollectionViewFlowLayout, viewSize: CGSize) {
+    class func updateLayoutItemSizeWithLayout(layout: UICollectionViewFlowLayout, viewSize: CGSize) -> CGSize {
         let margin: CGFloat = 4
         let columns: CGFloat = UIDevice.isLandscape() ? 3 : 2
         let cellHeight: CGFloat = 132
@@ -199,7 +189,9 @@ extension AnimeCell {
             layout.minimumInteritemSpacing = 1
             layout.minimumLineSpacing = 1
         }
-        
-        layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
+
+        let size = CGSize(width: cellWidth, height: cellHeight)
+        layout.itemSize = size
+        return size
     }
 }

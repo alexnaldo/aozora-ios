@@ -10,8 +10,9 @@ import UIKit
 import ANCommonKit
 import TTTAttributedLabel
 import XCDYouTubeKit
+import Crashlytics
 
-class ProfileViewController: ThreadViewController {
+class ProfileViewController: BaseThreadViewController {
     
     enum SelectedFeed: Int {
         case Feed = 0
@@ -51,7 +52,6 @@ class ProfileViewController: ThreadViewController {
     
     var userProfile: User?
     var username: String?
-
     
     func initWithUser(user: User) {
         self.userProfile = user
@@ -67,6 +67,8 @@ class ProfileViewController: ThreadViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        threadType = .Threads
         
         segmentedControlView.hidden = true
         
@@ -85,10 +87,12 @@ class ProfileViewController: ThreadViewController {
         aboutLabel.linkAttributes = [kCTForegroundColorAttributeName: UIColor.peterRiver()]
         aboutLabel.enabledTextCheckingTypes = NSTextCheckingType.Link.rawValue
         aboutLabel.delegate = self;
-        
+
+        addRefreshControl(refreshControl, action:#selector(fetchPosts), forTableView: tableView)
+
         fetchPosts()
     }
-    
+
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -130,7 +134,7 @@ class ProfileViewController: ThreadViewController {
 
     // MARK: - Overrides
 
-    override func showSheetFor(post post: Commentable, parentPost: Commentable?, indexPath: NSIndexPath) {
+    override func showSheetFor(post post: Postable, parentPost: Postable?, indexPath: NSIndexPath) {
         guard let currentUser = User.currentUser(), let postedBy = post.postedBy, let cell = tableView.cellForRowAtIndexPath(indexPath),
             let userProfile = userProfile where userProfile.isTheCurrentUser() && !userProfile.isAdmin() else {
                 // Fallback to default implementation
@@ -147,8 +151,7 @@ class ProfileViewController: ThreadViewController {
     
     // MARK: - Fetching
     
-    override func fetchPosts() {
-        super.fetchPosts()
+    func fetchPosts() {
         let username = self.username ?? userProfile!.aozoraUsername
         fetchUserDetails(username)
     }
@@ -180,9 +183,10 @@ class ProfileViewController: ThreadViewController {
                 return attributedString
             })
 
-            let activeEndString = user.activeEnd.timeAgo()            
-            let activeEndStringFormatted = activeEndString == "Just now" ? "active now" : "\(activeEndString)" != "" ? "\(activeEndString) ago" : ""
-            self.activeAgo.text = user.active ? "active now" : activeEndStringFormatted
+            let activeEndString = user.activeEnd.timeAgo().uppercaseString
+            let activeEndStringFormatted = activeEndString == "JUST NOW" ? "ACTIVE NOW" : "\(activeEndString)" != "" ? "\(activeEndString) AGO" : ""
+            self.activeAgo.font = UIFont.systemFontOfSize(11, weight: UIFontWeightMedium)
+            self.activeAgo.text = user.active ? "ACTIVE NOW" : activeEndStringFormatted
 
             if user.details.posts >= 1000 {
                 self.postsBadge.text = String(format: "%.1fk", Float(user.details.posts-49)/1000.0 )
@@ -223,6 +227,8 @@ class ProfileViewController: ThreadViewController {
     func updateViewWithUser(user: User) {
         usernameLabel.text = user.aozoraUsername
         title = user.aozoraUsername
+        navigationController?.tabBarItem.title = ""
+
         if let avatarFile = user.avatarThumb {
             userAvatar.setImageWithPFFile(avatarFile)
         } else {
@@ -257,7 +263,6 @@ class ProfileViewController: ThreadViewController {
             }
         }
         
-        
         if user.isAdmin() {
             tagBadge.backgroundColor = UIColor.aozoraPurple()
         }
@@ -288,10 +293,30 @@ class ProfileViewController: ThreadViewController {
     }
     
     func updateFollowingButtons() {
-        if let profile = userProfile {
-            followingButton.setTitle("\(profile.details.followingCount) FOLLOWING", forState: .Normal)
-            followersButton.setTitle("\(profile.details.followersCount) FOLLOWERS", forState: .Normal)
+        guard let profile = userProfile else {
+            return
         }
+
+        let numberAttributes = { (inout attr: Attributes) in
+            attr.color = UIColor.darkGrayColor()
+            attr.font = UIFont.boldSystemFontOfSize(13)
+        }
+
+        let textAttributes = { (inout attr: Attributes) in
+            attr.color = UIColor.lightGrayColor()
+            attr.font = UIFont.systemFontOfSize(13)
+        }
+
+        let followingTitle = NSMutableAttributedString()
+            .add("\(profile.details.followingCount)", setter: numberAttributes)
+            .add(" FOLLOWING", setter: textAttributes)
+
+        let followersTitle = NSMutableAttributedString()
+            .add("\(profile.details.followersCount)", setter: numberAttributes)
+            .add(" FOLLOWERS", setter: textAttributes)
+
+        followingButton.setAttributedTitle(followingTitle, forState: .Normal)
+        followersButton.setAttributedTitle(followersTitle, forState: .Normal)
     }
     
     func configureFetchController() {
@@ -301,12 +326,18 @@ class ProfileViewController: ThreadViewController {
         if offset.y > yOffset {
            offset.y = yOffset
         }
-        fetchController.configureWith(self, queryDelegate: self, tableView: self.tableView, limit: self.FetchLimit, datasourceUsesSections: true)
+        fetchController.configureWith(self, queryDelegate: self, tableView: tableView, limit: FetchLimit, datasourceUsesSections: true)
         tableView.setContentOffset(offset, animated: false)
     }
     
     // MARK: - IBAction
+    var lastSelectedIndex = 0
     @IBAction func segmentedControlValueChanged(sender: AnyObject) {
+        if segmentedControl.selectedIndex == lastSelectedIndex {
+            return
+        }
+
+        lastSelectedIndex = segmentedControl.selectedIndex
         configureFetchController()
     }
     
@@ -353,7 +384,7 @@ class ProfileViewController: ThreadViewController {
             comment.initWithTimelinePost(self, postedIn: profile)
             animator = presentViewControllerModal(comment)
         } else {
-            presentBasicAlertWithTitle("Login first", message: "Select 'Me' tab")
+            presentAlertWithTitle("Login first", message: "Select 'Me' tab")
         }
     }
     
@@ -373,12 +404,21 @@ class ProfileViewController: ThreadViewController {
         let selectedFeed = SelectedFeed(rawValue: segmentedControl.selectedIndex)!
         switch selectedFeed {
         case .Feed:
-            let followingQuery = userProfile!.following().query()
-            followingQuery.orderByDescending("activeStart")
-            followingQuery.limit = 1000
-            queryBatch.whereQuery(query, matchesKey: "postedBy", onQuery: followingQuery)
+            if let allUsers = FriendsController.sharedInstance.following {
+                let aozoraAccount = User(outDataWithObjectId: "bR0DT6mStO")
+                let darkciriusAccount = User(outDataWithObjectId: "Bt5dy11isC")
+                let allUsers2 = allUsers+[aozoraAccount, darkciriusAccount]
+                query.whereKey("postedBy", containedIn: allUsers2)
+            } else {
+                let followingQuery = userProfile!.following().query()
+                followingQuery.orderByDescending("activeStart")
+                followingQuery.limit = 1000
+                queryBatch.whereQuery(query, matchesKey: "postedBy", onQuery: followingQuery)
+            }
+
         case .Popular:
-            query.whereKey("likeCount", greaterThan: 4)
+            let minimumLikeCount = ParseConfig.ProfilePopularFeedMinimumLikeCount()
+            query.whereKey("likeCount", greaterThan: minimumLikeCount)
         case .Me:
             query.whereKey("userTimeline", equalTo: userProfile!)
         }
@@ -387,17 +427,13 @@ class ProfileViewController: ThreadViewController {
         query.includeKey("episode")
         query.includeKey("postedBy")
         query.includeKey("userTimeline")
+        query.includeKey("lastReply")
+        query.includeKey("lastReply.postedBy")
+        query.includeKey("lastReply.userTimeline")
         query.limit = FetchLimit
-        
-        let repliesQuery = TimelinePost.query()!
-        repliesQuery.orderByAscending("createdAt")
-        repliesQuery.includeKey("episode")
-        repliesQuery.includeKey("postedBy")
-        repliesQuery.includeKey("userTimeline")
-        queryBatch.whereQuery(repliesQuery, matchesKey: "parentPost", onQuery: query)
-        repliesQuery.limit = 2000
+
         startDate = NSDate()
-        return queryBatch.executeQueries([query, repliesQuery])
+        return queryBatch.executeQueries([query])
     }
     
     
@@ -466,7 +502,7 @@ class ProfileViewController: ThreadViewController {
                             let userProfile = self?.userProfile,
                             let durationText = durationTextField[0].text,
                             let duration = Double(durationText) else {
-                            self?.presentBasicAlertWithTitle("Woops", message: "Your mute duration is too long or you have entered characters.")
+                            self?.presentAlertWithTitle("Woops", message: "Your mute duration is too long or you have entered characters.")
                             return
                         }
                         
@@ -474,7 +510,7 @@ class ProfileViewController: ThreadViewController {
                         userProfile.details.mutedUntil = date
                         userProfile.saveInBackground()
                         
-                        controller.presentBasicAlertWithTitle("Muted user", message: "You have muted " + userProfile.aozoraUsername)
+                        controller.presentAlertWithTitle("Muted user", message: "You have muted " + userProfile.aozoraUsername)
 
                     }
                 })
@@ -502,7 +538,7 @@ class ProfileViewController: ThreadViewController {
             userProfile.details.mutedUntil = nil
             userProfile.saveInBackground()
             
-            self.presentBasicAlertWithTitle("Unmuted user", message: "You have unmuted " + username)
+            self.presentAlertWithTitle("Unmuted user", message: "You have unmuted " + username)
         }))
     }
     
@@ -511,6 +547,12 @@ class ProfileViewController: ThreadViewController {
 
     
     @IBAction func showFollowingUsers(sender: AnyObject) {
+
+        if User.currentUser() == nil {
+            presentAlertWithTitle("Login first", message: "Select 'Me' tab")
+            return
+        }
+
         let userListController = Storyboard.userListViewController()
         let query = userProfile!.following().query()
         query.orderByAscending("aozoraUsername")
@@ -519,6 +561,12 @@ class ProfileViewController: ThreadViewController {
     }
     
     @IBAction func showFollowers(sender: AnyObject) {
+
+        if User.currentUser() == nil {
+            presentAlertWithTitle("Login first", message: "Select 'Me' tab")
+            return
+        }
+
         let userListController = Storyboard.userListViewController()
         let query = User.query()!
         query.whereKey("following", equalTo: userProfile!)
@@ -528,22 +576,26 @@ class ProfileViewController: ThreadViewController {
     }
     
     @IBAction func showSettings(sender: AnyObject) {
-        
+
+        guard let currentUser = User.currentUser(), let userProfile = userProfile else {
+            return
+        }
+
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
         alert.popoverPresentationController?.sourceView = sender.superview
         alert.popoverPresentationController?.sourceRect = sender.frame
-        
-        alert.addAction(UIAlertAction(title: "View Library", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
-            if let userProfile = self.userProfile {
-                let navVC = UIStoryboard(name: "Library", bundle: nil).instantiateViewControllerWithIdentifier("PublicListViewControllerNav") as! UINavigationController
-                let publicList = navVC.viewControllers.first as! PublicListViewController
-                publicList.initWithUser(userProfile)
-                self.animator = self.presentViewControllerModal(navVC)
-            }
-        }))
-        
-        guard let currentUser = User.currentUser(), let userProfile = userProfile else {
-            return
+
+        if !userProfile.isTheCurrentUser() {
+            alert.addAction(UIAlertAction(title: "View Library", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
+                guard let userProfile = self.userProfile else {
+                    return
+                }
+
+                let libraryVC = UIStoryboard(name: "Library", bundle: nil).instantiateViewControllerWithIdentifier("AnimeLibraryViewController") as! AnimeLibraryViewController
+                libraryVC.initWithUser(userProfile)
+                libraryVC.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(libraryVC, animated: true)
+            }))
         }
 
         let hasPermissionsToMute = currentUser.isAdmin() && !userProfile.isAdmin() || currentUser.isTopAdmin()
@@ -557,7 +609,7 @@ class ProfileViewController: ThreadViewController {
         
         if userProfile.isTheCurrentUser() {
             alert.addAction(UIAlertAction(title: "Edit Profile", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
-                let editProfileController =  UIStoryboard(name: "Profile", bundle: nil).instantiateViewControllerWithIdentifier("EditProfileViewController") as! EditProfileViewController
+                let editProfileController =  Storyboard.editProfileViewController()
                 editProfileController.delegate = self
                 if UIDevice.isPad() {
                     self.presentSmallViewController(editProfileController, sender: sender)
@@ -565,25 +617,105 @@ class ProfileViewController: ThreadViewController {
                     self.presentViewController(editProfileController, animated: true, completion: nil)
                 }
             }))
-            
-            alert.addAction(UIAlertAction(title: "Online Users", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
+
+            alert.addAction(UIAlertAction(title: "Users - Who to follow", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
+
+
+                guard let followingUsers = FriendsController.sharedInstance.following else {
+                    return
+                }
+
+                var followingUsersIds = followingUsers.map{ $0.objectId! }
+                followingUsersIds.append(userProfile.objectId!)
+
+                let userListController = Storyboard.userListViewController()
+
+                let postCountQuery = UserDetails.query()!
+                postCountQuery.whereKey("posts", greaterThan: 400)
+
+                let query = User.query()!
+                query.whereKeyExists("aozoraUsername")
+                query.whereKey("activeStart", greaterThan: NSDate().dateByAddingTimeInterval(-60*60*24))
+                query.whereKey("objectId", notContainedIn: followingUsersIds)
+                query.whereKey("details", matchesQuery: postCountQuery)
+                query.orderByAscending("createdAt")
+                query.limit = 500
+                userListController.initWithQuery(query, title: "Who to follow", user: userProfile)
+
+                self.presentSmallViewController(userListController, sender: sender)
+            }))
+
+            alert.addAction(UIAlertAction(title: "Users - Online Now", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
                 let userListController = Storyboard.userListViewController()
                 let query = User.query()!
                 query.whereKeyExists("aozoraUsername")
                 query.whereKey("active", equalTo: true)
-                query.limit = 100
+                query.limit = 1000
                 userListController.initWithQuery(query, title: "Online Users")
                 
                 self.presentSmallViewController(userListController, sender: sender)
             }))
             
-            alert.addAction(UIAlertAction(title: "New Users", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
+            alert.addAction(UIAlertAction(title: "Users - New", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
                 let userListController = Storyboard.userListViewController()
                 let query = User.query()!
                 query.orderByDescending("joinDate")
                 query.whereKeyExists("aozoraUsername")
-                query.limit = 100
+                query.limit = 500
                 userListController.initWithQuery(query, title: "New Users")
+                self.presentSmallViewController(userListController, sender: sender)
+            }))
+
+            alert.addAction(UIAlertAction(title: "Users - Aozora Staff", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
+                let userListController = Storyboard.userListViewController()
+                let query = User.query()!
+                query.whereKeyExists("aozoraUsername")
+                query.whereKey("badges", containedIn: ["Admin", "Mod"])
+                query.limit = 1000
+                userListController.initWithQuery(query, title: "Aozora Staff")
+
+                self.presentSmallViewController(userListController, sender: sender)
+            }))
+
+            alert.addAction(UIAlertAction(title: "Users - New PRO Members", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
+
+
+                guard let followingUsers = FriendsController.sharedInstance.following else {
+                    return
+                }
+
+                var followingUsersIds = followingUsers.map{ $0.objectId! }
+                followingUsersIds.append(userProfile.objectId!)
+
+                let userListController = Storyboard.userListViewController()
+
+                let query = User.query()!
+                query.whereKeyExists("aozoraUsername")
+                query.whereKey("badges", containedIn: ["PRO","PRO+"])
+                query.orderByDescending("createdAt")
+                query.limit = 200
+                userListController.initWithQuery(query, title: "New PRO Members", user: userProfile)
+
+                self.presentSmallViewController(userListController, sender: sender)
+            }))
+
+            alert.addAction(UIAlertAction(title: "Users - Oldest Active Users", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
+                guard let followingUsers = FriendsController.sharedInstance.following else {
+                    return
+                }
+
+                var followingUsersIds = followingUsers.map{ $0.objectId! }
+                followingUsersIds.append(userProfile.objectId!)
+
+                let userListController = Storyboard.userListViewController()
+
+                let query = User.query()!
+                query.whereKeyExists("aozoraUsername")
+                query.whereKey("activeStart", greaterThan: NSDate().dateByAddingTimeInterval(-60*60*24*2))
+                query.orderByAscending("createdAt")
+                query.limit = 1000
+                userListController.initWithQuery(query, title: "Oldest Active Users", user: userProfile)
+
                 self.presentSmallViewController(userListController, sender: sender)
             }))
         }
@@ -592,6 +724,27 @@ class ProfileViewController: ThreadViewController {
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
+    @IBAction func showProfileImage(sender: AnyObject) {
+        guard let userProfile = userProfile,
+            let avatarURLString = userProfile.details.avatarRegular?.url,
+            let avatarURL = NSURL(string: avatarURLString) else {
+            return
+        }
+        let photosViewController = PhotosViewController(imageURL: avatarURL)
+        presentViewController(photosViewController, animated: true, completion: nil)
+    }
+
+    @IBAction func showBannerImage(sender: AnyObject) {
+        guard let userProfile = userProfile,
+            let bannerURLString = userProfile.banner?.url,
+            let bannerURL = NSURL(string: bannerURLString) else {
+            return
+        }
+
+        let photosViewController = PhotosViewController(imageURL: bannerURL)
+        presentViewController(photosViewController, animated: true, completion: nil)
+    }
+
     // MARK: - Overrides
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -602,6 +755,14 @@ class ProfileViewController: ThreadViewController {
         } else {
             segmentedControlTopSpaceConstraint.constant = topSpace
         }
+    }
+
+    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return CGFloat.min
+    }
+
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return UIDevice.isPad() ? 8.0 : 6.0
     }
 }
 

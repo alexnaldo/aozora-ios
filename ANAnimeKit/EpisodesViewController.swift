@@ -167,14 +167,25 @@ extension EpisodesViewController: UICollectionViewDelegate {
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let episode = dataSource[indexPath.row]
-        let threadController = Storyboard.customThreadViewController()
-        threadController.initWithEpisode(episode, anime: anime)
-        
-        if let tabBar = tabBarController as? CustomTabBarController {
-            tabBar.disableDragDismiss()
-        }
-        
-        navigationController?.pushViewController(threadController, animated: true)
+
+        ThreadViewController.threadForEpisode(episode, anime: anime)
+            .continueWithExecutor(BFExecutor.mainThreadExecutor(), withSuccessBlock: { (task) -> AnyObject? in
+                guard let thread = task.result as? Thread else {
+                    self.presentAlertWithTitle("Failed fetching episode discussion")
+                    return nil
+                }
+
+                let threadController = Storyboard.threadViewController()
+                threadController.initWithPost(thread, threadConfiguration: .ThreadMain)
+
+                if let tabBar = self.tabBarController as? AnimeDetailsTabBarController {
+                    tabBar.disableDragDismiss()
+                }
+
+                self.navigationController?.pushViewController(threadController, animated: true)
+
+                return nil
+        })
     }
 }
 
@@ -225,7 +236,8 @@ extension EpisodesViewController: EpisodeCellDelegate {
         }
         
         let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
-        activityVC.excludedActivityTypes = [UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard, UIActivityTypeAddToReadingList,UIActivityTypePrint];
+        activityVC.popoverPresentationController?.sourceView = cell.moreButton
+        activityVC.excludedActivityTypes = [UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard, UIActivityTypeAddToReadingList,UIActivityTypePrint]
         self.presentViewController(activityVC, animated: true, completion: nil)
     
     }

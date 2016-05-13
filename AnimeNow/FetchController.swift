@@ -164,9 +164,10 @@ public class FetchController {
             } else {
                 self.dataSource += allData
             }
+
+            // Should be called before reloading tableview
             self.didFetch(self.dataSource.count)
-            self.delegate?.didFetchFor(skip: skip)
-            
+
             if let collectionView = self.collectionView {
                 if skip == 0 {
                     // Reload data
@@ -183,6 +184,7 @@ public class FetchController {
             } else if let tableView = self.tableView {
                 if skip == 0 {
                     tableView.reloadData()
+                    tableView.updateTableViewCellsHeight()
                     if self.isFirstFetch {
                         self.isFirstFetch = false
                         tableView.animateFadeIn()
@@ -191,6 +193,9 @@ public class FetchController {
                     tableView.reloadData()
                 }
             }
+
+            // Should be called after reloading tableview
+            self.delegate?.didFetchFor(skip: skip)
             
             return nil
         }).continueWithBlock({ (task: BFTask!) -> AnyObject! in

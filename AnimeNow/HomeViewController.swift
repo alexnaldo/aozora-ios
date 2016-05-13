@@ -13,15 +13,15 @@ import ANCommonKit
 class HomeViewController: UIViewController {
 
     enum HomeSection: Int {
-        case AiringToday, CurrentSeason, ExploreAll, Genres, Years, Studios, Classifications
+        case AiringToday, CurrentSeason, ExploreAll, Genres, Years, Studios, Classifications, AdvancedFilter
     }
 
     @IBOutlet weak var headerViewController: UICollectionView?
     @IBOutlet weak var tableView: UITableView!
 
-    var sections: [String] = ["Airing Today", "Current Season", "Explore all anime", "Explore by Genre", "Explore by Year", "Explore by Studio", "Explore by Classification"]
-    var sectionDetails: [String] = ["", "", "", "", "", "", ""]
-    var rightButtonTitle: [String] = ["Calendar", "Seasons", "Discover", "Genres", "Years", "Studios", "Classifications"]
+    var sections: [String] = ["Airing Today", "Current Season", "Explore all anime", "Explore by Genre", "Explore by Year", "Explore by Studio", "Explore by Classification", "Advanced Filter"]
+    var sectionDetails: [String] = ["", "", "", "", "", "", "", ""]
+    var rightButtonTitle: [String] = ["Calendar", "Seasons", "Discover", "Genres", "Years", "Studios", "Classifications", "Find the 👌 anime"]
 
     var airingDataSource: [[Anime]] = [[]] {
         didSet {
@@ -89,6 +89,8 @@ class HomeViewController: UIViewController {
         canDisplayBannerAds = InAppController.canDisplayAds()
         
         headerTimer = NSTimer.scheduledTimerWithTimeInterval(10.0, target: self, selector: #selector(HomeViewController.moveHeaderView(_:)), userInfo: nil, repeats: true)
+
+        Analytics.viewedHome()
     }
 
     override func viewWillDisappear(animated: Bool) {
@@ -316,6 +318,8 @@ private extension HomeViewController {
         browserViewController.initWithBrowseData(dataSource, controllerTitle: "Calendar", headerHeight: .Regular)
 
         navigationController?.pushViewController(browserViewController, animated: true)
+
+        Analytics.viewedHomeCalendar()
     }
 
     func showSeasonalCharts() {
@@ -340,6 +344,8 @@ private extension HomeViewController {
         browserViewController.initWithBrowseData(dataSource, controllerTitle: "Seasonal Charts", headerHeight: .Regular)
 
         navigationController?.pushViewController(browserViewController, animated: true)
+
+        Analytics.viewedHomeSeasons()
     }
 
     func showBrowse() {
@@ -364,6 +370,8 @@ private extension HomeViewController {
         browserViewController.initWithBrowseData(dataSource, controllerTitle: "Discover", headerHeight: .Short)
 
         navigationController?.pushViewController(browserViewController, animated: true)
+
+        Analytics.viewedHomeTopLists()
     }
 
     func showGenres() {
@@ -386,6 +394,8 @@ private extension HomeViewController {
         browserViewController.initWithBrowseData(dataSource, controllerTitle: "Explore by Genres", headerHeight: .Short)
 
         navigationController?.pushViewController(browserViewController, animated: true)
+
+        Analytics.viewedHomeGenres()
     }
 
     func showYears() {
@@ -409,6 +419,7 @@ private extension HomeViewController {
 
         navigationController?.pushViewController(browserViewController, animated: true)
 
+        Analytics.viewedHomeYears()
     }
 
     func showStudios() {
@@ -431,6 +442,7 @@ private extension HomeViewController {
 
         navigationController?.pushViewController(browserViewController, animated: true)
 
+        Analytics.viewedHomeStudios()
     }
 
     func showClassifications() {
@@ -456,8 +468,20 @@ private extension HomeViewController {
         browserViewController.initWithBrowseData(dataSource, controllerTitle: "Explore by Classification", headerHeight: .Short)
 
         navigationController?.pushViewController(browserViewController, animated: true)
+
+        Analytics.viewedHomeClassifications()
+    }
+
+    func showAdvancedFilter() {
+        let browse = UIStoryboard(name: "Browse", bundle: nil).instantiateViewControllerWithIdentifier("BrowseViewController") as! BrowseViewController
+        browse.currentBrowseType = .Filtering
+        browse.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(browse, animated: true)
+        Analytics.viewedHomeAdvancedFilter()
     }
 }
+
+// MARK: - TableViewDataSource, Delegate
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -485,7 +509,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
                     if InAppController.hasAnyPro() {
                         function()
                     } else {
-                        InAppPurchaseViewController.showInAppPurchaseWith(self)
+                        PurchaseViewController.showInAppPurchaseWith(self.tabBarController!)
                     }
                 }
 
@@ -500,13 +524,12 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
                     self.showGenres()
                 case .Years:
                     self.showYears()
-                    //showInAppPurchasesIfNeeded()
                 case .Studios:
                     self.showStudios()
-                    //showInAppPurchasesIfNeeded()
                 case .Classifications:
                     self.showClassifications()
-                    //showInAppPurchasesIfNeeded()
+                case .AdvancedFilter:
+                    showInAppPurchasesIfNeeded(self.showAdvancedFilter)
                 }
             }
             

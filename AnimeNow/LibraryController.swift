@@ -44,10 +44,12 @@ public class LibraryController {
         fetchTask.continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task: BFTask) -> BFTask in
             
             if let result = task.result as? [Anime] {
-                self.library = result.filter{ $0.progress != nil }
+                let allLibrary = result.filter{ $0.progress != nil }
+                self.library = allLibrary
                 self.progress = result.flatMap({ $0.progress })
 
                 self.updateWatchingWormhole()
+                ReminderController.updateScheduledLocalNotifications(allLibrary)
 
                 self.delegate?.libraryControllerFinishedFetchingLibrary(result)
                 NSUserDefaults.completedAction(LibraryController.LastSyncDateDefaultsKey)

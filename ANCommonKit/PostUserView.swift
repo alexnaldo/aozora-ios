@@ -32,7 +32,10 @@ final class PostUserView: UIView {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        initializeTapTargets()
+    }
 
+    func initializeTapTargets() {
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(pressedUserProfile(_:)))
         gestureRecognizer.numberOfTouchesRequired = 1
         gestureRecognizer.numberOfTapsRequired = 1

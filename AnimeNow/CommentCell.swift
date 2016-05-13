@@ -38,10 +38,21 @@ class CommentCell: UITableViewCell, PostCellProtocol {
     override func awakeFromNib() {
         super.awakeFromNib()
 
+        if let imageContent = imageContent {
+            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(pressedOnImage(_:)))
+            gestureRecognizer.numberOfTouchesRequired = 1
+            gestureRecognizer.numberOfTapsRequired = 1
+            imageContent.addGestureRecognizer(gestureRecognizer)
+        }
+
         userView = PostUserView()
         userView?.onlineIndicator = onlineIndicator
         userView?.avatar = avatar
         userView?.date = date
+        userView?.initializeTapTargets()
+        userView?.pressedUserProfile = {
+            self.delegate?.postCellSelectedUserProfile(self)
+        }
 
         actionsView = PostActionsView()
         actionsView?.likeButton = likeButton
@@ -65,6 +76,23 @@ class CommentCell: UITableViewCell, PostCellProtocol {
             let listNib = UINib(nibName: "CommentImageCell", bundle: nil)
             tableView.registerNib(listNib, forCellReuseIdentifier: "CommentImageCell")
         }
+
+        do {
+            let listNib = UINib(nibName: "CommentReplyImageCell", bundle: nil)
+            tableView.registerNib(listNib, forCellReuseIdentifier: "CommentReplyImageCell")
+        }
+
+        do {
+            let listNib = UINib(nibName: "CommentReplyTextCell", bundle: nil)
+            tableView.registerNib(listNib, forCellReuseIdentifier: "CommentReplyTextCell")
+        }
+    }
+
+
+    // MARK: - IBActions
+    
+    func pressedOnImage(sender: AnyObject) {
+        delegate?.postCellSelectedImage(self)
     }
 
     @IBAction func showLikesPressed(sender: AnyObject) {

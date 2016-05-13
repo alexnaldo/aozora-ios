@@ -11,7 +11,10 @@ import WebKit
 public class WebBrowserViewController: UIViewController {
 
     var initialStatusBarStyle: UIStatusBarStyle!
+    var initialNavigationBarHidden: Bool!
     public var webView: WKWebView!
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    @IBOutlet weak var forwardButton: UIBarButtonItem!
     
     public var initialUrl: NSURL? {
         didSet {
@@ -47,6 +50,9 @@ public class WebBrowserViewController: UIViewController {
         navigationController?.navigationBar.barTintColor = UIColor.darkBlue()
         navigationController?.navigationBar.tintColor = UIColor.whiteColor()
 
+        backButton.enabled = false
+        forwardButton.enabled = false
+
         if let request = lastRequest {
             webView.addObserver(self, forKeyPath: "title", options: .New, context: nil)
             webView.loadRequest(request)
@@ -58,12 +64,16 @@ public class WebBrowserViewController: UIViewController {
         
         initialStatusBarStyle = UIApplication.sharedApplication().statusBarStyle
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
+
+        initialNavigationBarHidden = navigationController?.navigationBarHidden ?? false
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     public override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
         UIApplication.sharedApplication().setStatusBarStyle(initialStatusBarStyle, animated: true)
+        navigationController?.setNavigationBarHidden(initialNavigationBarHidden, animated: true)
     }
     
     // MARK: - KVO
@@ -86,10 +96,6 @@ public class WebBrowserViewController: UIViewController {
     
     // MARK: - IBActions
 
-    @IBAction func dismissModal() {
-        dismissViewControllerAnimated(true, completion: nil)
-    }
-
     @IBAction func openInSafari(sender: AnyObject) {
         if let url = initialUrl {
             UIApplication.sharedApplication().openURL(url)
@@ -108,6 +114,18 @@ public class WebBrowserViewController: UIViewController {
         }
     }
     
+    @IBAction func pressedShare(sender: AnyObject) {
+        guard let currentURL = webView.URL else {
+            return
+        }
+
+        let objectsToShare: [AnyObject] = [currentURL]
+        let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+        activityVC.popoverPresentationController?.barButtonItem = (sender as! UIBarButtonItem)
+        activityVC.excludedActivityTypes = [UIActivityTypeAssignToContact, UIActivityTypeAddToReadingList, UIActivityTypePrint];
+        self.presentViewController(activityVC, animated: true, completion: nil)
+    }
+
     deinit {
         webView.removeObserver(self, forKeyPath: "title")
         webView = nil
@@ -121,5 +139,10 @@ public class WebBrowserViewController: UIViewController {
 extension WebBrowserViewController : WKNavigationDelegate {
     public func webView(webView: WKWebView, didFailNavigation navigation: WKNavigation!, withError error: NSError) {
     }
-    
+
+    public func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+
+        backButton.enabled = webView.canGoBack
+        forwardButton.enabled = webView.canGoForward
+    }
 }

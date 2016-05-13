@@ -14,14 +14,14 @@ public class AnimeBaseViewController: UIViewController {
         return customTabBar.anime
     }
 
-    var customTabBar: CustomTabBarController {
-        return tabBarController as! CustomTabBarController
+    var customTabBar: AnimeDetailsTabBarController {
+        return tabBarController as! AnimeDetailsTabBarController
     }
     
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let _ = tabBarController as? CustomTabBarController {
+        if let _ = tabBarController as? AnimeDetailsTabBarController {
             
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Stop, target: self, action: #selector(AnimeBaseViewController.dismissViewControllerPressed))
             

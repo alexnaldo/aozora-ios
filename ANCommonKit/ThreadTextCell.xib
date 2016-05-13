@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ThreadTextCell" rowHeight="127" id="IM6-bn-eHv" customClass="ThreadCell" customModule="AnimeTrakr" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="128"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IM6-bn-eHv" id="CE8-oB-25Y">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="127.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text.." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IIt-M3-Ebc" customClass="TTTAttributedLabel">
+                        <rect key="frame" x="8" y="16" width="304" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.18823529779911041" green="0.19607843458652496" blue="0.23529411852359772" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DFr-ZH-YGC" userLabel="ActionsView">
+                        <rect key="frame" x="0.0" y="127" width="320" height="1"/>
+                        <color key="backgroundColor" red="0.89411765340000005" green="0.89411765340000005" blue="0.89411765340000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="yqt-0t-n4w"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C2g-82-Q5W" customClass="PostActionsView" customModule="AnimeTrakr" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="34" width="320" height="94"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstItem="DFr-ZH-YGC" firstAttribute="leading" secondItem="CE8-oB-25Y" secondAttribute="leading" id="1nM-3y-IaL"/>
+                    <constraint firstAttribute="trailing" secondItem="C2g-82-Q5W" secondAttribute="trailing" id="53y-ns-3Te"/>
+                    <constraint firstAttribute="bottom" secondItem="C2g-82-Q5W" secondAttribute="bottom" id="7Kw-hJ-xle"/>
+                    <constraint firstAttribute="trailing" secondItem="DFr-ZH-YGC" secondAttribute="trailing" id="Dr3-Hc-YSB"/>
+                    <constraint firstAttribute="trailing" secondItem="IIt-M3-Ebc" secondAttribute="trailing" constant="8" id="HtF-JL-EGY"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="DFr-ZH-YGC" secondAttribute="bottom" constant="-8.5" id="ItV-Jr-9FD"/>
+                    <constraint firstItem="IIt-M3-Ebc" firstAttribute="leading" secondItem="CE8-oB-25Y" secondAttribute="leading" constant="8" id="VkN-v5-yLe"/>
+                    <constraint firstItem="C2g-82-Q5W" firstAttribute="leading" secondItem="CE8-oB-25Y" secondAttribute="leading" id="Z4z-x3-O3e"/>
+                    <constraint firstItem="C2g-82-Q5W" firstAttribute="top" secondItem="IIt-M3-Ebc" secondAttribute="bottom" id="mGe-Jx-RD6"/>
+                    <constraint firstItem="IIt-M3-Ebc" firstAttribute="top" secondItem="CE8-oB-25Y" secondAttribute="top" constant="16" id="xfp-Wy-Lp2"/>
+                </constraints>
+            </tableViewCellContentView>
+            <gestureRecognizers/>
+            <connections>
+                <outlet property="actionsView" destination="C2g-82-Q5W" id="m3a-JS-opW"/>
+                <outlet property="textContent" destination="IIt-M3-Ebc" id="6ub-ie-VQM"/>
+            </connections>
+            <point key="canvasLocation" x="458" y="457"/>
+        </tableViewCell>
+    </objects>
+</document>

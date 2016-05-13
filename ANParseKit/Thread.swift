@@ -9,6 +9,13 @@
 import Foundation
 
 public class Thread: PFObject, PFSubclassing, Postable {
+
+    public enum Type {
+        case Custom
+        case Episode
+        case FanClub
+    }
+
     override public class func initialize() {
         struct Static {
             static var onceToken : dispatch_once_t = 0;
@@ -21,17 +28,15 @@ public class Thread: PFObject, PFSubclassing, Postable {
     public class func parseClassName() -> String {
         return "Thread"
     }
-    
-    
+
     @NSManaged public var title: String
+
     @NSManaged public var anime: Anime?
     @NSManaged public var episode: Episode?
-    @NSManaged public var startedBy: User?
     
     @NSManaged public var pinType: String?
     @NSManaged public var locked: Bool
     @NSManaged public var tags: [PFObject]
-    @NSManaged public var subscribers: [User]
     @NSManaged public var lastPostedBy: User?
     
     public var imagesDataInternal: [ImageData]?
@@ -46,6 +51,18 @@ public class Thread: PFObject, PFSubclassing, Postable {
                 }
             }
             return false
+        }
+    }
+
+    public var type: Type {
+        let isFanclub = !tags.filter{ $0.objectId == "8Vm8UTKGqY" }.isEmpty
+
+        if isFanclub {
+            return .FanClub
+        } else if let _ = episode, _ = anime {
+            return .Episode
+        } else {
+            return .Custom
         }
     }
 }

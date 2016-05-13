@@ -8,16 +8,10 @@
 
 import Foundation
 import ANCommonKit
-import SDWebImage
+import PINRemoteImage
 
 public protocol CommentViewControllerDelegate: class {
     func commentViewControllerDidFinishedPosting(newPost: PFObject, parentPost: PFObject?, edited: Bool)
-}
-
-public enum ThreadType {
-    case Timeline
-    case Episode
-    case Custom
 }
 
 public class CommentViewController: UIViewController {
@@ -35,6 +29,8 @@ public class CommentViewController: UIViewController {
     @IBOutlet weak var linkCountLabel: UILabel?
     @IBOutlet weak var spoilersSwitch: UISwitch!
     
+    @IBOutlet weak var selectTagButton: UIButton!
+
     public weak var delegate: CommentViewControllerDelegate?
     
     var animator: ZFModalTransitionAnimator!
@@ -62,7 +58,7 @@ public class CommentViewController: UIViewController {
     var initialStatusBarStyle: UIStatusBarStyle!
     var postedBy = User.currentUser()
     var postedIn: User!
-    var parentPost: Postable?
+    var parentPost: Commentable?
     var thread: Thread?
     var threadType: ThreadType = .Timeline
     var editingPost: PFObject?
@@ -70,7 +66,7 @@ public class CommentViewController: UIViewController {
     
     var fetchingData = false
     
-    public func initWithTimelinePost(delegate: CommentViewControllerDelegate?, postedIn: User, editingPost: PFObject? = nil, parentPost: Postable? = nil) {
+    public func initWithTimelinePost(delegate: CommentViewControllerDelegate?, postedIn: User, editingPost: PFObject? = nil, parentPost: Commentable? = nil) {
         self.postedIn = postedIn
         self.threadType = .Timeline
         self.editingPost = editingPost
@@ -78,7 +74,7 @@ public class CommentViewController: UIViewController {
         self.parentPost = parentPost
     }
     
-    public func initWith(thread: Thread? = nil, threadType: ThreadType, delegate: CommentViewControllerDelegate?, editingPost: PFObject? = nil, parentPost: Postable? = nil, anime: Anime? = nil) {
+    public func initWith(thread: Thread? = nil, threadType: ThreadType, delegate: CommentViewControllerDelegate?, editingPost: PFObject? = nil, parentPost: Commentable? = nil, anime: Anime? = nil) {
         self.postedBy = User.currentUser()!
         self.thread = thread
         self.threadType = threadType
@@ -87,7 +83,18 @@ public class CommentViewController: UIViewController {
         self.parentPost = parentPost
         self.anime = anime
     }
-    
+
+//    // The ones above ^ shall be deprecated
+//    public func initWithPost(
+//        post: Postable?,
+//        threadType: ThreadType,
+//        delegate: CommentViewControllerDelegate?,
+//        editingPost: Postable? = nil,
+//        parentPost: Postable? = nil) {
+//
+//
+//    }
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -97,6 +104,10 @@ public class CommentViewController: UIViewController {
         photoCountLabel.hidden = true
         videoCountLabel.hidden = true
         linkCountLabel?.hidden = true
+
+        if parentPost != nil {
+            linkButton?.hidden = true
+        }
     }
     
     public override func viewWillAppear(animated: Bool) {
@@ -224,7 +235,7 @@ public class CommentViewController: UIViewController {
         if let _ = selectedLinkUrl {
             selectedLinkUrl = nil
         } else {
-            presentBasicAlertWithTitle("Paste any link in text area", message: nil)
+            presentAlertWithTitle("Paste any link in text area", message: nil)
         }
     }
     
@@ -259,92 +270,99 @@ extension CommentViewController: UITextViewDelegate {
     public func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         
         // Grab pasted urls
-        if selectedLinkUrl == nil && text.characters.count > 1 {
-            let types: NSTextCheckingType = .Link
-            
-            let detector = try? NSDataDetector(types: types.rawValue)
-            
-            guard let detect = detector else {
+        guard selectedLinkUrl == nil && text.characters.count > 1 else {
+            return true
+        }
+
+        let types: NSTextCheckingType = .Link
+        
+        let detector = try? NSDataDetector(types: types.rawValue)
+        
+        guard let detect = detector else {
+            return true
+        }
+        
+        let matches = detect.matchesInString(text, options: .ReportCompletion, range: NSMakeRange(0, text.characters.count))
+        
+        for match in matches {
+            guard let url = match.URL else {
+                break
+            }
+
+            // Pin youtube videos separately
+            if let host = url.host where host.containsString("youtube.com") || host.containsString("youtu.be") {
+                if host.containsString("youtube.com") {
+                    WebBrowserSelectorViewControllerSelectedSite(url.absoluteString)
+                }
+                
+                if host.containsString("youtu.be") {
+                    let videoID = url.pathComponents![1]
+                    WebBrowserSelectorViewControllerSelectedSite("http://www.youtube.com/watch?v=\(videoID)")
+                }
                 return true
             }
             
-            let matches = detect.matchesInString(text, options: .ReportCompletion, range: NSMakeRange(0, text.characters.count))
-            
-            for match in matches {
-                if let url = match.URL {
-                    
-                    // Pin youtube videos separately
-                    if let host = url.host where host.containsString("youtube.com") || host.containsString("youtu.be") {
-                        if host.containsString("youtube.com") {
-                            WebBrowserSelectorViewControllerSelectedSite(url.absoluteString)
-                        }
-                        
-                        if host.containsString("youtu.be") {
-                            let videoID = url.pathComponents![1]
-                            WebBrowserSelectorViewControllerSelectedSite("http://www.youtube.com/watch?v=\(videoID)")
-                        }
-                        return false
-                    }
-                    
-                    // Append image if it's an image
-                    if let lastPathComponent = url.lastPathComponent where
-                        lastPathComponent.endsWithInsensitiveCase(".png") ||
-                        lastPathComponent.endsWithInsensitiveCase(".jpeg") ||
-                        lastPathComponent.endsWithInsensitiveCase(".gif") ||
-                        lastPathComponent.endsWithInsensitiveCase(".jpg") {
-                            scrapeImageWithURL(url)
-                            return false
-                    }
-                    
-                    selectedLinkUrl = url
-                    scrapeLinkWithURL(url)
-                    // If only added 1 link and it's the same as the added text, don't add it
-                    if matches.count == 1 && match.range.length == text.characters.count {
-                        return false
-                    }
-                }
-                break
+            // Append image if it's an image
+            if let lastPathComponent = url.lastPathComponent where
+                lastPathComponent.endsWithInsensitiveCase(".png") ||
+                lastPathComponent.endsWithInsensitiveCase(".jpeg") ||
+                lastPathComponent.endsWithInsensitiveCase(".gif") ||
+                lastPathComponent.endsWithInsensitiveCase(".jpg") {
+                    scrapeImageWithURL(url)
+                    return true
             }
+
+            if parentPost == nil {
+                selectedLinkUrl = url
+                scrapeLinkWithURL(url)
+            }
+
+            // If only added 1 link and it's the same as the added text, don't add it
+            if matches.count == 1 && match.range.length == text.characters.count {
+                return true
+            }
+
+            break
         }
+
         return true
     }
     
     func scrapeLinkWithURL(url: NSURL) {
         linkCountLabel?.text = ""
         fetchingData = true
-        
-        let scapper = LinkScrapper(viewController: self)
-        scapper.findInformationForLink(url).continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task: BFTask!) -> AnyObject? in
-            
+
+        let data = ["url": url.absoluteString]
+        PFCloud.callFunctionInBackground("Scrapper.ScrapeURLMetadata", withParameters: data) { (result, error) in
             self.fetchingData = false
-            if let linkData = task.result as? LinkData {
+            if let result = result as? [String: AnyObject] {
+                let linkData = LinkData.mapJSON(result)
                 self.selectedLinkData = linkData
                 self.linkCountLabel?.text = "1"
-            } else {
+            } else if let _ = error {
                 self.selectedLinkUrl = nil
             }
-            
-            return nil
-        })
+        }
     }
     
     func scrapeImageWithURL(url: NSURL) {
         photoCountLabel.text = ""
         fetchingData = true
-        
-        let manager = SDWebImageManager.sharedManager()
-        manager.downloadImageWithURL(url, options: [], progress: nil) { (image, error, cacheType, finished, imageUrl) -> Void in
-            
-            self.fetchingData = false
-            
-            if let error = error {
-                print(error)
-                self.photoCountLabel?.text = nil
-            } else {
-                self.photoCountLabel?.text = "1"
-                let imageData = ImageData(url: url.absoluteString, width: Int(image.size.width), height: Int(image.size.height))
-                self.imagesViewControllerSelected(imageData: imageData)
-            }
-        }
+
+        PINRemoteImageManager.sharedImageManager().downloadImageWithURL(url, completion: { result in
+
+            NSOperationQueue.mainQueue().addOperationWithBlock({ 
+                self.fetchingData = false
+
+                if let error = result.error {
+                    print(error)
+                    self.photoCountLabel?.text = nil
+                } else if let image = result.image ?? result.animatedImage?.posterImage {
+                    self.photoCountLabel?.text = "1"
+                    let imageData = ImageData(url: url.absoluteString, width: Int(image.size.width), height: Int(image.size.height))
+                    self.imagesViewControllerSelected(imageData: imageData)
+                }
+            })
+        })
     }
 }

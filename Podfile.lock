@@ -1,55 +1,67 @@
 PODS:
   - Alamofire (2.0.2)
   - CRToast (0.0.9)
-  - FLAnimatedImage (1.0.10)
+  - DZNEmptyDataSet (1.8)
+  - FLAnimatedImage (1.0.12)
+  - Flurry-iOS-SDK (7.6.0):
+    - Flurry-iOS-SDK/FlurrySDK (= 7.6.0)
+  - Flurry-iOS-SDK/FlurrySDK (7.6.0)
   - FontAwesome+iOS (0.1.4)
-  - HCSStarRatingView (1.4.3)
+  - HCSStarRatingView (1.4.5)
   - iRate (1.11.4)
-  - JTSImageViewController (1.5.1)
   - Keys (1.0.0)
   - MMWormhole (2.0.0):
     - MMWormhole/Core (= 2.0.0)
   - MMWormhole/Core (2.0.0)
+  - NYTPhotoViewer (1.1.0):
+    - NYTPhotoViewer/AnimatedGifSupport (= 1.1.0)
+    - NYTPhotoViewer/Core (= 1.1.0)
+  - NYTPhotoViewer/AnimatedGifSupport (1.1.0):
+    - FLAnimatedImage (~> 1.0.8)
+    - NYTPhotoViewer/Core
+  - NYTPhotoViewer/Core (1.1.0)
   - PINCache (2.2.2)
-  - PINRemoteImage (2.1.3):
-    - PINRemoteImage/FLAnimatedImage (= 2.1.3)
-  - PINRemoteImage/Core (2.1.3):
+  - PINRemoteImage (2.1.4):
+    - PINRemoteImage/FLAnimatedImage (= 2.1.4)
+  - PINRemoteImage/Core (2.1.4):
     - PINCache (>= 2.1)
-  - PINRemoteImage/FLAnimatedImage (2.1.3):
+  - PINRemoteImage/FLAnimatedImage (2.1.4):
     - FLAnimatedImage (>= 1.0)
     - PINRemoteImage/Core
   - RMStore (0.7.1):
     - RMStore/Core (= 0.7.1)
   - RMStore/Core (0.7.1)
   - RSKImageCropper (1.5.1)
-  - SDWebImage (3.7.5):
-    - SDWebImage/Core (= 3.7.5)
-  - SDWebImage/Core (3.7.5)
   - Shimmer (1.0.2)
+  - Toucan (0.5.0)
   - TTTAttributedLabel (1.13.4)
   - uservoice-iphone-sdk (3.2.7)
   - XCDYouTubeKit (2.4.3)
-  - XLPagerTabStrip (1.1.1)
+  - XLPagerTabStrip (5.0.0)
+  - YoutubeSourceParserKit (0.2.4)
 
 DEPENDENCIES:
   - Alamofire (~> 2.0)
   - CRToast (~> 0.0.7)
+  - DZNEmptyDataSet
   - FLAnimatedImage (~> 1.0)
+  - Flurry-iOS-SDK (~> 7.6)
   - FontAwesome+iOS
   - HCSStarRatingView
   - iRate (~> 1.11.4)
-  - JTSImageViewController (~> 1.3)
   - Keys (from `Pods/CocoaPodsKeys`)
   - MMWormhole (~> 2.0.0)
+  - NYTPhotoViewer (~> 1.1.0)
   - PINRemoteImage (~> 2.0)
   - RMStore (~> 0.7)
   - RSKImageCropper
-  - SDWebImage (~> 3.7.2)
   - Shimmer
+  - Toucan
   - TTTAttributedLabel (~> 1.13.4)
   - uservoice-iphone-sdk (~> 3.2)
   - XCDYouTubeKit (~> 2.4.1)
-  - XLPagerTabStrip (~> 1.1.1)
+  - XLPagerTabStrip (~> 5.0.0)
+  - YoutubeSourceParserKit
 
 EXTERNAL SOURCES:
   Keys:
@@ -58,22 +70,27 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Alamofire: 8edbab00802a752bb5240cc2abe70e7e881488ad
   CRToast: 5a78c22b921c5ed3487488af605bc403a9c92fed
-  FLAnimatedImage: e16a1e1cef08e4c509b47e4acbe3923f65c16135
+  DZNEmptyDataSet: d2351b2e8daefa40433ef292e246e21f6be31a7b
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
+  Flurry-iOS-SDK: 9822fe709195f0e3ae3e52c785eee9ff651ff648
   FontAwesome+iOS: 9070b682a9255ca0fdc34bcfb129ad0ba2b73b87
-  HCSStarRatingView: bada6ae98258c3019531e0218030e2d5ad10765a
+  HCSStarRatingView: bff3f89314d3b5013ce826ea11897d3129ff6b8c
   iRate: 599ed07c854e0695f3c605d1b2a64c67d912acb7
-  JTSImageViewController: 1f8ce1cc93dab0d0af8e53badeea7528560cfec9
-  Keys: 7d2ff6ff42f6903358267ce56e9392f83c31acfe
+  Keys: 9c35bf00f612ee1d48556f4a4b9b4551e224e90f
   MMWormhole: 0cd3fd35a9118b2e2d762b499f54eeaace0be791
+  NYTPhotoViewer: e80e8767f3780d2df37c6f72cbab15d6c7232911
   PINCache: 078426d356ab95ef875e9e62e5c35a2ea3333c28
-  PINRemoteImage: b8fb531016f3603016dd105a6139bf36c92b4316
+  PINRemoteImage: 4ac4011c5caefd6befd99758e09becede05d3226
   RMStore: 64ba13a9c040e3b7572765d169f77175cd3243e5
   RSKImageCropper: edd65fedb3734332818deb139906d6b7f54b8a44
-  SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
   Shimmer: c5374be1c2b0c9e292fb05b339a513cf291cac86
+  Toucan: 0519c341148252ae114c5a657d2a85bb9ada9e40
   TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f
   uservoice-iphone-sdk: 9abf27254c8488d7b72d70fb9b621132d6beebd4
   XCDYouTubeKit: a4a1a60faa7bc97744a1184501e82ef10ca15897
-  XLPagerTabStrip: 222995115ef0d3a7134073b02d38023592835c17
+  XLPagerTabStrip: 87b8b705f9a7178e76a063ffaa2d70045944a965
+  YoutubeSourceParserKit: d1506222a62718ed41f18ab52ebbc1b1d9ecabcc
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: a7860a6cfd6e81baa621345a30af63daf211c5c5
+
+COCOAPODS: 1.0.0.beta.8

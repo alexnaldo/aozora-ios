@@ -95,12 +95,7 @@ import UIKit
             label.text = items[index - 1]
             label.backgroundColor = UIColor.clearColor()
             label.textAlignment = .Center
-            if #available(iOS 8.2, *) {
-                label.font = UIFont.systemFontOfSize(15, weight: UIFontWeightMedium)
-            } else {
-                // Fallback on earlier versions
-                label.font = UIFont.boldSystemFontOfSize(15)
-            }
+            label.font = UIFont.systemFontOfSize(15, weight: UIFontWeightMedium)
             label.textColor = index == 1 ? selectedLabelColor : unselectedLabelColor
             label.translatesAutoresizingMaskIntoConstraints = false
             self.addSubview(label)
@@ -148,8 +143,8 @@ import UIKit
         UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.8, options: [], animations: {
 
             var frame = label.frame
-            frame.origin.y = frame.origin.y + frame.size.height - 4
-            frame.size.height = 4
+            frame.origin.y = frame.origin.y + frame.size.height - 5
+            frame.size.height = 5
             self.thumbView.frame = frame
 
             }, completion: nil)

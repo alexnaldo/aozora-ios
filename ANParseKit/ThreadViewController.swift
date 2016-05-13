@@ -1,785 +1,304 @@
 //
-//  ThreadViewController.swift
+//  AnimeThreadViewController.swift
 //  Aozora
 //
-//  Created by Paul Chavarria Podoliako on 8/7/15.
+//  Created by Paul Chavarria Podoliako on 8/8/15.
 //  Copyright (c) 2015 AnyTap. All rights reserved.
 //
 
-import UIKit
-import ANCommonKit
+import Foundation
 import TTTAttributedLabel
-import XCDYouTubeKit
+import ANCommonKit
 
-// Class intended to be subclassed
-class ThreadViewController: UIViewController {
-   
-    let FetchLimit = 12
-    
-    @IBOutlet weak var tableView: UITableView! {
-        didSet {
-            tableView.alpha = 0.0
-            tableView.estimatedRowHeight = 112.0
-            tableView.rowHeight = UITableViewAutomaticDimension
+// Shows a thread(custom/episode/timelinepost) comments
+class ThreadViewController: BaseThreadViewController {
 
-            CommentCell.registerNibFor(tableView: tableView)
-            UrlCell.registerNibFor(tableView: tableView)
-            WriteACommentCell.registerNibFor(tableView: tableView)
-            ShowMoreCell.registerNibFor(tableView: tableView)
-        }
-    }
-    
-    var thread: Thread?
-    var threadType: ThreadType!
-    
-    var fetchController = FetchController()
-    var refreshControl = UIRefreshControl()
-    var loadingView: LoaderView!
-    
-    var animator: ZFModalTransitionAnimator!
-    var playerController: XCDYouTubeVideoPlayerViewController?
+    @IBOutlet weak var viewMoreButton: UIButton!
 
-    var baseWidth: CGFloat {
-        get {
-            if UIDevice.isPad() {
-                return 600
-            } else {
-                return view.bounds.size.width
-            }
-        }
-    }
-    
-    func initWithThread(thread: Thread) {
-        self.thread = thread
-        self.threadType = .Custom
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ThreadViewController.moviePlayerPlaybackDidFinish(_:)), name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
 
-        loadingView = LoaderView(parentView: view)
-        addRefreshControl(refreshControl, action:#selector(ThreadViewController.fetchPosts), forTableView: tableView)
-        
-        if let thread = thread {
-            updateUIWithThread(thread)
-        } else {
-            fetchThread()
+        switch threadType {
+        case .Timeline, .Post:
+            // Fetch posts, if not a thread
+            fetchPosts()
+        case .Threads:
+            break
+        case .ThreadPosts, .Episode:
+            if let thread = thread {
+                title = thread.title
+                fetchPosts()
+            } else {
+                fetchThread()
+            }
         }
+
+        addRefreshControl(refreshControl, action:#selector(fetchPosts), forTableView: tableView)
+
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        canDisplayBannerAds = InAppController.canDisplayAds()
     }
     
-    deinit {
-        fetchController.tableView = nil
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
-    
-    func updateUIWithThread(thread: Thread) {
-        fetchPosts()
-    }
-    
-    // MARK: - Fetching
     func fetchThread() {
+
+        let query = Thread.query()!
+        query.limit = 1
+        query.whereKey("objectId", equalTo: thread!.objectId!)
+        query.includeKey("anime")
+        query.includeKey("startedBy")
+        query.includeKey("postedBy")
+        query.includeKey("tags")
+        query.findObjectsInBackgroundWithBlock({ (result, error) -> Void in
+            
+            if let _ = error {
+                // TODO: Show error
+            } else if let result = result, let thread = result.last as? Thread {
+                self.thread = thread
+            }
+        })
         
+    }
+
+    static func threadForEpisode(episode: Episode, anime: Anime) -> BFTask {
+        let query = Thread.query()!
+        query.limit = 1
+        query.whereKey("episode", equalTo: episode)
+        query.includeKey("episode")
+        query.includeKey("anime")
+        query.includeKey("startedBy")
+        query.includeKey("postedBy")
+        query.includeKey("tags")
+        return query.findObjectsInBackground().continueWithSuccessBlock { task -> AnyObject? in
+
+            if let threads = task.result as? [Thread], let thread = threads.last {
+                return BFTask(result: thread)
+            }
+
+            // Create episode threads lazily, new episodes will be created automatically
+            let parameters = [
+                "animeID":anime.objectId!,
+                "episodeID":episode.objectId!,
+                "animeTitle": anime.title!,
+                "episodeNumber": anime.type == "Movie" ? -1 : episode.number
+                ] as [String : AnyObject]
+
+            let successful = BFTaskCompletionSource()
+
+            PFCloud.callFunctionInBackground("createEpisodeThread", withParameters: parameters, block: { (result, error) -> Void in
+                if let error = error {
+                    successful.setError(error)
+                } else {
+                    successful.setResult(result)
+                }
+            })
+
+            return successful.task.continueWithSuccessBlock { task -> AnyObject? in
+                return threadForEpisode(episode, anime: anime)
+            }
+        }
     }
     
     func fetchPosts() {
 
+        var pinnedData: [PFObject] = []
+
+        if let thread = thread where
+            threadType == .ThreadPosts || threadType == .Episode {
+            pinnedData.append(thread)
+        }
+
+        fetchController.configureWith(self, queryDelegate: self, tableView: tableView, limit: FetchLimit, datasourceUsesSections: true, pinnedData: pinnedData)
     }
     
-    // MARK: - Internal functions
+    // MARK: - FetchControllerQueryDelegate
     
-    func openProfile(user: User) {
-        if let profileController = self as? ProfileViewController {
-            if profileController.userProfile != user && !user.isTheCurrentUser() {
-                openProfileNow(user)
+    override func resultsForSkip(skip skip: Int) -> BFTask? {
+
+        let queryBatch = QueryBatch()
+
+        var query: PFQuery!
+        var repliesQuery: PFQuery!
+
+        switch threadType {
+        case .Timeline, .Post:
+
+            if let timelinePost = timelinePost as? TimelinePost {
+                query = TimelinePost.query()!
+                query.whereKey("objectId", equalTo: timelinePost.objectId!)
+                query.includeKey("userTimeline")
+
+                repliesQuery = TimelinePost.query()!
+            } else if let post = post as? Post {
+                query = Post.query()!
+                print(post.objectId)
+                query.whereKey("objectId", equalTo: post.objectId!)
+
+                repliesQuery = Post.query()!
             }
-        } else if !user.isTheCurrentUser() {
-            openProfileNow(user)
-        }
-    }
-    
-    func openProfileNow(user: User? = nil, username: String? = nil) {
-        let profileController = Storyboard.profileViewController()
 
-        if let user = user  {
-            profileController.initWithUser(user)
-        } else if let username = username {
-            profileController.initWithUsername(username)
+            query.includeKey("postedBy")
+
+            switch threadConfiguration {
+            case .ThreadMain:
+                query.includeKey("lastReply")
+                query.includeKey("lastReply.postedBy")
+                return queryBatch.executeQueries([query])
+            case .ThreadDetail:
+                repliesQuery.skip = 0
+                repliesQuery.orderByAscending("createdAt")
+                repliesQuery.includeKey("postedBy")
+                repliesQuery.limit = 2000
+                queryBatch.whereQuery(repliesQuery, matchesKey: "parentPost", onQuery: query)
+                return queryBatch.executeQueries([query, repliesQuery])
+            }
+
+        case .Episode, .ThreadPosts:
+
+            query = Post.query()!
+            query.skip = skip
+            query.limit = FetchLimit
+            query.whereKey("thread", equalTo: thread!)
+            query.whereKey("replyLevel", equalTo: 0)
+            query.orderByDescending("updatedAt")
+            query.includeKey("postedBy")
+
+            query.includeKey("lastReply")
+            query.includeKey("lastReply.postedBy")
+
+            return queryBatch.executeQueries([query])
+        default:
+            assertionFailure()
+            return nil
+        }
+    }
+
+    // MARK: - FetchControllerDelegate
+
+    var scrolledDownOnLoadOnce = false
+
+    override func didFetchFor(skip skip: Int) {
+        super.didFetchFor(skip: skip)
+
+        switch threadType {
+        case .Episode, .ThreadPosts:
+            break
+        case .Timeline, .Post:
+            let post = fetchController.objectInSection(0)
+            if let post = post as? TimelinePostable {
+                navigationItem.title = post.userTimeline.aozoraUsername
+            } else if let post = post as? ThreadPostable {
+                navigationItem.title = "In " + post.thread.title
+            }
+
+            // Scroll down to see the last post, 
+            // in the future change this for see more replies cell that will show new replies on the top
+            if !scrolledDownOnLoadOnce {
+                scrolledDownOnLoadOnce = true
+                let rows = tableView(tableView, numberOfRowsInSection: 0)
+                let lastIndexPath = NSIndexPath(forRow: rows - 1, inSection: 0)
+                tableView.scrollToRowAtIndexPath(lastIndexPath, atScrollPosition: .Bottom, animated: false)
+            }
+        default:
+            assertionFailure()
+            break
+        }
+    }
+
+    
+    // MARK: - TTTAttributedLabelDelegate
+    
+    override func attributedLabel(label: TTTAttributedLabel!, didSelectLinkWithURL url: NSURL!) {
+        super.attributedLabel(label, didSelectLinkWithURL: url)
+        
+        if let host = url.host where host == "tag",
+            let index = url.pathComponents?[1],
+            let idx = Int(index) {
+                if let thread = thread, let anime = thread.tags[idx] as? Anime {
+                    animator = presentAnimeModal(anime)
+                }
+        }
+    }
+    
+    // MARK: - CommentViewControllerDelegate
+
+    override func commentViewControllerDidFinishedPosting(post: PFObject, parentPost: PFObject?, edited: Bool) {
+        super.commentViewControllerDidFinishedPosting(post, parentPost: parentPost, edited: edited)
+        
+        guard let _ = post as? Commentable else {
+            return
         }
 
-        navigationController?.pushViewController(profileController, animated: true)
-    }
-    
-    func showImage(imageURLString: String, imageView: UIImageView) {
-        if let imageURL = NSURL(string: imageURLString) {
-            presentImageViewController(imageView, imageUrl: imageURL)
-        }
-    }
-    
-    func playTrailer(videoID: String) {
-        playerController = XCDYouTubeVideoPlayerViewController(videoIdentifier: videoID)
-        presentMoviePlayerViewControllerAnimated(playerController)
-    }
-    
-    func replyTo(post: Commentable) {
-        guard User.currentUserLoggedIn() else {
-            presentBasicAlertWithTitle("Login first", message: "Select 'Me' tab")
+        if edited {
+            // Don't insert if edited
+            tableView.reloadData()
             return
         }
         
-        let newPostViewController = Storyboard.newPostViewController()
+        // Only Posts and TimelinePosts
+        if let parentPost = parentPost as? Commentable {
+            // Inserting a new reply in-place
+            parentPost.addReplies([post])
+            tableView.reloadData()
+            tableView.scrollToRowAtIndexPath(lastIndexPath(), atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
+        } else if parentPost == nil {
 
-        if let post = post as? ThreadPostable, let thread = thread {
-            if thread.locked {
-                presentBasicAlertWithTitle("Thread is locked")
-            } else {
-                newPostViewController.initWith(thread, threadType: threadType, delegate: self, parentPost: post)
-                animator = presentViewControllerModal(newPostViewController)
-            }
-            
-        } else if let post = post as? TimelinePostable {
-            newPostViewController.initWithTimelinePost(self, postedIn:post.userTimeline, parentPost: post)
-            animator = presentViewControllerModal(newPostViewController)
-        }
-    }
-    
-    func shouldShowAllRepliesForPost(post: Commentable, forIndexPath indexPath: NSIndexPath? = nil) -> Bool {
-        var indexPathIsSafe = true
-        if let indexPath = indexPath {
-            indexPathIsSafe = indexPath.row - 1 < post.replies.count
-        }
-        return (post.replies.count <= 3 || post.showAllReplies) && indexPathIsSafe
-    }
-    
-    func shouldShowContractedRepliesForPost(post: Commentable, forIndexPath indexPath: NSIndexPath) -> Bool {
-        return post.replies.count > 3 && indexPath.row < 5
-    }
-    
-    func indexForContactedReplyForPost(post: Commentable, forIndexPath indexPath: NSIndexPath) -> Int {
-        return post.replies.count - 5 + indexPath.row
-    }
-    
-    func postForCell(cell: PostCellProtocol) -> Commentable? {
-        let indexPath = cell.currentIndexPath
-        if let post = fetchController.objectAtIndex(indexPath.section) as? Commentable {
-            if cell.currentIndexPath.row == 0 {
-                return post
-            // TODO organize this code better it has dup lines everywhere D:
-            } else if shouldShowAllRepliesForPost(post, forIndexPath: indexPath) {
-                return post.replies[indexPath.row - 1] as? Commentable
-            } else if shouldShowContractedRepliesForPost(post, forIndexPath: indexPath) {
-                let index = indexForContactedReplyForPost(post, forIndexPath: indexPath)
-                return post.replies[index] as? Commentable
+            switch threadType {
+            case .Episode, .ThreadPosts:
+                // Inserting a new post in the top
+                fetchController.dataSource.insert(post, atIndex: 1)
+                tableView.reloadData()
+            case .Timeline, .Post:
+                break
+            default:
+                assertionFailure()
+                break
             }
         }
-        
-        return nil
     }
-    
-    func like(post: Commentable) {
-        if !User.currentUserLoggedIn() {
-            presentBasicAlertWithTitle("Login first", message: "Select 'Me' tab")
-            return
-        }
-        
-        if let postObject = post as? PFObject where !postObject.dirty {
-            let likedBy = post.likedBy ?? []
-            let currentUser = User.currentUser()!
-            if likedBy.contains(currentUser) {
-                postObject.removeObject(currentUser, forKey: "likedBy")
-                post.incrementLikeCount(byAmount: -1)
-            } else {
-                postObject.addUniqueObject(currentUser, forKey: "likedBy")
-                post.incrementLikeCount(byAmount: 1)
-            }
-            postObject.saveInBackground()
-        }
-    }
-    
+
     // MARK: - IBAction
     
-    @IBAction func dismissPressed(sender: AnyObject) {
-        navigationController?.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    @IBAction func replyToThreadPressed(sender: AnyObject) {
-        
-    }
+    override func replyToThreadPressed(sender: AnyObject) {
+        super.replyToThreadPressed(sender)
 
-    // MARK: - Edit Sheet
-
-    func showSheetFor(post post: Commentable, parentPost: Commentable? = nil, indexPath: NSIndexPath) {
-        // If user's comment show delete/edit
-
-        guard let currentUser = User.currentUser(), let postedBy = post.postedBy, let cell = tableView.cellForRowAtIndexPath(indexPath) else {
-            return
-        }
-
-        let administrating = currentUser.isAdmin() && !postedBy.isAdmin() || currentUser.isTopAdmin()
-        if let postedBy = post.postedBy where postedBy.isTheCurrentUser() ||
-            // Current user is admin and posted by non-admin user
-            administrating {
-            showEditPostActionSheet(administrating, canEdit: true, canDelete: true, cell: cell, postedBy: postedBy, currentUser: currentUser, post: post, parentPost: parentPost)
-        }
-    }
-
-    func showEditPostActionSheet(administrating: Bool, canEdit: Bool, canDelete: Bool, cell: UITableViewCell, postedBy: User, currentUser: User, post: Commentable, parentPost: Commentable?) {
-        let alert: UIAlertController!
-
-        if administrating {
-            alert = UIAlertController(title: "Warning: Editing \(postedBy.aozoraUsername) post", message: "Only edit user posts if they are breaking guidelines", preferredStyle: UIAlertControllerStyle.ActionSheet)
-            alert.popoverPresentationController?.sourceView = cell.superview
-            alert.popoverPresentationController?.sourceRect = cell.frame
-        } else {
-            alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
-            alert.popoverPresentationController?.sourceView = cell.superview
-            alert.popoverPresentationController?.sourceRect = cell.frame
-        }
-
-        if canEdit {
-            alert.addAction(UIAlertAction(title: "Edit", style: administrating ? UIAlertActionStyle.Destructive : UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction!) -> Void in
-                let newPostViewController = Storyboard.newPostViewController()
-
-                if let post = post as? TimelinePost {
-                    newPostViewController.initWithTimelinePost(self, postedIn: currentUser, editingPost: post)
-                } else if let post = post as? Post, let thread = self.thread {
-                    newPostViewController.initWith(thread, threadType: self.threadType, delegate: self, editingPost: post)
-                }
-                self.animator = self.presentViewControllerModal(newPostViewController)
-            }))
-        }
-
-        if canDelete {
-            alert.addAction(UIAlertAction(title: "Delete", style: UIAlertActionStyle.Destructive, handler: { (alertAction: UIAlertAction!) -> Void in
-                if let post = post as? PFObject {
-                    if let parentPost = parentPost as? PFObject {
-                        // Just delete child post
-                        self.deletePosts([post], parentPost: parentPost, removeParent: false)
-                    } else {
-                        // This is parent post, remove child too
-                        var className = ""
-                        if let _ = post as? Post {
-                            className = "Post"
-                        } else if let _ = post as? TimelinePost {
-                            className = "TimelinePost"
-                        }
-
-                        let childPostsQuery = PFQuery(className: className)
-                        childPostsQuery.whereKey("parentPost", equalTo: post)
-                        childPostsQuery.findObjectsInBackgroundWithBlock({ (result, error) -> Void in
-                            if let result = result {
-                                self.deletePosts(result, parentPost: post, removeParent: true)
-                            } else {
-                                // TODO: Show error
-                            }
-                        })
-                    }
-                }
-            }))
-        }
-
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler:nil))
-
-        self.presentViewController(alert, animated: true, completion: nil)
-    }
-
-}
-
-// MARK: - UITableViewDataSource
-extension ThreadViewController: UITableViewDataSource {
-    
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return fetchController.dataCount()
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let post = fetchController.objectInSection(section) as! Commentable
-        if post.replies.count > 0 {
-            if shouldShowAllRepliesForPost(post) {
-                return 1 + (post.replies.count ?? 0) + 1
-            } else {
-                // 1 post, 1 show more, 3 replies, 1 reply to post
-                return 1 + 1 + 3 + 1
+        switch threadType {
+        case .ThreadPosts, .Episode:
+            if let thread = thread {
+                replyToPost(thread)
             }
-        } else {
-            return 1
-        }
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        let post = fetchController.objectAtIndex(indexPath.section) as! Commentable
-        
-        if indexPath.row == 0 {
-            
-            var reuseIdentifier = ""
-            if post.imagesData?.count != 0 || post.youtubeID != nil {
-                // Post image or video cell
-                reuseIdentifier = "PostImageCell"
-            } else if post.linkData != nil {
-                // Post link cell
-                reuseIdentifier = "UrlCell"
-            } else {
-                // Text post update
-                reuseIdentifier = "PostTextCell"
+        case .Post:
+            if let post = post {
+                replyToPost(post)
             }
-            
-            let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier) as! PostCell
-            cell.currentIndexPath = indexPath
-            cell.delegate = self
-            updateCell(cell, withPost: post)
-            cell.layoutIfNeeded()
-            return cell
-            
-        } else if shouldShowAllRepliesForPost(post, forIndexPath: indexPath) {
-            
-            let replyIndex = indexPath.row - 1
-            return reuseCommentCellFor(post, replyIndex: replyIndex, indexPath: indexPath)
-            
-        } else if shouldShowContractedRepliesForPost(post, forIndexPath: indexPath) {
-            // Show all
-            if indexPath.row == 1 {
-                let cell = tableView.dequeueReusableCellWithIdentifier("ShowMoreCell") as! ShowMoreCell
-                cell.layoutIfNeeded()
-                return cell
-            } else {
-                let replyIndex = indexForContactedReplyForPost(post, forIndexPath: indexPath)
-                return reuseCommentCellFor(post, replyIndex: replyIndex, indexPath: indexPath)
+        case .Timeline:
+            if let post = timelinePost {
+                replyToPost(post)
             }
-        } else {
-            
-            // Write a comment cell
-            let cell = tableView.dequeueReusableCellWithIdentifier("WriteACommentCell") as! WriteACommentCell
-            cell.layoutIfNeeded()
-            return cell
+        default:
+            assertionFailure()
+            break
         }
     }
     
-    func reuseCommentCellFor(comment: Commentable, replyIndex: Int, indexPath: NSIndexPath) -> CommentCell {
-        let comment = comment.replies[replyIndex] as! Commentable
-        
-        var reuseIdentifier = ""
-        if comment.imagesData?.count != 0 || comment.youtubeID != nil {
-            // Comment image cell
-            reuseIdentifier = "CommentImageCell"
-        } else {
-            // Text comment update
-            reuseIdentifier = "CommentTextCell"
-        }
-        
-        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier) as! CommentCell
-        cell.delegate = self
-        updateCell(cell, withPost: comment)
-        cell.layoutIfNeeded()
-        cell.currentIndexPath = indexPath
-        return cell
-    }
-    
-    func updateCell(cell: PostCellProtocol, withPost post: Commentable) {
-        // Updates to both styles
-        
-        // Text content
-        var textContent = ""
-        if let content = post.content {
-            textContent = content
-        }
-        
-        // Setting images and youtube
-        if post.hasSpoilers && post.isSpoilerHidden {
-            textContent += "\n\n(Show Spoilers)"
-            cell.imageHeightConstraint?.constant = 0
-            cell.playButton?.hidden = true
-        } else {
-            if let spoilerContent = post.spoilerContent {
-                textContent += "\n\n\(spoilerContent)"
-            }
-            let calculatedBaseWidth = post.replyLevel == 0 ? baseWidth : baseWidth - 60
-            setImages(post.imagesData, imageView: cell.imageContent, imageHeightConstraint: cell.imageHeightConstraint, baseWidth: calculatedBaseWidth)
-            prepareForVideo(cell.playButton, imageView: cell.imageContent, imageHeightConstraint: cell.imageHeightConstraint, youtubeID: post.youtubeID)
-        }
-        
-        // Poster information
-        if let postedBy = post.postedBy {
-            if let avatarFile = postedBy.avatarThumb {
-                cell.userView?.avatar.setImageWithPFFile(avatarFile)
-            } else {
-                cell.userView?.avatar.image = UIImage(named: "default-avatar")
-            }
-            cell.userView?.username?.text = postedBy.aozoraUsername
-            cell.userView?.onlineIndicator.hidden = !postedBy.active
-        }
-        
-        // Edited date
-        cell.userView?.date.text = post.createdDate?.timeAgo()
-        if var postedAgo = cell.userView?.date.text where post.edited {
-            postedAgo += " · Edited"
-            cell.userView?.date.text = postedAgo
-        }
-        
-        // Like button
-        updateActionsView(cell, post: post)
-        
-        let postedByUsername = post.postedBy?.aozoraUsername ?? ""
-        // Updates to each style
-        if let _ = cell as? CommentCell {
-            textContent = postedByUsername + " " + textContent
-        } else {
-            updatePostCell(cell, withPost: post)
-        }
-        
-        // Adding links to text content
-        updateAttributedTextProperties(cell.textContent)
-        cell.textContent.setText(textContent, afterInheritingLabelAttributesAndConfiguringWithBlock: { (attributedString) -> NSMutableAttributedString! in
-            return attributedString
-        })
-        
-        if let encodedUsername = postedByUsername.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet()),
-            let url = NSURL(string: "aozoraapp://profile/"+encodedUsername) {
-                let range = (textContent as NSString).rangeOfString(postedByUsername)
-                cell.textContent.addLinkToURL(url, withRange: range)
+    @IBAction func playTrailerPressed(sender: AnyObject) {
+        if let thread = thread, let youtubeID = thread.youtubeID {
+            playTrailer(youtubeID)
         }
     }
     
-    func updatePostCell(cell: PostCellProtocol, withPost post: Commentable) {
-        
-        // Only embed links on post cells for now
-        if let linkCell = cell as? UrlCell, let linkData = post.linkData, let linkUrl = linkData.url {
-            linkCell.linkDelegate = self
-            linkCell.linkTitleLabel.text = linkData.title
-            linkCell.linkContentLabel.text = linkData.description
-            linkCell.linkUrlLabel.text = NSURL(string: linkUrl)?.host?.uppercaseString
-            if let imageURL = linkData.imageUrls.first {
-                linkCell.imageContent?.setImageFrom(urlString: imageURL, animated: false)
-                linkCell.imageHeightConstraint?.constant = (baseWidth - 16) * CGFloat(158)/CGFloat(305)
-            } else {
-                linkCell.imageContent?.image = nil
-                linkCell.imageHeightConstraint?.constant = 0
-            }
-        }
-
-        // From and to information
-        if let timelinePostable = post as? TimelinePostable, postedBy = post.postedBy where timelinePostable.userTimeline != postedBy {
-            cell.userView?.toUsername?.text = timelinePostable.userTimeline.aozoraUsername
-            cell.userView?.toIcon?.text = ""
-        } else {
-            cell.userView?.toUsername?.text = ""
-            cell.userView?.toIcon?.text = ""
-        }
-
-    }
-    
-    func setImages(images: [ImageData]?, imageView: UIImageView?, imageHeightConstraint: NSLayoutConstraint?, baseWidth: CGFloat) {
-        if let image = images?.first {
-            imageHeightConstraint?.constant = baseWidth * CGFloat(image.height)/CGFloat(image.width)
-            imageView?.setImageFrom(urlString: image.url, animated: false)
-        } else {
-            imageHeightConstraint?.constant = 0
-        }
-    }
-
-    func prepareForVideo(playButton: UIButton?, imageView: UIImageView?, imageHeightConstraint: NSLayoutConstraint?, youtubeID: String?) {
-        if let playButton = playButton {
-            if let youtubeID = youtubeID {
-                let urlString = "https://i.ytimg.com/vi/\(youtubeID)/hqdefault.jpg"
-                imageView?.setImageFrom(urlString: urlString, animated: false)
-                imageHeightConstraint?.constant = baseWidth * CGFloat(180)/CGFloat(340)
-                
-                playButton.hidden = false
-                playButton.layer.borderWidth = 1.0;
-                playButton.layer.borderColor = UIColor(white: 1.0, alpha: 0.5).CGColor;
-            } else {
-                playButton.hidden = true
-            }
-        }
-    }
-    
-    func updateAttributedTextProperties(textContent: TTTAttributedLabel) {
-        textContent.linkAttributes = [kCTForegroundColorAttributeName: UIColor.peterRiver()]
-        textContent.enabledTextCheckingTypes = NSTextCheckingType.Link.rawValue
-        textContent.delegate = self;
-    }
-    
-    func updateActionsView(cell: PostCellProtocol, post: Commentable) {
-
-        guard let currentUser = User.currentUser() else { return }
-        let likedBy = post.likedBy ?? []
-        let liked = likedBy.contains(currentUser)
-        if cell.isComment {
-            cell.actionsView?.setupWithSmallLikeStatus(liked, likeCount: post.likeCount)
-        } else {
-            cell.actionsView?.setupWithLikeStatus(liked, likeCount: post.likeCount, commentCount: post.replyCount)
+    @IBAction func openUserProfile(sender: AnyObject) {
+        if let startedBy = thread?.postedBy {
+            openProfileForUser(startedBy)
         }
     }
 }
 
-// MARK: - UITableViewDelegate
-extension ThreadViewController: UITableViewDelegate {
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.1
-    }
-    
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return UIDevice.isPad() ? 8.0 : 6.0
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        let post = fetchController.objectAtIndex(indexPath.section) as! Commentable
-        
-        if indexPath.row == 0 {
-            if post.hasSpoilers && post.isSpoilerHidden == true {
-                post.isSpoilerHidden = false
-                tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
-            } else {
-                showSheetFor(post: post, indexPath: indexPath)
-            }
-            
-        } else if shouldShowAllRepliesForPost(post, forIndexPath: indexPath) {
-            if let comment = post.replies[indexPath.row - 1] as? Commentable {
-                pressedOnAComment(post, comment: comment, indexPath: indexPath)
-            }
-        } else if shouldShowContractedRepliesForPost(post, forIndexPath: indexPath) {
-            // Show all
-            if indexPath.row == 1 {
-                post.showAllReplies = true
-                tableView.reloadData()
-            } else {
-                let index = indexForContactedReplyForPost(post, forIndexPath: indexPath)
-                if let comment = post.replies[index] as? Commentable {
-                    pressedOnAComment(post, comment: comment, indexPath: indexPath)
-                }
-            }
-        } else {
-            // Write a comment cell
-            replyTo(post)
-        }
-    }
-    func pressedOnAComment(post: Commentable, comment: Commentable, indexPath: NSIndexPath) {
-        if comment.hasSpoilers && comment.isSpoilerHidden == true {
-            comment.isSpoilerHidden = false
-            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
-        } else {
-            showSheetFor(post: comment, parentPost: post, indexPath: indexPath)
-        }
-    }
-
-    func deletePosts(childPosts: [PFObject] = [], parentPost: PFObject, removeParent: Bool) {
-        var allPosts = childPosts
-
-        if removeParent {
-            allPosts.append(parentPost)
-        }
-
-        PFObject.deleteAllInBackground(allPosts, block: { (success, error) -> Void in
-            if let _ = error {
-                // Show some error
-            } else {
-
-                for post in allPosts {
-                    (post["postedBy"] as? User)?.incrementPostCount(-1)
-                }
-
-                self.thread?.incrementReplyCount(byAmount: -allPosts.count)
-                self.thread?.saveInBackground()
-
-                if removeParent {
-                    // Delete parent post, and entire section
-                    if let section = self.fetchController.dataSource.indexOf(parentPost) {
-                        self.fetchController.dataSource.removeAtIndex(section)
-                        self.tableView.reloadData()
-                    }
-                } else {
-                    // Delete child post
-                    let parentPost = parentPost as! Commentable
-                    if let index = parentPost.replies.indexOf(childPosts.last!) {
-                        parentPost.replies.removeAtIndex(index)
-                        self.tableView.reloadData()
-                    }
-
-                    // Decrement parentPost reply count
-                    parentPost.incrementReplyCount(byAmount: -childPosts.count)
-                    (parentPost as! PFObject).saveInBackground()
-                }
-            }
-        })
-    }
-    
-    func moviePlayerPlaybackDidFinish(notification: NSNotification) {
-        playerController = nil;
-    }
-}
-
-// MARK: - FetchControllerDelegate
-extension ThreadViewController: FetchControllerDelegate {
-    func didFetchFor(skip skip: Int) {
-        refreshControl.endRefreshing()
-    }
-}
-
-// MARK: - TTTAttributedLabelDelegate
-extension ThreadViewController: TTTAttributedLabelDelegate {
-    
-    func attributedLabel(label: TTTAttributedLabel!, didSelectLinkWithURL url: NSURL!) {
-        
-        if let host = url.host where host == "profile",
-            let username = url.pathComponents?[1] {
-                let isNotCurrentUser = username != User.currentUser()!.aozoraUsername
-                if let profileController = self as? ProfileViewController {
-                    if profileController.userProfile?.aozoraUsername != username && isNotCurrentUser {
-                        openProfileNow(username: username)
-                    }
-                } else if isNotCurrentUser {
-                    openProfileNow(username: username)
-                }
-            
-        } else if url.scheme != "aozoraapp" {
-
-            let navController = Storyboard.webBrowserViewControllerNav()
-            let webController = navController.viewControllers.first as! WebBrowserViewController
-
-            webController.initWithInitialUrl(url)
-            presentViewController(navController, animated: true, completion: nil)
-        }
-    }
-}
-
-// MARK: - CommentViewControllerDelegate
-extension ThreadViewController: CommentViewControllerDelegate {
-    func commentViewControllerDidFinishedPosting(newPost: PFObject, parentPost: PFObject?, edited: Bool) {
-        if let thread = newPost as? Thread {
-            self.thread = thread
-        }
-    }
-}
-
-// MARK: - PostCellDelegate
-extension ThreadViewController: PostCellDelegate {
-    func postCellSelectedImage(postCell: PostCellProtocol) {
-        if let post = postForCell(postCell), let imageView = postCell.imageContent {
-            print(post)
-            if let imageData = post.imagesData?.first {
-                showImage(imageData.url, imageView: imageView)
-            } else if let videoID = post.youtubeID {
-                playTrailer(videoID)
-            }
-        }
-    }
-    
-    func postCellSelectedUserProfile(postCell: PostCellProtocol) {
-        if let post = postForCell(postCell), let postedByUser = post.postedBy {
-            openProfile(postedByUser)
-        }
-    }
-    
-    func postCellSelectedComment(postCell: PostCellProtocol) {
-        if let post = postForCell(postCell) {
-            replyTo(post)
-        }
-    }
-    
-    func postCellSelectedToUserProfile(postCell: PostCellProtocol) {
-        if let post = postForCell(postCell) as? TimelinePostable {
-            openProfile(post.userTimeline)
-        }
-    }
-    
-    func postCellSelectedLike(postCell: PostCellProtocol) {
-        if let post = postForCell(postCell) {
-            like(post)
-            updateActionsView(postCell, post: post)
-
-            // Resizes the cell without updating the tableView, sweet!
-            UIView.animateWithDuration(0.3, animations: {
-                self.tableView.layoutIfNeeded()
-            })
-            tableView.beginUpdates()
-            tableView.endUpdates()
-        }
-    }
-
-
-    func postCellSelectedShowLikes(postCell: PostCellProtocol) {
-
-        guard let post = postForCell(postCell), likedBy = post.likedBy else {
-            return
-        }
-
-        let userListController = Storyboard.userListViewController()
-
-        let likedByIds = likedBy.flatMap{ $0.objectId }
-        let query = User.query()!
-        query.whereKey("objectId", containedIn: likedByIds)
-        query.orderByAscending("aozoraUsername")
-        query.limit = 1000
-        userListController.initWithQuery(query, title: "Liked by", user: User.currentUser())
-        userListController.hidesBottomBarWhenPushed = true
-        self.presentSmallViewController(userListController, sender: view)
-    }
-}
-
-// MARK: - LinkCellDelegate
-extension ThreadViewController: LinkCellDelegate {
-    func postCellSelectedLink(linkCell: UrlCell) {
-        guard let indexPath = tableView.indexPathForCell(linkCell),
-            let postable = fetchController.objectAtIndex(indexPath.section) as? Commentable,
-            let linkData = postable.linkData,
-            let url = linkData.url else {
-            return
-        }
-
-        let navController = Storyboard.webBrowserViewControllerNav()
-        let webController = navController.viewControllers.first as! WebBrowserViewController
-
-        let initialUrl = NSURL(string: url)
-        webController.initWithInitialUrl(initialUrl)
-        presentViewController(navController, animated: true, completion: nil)
-    }
-}
-
-// MARK: - FetchControllerQueryDelegate
-extension ThreadViewController: FetchControllerQueryDelegate {
-    
-    func resultsForSkip(skip skip: Int) -> BFTask? {
-        return nil
-    }
-    
-    func processResult(result result: [PFObject], dataSource: [PFObject]) -> [PFObject] {
-        
-        let posts = result.filter({ $0["replyLevel"] as? Int == 0 })
-        let replies = result.filter({ $0["replyLevel"] as? Int == 1 })
-        
-        // If page 0 was loaded and there are new posts, page 1 could return repeated results,
-        // For this, we need to remove duplicates
-        var searchIn: [PFObject] = []
-        if dataSource.count > result.count {
-            let b = dataSource.count
-            let a = b-result.count
-            searchIn = Array(dataSource[a..<b])
-        } else {
-            searchIn = dataSource
-        }
-        var uniquePosts: [PFObject] = []
-        for post in posts {
-            let exists = searchIn.filter({$0.objectId! == post.objectId!})
-            if exists.count == 0 {
-                uniquePosts.append(post)
-            }
-        }
-        
-        for post in uniquePosts {
-            let postReplies = replies.filter({ ($0["parentPost"] as! PFObject) == post }) as [PFObject]
-            let postable = post as! Commentable
-            postable.replies = postReplies
-        }
-
-        return uniquePosts
-    }
-}
-
-// MARK: - ModalTransitionScrollable
-extension ThreadViewController: ModalTransitionScrollable {
-    var transitionScrollView: UIScrollView? {
-        return tableView
+extension ThreadViewController: UINavigationBarDelegate {
+    func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
+        return UIBarPosition.TopAttached
     }
 }

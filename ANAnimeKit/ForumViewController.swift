@@ -24,11 +24,10 @@ extension ForumViewController: CustomAnimatorProtocol {
     }
 }
 
-public class ForumViewController: AnimeBaseViewController {
+class ForumViewController: BaseThreadViewController {
 
     @IBOutlet weak var newThreadButton: UIButton!
-    @IBOutlet weak public var navigationBar: UINavigationItem!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var navigationBar: UINavigationItem!
 
     var dataSource: [Thread] = [] {
         didSet {
@@ -36,29 +35,32 @@ public class ForumViewController: AnimeBaseViewController {
         }
     }
 
-    var loadingView: LoaderView!
-    var fetchController = FetchController()
-    var animator: ZFModalTransitionAnimator!
+    var anime: Anime {
+        return customTabBar.anime
+    }
 
-    public override func viewDidLoad() {
+    var customTabBar: AnimeDetailsTabBarController {
+        return tabBarController as! AnimeDetailsTabBarController
+    }
+
+    override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let title = anime.title {
-            let formattedTitle = StringFormatter.shortenAnimeTitleIfNeeded(title)
-
-            navigationBar.title = "\(formattedTitle) Discussion"
-            newThreadButton.setTitle("New \(formattedTitle)... Thread", forState: .Normal)
-        }
-        
-        tableView.estimatedRowHeight = 150.0
-        tableView.rowHeight = UITableViewAutomaticDimension
+        navigationBar.title = "\(anime.title!) Discussion"
+        newThreadButton.setTitle("New post", forState: .Normal)
         
         loadingView = LoaderView(parentView: view)
         loadingView.startAnimating()
         fetchAnimeRelatedThreads()
+
+        threadType = .Threads
+
+        customTabBar.updateNavigationControllerStyle(navigationController)
+
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Stop, target: self, action: #selector(dismissViewControllerPressed))
     }
 
-    public override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         customTabBar.setCurrentViewController(self)
     }
@@ -69,82 +71,41 @@ public class ForumViewController: AnimeBaseViewController {
         query.whereKey("tags", containedIn: [anime])
         query.includeKey("tags")
         query.includeKey("anime")
+        query.includeKey("episode")
         query.includeKey("startedBy")
+        query.includeKey("postedBy")
         query.includeKey("lastPostedBy")
+        query.orderByDescending("hotRanking")
         fetchController.configureWith(self, query: query, tableView: tableView, limit: 100)
     }
+
+    func dismissViewControllerPressed() {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+
+    // MARK: - Actions
     
     @IBAction func createAnimeThread(sender: AnyObject) {
         
-        if User.currentUserLoggedIn() {
-            let comment = Storyboard.newThreadViewController()
-            comment.initWith(threadType: .Custom, delegate: self, anime: anime)
-            animator = presentViewControllerModal(comment)
-        } else {
-            presentBasicAlertWithTitle("Login first", message: "Select 'Me' tab to login", style: .Alert)
+        if !User.currentUserLoggedIn() {
+            presentAlertWithTitle("Login first", message: "Select 'Me' tab to login")
         }
-    }
-}
 
-extension ForumViewController: UITableViewDataSource {
-    
-    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return fetchController.dataCount()
+        let comment = Storyboard.newThreadViewController()
+        comment.initWith(threadType: .ThreadPosts, delegate: self, anime: anime)
+        animator = presentViewControllerModal(comment)
     }
-    
-    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCellWithIdentifier("TopicCell") as! TopicCell
-        
-        let thread = fetchController.objectAtIndex(indexPath.row) as! Thread
-        let title = thread.title
-        
-        if let _ = thread.episode {
-            cell.typeLabel.text = " "
-        } else {
-            cell.typeLabel.text = ""
-        }
-        
-        cell.title.text = title
-        let lastPostedByUsername = thread.lastPostedBy?.aozoraUsername ?? ""
-        cell.information.text = "\(thread.replyCount) comments · \(thread.updatedAt!.timeAgo()) · \(lastPostedByUsername)"
-        cell.layoutIfNeeded()
-        return cell
-    }
-    
-}
 
-extension ForumViewController: UITableViewDelegate {
-    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        
-        if let tabBar = tabBarController as? CustomTabBarController {
-            tabBar.disableDragDismiss()
-        }
-        
-        let thread = fetchController.objectAtIndex(indexPath.row) as! Thread
-        
-        let threadController = Storyboard.customThreadViewController()
-        if let episode = thread.episode, let anime = thread.anime  {
-            threadController.initWithEpisode(episode, anime: anime)
-        } else {
-            threadController.initWithThread(thread)
-        }
-        
-        navigationController?.pushViewController(threadController, animated: true)
-    }
-}
+    // MARK: - Overrides
 
-extension ForumViewController: FetchControllerDelegate {
-    public func didFetchFor(skip skip: Int) {
-        self.loadingView.stopAnimating()
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        super.tableView(tableView, didSelectRowAtIndexPath: indexPath)
+        customTabBar.disableDragDismiss()
     }
-}
 
-extension ForumViewController: CommentViewControllerDelegate {
-    public func commentViewControllerDidFinishedPosting(post: PFObject, parentPost: PFObject?, edited: Bool) {
+    // MARK: - Override CommentViewControllerDelegate
+
+    override func commentViewControllerDidFinishedPosting(post: PFObject, parentPost: PFObject?, edited: Bool) {
         fetchAnimeRelatedThreads()
     }
 }

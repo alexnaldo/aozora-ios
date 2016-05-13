@@ -22,10 +22,11 @@ enum Storyboard: String {
     case Comment
     case Search
     case WebBrowser
-    case Login
+    case MALLogin
     case Anime
     case Rate
     case Forum
+    case Library
 
     func storyboard() -> UIStoryboard {
         return UIStoryboard(name: self.rawValue, bundle: nil)
@@ -53,8 +54,8 @@ enum Storyboard: String {
         return Storyboard.Comment.viewControllerWithClass(NewPostViewController)
     }
 
-    static func customTabBarController() -> CustomTabBarController {
-        return Storyboard.Anime.viewControllerWithClass(CustomTabBarController)
+    static func animeDetailsTabBarController() -> AnimeDetailsTabBarController {
+        return Storyboard.Anime.viewControllerWithClass(AnimeDetailsTabBarController)
     }
 
     static func imageViewController() -> ImageViewController {
@@ -69,24 +70,20 @@ enum Storyboard: String {
         return Storyboard.Search.navigationControllerForViewControllerWithClass(SearchViewController)
     }
 
-    static func customThreadViewController() -> CustomThreadViewController {
-        return Storyboard.Thread.viewControllerWithClass(CustomThreadViewController)
+    static func threadViewController() -> ThreadViewController {
+        return Storyboard.Thread.viewControllerWithClass(ThreadViewController)
     }
 
-    static func loginViewController() -> LoginViewController {
-        return Storyboard.Login.viewControllerWithClass(LoginViewController)
+    static func malLoginViewController() -> MALLoginViewController {
+        return Storyboard.MALLogin.viewControllerWithClass(MALLoginViewController)
     }
 
-    static func webBrowserViewControllerNav() -> UINavigationController {
-        return Storyboard.WebBrowser.navigationControllerForViewControllerWithClass(WebBrowserViewController)
+    static func webBrowserViewController() -> WebBrowserViewController {
+        return Storyboard.WebBrowser.viewControllerWithClass(WebBrowserViewController)
     }
 
     static func animeForumViewController() -> UINavigationController {
         return Storyboard.Forum.navigationControllerForViewControllerWithClass(ForumViewController)
-    }
-
-    static func notificationThreadViewController() -> NotificationThreadViewController {
-        return Storyboard.Notifications.viewControllerWithClass(NotificationThreadViewController)
     }
 
     static func tagsViewController() -> TagsViewController {
@@ -109,5 +106,14 @@ enum Storyboard: String {
     static func userListViewController() -> UserListViewController {
         return Storyboard.Profile.viewControllerWithClass(UserListViewController)
     }
+
+    static func publicListViewController() -> PublicListViewController {
+        return Storyboard.Library.viewControllerWithClass(PublicListViewController)
+    }
+
+    static func editProfileViewController() -> EditProfileViewController {
+        return Storyboard.Profile.viewControllerWithClass(EditProfileViewController)
+    }
+
 }
 

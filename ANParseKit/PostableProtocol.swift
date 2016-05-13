@@ -8,6 +8,14 @@
 
 import Foundation
 
+public enum PostContent {
+    case Text
+    case Image
+    case Video
+    case Link
+    case Episode
+}
+
 public protocol Postable: class {
     var createdDate: NSDate? { get }
     var youtubeID: String? { get set }
@@ -27,30 +35,36 @@ public protocol Postable: class {
     
     func incrementLikeCount(byAmount amount: Int)
     func incrementReplyCount(byAmount amount: Int)
+
+    // Implemented on protocol extension
+    var postedBy: User? { get set }
+    var subscribers: [User] { get set }
+    var likedBy: [User]? { get set }
+    var lastReply: PFObject? { get set }
+
+    var postContent: PostContent { get }
 }
 
 public protocol Commentable: Postable {
-    
-    // Implemented on protocol extension
-    var postedBy: User? { get set }
-    
+
     var spoilerContent: String? { get set }
     var replyLevel: Int { get set }
-    
-    var subscribers: [User] { get set }
-    var likedBy: [User]? { get set }
     var parentPost: PFObject? { get }
-    
+
     // Implement on subclasses
     var replies: [PFObject] { get set }
     var isSpoilerHidden: Bool { get set }
     var showAllReplies: Bool { get set }
+
+    func addReplies(unnaded: [PFObject])
 }
 
+// Post in timeline
 public protocol TimelinePostable: Commentable {
     var userTimeline: User { get set }
 }
 
+// Post in thread
 public protocol ThreadPostable: Commentable {
     var thread: Thread { get set }
 }
@@ -74,7 +88,8 @@ extension Postable where Self: PFObject {
     
     public var postedBy: User? {
         get {
-            return self["postedBy"] as? User
+            // Started by for compatibility only
+            return (self["startedBy"] as? User) ?? (self["postedBy"] as? User)
         }
         set(value) {
             self["postedBy"] = value
@@ -143,7 +158,38 @@ extension Postable where Self: PFObject {
             self["parentPost"] = value
         }
     }
-    
+
+    public var lastReply: PFObject? {
+        get {
+            return self["lastReply"] as? PFObject
+        }
+        set(value) {
+            self["lastReply"] = value
+        }
+    }
+
+    public var postContent: PostContent {
+
+        // Special cases for thread type, should refactor in the future
+        if let thread = self as? Thread {
+            if thread.episode != nil {
+                return .Episode
+            } else if thread.type == .FanClub {
+                return .Text
+            }
+        }
+
+        if imagesData?.count != 0 {
+            return .Image
+        } else if youtubeID != nil {
+            return .Video
+        } else if linkData != nil {
+            return .Link
+        } else {
+            return .Text
+        }
+    }
+
     public var hasSpoilers: Bool {
         
         get {
@@ -230,6 +276,13 @@ extension Postable where Self: PFObject {
 
     public func incrementReplyCount(byAmount amount: Int = 1) {
         incrementKey("replyCount", byAmount: amount)
+    }
+}
+
+extension Commentable {
+    public func addReplies(unnaded: [PFObject]) {
+        replies.appendContentsOf(unnaded)
+        lastReply = replies.last
     }
 }
 

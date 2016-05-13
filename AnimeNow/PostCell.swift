@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 AnyTap. All rights reserved.
 //
 
-import Foundation
 import TTTAttributedLabel
 import FLAnimatedImage
 
@@ -15,6 +14,7 @@ protocol PostCellDelegate: class {
     func postCellSelectedUserProfile(postCell: PostCellProtocol)
     func postCellSelectedToUserProfile(postCell: PostCellProtocol)
     func postCellSelectedComment(postCell: PostCellProtocol)
+    func postCellSelectedShowComments(postCell: PostCellProtocol)
     func postCellSelectedLike(postCell: PostCellProtocol)
     func postCellSelectedShowLikes(postCell: PostCellProtocol)
 }
@@ -43,12 +43,6 @@ class PostCell: UITableViewCell, PostCellProtocol {
     
     weak var delegate: PostCellDelegate?
     var currentIndexPath: NSIndexPath!
-    
-    enum PostType {
-        case Text
-        case Image
-        case Video
-    }
 
     var isComment: Bool {
         return false
@@ -74,6 +68,10 @@ class PostCell: UITableViewCell, PostCellProtocol {
 
         actionsView?.showLikesCallback = {
             self.delegate?.postCellSelectedShowLikes(self)
+        }
+
+        actionsView?.showRepliesCallback = {
+            self.delegate?.postCellSelectedShowComments(self)
         }
 
         actionsView?.likeCallback = {

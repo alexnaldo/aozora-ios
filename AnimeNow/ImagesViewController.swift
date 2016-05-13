@@ -8,7 +8,6 @@
 
 import Foundation
 import ANCommonKit
-import SDWebImage
 import FLAnimatedImage
 
 protocol ImagesViewControllerDelegate: class {

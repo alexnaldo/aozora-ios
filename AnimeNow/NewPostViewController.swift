@@ -80,15 +80,15 @@ public class NewPostViewController: CommentViewController {
                 linkCountLabel?.hidden = false
             }
             
-            if let parentPost = parentPost as? TimelinePostable {
-                inReply.text = "  Editing Reply to \(parentPost.userTimeline.aozoraUsername)"
+            if let _ = parentPost {
+                inReply.text = "  Editing Post Reply"
             } else {
                 inReply.text = "  Editing Post"
             }
 
         } else {
-            if let parentPost = parentPost as? TimelinePostable {
-                inReply.text = "  In Reply to \(parentPost.userTimeline.aozoraUsername)"
+            if let _ = parentPost {
+                inReply.text = "  New Post Reply"
             } else {
                 inReply.text = "  New Post"
             }
@@ -112,7 +112,7 @@ public class NewPostViewController: CommentViewController {
         }
         
         if fetchingData {
-            presentBasicAlertWithTitle("Fetching link data...", message: nil)
+            presentAlertWithTitle("Fetching link data...", message: nil)
             return
         }
         
@@ -122,119 +122,159 @@ public class NewPostViewController: CommentViewController {
         
         switch threadType {
         case .Timeline:
-            var timelinePost = TimelinePost()
-            timelinePost = updatePostable(timelinePost, edited: false) as! TimelinePost
-
-            var parentSaveTask = BFTask(result: nil)
-            
-            if let parentPost = parentPost as? TimelinePost {
-                parentPost.addUniqueObject(postedBy!, forKey: "subscribers")
-                parentPost.incrementReplyCount(byAmount: 1)
-                parentSaveTask = parentPost.saveInBackground()
-            } else {
-                if postedBy! != postedIn {
-                    timelinePost.subscribers = [postedBy!, postedIn]
-                } else {
-                    timelinePost.subscribers = [postedBy!]
-                }
-            }
-            
-            if let parentPost = parentPost as? TimelinePostable {
-                timelinePost.replyLevel = 1
-                timelinePost.userTimeline = parentPost.userTimeline
-                timelinePost.parentPost = parentPost as? TimelinePost
-            } else {
-                timelinePost.replyLevel = 0
-                timelinePost.userTimeline = postedIn
-            }
-            
-            let postSaveTask = timelinePost.saveInBackground()
-            
-            BFTask(forCompletionOfAllTasks: [parentSaveTask, postSaveTask])
-                .continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task: BFTask!) -> AnyObject! in
-                // Send timeline post notification
-                if let parentPost = self.parentPost as? TimelinePost {
-                    let parameters = [
-                        "toUserId": self.postedIn.objectId!,
-                        "timelinePostId": parentPost.objectId!,
-                        "toUserUsername": self.postedIn.aozoraUsername
-                        ] as [String : AnyObject]
-                    PFCloud.callFunctionInBackground("sendNewTimelinePostReplyPushNotification", withParameters: parameters)
-                } else {
-                    let parameters = [
-                        "toUserId": self.postedIn.objectId!,
-                        "timelinePostId": timelinePost.objectId!
-                        ] as [String : AnyObject]
-                    PFCloud.callFunctionInBackground("sendNewTimelinePostPushNotification", withParameters: parameters)
-                }
-                
-                self.postedBy?.incrementPostCount(1)
-                self.completeRequest(timelinePost, parentPost: self.parentPost as? PFObject, error: task.error)
-                return nil
-            })
-            
-        default:
-            var post = Post()
-            post = updatePostable(post, edited: false) as! Post
-            
-            // Add subscribers to parent post or current post if there is no parent
-            var parentSaveTask = BFTask(result: nil)
-            
-            if let parentPost = parentPost as? Post {
-                parentPost.addUniqueObject(postedBy!, forKey: "subscribers")
-                parentPost.incrementReplyCount(byAmount: 1)
-                parentSaveTask = parentPost.saveInBackground()
-            } else {
-                post.subscribers = [postedBy!]
-            }
-            
-            if let parentPost = parentPost as? ThreadPostable {
-                post.replyLevel = 1
-                post.thread = parentPost.thread
-                post.parentPost = parentPost as? Post
-            } else {
-                post.replyLevel = 0
-                post.thread = thread!
-            }
-            post.thread.incrementReplyCount()
-            post.thread.lastPostedBy = postedBy
-               
-            let postSaveTask = post.saveInBackground()
-            
-            BFTask(forCompletionOfAllTasks: [parentSaveTask, postSaveTask])
-                .continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task: BFTask!) -> AnyObject! in
-                
-                // Send post notification
-                if let parentPost = self.parentPost as? Post {
-                    let parameters = [
-                        "toUserId": parentPost.postedBy!.objectId!,
-                        "postId": parentPost.objectId!,
-                        "threadName": post.thread.title
-                        ] as [String : AnyObject]
-                    PFCloud.callFunctionInBackground("sendNewPostReplyPushNotification", withParameters: parameters)
-                } else {
-                    var parameters = [
-                        "postId": post.objectId!,
-                        "threadName": post.thread.title
-                        ] as [String : AnyObject]
-                    
-                    // Only on user threads, episode threads do not have startedBy
-                    if let startedBy = post.thread.startedBy {
-                        parameters["toUserId"] = startedBy.objectId!
-                    }
-                    
-                    PFCloud.callFunctionInBackground("sendNewPostPushNotification", withParameters: parameters)
-                }
-                // Incrementing post counts only if thread does not contain #ForumGame tag
-                if let thread = self.thread where !thread.isForumGame {
-                    self.postedBy?.incrementPostCount(1)
-                }
-                self.completeRequest(post, parentPost: self.parentPost as? PFObject, error: task.error)
-                return nil
-            })
+            performTimelinePost()
+        case .Post, .ThreadPosts, .Episode, .Threads:
+            performPostPost()
         }
     }
-    
+
+    func performTimelinePost() {
+        var timelinePost = TimelinePost()
+        timelinePost = updatePostable(timelinePost, edited: false) as! TimelinePost
+
+        var saveTask: BFTask?
+
+        if let parentPost = parentPost as? TimelinePost {
+            parentPost.addUniqueObject(postedBy!, forKey: "subscribers")
+            parentPost.lastReply = timelinePost
+            parentPost.incrementReplyCount(byAmount: 1)
+            saveTask = parentPost.saveInBackground()
+        }
+
+        if let parentPost = parentPost as? TimelinePostable {
+            timelinePost.replyLevel = 1
+            timelinePost.userTimeline = parentPost.userTimeline
+            timelinePost.parentPost = parentPost as? TimelinePost
+        } else {
+            timelinePost.replyLevel = 0
+            timelinePost.userTimeline = postedIn
+        }
+
+        if saveTask == nil {
+            saveTask = timelinePost.saveInBackground()
+        }
+
+        saveTask?.continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task: BFTask!) -> AnyObject! in
+            // Send timeline post notification
+            var message: String?
+            let username = self.postedBy!.aozoraUsername
+            if let content = timelinePost.content where content.characters.count > 1 {
+                message = "\(username): \(content)"
+            }
+
+            if let parentPost = self.parentPost as? TimelinePost {
+                if message == nil {
+                    switch timelinePost.postContent {
+                    case .Link:
+                        message = "\(username) replied with a link"
+                    case .Image:
+                        message = "\(username) replied with an image"
+                    case .Video:
+                        message = "\(username) replied with a video"
+                    default:
+                        message = "\(username) replied"
+                    }
+                }
+
+                let parameters = [
+                    "toUserId": self.postedIn.objectId!,
+                    "timelinePostId": parentPost.objectId!,
+                    "toUserUsername": self.postedIn.aozoraUsername,
+                    "message": message!
+                    ] as [String : AnyObject]
+                PFCloud.callFunctionInBackground("sendNewTimelinePostReplyPushNotificationV2", withParameters: parameters)
+
+            } else {
+                if message == nil {
+                    switch timelinePost.postContent {
+                    case .Link:
+                        message = "\(username) posted a link in your timeline"
+                    case .Image:
+                        message = "\(username) posted an image in your timeline"
+                    case .Video:
+                        message = "\(username) posted a video in your timeline"
+                    default:
+                        message = "\(username) posted in your timeline"
+                    }
+                }
+
+                let parameters = [
+                    "toUserId": self.postedIn.objectId!,
+                    "timelinePostId": timelinePost.objectId!,
+                    "message": message!
+                    ] as [String : AnyObject]
+                PFCloud.callFunctionInBackground("sendNewTimelinePostPushNotificationV2", withParameters: parameters)
+            }
+
+            self.postedBy?.incrementPostCount(1)
+            self.completeRequest(timelinePost, parentPost: self.parentPost as? PFObject, error: task.error)
+            return nil
+        })
+    }
+
+    func performPostPost() {
+        var post = Post()
+        post = updatePostable(post, edited: false) as! Post
+
+        // Add subscribers to parent post or current post if there is no parent
+        var saveTask: BFTask?
+
+        if let parentPost = parentPost as? Post {
+            parentPost.addUniqueObject(postedBy!, forKey: "subscribers")
+            parentPost.incrementReplyCount(byAmount: 1)
+            parentPost.lastReply = post
+            saveTask = parentPost.saveInBackground()
+        }
+
+        if let parentPost = parentPost as? ThreadPostable {
+            post.replyLevel = 1
+            post.thread = parentPost.thread
+            post.parentPost = parentPost as? Post
+        } else {
+            post.replyLevel = 0
+            post.thread = thread!
+        }
+        post.thread.incrementReplyCount()
+        post.thread.lastPostedBy = postedBy
+
+        if saveTask == nil {
+            saveTask = post.saveInBackground()
+        }
+
+        saveTask?.continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task: BFTask!) -> AnyObject! in
+
+            PFCloud.callFunctionInBackground("Thread.UpdateHotRanking", withParameters: ["threadId": post.thread.objectId!])
+
+            // Send post notification
+            if let parentPost = self.parentPost as? Post {
+                let parameters = [
+                    "toUserId": parentPost.postedBy!.objectId!,
+                    "postId": parentPost.objectId!,
+                    "threadName": post.thread.title
+                    ] as [String : AnyObject]
+                PFCloud.callFunctionInBackground("sendNewPostReplyPushNotification", withParameters: parameters)
+            } else {
+                var parameters = [
+                    "postId": post.objectId!,
+                    "threadName": post.thread.title
+                    ] as [String : AnyObject]
+
+                // Only on user threads, episode threads do not have startedBy
+                if let startedBy = post.thread.postedBy {
+                    parameters["toUserId"] = startedBy.objectId!
+                }
+
+                PFCloud.callFunctionInBackground("sendNewPostPushNotification", withParameters: parameters)
+            }
+            // Incrementing post counts only if thread does not contain #ForumGame tag
+            if let thread = self.thread where !thread.isForumGame {
+                self.postedBy?.incrementPostCount(1)
+            }
+            self.completeRequest(post, parentPost: self.parentPost as? PFObject, error: task.error)
+            return nil
+        })
+    }
+
     func updatePostable(post: Commentable, edited: Bool) -> Commentable {
         if hasSpoilers {
             post.content = textView.text
@@ -305,7 +345,7 @@ public class NewPostViewController: CommentViewController {
         let content = max(textView.text.characters.count, spoilerTextView.text.characters.count)
         // Validate post
         if content < 1 && selectedImageData == nil && selectedVideoID == nil && selectedLinkData == nil {
-            presentBasicAlertWithTitle("Too Short", message: "Message/spoiler should be 1 character or longer")
+            presentAlertWithTitle("Too Short", message: "Message/spoiler should be 1 character or longer")
             return false
         }
         if User.muted(self) {

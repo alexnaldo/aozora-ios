@@ -7,7 +7,6 @@
 //
 
 import UIKit
-
 import ANCommonKit
 
 public class RootTabBar: UITabBarController {
@@ -21,6 +20,12 @@ public class RootTabBar: UITabBarController {
         super.viewDidLoad()
         // Load library
         LibraryController.sharedInstance.fetchAnimeList(false)
+            .continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { task -> AnyObject? in
+                FriendsController.sharedInstance.fetchFollowers()
+                FriendsController.sharedInstance.fetchFollowing()
+                return nil
+            })
+        
         delegate = self
     }
 
@@ -31,6 +36,8 @@ public class RootTabBar: UITabBarController {
             selectedDefaultTabOnce = true
             if let value = NSUserDefaults.standardUserDefaults().valueForKey(RootTabBar.LastOpenTab) as? Int {
                 selectedIndex = value
+
+                Analytics.viewedRootTabTab(number: value)
             }
         }
     }
@@ -43,18 +50,19 @@ public class RootTabBar: UITabBarController {
         }
     }
     
-    func newNotifications(count: Int) {
+    func updateUnreadNotificationCount(count: Int) {
         var result: String? = nil
         if count > 0 {
             result = "\(count)"
         }
         
         tabBar.items?[3].badgeValue = result
+        UIApplication.sharedApplication().applicationIconBadgeNumber = count
     }
     
     func checkIfThereAreNotifications() {
         if let navController = viewControllers![3] as? UINavigationController,
-            let notificationVC = navController.viewControllers.first as? NotificationsViewController {
+            let notificationVC = navController.viewControllers.first as? BaseNotificationViewController {
             notificationVC.fetchNotifications()
         }
     }
@@ -63,10 +71,10 @@ public class RootTabBar: UITabBarController {
 // MARK: - NotificationsViewControllerDelegate
 extension RootTabBar: NotificationsViewControllerDelegate {
     func notificationsViewControllerHasUnreadNotifications(count: Int) {
-        newNotifications(count)
+        updateUnreadNotificationCount(count)
     }
     func notificationsViewControllerClearedAllNotifications() {
-        newNotifications(0)
+        updateUnreadNotificationCount(0)
     }
 }
 
@@ -93,7 +101,7 @@ extension RootTabBar: UITabBarControllerDelegate {
                 NSUserDefaults.standardUserDefaults().setBool(true, forKey: RootTabBar.ShowedMyAnimeListLoginDefault)
                 NSUserDefaults.standardUserDefaults().synchronize()
 
-                let loginController = Storyboard.loginViewController()
+                let loginController = Storyboard.malLoginViewController()
                 loginController.delegate = self
                 presentViewController(loginController, animated: true, completion: nil)
                 return false
@@ -106,13 +114,14 @@ extension RootTabBar: UITabBarControllerDelegate {
 
     public func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
         // Update the selected index
+        Analytics.viewedRootTabTab(number: selectedIndex)
         NSUserDefaults.standardUserDefaults().setObject(selectedIndex, forKey: RootTabBar.LastOpenTab)
         NSUserDefaults.standardUserDefaults().synchronize()
     }
 }
 
-extension RootTabBar: LoginViewControllerDelegate {
+extension RootTabBar: MALLoginViewControllerDelegate {
     public func loginViewControllerPressedDoesntHaveAnAccount() {
-        selectedIndex = 1
+        selectedIndex = 2
     }
 }

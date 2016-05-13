@@ -31,6 +31,10 @@ class SettingsViewController: UITableViewController {
         facebookLikeButton.objectID = "https://www.facebook.com/AozoraApp"
 
         let config = UVConfig(site: "aozora.uservoice.com")
+        let email = User.currentUser()?.email ?? "unknown"
+        let username = User.currentUser()?.aozoraUsername ?? "unknown"
+        let id = User.currentUser()?.objectId ?? "unknown"
+        config.identifyUserWithEmail(email, name: username, guid: id)
 
         if let infoDictionary = NSBundle.mainBundle().infoDictionary,
             let marketingVersion = infoDictionary["CFBundleShortVersionString"],
@@ -40,6 +44,7 @@ class SettingsViewController: UITableViewController {
             UVStyleSheet.instance().navigationBarTextColor = .blackColor()
             UVStyleSheet.instance().navigationBarTintColor = .blackColor()
         }
+
         UserVoice.initialize(config)
     }
     
@@ -132,7 +137,7 @@ class SettingsViewController: UITableViewController {
                 self.presentViewController(alert, animated: true, completion: nil)
             } else {
                 
-                let loginController = Storyboard.loginViewController()
+                let loginController = Storyboard.malLoginViewController()
                 presentViewController(loginController, animated: true, completion: nil)
                 
                 NSUserDefaults.standardUserDefaults().setBool(true, forKey: RootTabBar.ShowedMyAnimeListLoginDefault)
@@ -143,8 +148,7 @@ class SettingsViewController: UITableViewController {
             UserVoice.presentUserVoiceInterfaceForParentViewController(self)
         case (2,0):
             // Unlock features
-            let controller = UIStoryboard(name: "InApp", bundle: nil).instantiateViewControllerWithIdentifier("InAppPurchaseViewController") as! InAppPurchaseViewController
-            navigationController?.pushViewController(controller, animated: true)
+            PurchaseViewController.showInAppPurchaseWith(self)
         case (2,1):
             // Restore purchases
             InAppPurchaseController.restorePurchases().continueWithBlock({ (task: BFTask!) -> AnyObject! in

@@ -3,6 +3,30 @@ upcoming:
 - Improved post layout with like count.
 - See who liked your posts.
 - Improved profile layout.
+- Popular section is now working.
+- Improved anime details layout.
+- Favorite anime.
+- See watched time total in library.
+- Forums now have an anime; episode; videos and fan club main sections.
+- Sort threads by recent(recently posted) or new.
+- Added new image viewer.
+- When posting links; this won't be removed.
+- Improved feed loading speed.
+- Added like counters to threads.
+- New forum layout.
+- Sorting forum threads using Reddit's ranking.
+- Better link embedding support.
+- Embedding links on forums.
+- Added real time support for timeline posts and forum posts.
+- Mute notifications from lock screen or iOS notifications panel.
+- Showing notification count as badge icon.
+- New announcements section on activity. (ex notification view)
+- New public library layout.
+- See list of favorite anime.
+- New user lists layout.
+- Expand profile and banner image.
+- NOTE > Comment counts and like counts might not be accurate. This will be accurate when all users update. This also affects popular section (which won't show new posts)
+
 
 releases:
 - version: 5.7.5

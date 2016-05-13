@@ -48,7 +48,7 @@ class SignInViewController: UIViewController {
         usernameTextField.trimSpaces()
         
         guard let username = usernameTextField.text, password = passwordTextField.text else {
-            presentBasicAlertWithTitle("Username or password field is empty")
+            presentAlertWithTitle("Username or password field is empty")
             return
         }
         
