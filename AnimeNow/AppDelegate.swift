@@ -43,7 +43,7 @@ struct ParseConfig {
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    let MaximumCacheSize: UInt = 1024 * 1024 * 500
+    let MaximumCacheSize: UInt = 1024 * 1024 * 400
     var window: UIWindow?
     var backgroundTask: UIBackgroundTaskIdentifier!
     
