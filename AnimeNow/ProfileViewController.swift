@@ -556,7 +556,7 @@ class ProfileViewController: BaseThreadViewController {
         let userListController = Storyboard.userListViewController()
         let query = userProfile!.following().query()
         query.orderByAscending("aozoraUsername")
-        userListController.initWithQuery(query, title: "Following", user: userProfile!)
+        userListController.initWithQuery(query, title: "Following", user: userProfile!, parentVC: self)
         presentSmallViewController(userListController, sender: sender)
     }
     
@@ -571,7 +571,7 @@ class ProfileViewController: BaseThreadViewController {
         let query = User.query()!
         query.whereKey("following", equalTo: userProfile!)
         query.orderByAscending("aozoraUsername")
-        userListController.initWithQuery(query, title: "Followers", user: userProfile!)
+        userListController.initWithQuery(query, title: "Followers", user: userProfile!, parentVC: self)
         presentSmallViewController(userListController, sender: sender)
     }
     
@@ -636,7 +636,7 @@ class ProfileViewController: BaseThreadViewController {
                 query.whereKey("details", matchesQuery: postCountQuery)
                 query.orderByAscending("createdAt")
                 query.limit = 500
-                userListController.initWithQuery(query, title: "Who to follow", user: userProfile)
+                userListController.initWithQuery(query, title: "Who to follow", user: userProfile, parentVC: self)
 
                 self.presentSmallViewController(userListController, sender: sender)
             }))
@@ -647,7 +647,7 @@ class ProfileViewController: BaseThreadViewController {
                 query.whereKeyExists("aozoraUsername")
                 query.whereKey("active", equalTo: true)
                 query.limit = 1000
-                userListController.initWithQuery(query, title: "Online Users")
+                userListController.initWithQuery(query, title: "Online Users", parentVC: self)
                 
                 self.presentSmallViewController(userListController, sender: sender)
             }))
@@ -658,7 +658,7 @@ class ProfileViewController: BaseThreadViewController {
                 query.orderByDescending("joinDate")
                 query.whereKeyExists("aozoraUsername")
                 query.limit = 500
-                userListController.initWithQuery(query, title: "New Users")
+                userListController.initWithQuery(query, title: "New Users", parentVC: self)
                 self.presentSmallViewController(userListController, sender: sender)
             }))
 
@@ -668,7 +668,7 @@ class ProfileViewController: BaseThreadViewController {
                 query.whereKeyExists("aozoraUsername")
                 query.whereKey("badges", containedIn: ["Admin", "Mod"])
                 query.limit = 1000
-                userListController.initWithQuery(query, title: "Aozora Staff")
+                userListController.initWithQuery(query, title: "Aozora Staff", parentVC: self)
 
                 self.presentSmallViewController(userListController, sender: sender)
             }))
@@ -690,7 +690,7 @@ class ProfileViewController: BaseThreadViewController {
                 query.whereKey("badges", containedIn: ["PRO","PRO+"])
                 query.orderByDescending("createdAt")
                 query.limit = 200
-                userListController.initWithQuery(query, title: "New PRO Members", user: userProfile)
+                userListController.initWithQuery(query, title: "New PRO Members", user: userProfile, parentVC: self)
 
                 self.presentSmallViewController(userListController, sender: sender)
             }))
@@ -710,7 +710,7 @@ class ProfileViewController: BaseThreadViewController {
                 query.whereKey("activeStart", greaterThan: NSDate().dateByAddingTimeInterval(-60*60*24*2))
                 query.orderByAscending("createdAt")
                 query.limit = 1000
-                userListController.initWithQuery(query, title: "Oldest Active Users", user: userProfile)
+                userListController.initWithQuery(query, title: "Oldest Active Users", user: userProfile, parentVC: self)
 
                 self.presentSmallViewController(userListController, sender: sender)
             }))

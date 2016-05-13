@@ -1288,7 +1288,7 @@ extension BaseThreadViewController: PostCellDelegate {
         let query = User.query()!
         query.whereKey("objectId", containedIn: likedByIds)
         query.limit = 2000
-        userListController.initWithQuery(query, title: "Liked by", user: User.currentUser())
+        userListController.initWithQuery(query, title: "Liked by", user: User.currentUser(), parentVC: self)
         userListController.hidesBottomBarWhenPushed = true
 
         // TODO: Use a modal instead..
