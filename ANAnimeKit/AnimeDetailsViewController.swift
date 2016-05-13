@@ -375,13 +375,21 @@ public class AnimeDetailsViewController: AnimeBaseViewController {
                 } else if let result = result as? [AnimeProgress] where result.count == 0 {
                     // Create AnimeProgress, if it's not on Parse
                     LibrarySyncController.addAnime(progress)
+
+                    if ReminderController.scheduleReminderForAnime(self.anime) {
+                        self.updateReminderButtonEnabled(true)
+                    }
+
                     self.anime.progress = progress
                     
-                    progress.saveInBackground().continueWithExecutor(BFExecutor.mainThreadExecutor(), withSuccessBlock: { (task: BFTask!) -> AnyObject! in
-                        
-                        NSNotificationCenter.defaultCenter().postNotificationName(LibraryUpdatedNotification, object: nil)
-                        return nil
-                    })
+                    progress.saveInBackground()
+                        .continueWithExecutor(
+                            BFExecutor.mainThreadExecutor(),
+                            withSuccessBlock: { (task: BFTask!) -> AnyObject! in
+                                NSNotificationCenter.defaultCenter().postNotificationName(LibraryUpdatedNotification, object: nil)
+                                return nil
+                            }
+                        )
                     self.updateListButtonTitle(progress.list)
                 } else {
                     self.presentAlertWithTitle("Anime already in Library", message: "You might need to sync your library first, select 'Library' tab")
