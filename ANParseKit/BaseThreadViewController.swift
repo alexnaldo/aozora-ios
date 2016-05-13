@@ -164,6 +164,7 @@ class BaseThreadViewController: UIViewController {
                 }
 
                 post.addReplies(unnaded)
+                post.replyCount = post.replyCount + unnaded.count
 
                 let lastIndexPathAfterAddingReplies = vc.lastIndexPath()
                 vc.tableView.reloadData()
