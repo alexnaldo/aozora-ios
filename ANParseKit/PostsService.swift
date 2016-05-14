@@ -26,11 +26,14 @@ class PostsService {
 
             for post in result {
                 let likes = post.likedBy?.count ?? 0
-                if likes != 0 {
-                    print(">like count \(likes)")
+                if likes != 0 && post.likeCount != likes {
+                    print("> updated timeline \(post.objectId) like count \(likes)")
                     post.likeCount = likes
-                    post.saveInBackground()
-                    NSThread.sleepForTimeInterval(0.12)
+                    do {
+                        try post.save()
+                    } catch {
+                        print("failed saving \(post.objectId)")
+                    }
                 }
             }
 
@@ -63,11 +66,14 @@ class PostsService {
 
             for post in result {
                 let likes = post.likedBy?.count ?? 0
-                if likes != 0 {
-                    print("> like count \(likes)")
+                if likes != 0 && post.likeCount != likes {
+                    print("> updated post \(post.objectId) like count \(likes)")
                     post.likeCount = likes
-                    post.saveInBackground()
-                    NSThread.sleepForTimeInterval(0.12)
+                    do {
+                        try post.save()
+                    } catch {
+                        print("failed saving \(post.objectId)")
+                    }
                 }
             }
 
