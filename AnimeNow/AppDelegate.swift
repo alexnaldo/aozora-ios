@@ -81,10 +81,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Parse.initializeWithConfiguration(configuration)
         PFUser.enableRevocableSessionInBackground()
 
-
-
         //PostsService.addLikeAndCommentToPostsCounters()
         //PostsService.addLikeAndCommentToTimelinePostsCounters()
+        //PostsService.addCommentsToPosts()
+        //PostsService.addCommentsToTimelinePosts()
 
         if let currentUser = User.currentUser() {
             Analytics.setSessionDataforUser(currentUser)

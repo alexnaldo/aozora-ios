@@ -115,6 +115,11 @@ public class NewThreadViewController: CommentViewController {
         updateThread(thread)
 
         thread.saveInBackgroundWithBlock({ (result, error) -> Void in
+
+            if error == nil {
+                PFCloud.callFunctionInBackground("Thread.UpdateHotRanking", withParameters: ["threadId": thread.objectId!])
+            }
+
             self.postedBy?.incrementPostCount(1)
             self.completeRequest(thread, parentPost:nil, error: error)
         })

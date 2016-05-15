@@ -13,7 +13,7 @@ import UIKit
     private var labels = [UILabel]()
     var thumbView = UIView()
 
-    var items: [String] = ["Feed", "Popular", "Profile"] {
+    var items: [String] = ["Updates", "Popular", "Profile"] {
         didSet {
             setupLabels()
         }
