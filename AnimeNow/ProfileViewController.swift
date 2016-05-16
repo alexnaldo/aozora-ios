@@ -35,7 +35,7 @@ class ProfileViewController: BaseThreadViewController {
     @IBOutlet weak var postsBadge: UILabel!
     @IBOutlet weak var tagBadge: UILabel!
     
-    @IBOutlet weak var segmentedControlView: UIView!
+    @IBOutlet weak var segmentedControlView: UIView?
     
     @IBOutlet weak var proBottomLayoutConstraint: NSLayoutConstraint!
     @IBOutlet weak var settingsTrailingSpaceConstraint: NSLayoutConstraint!
@@ -70,7 +70,7 @@ class ProfileViewController: BaseThreadViewController {
 
         threadType = .Threads
         
-        segmentedControlView.hidden = true
+        segmentedControlView?.hidden = true
         
         if userProfile == nil && username == nil {
             userProfile = User.currentUser()!
@@ -471,10 +471,12 @@ class ProfileViewController: BaseThreadViewController {
             self.startDate = nil
         }
 
-        if let userProfile = userProfile where userProfile.isTheCurrentUser() && segmentedControlView.hidden {
-            segmentedControlView.hidden = false
-            scrollViewDidScroll(tableView)
-            segmentedControlView.animateFadeIn()
+        if let segmentedControlView = segmentedControlView,
+            let userProfile = userProfile
+            where userProfile.isTheCurrentUser() && segmentedControlView.hidden {
+                segmentedControlView.hidden = false
+                scrollViewDidScroll(tableView)
+                segmentedControlView.animateFadeIn()
         }
     }
     
