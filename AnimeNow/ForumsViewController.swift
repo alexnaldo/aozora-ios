@@ -18,6 +18,7 @@ class ForumsViewController: BaseThreadViewController {
         case Anime
         case Episode
         case Videos
+        case Link
         case FanClub
         case Tag
     }
@@ -27,7 +28,7 @@ class ForumsViewController: BaseThreadViewController {
         case New
     }
 
-    let titles = ["All Activity", "Anime Posts", "Episode Discussion", "Videos", "Fan Clubs"]
+    let titles = ["All Activity", "Anime Posts", "Episode Discussion", "Videos", "Links", "Fan Clubs"]
 
     var allTagsDataSource: [ThreadTag] = []
     var tagsDataSource: [ThreadTag] = []
@@ -81,7 +82,7 @@ class ForumsViewController: BaseThreadViewController {
         self.selectedList = selectedList
         
         switch selectedList {
-        case .All, .Anime, .Episode, .FanClub, .Videos:
+        case .All, .Anime, .Episode, .FanClub, .Videos, .Link:
             navigationBarTitle.text = titles[selectedList.rawValue]
             fetchThreads()
         case .Tag:
@@ -176,6 +177,11 @@ class ForumsViewController: BaseThreadViewController {
             finalQuery.whereKeyExists("youtubeID")
             finalQuery.whereKey("youtubeID", notEqualTo: NSNull())
             finalQuery.whereKey("tags", notContainedIn: [fanClub])
+        case .Link:
+            finalQuery = Thread.query()!
+            finalQuery.whereKeyExists("link")
+            //finalQuery.whereKey("link", notEqualTo: NSNull())
+            finalQuery.whereKey("tags", notContainedIn: [fanClub])
         case .FanClub:
             finalQuery = Thread.query()!
             finalQuery.whereKey("tags", containedIn: [fanClub])
@@ -194,7 +200,7 @@ class ForumsViewController: BaseThreadViewController {
         switch selectedSort {
         case .Popular:
             switch selectedList {
-            case .All, .Anime, .Episode, .Videos:
+            case .All, .Anime, .Episode, .Videos, .Link:
                 finalQuery.orderByDescending("hotRanking")
             case .FanClub:
                 finalQuery.orderByDescending("updatedAt")
@@ -242,7 +248,7 @@ class ForumsViewController: BaseThreadViewController {
         query.findObjectsInBackground().continueWithSuccessBlock { (task: BFTask!) -> AnyObject! in
 
             self.allTagsDataSource = task.result as! [ThreadTag]
-            self.tagsDataSource = self.allTagsDataSource.filter{ $0.visible == true }
+            self.tagsDataSource = self.allTagsDataSource.filter{ $0.visible == true && $0.type == "forums" }
 
             return nil
         }

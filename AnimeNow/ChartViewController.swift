@@ -153,6 +153,8 @@ class ChartViewController: UIViewController {
         collectionView.animateFadeOut()
         loadingView.startAnimating()
 
+        // Fixes crash `This query has an outstanding network connection`
+        query.cancel()
         query.findObjectsInBackground().continueWithSuccessBlock { (task: BFTask!) -> AnyObject! in
             
             guard let result = task.result as? [Anime] else {

@@ -164,6 +164,7 @@ class BaseThreadViewController: UIViewController {
                 }
 
                 post.addReplies(unnaded)
+                post.replyCount = post.replyCount + unnaded.count
 
                 let lastIndexPathAfterAddingReplies = vc.lastIndexPath()
                 vc.tableView.reloadData()
@@ -676,7 +677,6 @@ extension BaseThreadViewController: UITableViewDataSource {
                 assertionFailure()
                 return UITableViewCell()
             }
-            print("shouldShowAllRepliesForPost \(indexPath)")
             let replyIndex = indexPath.row - 1
             return reuseCommentCellFor(post, replyIndex: replyIndex, indexPath: indexPath)
             
@@ -687,7 +687,6 @@ extension BaseThreadViewController: UITableViewDataSource {
                 cell.layoutIfNeeded()
                 return cell
             } else {
-                print("shouldShowContractedRepliesForPost \(indexPath)")
                 guard let post = post as? Commentable else {
                     assertionFailure()
                     return UITableViewCell()
@@ -1290,7 +1289,7 @@ extension BaseThreadViewController: PostCellDelegate {
         let query = User.query()!
         query.whereKey("objectId", containedIn: likedByIds)
         query.limit = 2000
-        userListController.initWithQuery(query, title: "Liked by", user: User.currentUser())
+        userListController.initWithQuery(query, title: "Liked by", user: User.currentUser(), parentVC: self)
         userListController.hidesBottomBarWhenPushed = true
 
         // TODO: Use a modal instead..

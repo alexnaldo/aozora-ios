@@ -47,7 +47,7 @@ class EpisodesViewController: AnimeBaseViewController {
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        customTabBar.setCurrentViewController(self)
+        customTabBar?.setCurrentViewController(self)
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -108,10 +108,15 @@ class EpisodesViewController: AnimeBaseViewController {
         
         loadingView.startAnimating()
 
-        anime.episodeList().continueWithExecutor(BFExecutor.mainThreadExecutor(), withSuccessBlock: { (task: BFTask!) -> AnyObject! in
-        
-            self.dataSource = task.result as! [Episode]
-            if let animeProgress = self.anime.progress where animeProgress.watchedEpisodes != 0 {
+        anime?.episodeList().continueWithExecutor(BFExecutor.mainThreadExecutor(), withSuccessBlock: { (task: BFTask!) -> AnyObject! in
+
+            guard let result = task.result as? [Episode], let anime = self.anime else {
+                return nil
+            }
+            
+            self.dataSource = result
+
+            if let animeProgress = anime.progress where animeProgress.watchedEpisodes != 0 {
                 self.scrollToIndexPath = NSIndexPath(forRow: animeProgress.watchedEpisodes-1, inSection: 0)
             }
 
@@ -148,7 +153,7 @@ extension EpisodesViewController: UICollectionViewDataSource {
 
         var watchStatus: EpisodeCell.WatchStatus = .Disabled
 
-        if let progress = anime.progress {
+        if let progress = anime?.progress {
             if progress.watchedEpisodes < indexPath.row + 1 {
                 watchStatus = .NotWatched
             } else {
@@ -167,6 +172,10 @@ extension EpisodesViewController: UICollectionViewDelegate {
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let episode = dataSource[indexPath.row]
+
+        guard let anime = anime else {
+            return
+        }
 
         ThreadViewController.threadForEpisode(episode, anime: anime)
             .continueWithExecutor(BFExecutor.mainThreadExecutor(), withSuccessBlock: { (task) -> AnyObject? in
@@ -191,43 +200,48 @@ extension EpisodesViewController: UICollectionViewDelegate {
 
 extension EpisodesViewController: EpisodeCellDelegate {
     func episodeCellWatchedPressed(cell: EpisodeCell) {
-        if let indexPath = collectionView.indexPathForCell(cell),
-        let progress = anime.progress {
-            
-            let nextEpisode = indexPath.row + 1
-            if progress.watchedEpisodes == nextEpisode {
-                progress.watchedEpisodes = nextEpisode - 1
-            } else {
-                progress.watchedEpisodes = nextEpisode
-            }
-            
-            progress.updatedEpisodes(anime.episodes)
-            
-            if progress.myAnimeListList() == .Completed {
-                RateViewController.showRateDialogWith(self.tabBarController!, title: "You've finished\n\(anime.title!)!\ngive it a rating", initialRating: Float(progress.score)/2.0, anime: anime, delegate: self)
-            }
-            
-            progress.saveInBackground()
-            LibrarySyncController.updateAnime(progress)
-            
-            NSNotificationCenter.defaultCenter().postNotificationName(LibraryUpdatedNotification, object: nil)
-            
-            canFadeImages = false
-            let indexPaths = collectionView.indexPathsForVisibleItems()
-            collectionView.reloadItemsAtIndexPaths(indexPaths)
-            canFadeImages = true
+        guard let indexPath = collectionView.indexPathForCell(cell),
+        let anime = anime,
+        let progress = anime.progress else {
+            return
+        }
+
+        let nextEpisode = indexPath.row + 1
+        if progress.watchedEpisodes == nextEpisode {
+            progress.watchedEpisodes = nextEpisode - 1
+        } else {
+            progress.watchedEpisodes = nextEpisode
         }
         
+        progress.updatedEpisodes(anime.episodes)
+        
+        if progress.myAnimeListList() == .Completed {
+            RateViewController.showRateDialogWith(self.tabBarController!, title: "You've finished\n\(anime.title!)!\ngive it a rating", initialRating: Float(progress.score)/2.0, anime: anime, delegate: self)
+        }
+        
+        progress.saveInBackground()
+        LibrarySyncController.updateAnime(progress)
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(LibraryUpdatedNotification, object: nil)
+        
+        canFadeImages = false
+        let indexPaths = collectionView.indexPathsForVisibleItems()
+        collectionView.reloadItemsAtIndexPaths(indexPaths)
+        canFadeImages = true
     }
     func episodeCellMorePressed(cell: EpisodeCell) {
         let indexPath = collectionView.indexPathForCell(cell)!
         let episode = dataSource[indexPath.row]
         var textToShare = ""
-            
+
+        guard let anime = anime, let animeTitle = anime.title else {
+            return
+        }
+
         if anime.episodes == indexPath.row + 1 {
-            textToShare = "Finished watching \(anime.title!) via #AozoraApp"
+            textToShare = "Finished watching \(animeTitle) via #AozoraApp"
         } else {
-            textToShare = "Just watched \(anime.title!) ep \(episode.number) via #AozoraApp"
+            textToShare = "Just watched \(animeTitle) ep \(episode.number) via #AozoraApp"
         }
         
         var objectsToShare: [AnyObject] = [textToShare]
@@ -255,7 +269,7 @@ extension EpisodesViewController: DropDownListDelegate {
             self.collectionView.scrollToItemAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UICollectionViewScrollPosition.Top, animated: true)
         case 1:
             // Go to next episode
-            if let nextEpisode = anime.nextEpisode where nextEpisode > 0 {
+            if let nextEpisode = anime?.nextEpisode where nextEpisode > 0 {
                 self.collectionView.scrollToItemAtIndexPath(NSIndexPath(forRow: nextEpisode - 1, inSection: 0), atScrollPosition: UICollectionViewScrollPosition.CenteredVertically, animated: true)
             }
         case 2:

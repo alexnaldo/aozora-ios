@@ -10,12 +10,12 @@ import UIKit
 
 public class AnimeBaseViewController: UIViewController {
 
-    var anime: Anime {
-        return customTabBar.anime
+    var anime: Anime? {
+        return customTabBar?.anime
     }
 
-    var customTabBar: AnimeDetailsTabBarController {
-        return tabBarController as! AnimeDetailsTabBarController
+    var customTabBar: AnimeDetailsTabBarController? {
+        return tabBarController as? AnimeDetailsTabBarController
     }
     
     public override func viewDidLoad() {

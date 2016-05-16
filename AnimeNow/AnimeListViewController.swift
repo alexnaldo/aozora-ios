@@ -179,6 +179,11 @@ class AnimeListViewController: UIViewController {
     func updateSortType(sortType: SortType) {
         
         currentSortType = sortType
+
+        // Override if it's not current user
+        if !isCurrentUser {
+            currentSortType = .Title
+        }
     
         switch self.currentSortType {
         case .Rating:

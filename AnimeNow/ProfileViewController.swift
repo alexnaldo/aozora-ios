@@ -35,7 +35,7 @@ class ProfileViewController: BaseThreadViewController {
     @IBOutlet weak var postsBadge: UILabel!
     @IBOutlet weak var tagBadge: UILabel!
     
-    @IBOutlet weak var segmentedControlView: UIView!
+    @IBOutlet weak var segmentedControlView: UIView?
     
     @IBOutlet weak var proBottomLayoutConstraint: NSLayoutConstraint!
     @IBOutlet weak var settingsTrailingSpaceConstraint: NSLayoutConstraint!
@@ -70,7 +70,7 @@ class ProfileViewController: BaseThreadViewController {
 
         threadType = .Threads
         
-        segmentedControlView.hidden = true
+        segmentedControlView?.hidden = true
         
         if userProfile == nil && username == nil {
             userProfile = User.currentUser()!
@@ -471,10 +471,12 @@ class ProfileViewController: BaseThreadViewController {
             self.startDate = nil
         }
 
-        if let userProfile = userProfile where userProfile.isTheCurrentUser() && segmentedControlView.hidden {
-            segmentedControlView.hidden = false
-            scrollViewDidScroll(tableView)
-            segmentedControlView.animateFadeIn()
+        if let segmentedControlView = segmentedControlView,
+            let userProfile = userProfile
+            where userProfile.isTheCurrentUser() && segmentedControlView.hidden {
+                segmentedControlView.hidden = false
+                scrollViewDidScroll(tableView)
+                segmentedControlView.animateFadeIn()
         }
     }
     
@@ -556,7 +558,7 @@ class ProfileViewController: BaseThreadViewController {
         let userListController = Storyboard.userListViewController()
         let query = userProfile!.following().query()
         query.orderByAscending("aozoraUsername")
-        userListController.initWithQuery(query, title: "Following", user: userProfile!)
+        userListController.initWithQuery(query, title: "Following", user: userProfile!, parentVC: self)
         presentSmallViewController(userListController, sender: sender)
     }
     
@@ -571,7 +573,7 @@ class ProfileViewController: BaseThreadViewController {
         let query = User.query()!
         query.whereKey("following", equalTo: userProfile!)
         query.orderByAscending("aozoraUsername")
-        userListController.initWithQuery(query, title: "Followers", user: userProfile!)
+        userListController.initWithQuery(query, title: "Followers", user: userProfile!, parentVC: self)
         presentSmallViewController(userListController, sender: sender)
     }
     
@@ -611,14 +613,10 @@ class ProfileViewController: BaseThreadViewController {
             alert.addAction(UIAlertAction(title: "Edit Profile", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
                 let editProfileController =  Storyboard.editProfileViewController()
                 editProfileController.delegate = self
-                if UIDevice.isPad() {
-                    self.presentSmallViewController(editProfileController, sender: sender)
-                } else {
-                    self.presentViewController(editProfileController, animated: true, completion: nil)
-                }
+                self.presentViewController(editProfileController, animated: true, completion: nil)
             }))
 
-            alert.addAction(UIAlertAction(title: "Users - Who to follow", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
+            alert.addAction(UIAlertAction(title: "Who to follow", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
 
 
                 guard let followingUsers = FriendsController.sharedInstance.following else {
@@ -640,44 +638,44 @@ class ProfileViewController: BaseThreadViewController {
                 query.whereKey("details", matchesQuery: postCountQuery)
                 query.orderByAscending("createdAt")
                 query.limit = 500
-                userListController.initWithQuery(query, title: "Who to follow", user: userProfile)
+                userListController.initWithQuery(query, title: "Who to follow", user: userProfile, parentVC: self)
 
                 self.presentSmallViewController(userListController, sender: sender)
             }))
 
-            alert.addAction(UIAlertAction(title: "Users - Online Now", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
+            alert.addAction(UIAlertAction(title: "Online Now", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
                 let userListController = Storyboard.userListViewController()
                 let query = User.query()!
                 query.whereKeyExists("aozoraUsername")
                 query.whereKey("active", equalTo: true)
                 query.limit = 1000
-                userListController.initWithQuery(query, title: "Online Users")
+                userListController.initWithQuery(query, title: "Online Users", parentVC: self)
                 
                 self.presentSmallViewController(userListController, sender: sender)
             }))
             
-            alert.addAction(UIAlertAction(title: "Users - New", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
+            alert.addAction(UIAlertAction(title: "New Users", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
                 let userListController = Storyboard.userListViewController()
                 let query = User.query()!
                 query.orderByDescending("joinDate")
                 query.whereKeyExists("aozoraUsername")
                 query.limit = 500
-                userListController.initWithQuery(query, title: "New Users")
+                userListController.initWithQuery(query, title: "New Users", parentVC: self)
                 self.presentSmallViewController(userListController, sender: sender)
             }))
 
-            alert.addAction(UIAlertAction(title: "Users - Aozora Staff", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
+            alert.addAction(UIAlertAction(title: "Aozora Staff", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
                 let userListController = Storyboard.userListViewController()
                 let query = User.query()!
                 query.whereKeyExists("aozoraUsername")
                 query.whereKey("badges", containedIn: ["Admin", "Mod"])
                 query.limit = 1000
-                userListController.initWithQuery(query, title: "Aozora Staff")
+                userListController.initWithQuery(query, title: "Aozora Staff", parentVC: self)
 
                 self.presentSmallViewController(userListController, sender: sender)
             }))
 
-            alert.addAction(UIAlertAction(title: "Users - New PRO Members", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
+            alert.addAction(UIAlertAction(title: "New PRO Members", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
 
 
                 guard let followingUsers = FriendsController.sharedInstance.following else {
@@ -694,12 +692,12 @@ class ProfileViewController: BaseThreadViewController {
                 query.whereKey("badges", containedIn: ["PRO","PRO+"])
                 query.orderByDescending("createdAt")
                 query.limit = 200
-                userListController.initWithQuery(query, title: "New PRO Members", user: userProfile)
+                userListController.initWithQuery(query, title: "New PRO Members", user: userProfile, parentVC: self)
 
                 self.presentSmallViewController(userListController, sender: sender)
             }))
 
-            alert.addAction(UIAlertAction(title: "Users - Oldest Active Users", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
+            alert.addAction(UIAlertAction(title: "Oldest Active Users", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
                 guard let followingUsers = FriendsController.sharedInstance.following else {
                     return
                 }
@@ -714,7 +712,7 @@ class ProfileViewController: BaseThreadViewController {
                 query.whereKey("activeStart", greaterThan: NSDate().dateByAddingTimeInterval(-60*60*24*2))
                 query.orderByAscending("createdAt")
                 query.limit = 1000
-                userListController.initWithQuery(query, title: "Oldest Active Users", user: userProfile)
+                userListController.initWithQuery(query, title: "Oldest Active Users", user: userProfile, parentVC: self)
 
                 self.presentSmallViewController(userListController, sender: sender)
             }))

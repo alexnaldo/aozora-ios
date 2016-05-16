@@ -310,7 +310,7 @@
 		DA8D710E1C6DD0F50016A332 /* FetchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC13BFF1B3F4A7A0013D479 /* FetchController.swift */; };
 		DA9F717D1CD3225900D634D3 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9F717C1CD3225900D634D3 /* PhotosViewController.swift */; };
 		DA9F717E1CD3225900D634D3 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9F717C1CD3225900D634D3 /* PhotosViewController.swift */; };
-		DA9F731D1B2931FF00C2652C /* UIImageView+SDWebImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9F731A1B2930F200C2652C /* UIImageView+SDWebImage.swift */; };
+		DA9F731D1B2931FF00C2652C /* UIImageView+PINRemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9F731A1B2930F200C2652C /* UIImageView+PINRemoteImage.swift */; };
 		DAA011C21C6EFE4700F2070E /* ZFModalTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFD60B31B277B8D007275C1 /* ZFModalTransitionAnimator.m */; };
 		DAA576B91C66EC2D007E81E6 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8DD6401B3C95F300B05FBF /* SearchViewController.swift */; };
 		DAA576BA1C66EC2D007E81E6 /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4167E21B275CEB00847F56 /* ReviewCell.swift */; };
@@ -781,7 +781,7 @@
 		DA9AE39A1B6930F60053C2EA /* TimelinePost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelinePost.swift; sourceTree = "<group>"; };
 		DA9EB9301B2BA580001ECFA7 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		DA9F717C1CD3225900D634D3 /* PhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
-		DA9F731A1B2930F200C2652C /* UIImageView+SDWebImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImageView+SDWebImage.swift"; path = "../AnimeNow/UIImageView+SDWebImage.swift"; sourceTree = "<group>"; };
+		DA9F731A1B2930F200C2652C /* UIImageView+PINRemoteImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImageView+PINRemoteImage.swift"; path = "../AnimeNow/UIImageView+PINRemoteImage.swift"; sourceTree = "<group>"; };
 		DAA253B71B2B8AF50092EB0B /* AnimeBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnimeBaseViewController.swift; path = ../ANAnimeKit/AnimeBaseViewController.swift; sourceTree = "<group>"; };
 		DAA26C8D1BCC92B1001CF62D /* PublicListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicListViewController.swift; sourceTree = "<group>"; };
 		DAA2C5571B66919300152FF9 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -1358,7 +1358,7 @@
 				DA13806D1B6DC08300C53560 /* UIViewController+Aozora.swift */,
 				DA2D1EEE1B5318E1009A5CCD /* NSUserDefaults+Dates.swift */,
 				DA35B9941B7402F000C0AAC7 /* UISearchBar+Appearance.swift */,
-				DA9F731A1B2930F200C2652C /* UIImageView+SDWebImage.swift */,
+				DA9F731A1B2930F200C2652C /* UIImageView+PINRemoteImage.swift */,
 				DA2853C11B22C5D30070B675 /* UIColor+AniNow.swift */,
 				DACE77C11B294D7B00037486 /* NSDate+AniNow.swift */,
 				DAE43C391B2F971800C3092D /* UIView+Animation.swift */,
@@ -2483,7 +2483,7 @@
 				DA5A3BFD1B35F19A00C07D71 /* Atarashii.swift in Sources */,
 				DA5A3BFC1B35F19A00C07D71 /* AniList.swift in Sources */,
 				DA35B9951B7402F000C0AAC7 /* UISearchBar+Appearance.swift in Sources */,
-				DA9F731D1B2931FF00C2652C /* UIImageView+SDWebImage.swift in Sources */,
+				DA9F731D1B2931FF00C2652C /* UIImageView+PINRemoteImage.swift in Sources */,
 				DA58C2E21B38A7760082B626 /* String+NSDate.swift in Sources */,
 				DAFD60B91B27845F007275C1 /* BasicTableCell.swift in Sources */,
 				DA5B286A1C5F18D100EACCE3 /* AiringController.swift in Sources */,
@@ -2888,7 +2888,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 151;
+				CURRENT_PROJECT_VERSION = 153;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
@@ -2937,7 +2937,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 151;
+				CURRENT_PROJECT_VERSION = 153;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
@@ -2963,7 +2963,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DYLIB_CURRENT_VERSION = 151;
+				DYLIB_CURRENT_VERSION = 153;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2984,7 +2984,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DYLIB_CURRENT_VERSION = 151;
+				DYLIB_CURRENT_VERSION = 153;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -3005,7 +3005,7 @@
 				CODE_SIGN_ENTITLEMENTS = AozoraWatching/AozoraWatching.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 151;
+				CURRENT_PROJECT_VERSION = 153;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				INFOPLIST_FILE = AozoraWatching/Info.plist;
@@ -3027,7 +3027,7 @@
 				CODE_SIGN_ENTITLEMENTS = AozoraWatching/AozoraWatching.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 151;
+				CURRENT_PROJECT_VERSION = 153;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				INFOPLIST_FILE = AozoraWatching/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
@@ -3045,10 +3045,10 @@
 			baseConfigurationReference = 1D486C06F6FE888DD6EB06FC /* Pods-AozoraProject-ANCommonKit.debug.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
-				CURRENT_PROJECT_VERSION = 151;
+				CURRENT_PROJECT_VERSION = 153;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 151;
+				DYLIB_CURRENT_VERSION = 153;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3097,10 +3097,10 @@
 			baseConfigurationReference = 93E0C0E47E2DF74385512FCE /* Pods-AozoraProject-ANCommonKit.release.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
-				CURRENT_PROJECT_VERSION = 151;
+				CURRENT_PROJECT_VERSION = 153;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 151;
+				DYLIB_CURRENT_VERSION = 153;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3142,7 +3142,7 @@
 		DA4AF8D01B276E060020252E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DYLIB_CURRENT_VERSION = 151;
+				DYLIB_CURRENT_VERSION = 153;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -3162,7 +3162,7 @@
 		DA4AF8D11B276E060020252E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DYLIB_CURRENT_VERSION = 151;
+				DYLIB_CURRENT_VERSION = 153;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -3184,7 +3184,7 @@
 				CODE_SIGN_ENTITLEMENTS = Aozora.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 151;
+				CURRENT_PROJECT_VERSION = 153;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = "$(inherited)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3258,7 +3258,7 @@
 				CODE_SIGN_ENTITLEMENTS = Aozora.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 151;
+				CURRENT_PROJECT_VERSION = 153;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = "$(inherited)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3332,7 +3332,7 @@
 				CODE_SIGN_ENTITLEMENTS = AnimeTrakr.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 151;
+				CURRENT_PROJECT_VERSION = 153;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = "$(inherited)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3406,7 +3406,7 @@
 				CODE_SIGN_ENTITLEMENTS = AnimeTrakr.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 151;
+				CURRENT_PROJECT_VERSION = 153;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = "$(inherited)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3479,7 +3479,7 @@
 				CODE_SIGN_ENTITLEMENTS = AnimeTrakrWatching.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 151;
+				CURRENT_PROJECT_VERSION = 153;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				INFOPLIST_FILE = "AnimeTrakrWatching-Info.plist";
@@ -3501,7 +3501,7 @@
 				CODE_SIGN_ENTITLEMENTS = AnimeTrakrWatching.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 151;
+				CURRENT_PROJECT_VERSION = 153;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				INFOPLIST_FILE = "AnimeTrakrWatching-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;

@@ -15,6 +15,8 @@ class UserListViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     var loadingView: LoaderView!
+
+    weak var parentVC: UIViewController?
     
     var dataSource: [User] = []
     var user: User?
@@ -22,10 +24,11 @@ class UserListViewController: UIViewController {
     var titleToSet = ""
     var animator: ZFModalTransitionAnimator!
     
-    func initWithQuery(query: PFQuery, title: String, user: User? = nil) {
+    func initWithQuery(query: PFQuery, title: String, user: User? = nil, parentVC: UIViewController? = nil) {
         self.user = user
         self.query = query
         titleToSet = title
+        self.parentVC = parentVC
     }
 
     override func viewDidLoad() {
@@ -123,9 +126,16 @@ extension UserListViewController: UICollectionViewDataSource, UICollectionViewDe
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let profile = dataSource[indexPath.row]
         let profileController = Storyboard.profileViewController()
-
         profileController.initWithUser(profile)
-        navigationController?.pushViewController(profileController, animated: true)
+
+        if UIDevice.isPad() {
+            dismissViewControllerAnimated(true, completion: { 
+                self.parentVC?.navigationController?.pushViewController(profileController, animated: true)
+            })
+        } else {
+            navigationController?.pushViewController(profileController, animated: true)
+        }
+
     }
 }
 
