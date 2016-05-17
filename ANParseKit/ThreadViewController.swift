@@ -22,6 +22,14 @@ class ThreadViewController: BaseThreadViewController {
         case .Timeline, .Post:
             // Fetch posts, if not a thread
             fetchPosts()
+            var title = ""
+            if let timelinePost = timelinePost
+                where threadType == .Timeline && !timelinePost.userTimeline.isTheCurrentUser() {
+                    title = "Profile"
+            } else if threadType == .Post {
+                title = "Post"
+            }
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: title, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(showThread))
         case .Threads:
             break
         case .ThreadPosts, .Episode:
@@ -61,6 +69,21 @@ class ThreadViewController: BaseThreadViewController {
             }
         })
         
+    }
+
+    func showThread() {
+        switch threadType {
+        case .Timeline:
+            if let userTimeline = timelinePost?.userTimeline {
+                openProfileForUser(userTimeline)
+            }
+        case .Post:
+            if let thread = post?.thread {
+                showThreadPosts(thread)
+            }
+        default:
+            break
+        }
     }
 
     static func threadForEpisode(episode: Episode, anime: Anime) -> BFTask {
