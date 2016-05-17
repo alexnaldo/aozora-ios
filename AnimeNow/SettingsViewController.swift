@@ -8,10 +8,10 @@
 
 import UIKit
 import iRate
-
 import ANCommonKit
 import FBSDKShareKit
-
+import ParseFacebookUtilsV4
+import RMStore
 import uservoice_iphone_sdk
 
 class SettingsViewController: UITableViewController {
@@ -70,9 +70,59 @@ class SettingsViewController: UITableViewController {
         }
 
     }
-    
+
+    func updateUsername(error: String?) {
+        let alert = UIAlertController(title: "Enter your new username", message: error, preferredStyle: .Alert)
+        alert.addTextFieldWithConfigurationHandler(nil)
+        alert.addAction(UIAlertAction(title: "Update Username", style: .Default, handler: { _ in
+
+            guard let textField = alert.textFields?.last,
+                let newUsername = textField.text
+                where newUsername.validUsername(self) else {
+                    self.updateUsername("Invalid username")
+                    return
+            }
+
+            let query = User.query()!
+            query.whereKey("aozoraUsername", matchesRegex: "^\(newUsername)$", modifiers: "i")
+            let query2 = User.query()!
+            query2.whereKey("username", equalTo: newUsername.lowercaseString)
+
+            do {
+                let result = try PFQuery.orQueryWithSubqueries([query, query2]).findObjects()
+                if !result.isEmpty {
+                    self.updateUsername("Username '\(newUsername)' already exists")
+                    return
+                } else if let currentUser = User.currentUser() {
+
+                    InAppPurchaseController
+                        .purchaseProductWithID(InAppController.ChangeUsernameIdentifier)
+                        .continueWithExecutor(BFExecutor.mainThreadExecutor(),  withSuccessBlock: { (task) -> AnyObject? in
+
+                            currentUser.aozoraUsername = newUsername
+                            if !PFFacebookUtils.isLinkedWithUser(currentUser) {
+                                currentUser.username = newUsername.lowercaseString
+                            }
+                            return currentUser.saveInBackground()
+                        }).continueWithBlock({ (task) -> AnyObject? in
+                            if let _ = task.error {
+                                self.updateUsername("Failed updating username")
+                            }
+                            return nil
+                        })
+                }
+            } catch {
+                self.updateUsername("Failed updating username")
+            }
+        }))
+
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: nil))
+
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+
     // MARK: - IBActions
-    
+
     @IBAction func dismissPressed(sender: AnyObject) {
         
         dismissViewControllerAnimated(true, completion: nil)
@@ -163,6 +213,16 @@ class SettingsViewController: UITableViewController {
                 return nil
             })
 
+        case (2,2):
+
+            let products: Set = [InAppController.ChangeUsernameIdentifier]
+            RMStore
+                .defaultStore()
+                .requestProducts(products, success: { (products, invalidProducts) -> Void in
+                    self.updateUsername(nil)
+            }) { (error) -> Void in
+
+            }
         case (3,0):
             // Rate app
             iRate.sharedInstance().openRatingsPageInAppStore()

@@ -9,8 +9,7 @@
 import Foundation
 import RMStore
 
-
-let PurchasedProNotification = "InApps.Purchased.Pro"
+let MadeAPurchaseNotification = "InApps.Purchased.Pro"
 
 class InAppPurchaseController {
     
@@ -64,7 +63,7 @@ class InAppPurchaseController {
         NSUserDefaults.standardUserDefaults().synchronize()
         
         // Unlock..
-        NSNotificationCenter.defaultCenter().postNotificationName(PurchasedProNotification, object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName(MadeAPurchaseNotification, object: nil)
         
     }
     

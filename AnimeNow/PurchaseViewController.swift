@@ -42,8 +42,8 @@ class PurchaseViewController: UIViewController {
 
         loadingView = LoaderView(parentView: view)
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateViewForPurchaseState), name: PurchasedProNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(setPrices), name: PurchasedProNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateViewForPurchaseState), name: MadeAPurchaseNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(setPrices), name: MadeAPurchaseNotification, object: nil)
 
         if let navController = parentViewController as? UINavigationController {
             if let firstController = navController.viewControllers.first where !firstController.isKindOfClass(SettingsViewController) {
@@ -73,6 +73,8 @@ class PurchaseViewController: UIViewController {
         loadingView.startAnimating()
         let products: Set = [InAppController.ProIdentifier, InAppController.ProPlusIdentifier]
         RMStore.defaultStore().requestProducts(products, success: { (products, invalidProducts) -> Void in
+            print(products)
+            print(invalidProducts)
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             self.setPrices()
             self.loadingView.stopAnimating()

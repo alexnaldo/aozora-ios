@@ -121,7 +121,6 @@
 		DA6B54811CC2DFBD00EB6FC0 /* AnimeCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFE19AD1B29E4CD002F3A76 /* AnimeCharacter.swift */; };
 		DA6B54821CC2DFBD00EB6FC0 /* DataRefresherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA32EBE31C6A9A780090CD51 /* DataRefresherController.swift */; };
 		DA6B54831CC2DFBD00EB6FC0 /* QueryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7996C01CB9BA9000AD7EAD /* QueryBuilder.swift */; };
-		DA6B54841CC2DFBD00EB6FC0 /* InAppPurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA07A3491B4C2B860028B81B /* InAppPurchaseViewController.swift */; };
 		DA6B54851CC2DFBD00EB6FC0 /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6E12D41B10D96F00B278B0 /* TFHppleElement.m */; };
 		DA6B54871CC2DFBD00EB6FC0 /* TagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA03F1571B8B435400402AC4 /* TagsViewController.swift */; };
 		DA6B54881CC2DFBD00EB6FC0 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA2C5571B66919300152FF9 /* SignInViewController.swift */; };
@@ -323,7 +322,6 @@
 		DAA576C21C66EC2D007E81E6 /* AnimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE7A7181B2105FD00788614 /* AnimeCell.swift */; };
 		DAA576C31C66EC2D007E81E6 /* InAppPurchaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3B61D81B4F59E700A3F7BA /* InAppPurchaseController.swift */; };
 		DAA576C41C66EC2D007E81E6 /* ForumsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6187B1B3784E300286517 /* ForumsViewController.swift */; };
-		DAA576C51C66EC2D007E81E6 /* InAppPurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA07A3491B4C2B860028B81B /* InAppPurchaseViewController.swift */; };
 		DAA576C71C66EC2D007E81E6 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA2C5571B66919300152FF9 /* SignInViewController.swift */; };
 		DAA576C81C66EC2D007E81E6 /* TitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4167E61B275D3800847F56 /* TitleCell.swift */; };
 		DAA576C91C66EC2D007E81E6 /* PublicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA26C8D1BCC92B1001CF62D /* PublicListViewController.swift */; };
@@ -623,7 +621,6 @@
 		DA03F1591B8B47FA00402AC4 /* ThreadTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadTag.swift; sourceTree = "<group>"; };
 		DA03F15B1B8B818E00402AC4 /* TTTAttributedLabel+Tags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "TTTAttributedLabel+Tags.swift"; path = "../ANParseKit/TTTAttributedLabel+Tags.swift"; sourceTree = "<group>"; };
 		DA07A3471B4C2B730028B81B /* InApp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = InApp.storyboard; sourceTree = "<group>"; };
-		DA07A3491B4C2B860028B81B /* InAppPurchaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InAppPurchaseViewController.swift; sourceTree = "<group>"; };
 		DA0B26051B75066B00A770AE /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		DA0B26071B75109000A770AE /* String+Validations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Validations.swift"; sourceTree = "<group>"; };
 		DA0B26091B7514A400A770AE /* UIViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+Alert.swift"; path = "../AnimeNow/UIViewController+Alert.swift"; sourceTree = "<group>"; };
@@ -1057,7 +1054,6 @@
 				DA07A3471B4C2B730028B81B /* InApp.storyboard */,
 				DAC7D9011B50201300898FF6 /* InAppController.swift */,
 				DA3B61D81B4F59E700A3F7BA /* InAppPurchaseController.swift */,
-				DA07A3491B4C2B860028B81B /* InAppPurchaseViewController.swift */,
 				DA1BD5781CE2F22600B8A318 /* PurchaseViewController.swift */,
 			);
 			name = "In-App Purchases";
@@ -2558,7 +2554,6 @@
 				DA6B54811CC2DFBD00EB6FC0 /* AnimeCharacter.swift in Sources */,
 				DA6B54821CC2DFBD00EB6FC0 /* DataRefresherController.swift in Sources */,
 				DA6B54831CC2DFBD00EB6FC0 /* QueryBuilder.swift in Sources */,
-				DA6B54841CC2DFBD00EB6FC0 /* InAppPurchaseViewController.swift in Sources */,
 				DA6B54851CC2DFBD00EB6FC0 /* TFHppleElement.m in Sources */,
 				DA6B54871CC2DFBD00EB6FC0 /* TagsViewController.swift in Sources */,
 				DA6B54881CC2DFBD00EB6FC0 /* SignInViewController.swift in Sources */,
@@ -2696,7 +2691,6 @@
 				DA2991D51C6DD10500CCB04D /* AnimeCharacter.swift in Sources */,
 				DA32EBE51C6A9A780090CD51 /* DataRefresherController.swift in Sources */,
 				DA7996C21CB9BA9000AD7EAD /* QueryBuilder.swift in Sources */,
-				DAA576C51C66EC2D007E81E6 /* InAppPurchaseViewController.swift in Sources */,
 				DA7A169A1C6DD0C100AA2882 /* TFHppleElement.m in Sources */,
 				DA8D70F71C6DD0EA0016A332 /* TagsViewController.swift in Sources */,
 				DAA576C71C66EC2D007E81E6 /* SignInViewController.swift in Sources */,
