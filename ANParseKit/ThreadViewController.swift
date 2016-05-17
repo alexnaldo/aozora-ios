@@ -126,34 +126,31 @@ class ThreadViewController: BaseThreadViewController {
         switch threadType {
         case .Timeline, .Post:
 
-            if let timelinePost = timelinePost as? TimelinePost {
-                query = TimelinePost.query()!
-                query.whereKey("objectId", equalTo: timelinePost.objectId!)
-                query.includeKey("userTimeline")
-
-                repliesQuery = TimelinePost.query()!
-            } else if let post = post as? Post {
-                query = Post.query()!
-                print(post.objectId)
-                query.whereKey("objectId", equalTo: post.objectId!)
-
-                repliesQuery = Post.query()!
-            }
-
-            query.includeKey("postedBy")
-
             switch threadConfiguration {
             case .ThreadMain:
-                query.includeKey("lastReply")
-                query.includeKey("lastReply.postedBy")
-                return queryBatch.executeQueries([query])
+                return nil
             case .ThreadDetail:
+
+                if let _ = timelinePost as? TimelinePost {
+                    repliesQuery = TimelinePost.query()!
+                } else if let _ = post as? Post {
+                    repliesQuery = Post.query()!
+                }
+
                 repliesQuery.skip = 0
                 repliesQuery.orderByAscending("createdAt")
                 repliesQuery.includeKey("postedBy")
                 repliesQuery.limit = 2000
-                queryBatch.whereQuery(repliesQuery, matchesKey: "parentPost", onQuery: query)
-                return queryBatch.executeQueries([query, repliesQuery])
+
+                if let timelinePost = timelinePost as? TimelinePost {
+                    repliesQuery.whereKey("parentPost", equalTo: timelinePost)
+                    return queryBatch.executeQueries([repliesQuery], fetchedObjects: [timelinePost])
+                } else if let post = post as? Post {
+                    repliesQuery.whereKey("parentPost", equalTo: post)
+                    return queryBatch.executeQueries([repliesQuery], fetchedObjects: [post])
+                } else {
+                    return nil
+                }
             }
 
         case .Episode, .ThreadPosts:
