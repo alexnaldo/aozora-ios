@@ -42,6 +42,7 @@ class NotificationsController {
             let query = TimelinePost.query()!
             query.whereKey("objectId", equalTo: objectId)
             query.includeKey("userTimeline")
+            query.includeKey("postedBy")
             query.limit = 1
             return query.findObjectsInBackground()
                 .continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task: BFTask!) -> AnyObject? in
@@ -57,6 +58,7 @@ class NotificationsController {
         case "Post":
             let query = Post.query()!
             query.whereKey("objectId", equalTo: objectId)
+            query.includeKey("postedBy")
             query.includeKey("thread")
             query.includeKey("thread.tags")
             query.includeKey("thread.anime")
@@ -87,7 +89,7 @@ class NotificationsController {
     class func showNotificationThread(post: Commentable, returnAnimator: Bool) {
         
         let notificationThread = Storyboard.threadViewController()
-        notificationThread.initWithPost(post, threadConfiguration: .ThreadDetail)
+        notificationThread.initWithPost(post, threadConfiguration: .ThreadDetail(showViewParentPostButton: true))
         pushViewController(notificationThread)
     }
 

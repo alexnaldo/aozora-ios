@@ -21,7 +21,6 @@ public class RootTabBar: UITabBarController {
         // Load library
         LibraryController.sharedInstance.fetchAnimeList(false)
             .continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { task -> AnyObject? in
-                FriendsController.sharedInstance.fetchFollowers()
                 FriendsController.sharedInstance.fetchFollowing()
                 return nil
             })
@@ -63,6 +62,7 @@ public class RootTabBar: UITabBarController {
     func checkIfThereAreNotifications() {
         if let navController = viewControllers![3] as? UINavigationController,
             let notificationVC = navController.viewControllers.first as? BaseNotificationViewController {
+            notificationVC.notifications.delegate = self
             notificationVC.fetchNotifications()
         }
     }

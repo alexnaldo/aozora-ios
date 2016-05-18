@@ -34,20 +34,29 @@ public class LibrarySyncController {
         
         let progressQuery = AnimeProgress.query()!
         progressQuery.whereKey("user", equalTo: user)
-        progressQuery.includeKey("anime")
         progressQuery.limit = 10000
+
+        var animeProgressList: [AnimeProgress] = []
         return progressQuery.findObjectsInBackground().continueWithSuccessBlock({ (task: BFTask!) -> AnyObject! in
             
-            let list = task.result as! [AnimeProgress]
-            
+            animeProgressList = task.result as! [AnimeProgress]
+
+            let animeIDs = animeProgressList.flatMap{ $0.anime.objectId }
+
+            let animeQuery = Anime.query()!
+            animeQuery.whereKey("objectId", containedIn: animeIDs)
+            animeQuery.selectKeys(["title","type","imageUrl","status","episodes","startDate","startDateTime","myAnimeListID","traktID","fanart","details"])
+            animeQuery.limit = 10000
+            return animeQuery.findObjectsInBackground()
+
+        }).continueWithSuccessBlock({ (task: BFTask!) -> AnyObject? in
+
+            let animeList = task.result as! [Anime]
             // Referece progress in anime objects..
-            for progress in list {
+            for progress in animeProgressList {
                 progress.anime.progress = progress
             }
-            
-            let animeList = list.map({ return $0.anime })
             print("Found a list of \(animeList.count)")
-            
             return BFTask(result: animeList)
         })
     }

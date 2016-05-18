@@ -62,7 +62,7 @@ class AnnouncementsViewController: BaseThreadViewController {
 extension AnnouncementsViewController: IndicatorInfoProvider {
 
     func indicatorInfoForPagerTabStrip(pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
-        return IndicatorInfo(title: "Announcements")
+        return IndicatorInfo(title: "Messages")
     }
 }
 

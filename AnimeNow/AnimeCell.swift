@@ -150,6 +150,10 @@ class AnimeCell: UICollectionViewCell {
     }
     
     class func updateInformationLabel(anime: Anime, informationLabel: UILabel?) {
+        guard let informationLabel = informationLabel else {
+            return
+        }
+
         var information = "\(anime.type) · "
         
         if let mainStudio = anime.studio.first {
@@ -163,7 +167,7 @@ class AnimeCell: UICollectionViewCell {
             information += " · " + source
         }
         
-        informationLabel?.text = information
+        informationLabel.text = information
     }
 }
 

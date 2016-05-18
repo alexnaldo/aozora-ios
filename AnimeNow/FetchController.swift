@@ -87,8 +87,10 @@ public class FetchController {
         return dataSource.count
     }
     
-    public func objectAtIndex(index: Int) -> PFObject {
-        didDisplayItemAt(index: index)
+    public func objectAtIndex(index: Int, viewed: Bool = true) -> PFObject {
+        if viewed {
+            didDisplayItemAt(index: index)
+        }
         return dataSource[index]
     }
     

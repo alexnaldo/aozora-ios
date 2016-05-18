@@ -73,7 +73,13 @@ class ProfileViewController: BaseThreadViewController {
         segmentedControlView?.hidden = true
         
         if userProfile == nil && username == nil {
-            userProfile = User.currentUser()!
+            if let currentUser = User.currentUser() {
+                self.userProfile = currentUser
+            } else {
+                WorkflowController.logoutUser()
+                WorkflowController.presentOnboardingController(true)
+            }
+
             segmentedControl.selectedIndex = SelectedFeed.Feed.rawValue
         } else {
             segmentedControl.selectedIndex = SelectedFeed.Me.rawValue
@@ -408,12 +414,13 @@ class ProfileViewController: BaseThreadViewController {
                 let aozoraAccount = User(outDataWithObjectId: "bR0DT6mStO")
                 let darkciriusAccount = User(outDataWithObjectId: "Bt5dy11isC")
                 let allUsers2 = allUsers+[aozoraAccount, darkciriusAccount]
-                query.whereKey("postedBy", containedIn: allUsers2)
+                query.whereKey("userTimeline", containedIn: allUsers2)
             } else {
                 let followingQuery = userProfile!.following().query()
                 followingQuery.orderByDescending("activeStart")
+                followingQuery.selectKeys(["objectId"])
                 followingQuery.limit = 1000
-                queryBatch.whereQuery(query, matchesKey: "postedBy", onQuery: followingQuery)
+                queryBatch.whereQuery(query, matchesKey: "userTimeline", onQuery: followingQuery)
             }
 
         case .Popular:

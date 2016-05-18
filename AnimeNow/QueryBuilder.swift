@@ -56,7 +56,7 @@ class QueryBatch {
     var result: [PFQuery: [PFObject]] = [:]
     private var leftQueries: [QueryBuilder] = []
 
-    func executeQueries(queries: [PFQuery]) -> BFTask {
+    func executeQueries(queries: [PFQuery], fetchedObjects: [PFObject] = []) -> BFTask {
 
         for query in queries {
             addQuery(query)
@@ -70,7 +70,7 @@ class QueryBatch {
             let result = queries.flatMap{ query -> [PFObject] in
                 return self.result[query] ?? []
             }
-            return BFTask(result: result)
+            return BFTask(result: result + fetchedObjects)
         })
     }
 

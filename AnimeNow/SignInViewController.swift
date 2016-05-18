@@ -16,7 +16,7 @@
 
 import Foundation
 import ANCommonKit
-
+import ParseFacebookUtilsV4
 
 protocol SignInViewControllerDelegate: class {
     func signInViewControllerLoggedIn()
@@ -58,6 +58,10 @@ class SignInViewController: UIViewController {
                 // The login failed. Check error to see why.
                 self.loginWithUsername(username, password: password)
             } else {
+                // Unlink if the user successfuly logged in without facebook
+                if let user = user {
+                    PFFacebookUtils.unlinkUserInBackground(user)
+                }
                 self.view.endEditing(true)
                 self.dismissViewControllerAnimated(true, completion: { () -> Void in
                     self.delegate?.signInViewControllerLoggedIn()

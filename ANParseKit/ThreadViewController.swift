@@ -22,6 +22,18 @@ class ThreadViewController: BaseThreadViewController {
         case .Timeline, .Post:
             // Fetch posts, if not a thread
             fetchPosts()
+            var title = ""
+            if let timelinePost = timelinePost
+                where threadType == .Timeline && !timelinePost.userTimeline.isTheCurrentUser() {
+                    title = "Profile"
+            } else if threadType == .Post {
+                title = "Post"
+            }
+
+            if case .ThreadDetail(let showViewParentPostButton) = threadConfiguration where showViewParentPostButton {
+                navigationItem.rightBarButtonItem = UIBarButtonItem(title: title, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(showThread))
+            }
+
         case .Threads:
             break
         case .ThreadPosts, .Episode:
@@ -61,6 +73,21 @@ class ThreadViewController: BaseThreadViewController {
             }
         })
         
+    }
+
+    func showThread() {
+        switch threadType {
+        case .Timeline:
+            if let userTimeline = timelinePost?.userTimeline {
+                openProfileForUser(userTimeline)
+            }
+        case .Post:
+            if let thread = post?.thread {
+                showThreadPosts(thread)
+            }
+        default:
+            break
+        }
     }
 
     static func threadForEpisode(episode: Episode, anime: Anime) -> BFTask {
@@ -126,34 +153,31 @@ class ThreadViewController: BaseThreadViewController {
         switch threadType {
         case .Timeline, .Post:
 
-            if let timelinePost = timelinePost as? TimelinePost {
-                query = TimelinePost.query()!
-                query.whereKey("objectId", equalTo: timelinePost.objectId!)
-                query.includeKey("userTimeline")
-
-                repliesQuery = TimelinePost.query()!
-            } else if let post = post as? Post {
-                query = Post.query()!
-                print(post.objectId)
-                query.whereKey("objectId", equalTo: post.objectId!)
-
-                repliesQuery = Post.query()!
-            }
-
-            query.includeKey("postedBy")
-
             switch threadConfiguration {
             case .ThreadMain:
-                query.includeKey("lastReply")
-                query.includeKey("lastReply.postedBy")
-                return queryBatch.executeQueries([query])
+                return nil
             case .ThreadDetail:
+
+                if let _ = timelinePost as? TimelinePost {
+                    repliesQuery = TimelinePost.query()!
+                } else if let _ = post as? Post {
+                    repliesQuery = Post.query()!
+                }
+
                 repliesQuery.skip = 0
                 repliesQuery.orderByAscending("createdAt")
                 repliesQuery.includeKey("postedBy")
                 repliesQuery.limit = 2000
-                queryBatch.whereQuery(repliesQuery, matchesKey: "parentPost", onQuery: query)
-                return queryBatch.executeQueries([query, repliesQuery])
+
+                if let timelinePost = timelinePost as? TimelinePost {
+                    repliesQuery.whereKey("parentPost", equalTo: timelinePost)
+                    return queryBatch.executeQueries([repliesQuery], fetchedObjects: [timelinePost])
+                } else if let post = post as? Post {
+                    repliesQuery.whereKey("parentPost", equalTo: post)
+                    return queryBatch.executeQueries([repliesQuery], fetchedObjects: [post])
+                } else {
+                    return nil
+                }
             }
 
         case .Episode, .ThreadPosts:
@@ -194,14 +218,15 @@ class ThreadViewController: BaseThreadViewController {
                 navigationItem.title = "In " + post.thread.title
             }
 
-            // Scroll down to see the last post, 
-            // in the future change this for see more replies cell that will show new replies on the top
-            if !scrolledDownOnLoadOnce {
-                scrolledDownOnLoadOnce = true
-                let rows = tableView(tableView, numberOfRowsInSection: 0)
-                let lastIndexPath = NSIndexPath(forRow: rows - 1, inSection: 0)
-                tableView.scrollToRowAtIndexPath(lastIndexPath, atScrollPosition: .Bottom, animated: false)
-            }
+            // Not scrolling until we have a better plan for this2
+//            // Scroll down to see the last post, 
+//            // in the future change this for see more replies cell that will show new replies on the top
+//            if !scrolledDownOnLoadOnce {
+//                scrolledDownOnLoadOnce = true
+//                let rows = tableView(tableView, numberOfRowsInSection: 0)
+//                let lastIndexPath = NSIndexPath(forRow: rows - 1, inSection: 0)
+//                tableView.scrollToRowAtIndexPath(lastIndexPath, atScrollPosition: .Bottom, animated: false)
+//            }
         default:
             assertionFailure()
             break

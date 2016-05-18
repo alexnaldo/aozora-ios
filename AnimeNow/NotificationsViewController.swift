@@ -30,9 +30,7 @@ class NotificationsViewController: UIViewController {
         tableView.estimatedRowHeight = 112.0
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NotificationsViewController.fetchNotifications), name: "newNotification", object: nil)
-
-        delegate = tabBarController as! RootTabBar
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(fetchNotifications), name: "newNotification", object: nil)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -53,12 +51,11 @@ class NotificationsViewController: UIViewController {
         let query = Notification.query()!
         query.includeKey("lastTriggeredBy")
         query.includeKey("triggeredBy")
-        query.includeKey("subscribers")
         query.includeKey("owner")
         query.includeKey("readBy")
         query.whereKey("subscribers", containedIn: [currentUser])
         query.orderByDescending("lastUpdatedAt")
-        fetchController.configureWith(self, query: query, queryDelegate:self, tableView: tableView, limit: 50)
+        fetchController.configureWith(self, query: query, queryDelegate:self, tableView: tableView, limit: 30)
     }
     
     func clearAllPressed(sender: AnyObject) {
@@ -88,7 +85,7 @@ class NotificationsViewController: UIViewController {
         
         var unreadNotifications = 0
         for index in 0..<fetchController.dataCount() {
-            guard let notification = fetchController.objectAtIndex(index) as? Notification else {
+            guard let notification = fetchController.objectAtIndex(index, viewed: false) as? Notification else {
                 continue
             }
             if !notification.readBy.contains(currentUser) {

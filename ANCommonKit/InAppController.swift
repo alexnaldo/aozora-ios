@@ -12,10 +12,13 @@ import ANCommonKit
 // Aozora
 public let ProInAppPurchase = "com.anytap.Aozora.Pro"
 public let ProPlusInAppPurchase = "com.anytap.Aozora.ProPlus"
+public let ChangeUsernameInAppPurchase = "com.anytap.Aozora.ChangeUsername"
 
 // AnimeTrakr
 public let ATPurchaseIDAnimeTrakrPRO = "com.EverFox.AnimeTrakr.AnimeTrakr" // PRO+
 public let ATPurchaseIDCheckIn = "com.EverFox.AnimeTrakr.CheckIn" // PRO
+public let ATChangeUsernameInAppPurchase = "com.EverFox.AnimeTrakr.ChangeUsername"
+
 // AnimeTrakr Deprecated
 public let ATPurchaseIDAllFeatures = "com.EverFox.AnimeTrakr.AllFeatures" // PRO+
 public let ATPurchaseIDEpisodeFeed = "com.EverFox.AnimeTrakr.EpisodeFeed" // PRO
@@ -30,6 +33,10 @@ public class InAppController {
 
     public static var ProPlusIdentifier: String {
         return AppEnvironment.application() == .Aozora ? ProPlusInAppPurchase : ATPurchaseIDAnimeTrakrPRO
+    }
+
+    public static var ChangeUsernameIdentifier: String {
+        return AppEnvironment.application() == .Aozora ? ChangeUsernameInAppPurchase : ATChangeUsernameInAppPurchase
     }
 
     public class func canDisplayAds() -> Bool {
