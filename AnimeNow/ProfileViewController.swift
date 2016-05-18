@@ -73,7 +73,13 @@ class ProfileViewController: BaseThreadViewController {
         segmentedControlView?.hidden = true
         
         if userProfile == nil && username == nil {
-            userProfile = User.currentUser()!
+            if let currentUser = User.currentUser() {
+                self.userProfile = currentUser
+            } else {
+                WorkflowController.logoutUser()
+                WorkflowController.presentOnboardingController(true)
+            }
+
             segmentedControl.selectedIndex = SelectedFeed.Feed.rawValue
         } else {
             segmentedControl.selectedIndex = SelectedFeed.Me.rawValue
