@@ -123,22 +123,23 @@ class ForumsViewController: BaseThreadViewController {
 
         sortingButton.hidden = false
 
-        if cachedGlobalThreads.isEmpty {
-            let pinnedQuery = Thread.query()!
-            pinnedQuery.whereKey("pinType", equalTo: "global")
-            pinnedQuery.includeKey("tags")
-            pinnedQuery.includeKey("lastPostedBy")
-            pinnedQuery.includeKey("startedBy")
-            pinnedQuery.includeKey("postedBy")
-            pinnedQuery.findObjectsInBackgroundWithBlock { (result, error) -> Void in
-                if let pinnedData = result as? [Thread] {
-                    self.cachedGlobalThreads = pinnedData
-                    self.fetchThreadDetails(pinnedData)
-                }
-            }
-        } else {
-            self.fetchThreadDetails(cachedGlobalThreads)
-        }
+        // Not using global threads for now
+//        if cachedGlobalThreads.isEmpty {
+//            let pinnedQuery = Thread.query()!
+//            pinnedQuery.whereKey("pinType", equalTo: "global")
+//            pinnedQuery.includeKey("tags")
+//            pinnedQuery.includeKey("lastPostedBy")
+//            pinnedQuery.includeKey("startedBy")
+//            pinnedQuery.includeKey("postedBy")
+//            pinnedQuery.findObjectsInBackgroundWithBlock { (result, error) -> Void in
+//                if let pinnedData = result as? [Thread] {
+//                    self.cachedGlobalThreads = pinnedData
+//                    self.fetchThreadDetails(pinnedData)
+//                }
+//            }
+//        } else {
+            fetchThreadDetails(cachedGlobalThreads)
+//        }
     }
 
     func fetchThreadDetails(pinnedThreads: [Thread]) {
