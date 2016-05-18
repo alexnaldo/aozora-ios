@@ -1345,11 +1345,14 @@ extension BaseThreadViewController: FetchControllerQueryDelegate {
                 uniquePosts.append(post)
             }
         }
-        
-        for post in uniquePosts {
-            let postReplies = replies.filter({ ($0["parentPost"] as! PFObject) == post }) as [PFObject]
-            let postable = post as! Commentable
-            postable.replies = postReplies
+
+        if !replies.isEmpty {
+            // Only update if replies were fetched
+            for post in uniquePosts {
+                let postReplies = replies.filter({ ($0["parentPost"] as! PFObject) == post }) as [PFObject]
+                let postable = post as! Commentable
+                postable.replies = postReplies
+            }
         }
 
         return uniquePosts
