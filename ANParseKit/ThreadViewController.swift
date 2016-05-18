@@ -214,14 +214,15 @@ class ThreadViewController: BaseThreadViewController {
                 navigationItem.title = "In " + post.thread.title
             }
 
-            // Scroll down to see the last post, 
-            // in the future change this for see more replies cell that will show new replies on the top
-            if !scrolledDownOnLoadOnce {
-                scrolledDownOnLoadOnce = true
-                let rows = tableView(tableView, numberOfRowsInSection: 0)
-                let lastIndexPath = NSIndexPath(forRow: rows - 1, inSection: 0)
-                tableView.scrollToRowAtIndexPath(lastIndexPath, atScrollPosition: .Bottom, animated: false)
-            }
+            // Not scrolling until we have a better plan for this
+//            // Scroll down to see the last post, 
+//            // in the future change this for see more replies cell that will show new replies on the top
+//            if !scrolledDownOnLoadOnce {
+//                scrolledDownOnLoadOnce = true
+//                let rows = tableView(tableView, numberOfRowsInSection: 0)
+//                let lastIndexPath = NSIndexPath(forRow: rows - 1, inSection: 0)
+//                tableView.scrollToRowAtIndexPath(lastIndexPath, atScrollPosition: .Bottom, animated: false)
+//            }
         default:
             assertionFailure()
             break
