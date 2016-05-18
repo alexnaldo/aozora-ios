@@ -1,24 +1,28 @@
 upcoming:
-- GIFs use a lot less memory.
-- See who liked your posts.
-- Popular section on profile is now working.
-- Favorite anime!
-- See list of favorite anime.
-- See watched total watched time in library.
-- Forums now have an anime; episode; videos; links and fan club main sections.
-- Sort posts by popular or new.
-- Added like counters to threads.
-- Sorting forum threads using Reddit's ranking.
-- Better link embedding support.
-- Embedding links on forums.
-- Added real time support for timeline posts and forum posts.
-- Mute notifications from lock screen or iOS notifications panel.
-- Showing notification count as badge icon.
-- New announcements section on activity. (ex notification view)
-- Expand profile and banner image.
-- New layouts for anime details; profile; posts; user lists; forum and public library.
-- NOTE > Comment counts and like counts might not be accurate. This will be accurate when all users update. This also affects popular section (which won't show new posts)
+- Many improvements!
 
+releases:
+- version: 5.7.6
+  date: May 15 2016
+  notes:
+  - GIFs use a lot less memory.
+  - See who liked your posts.
+  - Popular section on profile is now working.
+  - Favorite anime!
+  - See list of favorite anime.
+  - See watched total watched time in library.
+  - Forums now have an anime; episode; videos; links and fan club main sections.
+  - Sort posts by popular or new.
+  - Added like counters to threads.
+  - Sorting forum threads using Reddit's ranking.
+  - Better link embedding support.
+  - Embedding links on forums.
+  - Added real time support for timeline posts and forum posts.
+  - Mute notifications from lock screen or iOS notifications panel.
+  - Showing notification count as badge icon.
+  - New announcements section on activity. (ex notification view)
+  - Expand profile and banner image.
+  - New layouts for anime details; profile; posts; user lists; forum and public library.
 
 releases:
 - version: 5.7.5
