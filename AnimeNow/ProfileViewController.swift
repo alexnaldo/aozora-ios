@@ -412,6 +412,7 @@ class ProfileViewController: BaseThreadViewController {
             } else {
                 let followingQuery = userProfile!.following().query()
                 followingQuery.orderByDescending("activeStart")
+                followingQuery.selectKeys(["objectId"])
                 followingQuery.limit = 1000
                 queryBatch.whereQuery(query, matchesKey: "postedBy", onQuery: followingQuery)
             }
