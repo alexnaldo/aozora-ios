@@ -29,7 +29,11 @@ class ThreadViewController: BaseThreadViewController {
             } else if threadType == .Post {
                 title = "Post"
             }
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: title, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(showThread))
+
+            if case .ThreadDetail(let showViewParentPostButton) = threadConfiguration where showViewParentPostButton {
+                navigationItem.rightBarButtonItem = UIBarButtonItem(title: title, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(showThread))
+            }
+
         case .Threads:
             break
         case .ThreadPosts, .Episode:
@@ -214,7 +218,7 @@ class ThreadViewController: BaseThreadViewController {
                 navigationItem.title = "In " + post.thread.title
             }
 
-            // Not scrolling until we have a better plan for this
+            // Not scrolling until we have a better plan for this2
 //            // Scroll down to see the last post, 
 //            // in the future change this for see more replies cell that will show new replies on the top
 //            if !scrolledDownOnLoadOnce {

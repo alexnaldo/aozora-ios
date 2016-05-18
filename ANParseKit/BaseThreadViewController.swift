@@ -12,7 +12,7 @@ import TTTAttributedLabel
 import XCDYouTubeKit
 
 enum ThreadConfiguration {
-    case ThreadDetail
+    case ThreadDetail(showViewParentPostButton: Bool)
     case ThreadMain
 }
 
@@ -282,7 +282,7 @@ class BaseThreadViewController: UIViewController {
     func showPostReplies(post: Postable) {
         if let post = post as? Commentable {
             let notificationThread = Storyboard.threadViewController()
-            notificationThread.initWithPost(post, threadConfiguration: .ThreadDetail)
+            notificationThread.initWithPost(post, threadConfiguration: .ThreadDetail(showViewParentPostButton: false))
             navigationController?.pushViewController(notificationThread, animated: true)
         } else if let thread = post as? Thread {
             showThreadPosts(thread)
