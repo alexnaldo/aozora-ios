@@ -30,9 +30,7 @@ class NotificationsViewController: UIViewController {
         tableView.estimatedRowHeight = 112.0
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NotificationsViewController.fetchNotifications), name: "newNotification", object: nil)
-
-        delegate = tabBarController as! RootTabBar
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(fetchNotifications), name: "newNotification", object: nil)
     }
     
     override func viewWillDisappear(animated: Bool) {

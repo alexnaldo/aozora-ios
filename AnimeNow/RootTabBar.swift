@@ -62,6 +62,7 @@ public class RootTabBar: UITabBarController {
     func checkIfThereAreNotifications() {
         if let navController = viewControllers![3] as? UINavigationController,
             let notificationVC = navController.viewControllers.first as? BaseNotificationViewController {
+            notificationVC.notifications.delegate = self
             notificationVC.fetchNotifications()
         }
     }
