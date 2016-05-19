@@ -135,7 +135,6 @@ public class NewPostViewController: CommentViewController {
         var saveTask: BFTask?
 
         if let parentPost = parentPost as? TimelinePost {
-            parentPost.addUniqueObject(postedBy!, forKey: "subscribers")
             parentPost.lastReply = timelinePost
             parentPost.incrementReplyCount(byAmount: 1)
             saveTask = parentPost.saveInBackground()
@@ -220,7 +219,6 @@ public class NewPostViewController: CommentViewController {
         var saveTask: BFTask?
 
         if let parentPost = parentPost as? Post {
-            parentPost.addUniqueObject(postedBy!, forKey: "subscribers")
             parentPost.incrementReplyCount(byAmount: 1)
             parentPost.lastReply = post
             saveTask = parentPost.saveInBackground()

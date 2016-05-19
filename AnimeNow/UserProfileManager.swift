@@ -125,15 +125,8 @@ public class UserProfileManager: NSObject {
                     userDetails.avatarRegular = self.avatarRegularImageToPFFile(avatar)
                 }
                 userDetails.about = ""
-                userDetails.planningAnimeCount = 0
-                userDetails.watchingAnimeCount = 0
-                userDetails.completedAnimeCount = 0
-                userDetails.onHoldAnimeCount = 0
-                userDetails.droppedAnimeCount = 0
-                userDetails.gender = "Not specified"
                 userDetails.joinDate = NSDate()
                 userDetails.posts = 0
-                userDetails.watchedTime = 0.0
                 user.details = userDetails
                 
                 if createdWithFacebook {

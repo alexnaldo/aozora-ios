@@ -38,7 +38,6 @@ public protocol Postable: class {
 
     // Implemented on protocol extension
     var postedBy: User? { get set }
-    var subscribers: [User] { get set }
     var likedBy: [User]? { get set }
     var lastReply: PFObject? { get set }
 
@@ -93,15 +92,6 @@ extension Postable where Self: PFObject {
         }
         set(value) {
             self["postedBy"] = value
-        }
-    }
-    
-    public var subscribers: [User] {
-        get {
-            return self["subscribers"] as! [User]
-        }
-        set(value) {
-            self["subscribers"] = value
         }
     }
     

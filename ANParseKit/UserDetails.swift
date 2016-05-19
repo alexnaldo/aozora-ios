@@ -23,15 +23,8 @@ public class UserDetails: PFObject, PFSubclassing {
     }
     
     @NSManaged public var about: String
-    @NSManaged public var gender: String
-    @NSManaged public var planningAnimeCount: Int
-    @NSManaged public var watchingAnimeCount: Int
-    @NSManaged public var completedAnimeCount: Int
-    @NSManaged public var droppedAnimeCount: Int
-    @NSManaged public var onHoldAnimeCount: Int
     @NSManaged public var joinDate: NSDate
     @NSManaged public var posts: Int
-    @NSManaged public var watchedTime: Double
     @NSManaged public var avatarRegular: PFFile?
     @NSManaged public var banner: PFFile?
     @NSManaged public var mutedUntil: NSDate?
