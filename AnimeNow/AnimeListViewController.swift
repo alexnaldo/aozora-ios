@@ -9,6 +9,7 @@
 import UIKit
 import ANCommonKit
 import XLPagerTabStrip
+import DZNEmptyDataSet
 
 protocol AnimeListControllerDelegate: class {
     func controllerRequestRefresh() -> BFTask
@@ -51,11 +52,13 @@ class AnimeListViewController: UIViewController {
         }
     }
     var refreshControl = UIRefreshControl()
-    
+    var setList = false
     var animeList: [Anime] = [] {
         didSet {
             if collectionView != nil {
+                setList = true
                 collectionView.reloadData()
+                collectionView.reloadEmptyDataSet()
             }
         }
     }
@@ -345,10 +348,28 @@ extension AnimeListViewController: RateViewControllerProtocol {
     }
 }
 
-
+// MARK: - IndicatorInfoProvider
 extension AnimeListViewController: IndicatorInfoProvider {
-
     func indicatorInfoForPagerTabStrip(pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
         return IndicatorInfo(title: animeListType.rawValue)
+    }
+}
+
+// MARK: - DZNEmptyDataSetSource
+extension AnimeListViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+    func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        return NSMutableAttributedString().add("Empty List")
+    }
+
+    func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        if animeListType == .Watching {
+            return NSMutableAttributedString().add("Press the search button to add a new anime to this!")
+        } else {
+            return nil
+        }
+    }
+
+    func emptyDataSetShouldDisplay(scrollView: UIScrollView!) -> Bool {
+        return setList
     }
 }

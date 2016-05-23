@@ -40,7 +40,10 @@ class AnimeLibraryViewController: ButtonBarPagerTabStripViewController {
     var allAnimeLists: [AnimeList] = [.Watching, .Planning, .OnHold, .Completed, .Dropped]
     var listControllers: [AnimeListViewController] = []
     
-    var loadingView: LoaderView!
+    lazy var loadingView: LoaderView = {
+        return LoaderView(parentView: self.view)
+    }()
+    
     var libraryController = LibraryController.sharedInstance
     var animator: ZFModalTransitionAnimator!
 
@@ -103,7 +106,6 @@ class AnimeLibraryViewController: ButtonBarPagerTabStripViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        loadingView = LoaderView(parentView: view)
         loadingView.startAnimating()
 
         buttonBarView.selectedBar.backgroundColor = UIColor.watching()
