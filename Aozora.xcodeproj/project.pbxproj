@@ -53,6 +53,8 @@
 		DA354B5A1C5DF58F008C729F /* TodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA354B591C5DF58F008C729F /* TodayCell.swift */; };
 		DA354B611C5EC890008C729F /* AnimeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA354B601C5EC890008C729F /* AnimeData.swift */; };
 		DA35B9951B7402F000C0AAC7 /* UISearchBar+Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA35B9941B7402F000C0AAC7 /* UISearchBar+Appearance.swift */; };
+		DA4122451CF3B44B0079E37A /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4122441CF3B44B0079E37A /* Report.swift */; };
+		DA4122461CF3B44B0079E37A /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4122441CF3B44B0079E37A /* Report.swift */; };
 		DA421E271CC3795500732C14 /* NSMutableAttributedStringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA421E261CC3795500732C14 /* NSMutableAttributedStringExtensions.swift */; };
 		DA421E281CC3795500732C14 /* NSMutableAttributedStringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA421E261CC3795500732C14 /* NSMutableAttributedStringExtensions.swift */; };
 		DA4AF8BA1B276E060020252E /* ANCommonKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DA4AF8B91B276E060020252E /* ANCommonKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -692,6 +694,7 @@
 		DA38A98E1B223F1F002FCBB4 /* BasicTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicTableCell.swift; sourceTree = "<group>"; };
 		DA38A9901B224960002FCBB4 /* BasicView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicView.swift; sourceTree = "<group>"; };
 		DA3B61D81B4F59E700A3F7BA /* InAppPurchaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InAppPurchaseController.swift; sourceTree = "<group>"; };
+		DA4122441CF3B44B0079E37A /* Report.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		DA4167991B25F1BF00847F56 /* AnimeNow-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AnimeNow-Bridging-Header.h"; sourceTree = "<group>"; };
 		DA41679A1B25F76F00847F56 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
 		DA4167A41B2646F900847F56 /* BasicCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCollectionCell.swift; sourceTree = "<group>"; };
@@ -1645,6 +1648,7 @@
 				DAD67DFC1B726724000BB325 /* User.swift */,
 				DA03F1591B8B47FA00402AC4 /* ThreadTag.swift */,
 				DA1340AA1B9E11A10073C6EF /* Notification.swift */,
+				DA4122441CF3B44B0079E37A /* Report.swift */,
 			);
 			name = Models;
 			path = ../ANParseKit;
@@ -2837,6 +2841,7 @@
 				DA6B548F1CC2DFBD00EB6FC0 /* AnimeBrowserViewController.swift in Sources */,
 				DA6B54901CC2DFBD00EB6FC0 /* String+Utils.swift in Sources */,
 				DA6B54911CC2DFBD00EB6FC0 /* String+Validations.swift in Sources */,
+				DA4122451CF3B44B0079E37A /* Report.swift in Sources */,
 				DA6B54921CC2DFBD00EB6FC0 /* StringFormatter.swift in Sources */,
 				DA6B54931CC2DFBD00EB6FC0 /* Anime.swift in Sources */,
 				DA6B54941CC2DFBD00EB6FC0 /* UserProfileManager.swift in Sources */,
@@ -2974,6 +2979,7 @@
 				DA32EBE81C6AB6D70090CD51 /* AnimeBrowserViewController.swift in Sources */,
 				DA2991F81C6DD10900CCB04D /* String+Utils.swift in Sources */,
 				DA2991F31C6DD10900CCB04D /* String+Validations.swift in Sources */,
+				DA4122461CF3B44B0079E37A /* Report.swift in Sources */,
 				DA32EBE21C6A87720090CD51 /* StringFormatter.swift in Sources */,
 				DA2991D71C6DD10500CCB04D /* Anime.swift in Sources */,
 				DAA576CD1C66EC2D007E81E6 /* UserProfileManager.swift in Sources */,

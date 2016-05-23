@@ -394,17 +394,22 @@ class BaseThreadViewController: UIViewController {
         }
 
         let administrating = currentUser.isAdmin() && !postedBy.isAdmin() || currentUser.isTopAdmin()
-        let isCurrentUserOrAdministrating = postedBy.isTheCurrentUser() || administrating
-        if let postedBy = post.postedBy where isCurrentUserOrAdministrating {
-            if let post = post as? Commentable {
-                showEditPostActionSheet(administrating, canEdit: true, canDelete: true, cell: cell, postedBy: postedBy, currentUser: currentUser, post: post, parentPost: parentPost)
-            } else if let thread = post as? Thread {
-                showEditThreadActionSheet(thread, cell: cell)
-            }
+
+        var canEdit = false
+        var canDelete = false
+        if postedBy.isTheCurrentUser() || administrating {
+            canEdit = true
+            canDelete = true
+        }
+
+        if let post = post as? Commentable {
+            showEditPostActionSheet(administrating, canEdit: canEdit, canDelete: canDelete, cell: cell, postedBy: postedBy, currentUser: currentUser, post: post, parentPost: parentPost)
+        } else if let thread = post as? Thread {
+            showEditThreadActionSheet(thread, cell: cell, canEdit: canEdit, canDelete: canDelete)
         }
     }
 
-    func showEditThreadActionSheet(thread: Thread, cell: UITableViewCell) {
+    func showEditThreadActionSheet(thread: Thread, cell: UITableViewCell, canEdit: Bool, canDelete: Bool) {
 
         guard let currentUser = User.currentUser() else {
             return
@@ -421,13 +426,15 @@ class BaseThreadViewController: UIViewController {
         alert.popoverPresentationController?.sourceView = cell.superview
         alert.popoverPresentationController?.sourceRect = cell.frame
 
-        alert.addAction(UIAlertAction(title: "Edit", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction!) -> Void in
-            let comment = Storyboard.newThreadViewController()
-            comment.initWith(thread, threadType: self.threadType, delegate: self, editingPost: thread)
-            self.animator = self.presentViewControllerModal(comment)
-        }))
+        if canEdit {
+            alert.addAction(UIAlertAction(title: "Edit", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction!) -> Void in
+                let comment = Storyboard.newThreadViewController()
+                comment.initWith(thread, threadType: self.threadType, delegate: self, editingPost: thread)
+                self.animator = self.presentViewControllerModal(comment)
+            }))
+        }
 
-        if User.currentUser()!.isAdmin() {
+        if administrating {
             let locked = thread.locked
             alert.addAction(UIAlertAction(title: locked ? "Unlock" : "Lock", style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction!) -> Void in
                 thread.locked = !locked
@@ -487,35 +494,42 @@ class BaseThreadViewController: UIViewController {
 
         }
 
-        alert.addAction(UIAlertAction(title: "Delete", style: UIAlertActionStyle.Destructive, handler: { (alertAction: UIAlertAction!) -> Void in
+        if canDelete {
+            alert.addAction(UIAlertAction(title: "Delete", style: UIAlertActionStyle.Destructive, handler: { (alertAction: UIAlertAction!) -> Void in
 
-            let childPostsQuery = Post.query()!
-            childPostsQuery.whereKey("thread", equalTo: thread)
-            childPostsQuery.includeKey("postedBy")
-            childPostsQuery.findObjectsInBackgroundWithBlock({ (result, error) -> Void in
-                if let result = result {
+                let childPostsQuery = Post.query()!
+                childPostsQuery.whereKey("thread", equalTo: thread)
+                childPostsQuery.includeKey("postedBy")
+                childPostsQuery.findObjectsInBackgroundWithBlock({ (result, error) -> Void in
+                    if let result = result {
 
-                    PFObject.deleteAllInBackground(result+[thread], block: { (success, error) -> Void in
-                        if let _ = error {
-                            // Show some error
-                        } else {
-                            thread.postedBy?.incrementPostCount(-1)
-                            if !thread.isForumGame {
-                                for post in result {
-                                    (post["postedBy"] as? User)?.incrementPostCount(-1)
+                        PFObject.deleteAllInBackground(result+[thread], block: { (success, error) -> Void in
+                            if let _ = error {
+                                // Show some error
+                            } else {
+                                thread.postedBy?.incrementPostCount(-1)
+                                if !thread.isForumGame {
+                                    for post in result {
+                                        (post["postedBy"] as? User)?.incrementPostCount(-1)
+                                    }
                                 }
+
+                                self.navigationController?.popViewControllerAnimated(true)
                             }
+                        })
+                        
+                    } else {
+                        // TODO: Show error
+                    }
+                })
+            }))
+        }
 
-                            self.navigationController?.popViewControllerAnimated(true)
-                        }
-                    })
+        alert.addAction(UIAlertAction(title: "Report Content", style: UIAlertActionStyle.Destructive, handler: { (alertAction: UIAlertAction!) -> Void in
 
-                } else {
-                    // TODO: Show error
-                }
-            })
+            Report.reportObjectID(thread.objectId, className: "Thread", reportedBy: currentUser)
+            self.presentAlertWithTitle("Report Sent!", message: "The report will be reviewed by an admin and deleted/updated if needed.")
         }))
-
 
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler:nil))
 
@@ -581,6 +595,17 @@ class BaseThreadViewController: UIViewController {
                 }
             }))
         }
+
+        alert.addAction(UIAlertAction(title: "Report Content", style: UIAlertActionStyle.Destructive, handler: { (alertAction: UIAlertAction!) -> Void in
+
+            if let post = post as? Post {
+                Report.reportObjectID(post.objectId, className: "Post", reportedBy: currentUser)
+            } else if let post = post as? TimelinePost {
+                Report.reportObjectID(post.objectId, className: "TimelinePost", reportedBy: currentUser)
+            }
+
+            self.presentAlertWithTitle("Report Sent!", message: "The report will be reviewed by an admin and deleted/updated if needed.")
+        }))
 
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler:nil))
 

@@ -70,6 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AnimeProgress.registerSubclass()
         ThreadTag.registerSubclass()
         Notification.registerSubclass()
+        Report.registerSubclass()
 
         let configuration = ParseClientConfiguration {
             $0.applicationId = AozoraKeys().parseApplicationId()
