@@ -10,6 +10,7 @@
 		34A4AEC1BCF98047FF2F140A /* Pods_AozoraProject_AppPods_AnimeTrakr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8ECB01545912F696222BE59 /* Pods_AozoraProject_AppPods_AnimeTrakr.framework */; };
 		3EC6AEFF6960114A93557A0B /* Pods_AozoraWatching.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C81E12E57DA29EC33C95A2DC /* Pods_AozoraWatching.framework */; };
 		9C30DF9369E7DF3E8BD2ABE5 /* Pods_AozoraProject_AppPods_Aozora.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02F317D5AD9092712CF97656 /* Pods_AozoraProject_AppPods_Aozora.framework */; };
+		B0FD84D324312203A7D7BAFE /* Pods_AozoraProject_AppPods_AozoraChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B4A2440027525817993D025 /* Pods_AozoraProject_AppPods_AozoraChat.framework */; };
 		C95FD52214C71903EF457966 /* Pods_AnimeTrakrWatching.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B61C4C32689D309FEAD93A8A /* Pods_AnimeTrakrWatching.framework */; };
 		DA0B261A1B758C1D00A770AE /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0B26091B7514A400A770AE /* UIViewController+Alert.swift */; };
 		DA0B261C1B758CED00A770AE /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC077961B68670C0067DA90 /* UIImage+Resize.swift */; };
@@ -464,6 +465,13 @@
 		DAD7AEBB1CC4BADA00BB2FBD /* RecommendationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD7AEB91CC4BADA00BB2FBD /* RecommendationsViewController.swift */; };
 		DAE43C3A1B2F971800C3092D /* UIView+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE43C391B2F971800C3092D /* UIView+Animation.swift */; };
 		DAE507321CB76EB8003E216F /* SpacerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE507301CB76D1E003E216F /* SpacerLabel.swift */; };
+		DAEE39D01CEE8EBC00522ED0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEE39CF1CEE8EBC00522ED0 /* AppDelegate.swift */; };
+		DAEE39D21CEE8EBC00522ED0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEE39D11CEE8EBC00522ED0 /* ViewController.swift */; };
+		DAEE39D51CEE8EBC00522ED0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAEE39D31CEE8EBC00522ED0 /* Main.storyboard */; };
+		DAEE39D71CEE8EBC00522ED0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAEE39D61CEE8EBC00522ED0 /* Assets.xcassets */; };
+		DAEE39DA1CEE8EBC00522ED0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAEE39D81CEE8EBC00522ED0 /* LaunchScreen.storyboard */; };
+		DAEE39E51CEE8EBC00522ED0 /* AozoraChatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEE39E41CEE8EBC00522ED0 /* AozoraChatTests.swift */; };
+		DAEE39F01CEE8EBC00522ED0 /* AozoraChatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEE39EF1CEE8EBC00522ED0 /* AozoraChatUITests.swift */; };
 		DAF001401CD2C6AB00452DBA /* Tribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF0013F1CD2C6AB00452DBA /* Tribute.swift */; };
 		DAF001411CD2C6AB00452DBA /* Tribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF0013F1CD2C6AB00452DBA /* Tribute.swift */; };
 		DAF001431CD2D29000452DBA /* FriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF001421CD2D29000452DBA /* FriendsController.swift */; };
@@ -533,6 +541,20 @@
 			remoteGlobalIDString = DAA577321C66EFCA007E81E6;
 			remoteInfo = AnimeTrakrWatching;
 		};
+		DAEE39E11CEE8EBC00522ED0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA27D1891AF1BA9D00CC854E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DAEE39CC1CEE8EBC00522ED0;
+			remoteInfo = AozoraChat;
+		};
+		DAEE39EC1CEE8EBC00522ED0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA27D1891AF1BA9D00CC854E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DAEE39CC1CEE8EBC00522ED0;
+			remoteInfo = AozoraChat;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -592,9 +614,11 @@
 		1D486C06F6FE888DD6EB06FC /* Pods-AozoraProject-ANCommonKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AozoraProject-ANCommonKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AozoraProject-ANCommonKit/Pods-AozoraProject-ANCommonKit.debug.xcconfig"; sourceTree = "<group>"; };
 		23F31E8C5F78AEA9A1189FB4 /* Pods-AozoraProject-AnimeTrakr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AozoraProject-AnimeTrakr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AozoraProject-AnimeTrakr/Pods-AozoraProject-AnimeTrakr.debug.xcconfig"; sourceTree = "<group>"; };
 		27F9F148B584D01F4F06E0B6 /* Pods-AozoraProject-AppPods-Aozora.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AozoraProject-AppPods-Aozora.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AozoraProject-AppPods-Aozora/Pods-AozoraProject-AppPods-Aozora.debug.xcconfig"; sourceTree = "<group>"; };
+		2B4A2440027525817993D025 /* Pods_AozoraProject_AppPods_AozoraChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AozoraProject_AppPods_AozoraChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		35CE12FA3E8C862E7F906B22 /* Pods-AnimeTrakrWatching.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnimeTrakrWatching.release.xcconfig"; path = "Pods/Target Support Files/Pods-AnimeTrakrWatching/Pods-AnimeTrakrWatching.release.xcconfig"; sourceTree = "<group>"; };
 		36AF3843C053404581017211 /* Pods-AozoraWatching.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AozoraWatching.release.xcconfig"; path = "Pods/Target Support Files/Pods-AozoraWatching/Pods-AozoraWatching.release.xcconfig"; sourceTree = "<group>"; };
 		48CFB5FBC466D2163E5D34BD /* Pods-AozoraProject-AnimeTrakrWatching.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AozoraProject-AnimeTrakrWatching.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AozoraProject-AnimeTrakrWatching/Pods-AozoraProject-AnimeTrakrWatching.debug.xcconfig"; sourceTree = "<group>"; };
+		5155A5778BD2D01056F435D0 /* Pods-AozoraProject-AppPods-AozoraChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AozoraProject-AppPods-AozoraChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-AozoraProject-AppPods-AozoraChat/Pods-AozoraProject-AppPods-AozoraChat.release.xcconfig"; sourceTree = "<group>"; };
 		621095FA74939A32BE08A534 /* Pods_Aozora.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aozora.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		646E6D676F901920678801E7 /* Pods-AozoraProject-AppPods-AnimeTrakr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AozoraProject-AppPods-AnimeTrakr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AozoraProject-AppPods-AnimeTrakr/Pods-AozoraProject-AppPods-AnimeTrakr.debug.xcconfig"; sourceTree = "<group>"; };
 		64729C7821A8BCC7D8A3F48F /* Pods-AozoraProject-AnimeTrakrWatching.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AozoraProject-AnimeTrakrWatching.release.xcconfig"; path = "Pods/Target Support Files/Pods-AozoraProject-AnimeTrakrWatching/Pods-AozoraProject-AnimeTrakrWatching.release.xcconfig"; sourceTree = "<group>"; };
@@ -603,6 +627,7 @@
 		8935D6130EE323E5E0C387C7 /* Pods-Aozora.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aozora.release.xcconfig"; path = "Pods/Target Support Files/Pods-Aozora/Pods-Aozora.release.xcconfig"; sourceTree = "<group>"; };
 		92D02D3288C7FEED7C102DF4 /* Pods_AozoraProject_AnimeTrakr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AozoraProject_AnimeTrakr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		93E0C0E47E2DF74385512FCE /* Pods-AozoraProject-ANCommonKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AozoraProject-ANCommonKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-AozoraProject-ANCommonKit/Pods-AozoraProject-ANCommonKit.release.xcconfig"; sourceTree = "<group>"; };
+		967040C20B158B83E072D190 /* Pods-AozoraProject-AppPods-AozoraChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AozoraProject-AppPods-AozoraChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AozoraProject-AppPods-AozoraChat/Pods-AozoraProject-AppPods-AozoraChat.debug.xcconfig"; sourceTree = "<group>"; };
 		9E54D100D6BDB7DFC39A48D0 /* Pods-Aozora.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aozora.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Aozora/Pods-Aozora.debug.xcconfig"; sourceTree = "<group>"; };
 		B23EA781BD0A076D4736EEAE /* Pods_AozoraProject_ANCommonKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AozoraProject_ANCommonKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B54134421583DBFAAFF105E1 /* Pods-AozoraProject-AppPods-AnimeTrakr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AozoraProject-AppPods-AnimeTrakr.release.xcconfig"; path = "Pods/Target Support Files/Pods-AozoraProject-AppPods-AnimeTrakr/Pods-AozoraProject-AppPods-AnimeTrakr.release.xcconfig"; sourceTree = "<group>"; };
@@ -867,6 +892,19 @@
 		DAE507301CB76D1E003E216F /* SpacerLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpacerLabel.swift; sourceTree = "<group>"; };
 		DAE64EEB1B73CCE4005A984A /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		DAE7A7181B2105FD00788614 /* AnimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimeCell.swift; sourceTree = "<group>"; };
+		DAEE39CD1CEE8EBC00522ED0 /* AozoraChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AozoraChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAEE39CF1CEE8EBC00522ED0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DAEE39D11CEE8EBC00522ED0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DAEE39D41CEE8EBC00522ED0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DAEE39D61CEE8EBC00522ED0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DAEE39D91CEE8EBC00522ED0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DAEE39DB1CEE8EBC00522ED0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DAEE39E01CEE8EBC00522ED0 /* AozoraChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AozoraChatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAEE39E41CEE8EBC00522ED0 /* AozoraChatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AozoraChatTests.swift; sourceTree = "<group>"; };
+		DAEE39E61CEE8EBC00522ED0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DAEE39EB1CEE8EBC00522ED0 /* AozoraChatUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AozoraChatUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAEE39EF1CEE8EBC00522ED0 /* AozoraChatUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AozoraChatUITests.swift; sourceTree = "<group>"; };
+		DAEE39F11CEE8EBC00522ED0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DAF0013F1CD2C6AB00452DBA /* Tribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tribute.swift; sourceTree = "<group>"; };
 		DAF001421CD2D29000452DBA /* FriendsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsController.swift; sourceTree = "<group>"; };
 		DAF06E4B1CC201C300B0D36C /* PostsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostsService.swift; sourceTree = "<group>"; };
@@ -1014,6 +1052,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DAEE39CA1CEE8EBC00522ED0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0FD84D324312203A7D7BAFE /* Pods_AozoraProject_AppPods_AozoraChat.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAEE39DD1CEE8EBC00522ED0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAEE39E81CEE8EBC00522ED0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -1044,6 +1104,8 @@
 				B54134421583DBFAAFF105E1 /* Pods-AozoraProject-AppPods-AnimeTrakr.release.xcconfig */,
 				27F9F148B584D01F4F06E0B6 /* Pods-AozoraProject-AppPods-Aozora.debug.xcconfig */,
 				0913971259521EE3AA177E34 /* Pods-AozoraProject-AppPods-Aozora.release.xcconfig */,
+				967040C20B158B83E072D190 /* Pods-AozoraProject-AppPods-AozoraChat.debug.xcconfig */,
+				5155A5778BD2D01056F435D0 /* Pods-AozoraProject-AppPods-AozoraChat.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1075,6 +1137,9 @@
 				DA4AF8B61B276E060020252E /* ANCommonKit */,
 				DA4AF8C51B276E060020252E /* ANCommonKitTests */,
 				DA354B441C5DF3C2008C729F /* AozoraWatching */,
+				DAEE39CE1CEE8EBC00522ED0 /* AozoraChat */,
+				DAEE39E31CEE8EBC00522ED0 /* AozoraChatTests */,
+				DAEE39EE1CEE8EBC00522ED0 /* AozoraChatUITests */,
 				DA27D1921AF1BA9D00CC854E /* Products */,
 				F4F69FB5D8335951A772F9AC /* Frameworks */,
 				C81F3CE4391021B2F86C74D1 /* Pods */,
@@ -1091,6 +1156,9 @@
 				DAA577301C66EC2D007E81E6 /* AnimeTrakr.app */,
 				DAA577421C66EFCA007E81E6 /* AnimeTrakrWatching.appex */,
 				DA6B55331CC2DFBD00EB6FC0 /* Aozora.app */,
+				DAEE39CD1CEE8EBC00522ED0 /* AozoraChat.app */,
+				DAEE39E01CEE8EBC00522ED0 /* AozoraChatTests.xctest */,
+				DAEE39EB1CEE8EBC00522ED0 /* AozoraChatUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1655,6 +1723,37 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		DAEE39CE1CEE8EBC00522ED0 /* AozoraChat */ = {
+			isa = PBXGroup;
+			children = (
+				DAEE39CF1CEE8EBC00522ED0 /* AppDelegate.swift */,
+				DAEE39D11CEE8EBC00522ED0 /* ViewController.swift */,
+				DAEE39D31CEE8EBC00522ED0 /* Main.storyboard */,
+				DAEE39D61CEE8EBC00522ED0 /* Assets.xcassets */,
+				DAEE39D81CEE8EBC00522ED0 /* LaunchScreen.storyboard */,
+				DAEE39DB1CEE8EBC00522ED0 /* Info.plist */,
+			);
+			path = AozoraChat;
+			sourceTree = "<group>";
+		};
+		DAEE39E31CEE8EBC00522ED0 /* AozoraChatTests */ = {
+			isa = PBXGroup;
+			children = (
+				DAEE39E41CEE8EBC00522ED0 /* AozoraChatTests.swift */,
+				DAEE39E61CEE8EBC00522ED0 /* Info.plist */,
+			);
+			path = AozoraChatTests;
+			sourceTree = "<group>";
+		};
+		DAEE39EE1CEE8EBC00522ED0 /* AozoraChatUITests */ = {
+			isa = PBXGroup;
+			children = (
+				DAEE39EF1CEE8EBC00522ED0 /* AozoraChatUITests.swift */,
+				DAEE39F11CEE8EBC00522ED0 /* Info.plist */,
+			);
+			path = AozoraChatUITests;
+			sourceTree = "<group>";
+		};
 		DAF0013E1CD2C6A200452DBA /* Tribute */ = {
 			isa = PBXGroup;
 			children = (
@@ -1778,6 +1877,7 @@
 				F89B5434AB9E0CC09B7840F7 /* Pods_AozoraProject_AozoraWatching.framework */,
 				F8ECB01545912F696222BE59 /* Pods_AozoraProject_AppPods_AnimeTrakr.framework */,
 				02F317D5AD9092712CF97656 /* Pods_AozoraProject_AppPods_Aozora.framework */,
+				2B4A2440027525817993D025 /* Pods_AozoraProject_AppPods_AozoraChat.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1823,6 +1923,7 @@
 				DA354B3F1C5DF3C2008C729F /* Resources */,
 				DAA576AF1C66DD76007E81E6 /* ShellScript */,
 				24CD7D7B9E17E78B60D74616 /* 📦 Copy Pods Resources */,
+				FDCB71202D3448ACB838AAE3 /* 📦 Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1934,6 +2035,7 @@
 				DAA5773A1C66EFCA007E81E6 /* Resources */,
 				DAA5773E1C66EFCA007E81E6 /* ShellScript */,
 				3406741112349F8C7609423D /* 📦 Copy Pods Resources */,
+				D6296733A36A9C1EAFD2E6C1 /* 📦 Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1945,6 +2047,62 @@
 			productReference = DAA577421C66EFCA007E81E6 /* AnimeTrakrWatching.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		DAEE39CC1CEE8EBC00522ED0 /* AozoraChat */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAEE39F81CEE8EBC00522ED0 /* Build configuration list for PBXNativeTarget "AozoraChat" */;
+			buildPhases = (
+				6B6A815FD815875AF6DE9549 /* 📦 Check Pods Manifest.lock */,
+				DAEE39C91CEE8EBC00522ED0 /* Sources */,
+				DAEE39CA1CEE8EBC00522ED0 /* Frameworks */,
+				DAEE39CB1CEE8EBC00522ED0 /* Resources */,
+				096AB489C30B9ECB2D88F2F6 /* 📦 Embed Pods Frameworks */,
+				0F0A15FC049039602B15BF42 /* 📦 Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AozoraChat;
+			productName = AozoraChat;
+			productReference = DAEE39CD1CEE8EBC00522ED0 /* AozoraChat.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DAEE39DF1CEE8EBC00522ED0 /* AozoraChatTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAEE39F91CEE8EBC00522ED0 /* Build configuration list for PBXNativeTarget "AozoraChatTests" */;
+			buildPhases = (
+				DAEE39DC1CEE8EBC00522ED0 /* Sources */,
+				DAEE39DD1CEE8EBC00522ED0 /* Frameworks */,
+				DAEE39DE1CEE8EBC00522ED0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DAEE39E21CEE8EBC00522ED0 /* PBXTargetDependency */,
+			);
+			name = AozoraChatTests;
+			productName = AozoraChatTests;
+			productReference = DAEE39E01CEE8EBC00522ED0 /* AozoraChatTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		DAEE39EA1CEE8EBC00522ED0 /* AozoraChatUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAEE39FA1CEE8EBC00522ED0 /* Build configuration list for PBXNativeTarget "AozoraChatUITests" */;
+			buildPhases = (
+				DAEE39E71CEE8EBC00522ED0 /* Sources */,
+				DAEE39E81CEE8EBC00522ED0 /* Frameworks */,
+				DAEE39E91CEE8EBC00522ED0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DAEE39ED1CEE8EBC00522ED0 /* PBXTargetDependency */,
+			);
+			name = AozoraChatUITests;
+			productName = AozoraChatUITests;
+			productReference = DAEE39EB1CEE8EBC00522ED0 /* AozoraChatUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1952,7 +2110,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftMigration = 0700;
-				LastSwiftUpdateCheck = 0720;
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = AnyTap;
 				TargetAttributes = {
@@ -1999,6 +2157,17 @@
 							};
 						};
 					};
+					DAEE39CC1CEE8EBC00522ED0 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					DAEE39DF1CEE8EBC00522ED0 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = DAEE39CC1CEE8EBC00522ED0;
+					};
+					DAEE39EA1CEE8EBC00522ED0 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = DAEE39CC1CEE8EBC00522ED0;
+					};
 				};
 			};
 			buildConfigurationList = DA27D18C1AF1BA9D00CC854E /* Build configuration list for PBXProject "Aozora" */;
@@ -2021,6 +2190,9 @@
 				DA4AF8BE1B276E060020252E /* ANCommonKitTests */,
 				DA354B401C5DF3C2008C729F /* AozoraWatching */,
 				DAA577321C66EFCA007E81E6 /* AnimeTrakrWatching */,
+				DAEE39CC1CEE8EBC00522ED0 /* AozoraChat */,
+				DAEE39DF1CEE8EBC00522ED0 /* AozoraChatTests */,
+				DAEE39EA1CEE8EBC00522ED0 /* AozoraChatUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -2181,9 +2353,63 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DAEE39CB1CEE8EBC00522ED0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAEE39DA1CEE8EBC00522ED0 /* LaunchScreen.storyboard in Resources */,
+				DAEE39D71CEE8EBC00522ED0 /* Assets.xcassets in Resources */,
+				DAEE39D51CEE8EBC00522ED0 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAEE39DE1CEE8EBC00522ED0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAEE39E91CEE8EBC00522ED0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		096AB489C30B9ECB2D88F2F6 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AozoraProject-AppPods-AozoraChat/Pods-AozoraProject-AppPods-AozoraChat-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		0F0A15FC049039602B15BF42 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AozoraProject-AppPods-AozoraChat/Pods-AozoraProject-AppPods-AozoraChat-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		128CC24BCFCA05FBC3116AE2 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2289,6 +2515,21 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		6B6A815FD815875AF6DE9549 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		6F4DBE84EC8BA1357A4C60E0 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2347,6 +2588,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AozoraProject-AppPods-Aozora/Pods-AozoraProject-AppPods-Aozora-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D6296733A36A9C1EAFD2E6C1 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AnimeTrakrWatching/Pods-AnimeTrakrWatching-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DA6B552C1CC2DFBD00EB6FC0 /* ShellScript */ = {
@@ -2444,6 +2700,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AozoraProject-ANCommonKit/Pods-AozoraProject-ANCommonKit-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FDCB71202D3448ACB838AAE3 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AozoraWatching/Pods-AozoraWatching-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2795,6 +3066,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DAEE39C91CEE8EBC00522ED0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAEE39D21CEE8EBC00522ED0 /* ViewController.swift in Sources */,
+				DAEE39D01CEE8EBC00522ED0 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAEE39DC1CEE8EBC00522ED0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAEE39E51CEE8EBC00522ED0 /* AozoraChatTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAEE39E71CEE8EBC00522ED0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAEE39F01CEE8EBC00522ED0 /* AozoraChatUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -2833,6 +3129,16 @@
 			target = DAA577321C66EFCA007E81E6 /* AnimeTrakrWatching */;
 			targetProxy = DAA577461C66F09E007E81E6 /* PBXContainerItemProxy */;
 		};
+		DAEE39E21CEE8EBC00522ED0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DAEE39CC1CEE8EBC00522ED0 /* AozoraChat */;
+			targetProxy = DAEE39E11CEE8EBC00522ED0 /* PBXContainerItemProxy */;
+		};
+		DAEE39ED1CEE8EBC00522ED0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DAEE39CC1CEE8EBC00522ED0 /* AozoraChat */;
+			targetProxy = DAEE39EC1CEE8EBC00522ED0 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -2858,6 +3164,22 @@
 				DA354B481C5DF3C2008C729F /* Base */,
 			);
 			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+		DAEE39D31CEE8EBC00522ED0 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DAEE39D41CEE8EBC00522ED0 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DAEE39D81CEE8EBC00522ED0 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DAEE39D91CEE8EBC00522ED0 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -3508,6 +3830,91 @@
 			};
 			name = Release;
 		};
+		DAEE39F21CEE8EBC00522ED0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 967040C20B158B83E072D190 /* Pods-AozoraProject-AppPods-AozoraChat.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				INFOPLIST_FILE = AozoraChat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.anytap.AozoraChat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DAEE39F31CEE8EBC00522ED0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5155A5778BD2D01056F435D0 /* Pods-AozoraProject-AppPods-AozoraChat.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				INFOPLIST_FILE = AozoraChat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.anytap.AozoraChat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		DAEE39F41CEE8EBC00522ED0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				INFOPLIST_FILE = AozoraChatTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.anytap.AozoraChatTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AozoraChat.app/AozoraChat";
+			};
+			name = Debug;
+		};
+		DAEE39F51CEE8EBC00522ED0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				INFOPLIST_FILE = AozoraChatTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.anytap.AozoraChatTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AozoraChat.app/AozoraChat";
+			};
+			name = Release;
+		};
+		DAEE39F61CEE8EBC00522ED0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				INFOPLIST_FILE = AozoraChatUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.anytap.AozoraChatUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = AozoraChat;
+			};
+			name = Debug;
+		};
+		DAEE39F71CEE8EBC00522ED0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				INFOPLIST_FILE = AozoraChatUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.anytap.AozoraChatUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = AozoraChat;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -3579,6 +3986,33 @@
 			buildConfigurations = (
 				DAA577401C66EFCA007E81E6 /* Debug */,
 				DAA577411C66EFCA007E81E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DAEE39F81CEE8EBC00522ED0 /* Build configuration list for PBXNativeTarget "AozoraChat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAEE39F21CEE8EBC00522ED0 /* Debug */,
+				DAEE39F31CEE8EBC00522ED0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DAEE39F91CEE8EBC00522ED0 /* Build configuration list for PBXNativeTarget "AozoraChatTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAEE39F41CEE8EBC00522ED0 /* Debug */,
+				DAEE39F51CEE8EBC00522ED0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DAEE39FA1CEE8EBC00522ED0 /* Build configuration list for PBXNativeTarget "AozoraChatUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAEE39F61CEE8EBC00522ED0 /* Debug */,
+				DAEE39F71CEE8EBC00522ED0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

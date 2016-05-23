@@ -78,6 +78,7 @@ class ProfileViewController: BaseThreadViewController {
             } else {
                 WorkflowController.logoutUser()
                 WorkflowController.presentOnboardingController(true)
+                return
             }
 
             segmentedControl.selectedIndex = SelectedFeed.Feed.rawValue
@@ -159,7 +160,7 @@ class ProfileViewController: BaseThreadViewController {
     
     func fetchPosts() {
         let username = self.username ?? userProfile!.aozoraUsername
-        fetchUserDetails(username)
+        return fetchUserDetails(username)
     }
     
     func fetchUserDetails(username: String) {

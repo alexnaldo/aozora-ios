@@ -55,6 +55,7 @@ abstract_target 'AozoraProject' do
 
         target 'Aozora'
         target 'AnimeTrakr'
+        target 'AozoraChat'
     end
 end
 
