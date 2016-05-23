@@ -538,10 +538,6 @@ class BaseThreadViewController: UIViewController {
 
     func showEditPostActionSheet(administrating: Bool, canEdit: Bool, canDelete: Bool, cell: UITableViewCell, postedBy: User, currentUser: User, post: Postable, parentPost: Postable?) {
 
-        if !canEdit && !canDelete {
-            return
-        }
-
         let alert: UIAlertController!
 
         if administrating {
