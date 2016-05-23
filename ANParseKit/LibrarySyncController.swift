@@ -45,7 +45,6 @@ public class LibrarySyncController {
 
             let animeQuery = Anime.query()!
             animeQuery.whereKey("objectId", containedIn: animeIDs)
-            animeQuery.selectKeys(["title","type","imageUrl","status","episodes","startDate","startDateTime","myAnimeListID","traktID","fanart","details"])
             animeQuery.limit = 10000
             return animeQuery.findObjectsInBackground()
 
