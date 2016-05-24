@@ -12,6 +12,13 @@ abstract_target 'AozoraProject' do
     pod 'PINRemoteImage', '~> 2.0'
 
     target 'ANCommonKit' do
+        target 'AozoraWatching' do
+            inherit! :search_paths
+        end
+
+        target 'AnimeTrakrWatching' do
+            inherit! :search_paths
+        end
     end
 
     abstract_target 'AppPods' do
