@@ -36,7 +36,7 @@ PODS:
   - Toucan (0.5.0)
   - TTTAttributedLabel (1.13.4)
   - uservoice-iphone-sdk (3.2.7)
-  - XCDYouTubeKit (2.4.3)
+  - XCDYouTubeKit (2.5.2)
   - XLPagerTabStrip (5.0.0)
   - YoutubeSourceParserKit (0.2.4)
 
@@ -59,7 +59,7 @@ DEPENDENCIES:
   - Toucan
   - TTTAttributedLabel (~> 1.13.4)
   - uservoice-iphone-sdk (~> 3.2)
-  - XCDYouTubeKit (~> 2.4.1)
+  - XCDYouTubeKit (~> 2.5)
   - XLPagerTabStrip (~> 5.0.0)
   - YoutubeSourceParserKit
 
@@ -87,10 +87,10 @@ SPEC CHECKSUMS:
   Toucan: 0519c341148252ae114c5a657d2a85bb9ada9e40
   TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f
   uservoice-iphone-sdk: 9abf27254c8488d7b72d70fb9b621132d6beebd4
-  XCDYouTubeKit: a4a1a60faa7bc97744a1184501e82ef10ca15897
+  XCDYouTubeKit: bb81db52d5539f8f34c4081f344980ef38f4644d
   XLPagerTabStrip: 87b8b705f9a7178e76a063ffaa2d70045944a965
   YoutubeSourceParserKit: d1506222a62718ed41f18ab52ebbc1b1d9ecabcc
 
-PODFILE CHECKSUM: d5debd9cd9cd1054e628bff55348c7a3bf19f675
+PODFILE CHECKSUM: 5a5ff79e1da594f6cf2c0d69421c0bf3cadf6715
 
 COCOAPODS: 1.0.0

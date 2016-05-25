@@ -39,7 +39,7 @@ abstract_target 'AozoraProject' do
         pod 'FontAwesome+iOS'
         pod 'Shimmer'
         pod 'XLPagerTabStrip', '~> 5.0.0'
-        pod 'XCDYouTubeKit', '~> 2.4.1'
+        pod 'XCDYouTubeKit', '~> 2.5'
         pod 'RMStore', '~> 0.7'
         pod 'iRate', '~> 1.11.4'
         pod 'HCSStarRatingView'
