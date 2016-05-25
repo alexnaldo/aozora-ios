@@ -1173,12 +1173,12 @@ extension BaseThreadViewController: TTTAttributedLabelDelegate {
         
         if let host = url.host where host == "profile",
             let username = url.pathComponents?[1] {
-                let isNotCurrentUser = username != User.currentUser()!.aozoraUsername
+                let isNotCurrentUser = username != User.currentUser()?.aozoraUsername
                 if let profileController = self as? ProfileViewController {
                     if profileController.userProfile?.aozoraUsername != username && isNotCurrentUser {
                         openProfileForUsername(username)
                     }
-                } else if isNotCurrentUser {
+                } else if isNotCurrentUser || !User.currentUserLoggedIn() {
                     openProfileForUsername(username)
                 }
             
@@ -1279,6 +1279,11 @@ extension BaseThreadViewController: PostCellDelegate {
 
     func postCellSelectedShowLikes(postCell: PostCellProtocol) {
 
+        if !User.currentUserLoggedIn(){
+            presentAlertWithTitle("Login first", message: "Select 'Me' tab")
+            return
+        }
+        
         guard let post = postForCell(postCell), likedBy = post.likedBy else {
             return
         }
